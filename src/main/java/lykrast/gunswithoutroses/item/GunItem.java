@@ -103,7 +103,7 @@ public class GunItem extends ShootableItem {
 			
 			double inaccuracy = getInaccuracy(stack, null);
 			if (inaccuracy <= 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy.perfect" + (isFireDelayModified(stack) ? ".modified" : "")));
-			else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy" + (isFireDelayModified(stack) ? ".modified" : ""), 1.0 / inaccuracy));
+			else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy" + (isFireDelayModified(stack) ? ".modified" : ""), String.format("%.2f", 1.0 / inaccuracy)));
 		}
 		else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.shift"));
 	}
