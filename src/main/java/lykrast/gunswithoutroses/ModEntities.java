@@ -10,10 +10,9 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GunsWithoutRoses.MODID)
 public class ModEntities {
-	//Values from small fireball
 	public static final EntityType<BulletEntity> BULLET = EntityType.Builder
 			.<BulletEntity>create(BulletEntity::new, EntityClassification.MISC)
-			.size(0.3125f, 0.3125f).func_233606_a_(4).func_233608_b_(10)
+			.size(0.3125f, 0.3125f).setUpdateInterval(10).setTrackingRange(64).setShouldReceiveVelocityUpdates(true)
 			.build(GunsWithoutRoses.MODID + ":bullet");
 
 	@SubscribeEvent

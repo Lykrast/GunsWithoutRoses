@@ -1,6 +1,5 @@
 package lykrast.gunswithoutroses;
 
-import lykrast.gunswithoutroses.entity.BulletEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -15,7 +14,7 @@ public class ClientStuff {
 	@SubscribeEvent
 	public static void clientStuff(final FMLClientSetupEvent event) {
 		//Same renderer as potions
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.BULLET, (manager) -> new SpriteRenderer<BulletEntity>(manager, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.BULLET, (manager) -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
 	}
 
 }
