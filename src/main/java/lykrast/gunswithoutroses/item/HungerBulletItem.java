@@ -6,8 +6,8 @@ import net.minecraft.util.DamageSource;
 
 public class HungerBulletItem extends BulletItem {
 
-	public HungerBulletItem(Properties properties) {
-		super(properties);
+	public HungerBulletItem(Properties properties, int damage) {
+		super(properties, damage);
 	}
 	
 	@Override

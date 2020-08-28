@@ -19,11 +19,13 @@ import net.minecraft.world.World;
 public class GunItem extends ShootableItem {
 	private int enchantability;
 	private int fireDelay;
+	private double inaccuracy;
 
-	public GunItem(Properties properties, int fireDelay, int enchantability) {
+	public GunItem(Properties properties, int fireDelay, double inaccuracy, int enchantability) {
 		super(properties);
 		this.enchantability = enchantability;
 		this.fireDelay = fireDelay;
+		this.inaccuracy = inaccuracy;
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public class GunItem extends ShootableItem {
 			if (!world.isRemote) {
 				boolean bulletFree = player.abilities.isCreativeMode || !shouldConsumeAmmo(gun, player);
 				BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
-				shot.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0, speed, 1);
+				shot.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0, speed, (float)getInaccuracy(gun, player));
 
 				gun.damageItem(1, player, (p) -> p.sendBreakAnimation(player.getActiveHand()));
 				world.addEntity(shot);
@@ -61,6 +63,11 @@ public class GunItem extends ShootableItem {
 	public boolean shouldConsumeAmmo(ItemStack stack, PlayerEntity player) {
 		//TODO enchant
 		return true;
+	}
+	
+	public double getInaccuracy(ItemStack stack, PlayerEntity player) {
+		//TODO enchant
+		return inaccuracy;
 	}
 
 	@Override

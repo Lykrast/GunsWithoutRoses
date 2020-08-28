@@ -8,13 +8,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class BulletItem extends Item {
-	public BulletItem(Properties properties) {
+	private int damage;
+	
+	public BulletItem(Properties properties, int damage) {
 		super(properties);
+		this.damage = damage;
 	}
 
 	public BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter) {
 		BulletEntity entity = new BulletEntity(world, shooter);
 		entity.setStack(stack);
+		entity.setDamage(damage);
 		return entity;
 	}
 

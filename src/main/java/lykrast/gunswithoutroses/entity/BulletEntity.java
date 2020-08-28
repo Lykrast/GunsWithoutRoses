@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IndirectEntityDamageSource;
@@ -14,6 +15,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BulletEntity extends AbstractFireballEntity {
+	private double damage = 1;
+
 	public BulletEntity(EntityType<? extends BulletEntity> p_i50160_1_, World p_i50160_2_) {
 		super(p_i50160_1_, p_i50160_2_);
 	}
@@ -37,7 +40,7 @@ public class BulletEntity extends AbstractFireballEntity {
 		if (!world.isRemote) {
 			Entity target = raytrace.getEntity();
 			Entity shooter = func_234616_v_();
-			boolean flag = target.attackEntityFrom((new IndirectEntityDamageSource("bullet", this, shooter)).setProjectile(), 5.0F);
+			boolean flag = target.attackEntityFrom((new IndirectEntityDamageSource("bullet", this, shooter)).setProjectile(), (float)damage);
 			if (flag && shooter instanceof LivingEntity) {
 				applyEnchantments((LivingEntity) shooter, target);
 			}
@@ -49,6 +52,26 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected void onImpact(RayTraceResult result) {
 		super.onImpact(result);
 		if (!world.isRemote) remove();
+	}
+
+	@Override
+	public void writeAdditional(CompoundNBT compound) {
+		super.writeAdditional(compound);
+		compound.putDouble("damage", this.damage);
+	}
+
+	@Override
+	public void readAdditional(CompoundNBT compound) {
+		super.readAdditional(compound);
+		this.damage = compound.getDouble("damage");
+	}
+
+	public void setDamage(double damage) {
+		this.damage = damage;
+	}
+
+	public double getDamage() {
+		return this.damage;
 	}
 
 	@Override
