@@ -6,6 +6,7 @@ import lykrast.gunswithoutroses.ModItems;
 import lykrast.gunswithoutroses.entity.BulletEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.ShootableItem;
 import net.minecraft.item.UseAction;
 import net.minecraft.stats.Stats;
@@ -31,11 +32,11 @@ public class GunItem extends ShootableItem {
 		ItemStack ammo = player.findAmmo(gun);
 
 		if (!ammo.isEmpty() || player.abilities.isCreativeMode) {
-			if (ammo.isEmpty()) {
+			if (ammo.isEmpty() || ammo.getItem() == Items.ARROW) {
 				ammo = new ItemStack(ModItems.flintBullet);
 			}
 
-			float speed = 1;
+			float speed = 3;
 			BulletItem bulletItem = (BulletItem) (ammo.getItem() instanceof BulletItem ? ammo.getItem() : ModItems.flintBullet);
 			if (!world.isRemote) {
 				boolean bulletFree = player.abilities.isCreativeMode || !shouldConsumeAmmo(gun, player);
