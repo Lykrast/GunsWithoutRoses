@@ -21,7 +21,7 @@ public class ModItems {
 		
 		flintBullet = initItem(reg, new BulletItem(defP(), 5), "flint_bullet");
 		ironBullet = initItem(reg, new BulletItem(defP(), 6), "iron_bullet");
-		blazeBullet = initItem(reg, new BulletItem(defP(), 7), "blaze_bullet");
+		blazeBullet = initItem(reg, new BlazeBulletItem(defP(), 7), "blaze_bullet");
 		hungerBullet = initItem(reg, new HungerBulletItem(defP().maxStackSize(1), 5), "hunger_bullet");
 	}
 

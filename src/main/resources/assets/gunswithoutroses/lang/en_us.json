@@ -16,6 +16,7 @@
 	"tooltip.gunswithoutroses.gun.accuracy.perfect": "§2Accuracy: §fPerfect§r",
 	"tooltip.gunswithoutroses.gun.accuracy.perfect.modified": "§2Accuracy: §dPerfect§r",
 	
+	"tooltip.gunswithoutroses.blaze_bullet": "Sets entities on fire",
 	"tooltip.gunswithoutroses.hunger_bullet": "Uses hunger as ammo",
 	
 	"itemGroup.gunswithoutroses": "Guns Without Roses",

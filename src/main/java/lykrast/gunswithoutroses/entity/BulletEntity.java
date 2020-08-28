@@ -40,8 +40,9 @@ public class BulletEntity extends AbstractFireballEntity {
 		if (!world.isRemote) {
 			Entity target = raytrace.getEntity();
 			Entity shooter = func_234616_v_();
-			boolean flag = target.attackEntityFrom((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float)damage);
-			if (flag && shooter instanceof LivingEntity) {
+			if (isBurning()) target.setFire(5);
+			boolean damaged = target.attackEntityFrom((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float)damage);
+			if (damaged && shooter instanceof LivingEntity) {
 				applyEnchantments((LivingEntity) shooter, target);
 			}
 
