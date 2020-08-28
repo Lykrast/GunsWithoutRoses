@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[32,)"
+issueTrackerURL="https://github.com/Lykrast/GunsWithoutRoses/issues"
+license="MIT License https://github.com/Lykrast/GunsWithoutRoses/blob/master/LICENSE"
+
+[[mods]]
+modId="gunswithoutroses"
+version="${version}"
+displayName="Guns Without Roses"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/guns-without-roses"
+credits=""
+authors="Lykrast"
+description='''
+Adds some simple Terraria-like guns and bullets to go with them.
+'''
+
+[[dependencies.turf]]
+    modId="forge"
+    mandatory=true
+    versionRange="[32,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.turf]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.1]"
+    ordering="NONE"
+    side="BOTH"
