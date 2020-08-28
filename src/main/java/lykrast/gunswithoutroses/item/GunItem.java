@@ -1,10 +1,10 @@
-package lykrast.gunswithoutroses.items;
+package lykrast.gunswithoutroses.item;
 
 import java.util.function.Predicate;
 
-import lykrast.gunswithoutroses.GunsWithoutRosesItems;
+import lykrast.gunswithoutroses.ModItems;
+import lykrast.gunswithoutroses.entity.BulletEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShootableItem;
 import net.minecraft.item.UseAction;
@@ -16,12 +16,12 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
 public class GunItem extends ShootableItem {
-	private int enchatability;
+	private int enchantability;
 	private int fireDelay;
 
-	public GunItem(Properties properties, int fireDelay, int enchatability) {
+	public GunItem(Properties properties, int fireDelay, int enchantability) {
 		super(properties);
-		this.enchatability = enchatability;
+		this.enchantability = enchantability;
 		this.fireDelay = fireDelay;
 	}
 
@@ -32,22 +32,18 @@ public class GunItem extends ShootableItem {
 
 		if (!ammo.isEmpty() || player.abilities.isCreativeMode) {
 			if (ammo.isEmpty()) {
-				ammo = new ItemStack(GunsWithoutRosesItems.flintBullet);
+				ammo = new ItemStack(ModItems.flintBullet);
 			}
 
 			float speed = 1;
-			boolean bulletFree = player.abilities.isCreativeMode;
-			BulletItem bulletItem = (BulletItem) (ammo.getItem() instanceof BulletItem ? ammo.getItem() : GunsWithoutRosesItems.flintBullet);
+			BulletItem bulletItem = (BulletItem) (ammo.getItem() instanceof BulletItem ? ammo.getItem() : ModItems.flintBullet);
 			if (!world.isRemote) {
-				AbstractArrowEntity abstractarrowentity = bulletItem.createProjectile(world, ammo, player);
-				abstractarrowentity.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0.0F, speed * 3.0F, 1.0F);
-				if (speed == 1.0F) {
-					abstractarrowentity.setIsCritical(true);
-				}
-				abstractarrowentity.pickupStatus = AbstractArrowEntity.PickupStatus.DISALLOWED;
+				boolean bulletFree = player.abilities.isCreativeMode || !shouldConsumeAmmo(gun, player);
+				BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
+				shot.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0, speed, 1);
 
 				gun.damageItem(1, player, (p) -> p.sendBreakAnimation(player.getActiveHand()));
-				world.addEntity(abstractarrowentity);
+				world.addEntity(shot);
 
 				if (!bulletFree) bulletItem.consume(ammo, player);
 			}
@@ -60,6 +56,11 @@ public class GunItem extends ShootableItem {
 		}
 		else return ActionResult.resultFail(gun);
 	}
+	
+	public boolean shouldConsumeAmmo(ItemStack stack, PlayerEntity player) {
+		//TODO enchant
+		return true;
+	}
 
 	@Override
 	public UseAction getUseAction(ItemStack stack) {
@@ -68,7 +69,7 @@ public class GunItem extends ShootableItem {
 
 	@Override
 	public int getItemEnchantability() {
-		return enchatability;
+		return enchantability;
 	}
 
 	private static final Predicate<ItemStack> BULLETS = (stack) -> stack.getItem() instanceof BulletItem;

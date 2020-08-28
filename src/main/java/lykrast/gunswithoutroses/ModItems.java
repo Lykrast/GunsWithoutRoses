@@ -1,6 +1,6 @@
 package lykrast.gunswithoutroses;
 
-import lykrast.gunswithoutroses.items.*;
+import lykrast.gunswithoutroses.item.*;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GunsWithoutRoses.MODID)
-public class GunsWithoutRosesItems {
+public class ModItems {
 	public static GunItem ironGun, goldGun;
 	public static BulletItem flintBullet, ironBullet, blazeBullet, hungerBullet;
 

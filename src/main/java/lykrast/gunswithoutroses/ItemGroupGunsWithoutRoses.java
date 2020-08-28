@@ -12,7 +12,7 @@ public class ItemGroupGunsWithoutRoses extends ItemGroup {
 
 	@Override
 	public ItemStack createIcon() {
-		return new ItemStack(GunsWithoutRosesItems.ironGun);
+		return new ItemStack(ModItems.ironGun);
 	}
 
 }

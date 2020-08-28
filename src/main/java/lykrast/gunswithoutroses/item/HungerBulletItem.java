@@ -1,4 +1,4 @@
-package lykrast.gunswithoutroses.items;
+package lykrast.gunswithoutroses.item;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
