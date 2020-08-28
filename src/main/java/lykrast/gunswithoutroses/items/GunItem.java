@@ -16,47 +16,47 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
 public class GunItem extends ShootableItem {
+	private int enchatability;
+	private int fireDelay;
 
-	public GunItem(Properties properties) {
+	public GunItem(Properties properties, int fireDelay, int enchatability) {
 		super(properties);
+		this.enchatability = enchatability;
+		this.fireDelay = fireDelay;
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		ItemStack gun = playerIn.getHeldItem(handIn);
-		ItemStack ammo = playerIn.findAmmo(gun);
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
+		ItemStack gun = player.getHeldItem(hand);
+		ItemStack ammo = player.findAmmo(gun);
 
-		if (!ammo.isEmpty() || playerIn.abilities.isCreativeMode) {
+		if (!ammo.isEmpty() || player.abilities.isCreativeMode) {
 			if (ammo.isEmpty()) {
 				ammo = new ItemStack(GunsWithoutRosesItems.flintBullet);
 			}
 
 			float speed = 1;
-			boolean bulletFree = playerIn.abilities.isCreativeMode;
+			boolean bulletFree = player.abilities.isCreativeMode;
 			BulletItem bulletItem = (BulletItem) (ammo.getItem() instanceof BulletItem ? ammo.getItem() : GunsWithoutRosesItems.flintBullet);
-			if (!worldIn.isRemote) {
-				AbstractArrowEntity abstractarrowentity = bulletItem.createProjectile(worldIn, ammo, playerIn);
-				abstractarrowentity.func_234612_a_(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, speed * 3.0F, 1.0F);
+			if (!world.isRemote) {
+				AbstractArrowEntity abstractarrowentity = bulletItem.createProjectile(world, ammo, player);
+				abstractarrowentity.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0.0F, speed * 3.0F, 1.0F);
 				if (speed == 1.0F) {
 					abstractarrowentity.setIsCritical(true);
 				}
 				abstractarrowentity.pickupStatus = AbstractArrowEntity.PickupStatus.DISALLOWED;
 
-				gun.damageItem(1, playerIn, (p_220009_1_) -> p_220009_1_.sendBreakAnimation(playerIn.getActiveHand()));
-				worldIn.addEntity(abstractarrowentity);
+				gun.damageItem(1, player, (p) -> p.sendBreakAnimation(player.getActiveHand()));
+				world.addEntity(abstractarrowentity);
 
-				if (!bulletFree) {
-					ammo.shrink(1);
-					if (ammo.isEmpty()) {
-						playerIn.inventory.deleteStack(ammo);
-					}
-				}
+				if (!bulletFree) bulletItem.consume(ammo, player);
 			}
 
-			worldIn.playSound(null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + speed * 0.5F);
-			playerIn.addStat(Stats.ITEM_USED.get(this));
-			
-	         return ActionResult.resultConsume(gun);
+			world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + speed * 0.5F);
+			player.addStat(Stats.ITEM_USED.get(this));
+
+			player.getCooldownTracker().setCooldown(this, fireDelay);
+			return ActionResult.resultConsume(gun);
 		}
 		else return ActionResult.resultFail(gun);
 	}
@@ -64,6 +64,11 @@ public class GunItem extends ShootableItem {
 	@Override
 	public UseAction getUseAction(ItemStack stack) {
 		return UseAction.BOW;
+	}
+
+	@Override
+	public int getItemEnchantability() {
+		return enchatability;
 	}
 
 	private static final Predicate<ItemStack> BULLETS = (stack) -> stack.getItem() instanceof BulletItem;

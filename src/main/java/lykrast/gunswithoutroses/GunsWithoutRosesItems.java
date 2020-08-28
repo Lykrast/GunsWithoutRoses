@@ -1,7 +1,6 @@
 package lykrast.gunswithoutroses;
 
-import lykrast.gunswithoutroses.items.BulletItem;
-import lykrast.gunswithoutroses.items.GunItem;
+import lykrast.gunswithoutroses.items.*;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,13 +16,13 @@ public class GunsWithoutRosesItems {
 	public static void registerItems(final RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> reg = event.getRegistry();
 		
-		ironGun = initItem(reg, new GunItem(defP().maxDamage(813)), "iron_gun");
-		goldGun = initItem(reg, new GunItem(defP().maxDamage(104)), "gold_gun");
+		ironGun = initItem(reg, new GunItem(defP().maxDamage(813), 16, 14), "iron_gun");
+		goldGun = initItem(reg, new GunItem(defP().maxDamage(104), 16, 22), "gold_gun");
 		
 		flintBullet = initItem(reg, new BulletItem(defP()), "flint_bullet");
 		ironBullet = initItem(reg, new BulletItem(defP()), "iron_bullet");
 		blazeBullet = initItem(reg, new BulletItem(defP()), "blaze_bullet");
-		hungerBullet = initItem(reg, new BulletItem(defP().maxStackSize(1)), "hunger_bullet");
+		hungerBullet = initItem(reg, new HungerBulletItem(defP().maxStackSize(1)), "hunger_bullet");
 	}
 
 	public static Item.Properties defP() {
