@@ -2,5 +2,11 @@
     "parent": "item/generated",
     "textures": {
         "layer0": "gunswithoutroses:item/hunger_generator"
-    }
+    },
+    "overrides": [
+        {
+            "predicate": { "gunswithoutroses:shot": 1 },
+            "model": "gunswithoutroses:item/hunger_bullet_shot"
+        }
+	]
 }
