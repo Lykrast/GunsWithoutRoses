@@ -6,11 +6,13 @@ import java.util.function.Predicate;
 
 import javax.annotation.Nullable;
 
+import lykrast.gunswithoutroses.GunsWithoutRoses;
 import lykrast.gunswithoutroses.ModEnchantments;
 import lykrast.gunswithoutroses.ModItems;
 import lykrast.gunswithoutroses.entity.BulletEntity;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -58,7 +60,8 @@ public class GunItem extends ShootableItem {
 			if (!world.isRemote) {
 				boolean bulletFree = player.abilities.isCreativeMode || !shouldConsumeAmmo(gun, player);
 				BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
-				shot.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
+				shot.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0, 3, (float)getInaccuracy(gun, player));
+				GunsWithoutRoses.LOGGER.info(shot.getMotion());
 				shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 
 				gun.damageItem(1, player, (p) -> p.sendBreakAnimation(player.getActiveHand()));
@@ -97,12 +100,7 @@ public class GunItem extends ShootableItem {
 		return Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * 0.15));
 	}
 	
-	public double getProjectileSpeed(ItemStack stack, @Nullable PlayerEntity player) {
-		return 3 * (1 + 0.25 * EnchantmentHelper.getEnchantmentLevel(ModEnchantments.bullseye, stack));
-	}
-	
 	public double getInaccuracy(ItemStack stack, @Nullable PlayerEntity player) {
-		//TODO when it's low (Bullseye II or III on the iron gun) the shots get rounding errors or something, investigate
 		return inaccuracy / (EnchantmentHelper.getEnchantmentLevel(ModEnchantments.bullseye, stack) + 1.0);
 	}
 	
@@ -116,6 +114,13 @@ public class GunItem extends ShootableItem {
 	
 	protected boolean isInaccuracyModified(ItemStack stack) {
 		return EnchantmentHelper.getEnchantmentLevel(ModEnchantments.bullseye, stack) >= 1;
+	}
+	
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+		//Disallow Bullseye if the gun has perfect accuracy
+		if (enchantment == ModEnchantments.bullseye && inaccuracy <= 0) return false;
+		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}
 
 	@Override
