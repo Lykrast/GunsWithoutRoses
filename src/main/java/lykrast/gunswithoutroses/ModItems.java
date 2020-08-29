@@ -16,8 +16,8 @@ public class ModItems {
 	public static void registerItems(final RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> reg = event.getRegistry();
 		
-		ironGun = initItem(reg, new GunItem(defP().maxDamage(813), 16, 1.5, 14), "iron_gun");
-		goldGun = initItem(reg, new GunItem(defP().maxDamage(104), 16, 1.5, 22), "gold_gun");
+		ironGun = initItem(reg, new GunItem(defP().maxDamage(813), 0, 1, 16, 1.5, 14), "iron_gun");
+		goldGun = initItem(reg, new GunItem(defP().maxDamage(104), 0, 1, 16, 1.5, 22), "gold_gun");
 		
 		flintBullet = initItem(reg, new BulletItem(defP(), 5), "flint_bullet");
 		ironBullet = initItem(reg, new BulletItem(defP(), 6), "iron_bullet");
