@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"###",
+		"#G#",
+		"###"
+	],
+	"key": {
+		"#": { "item": "minecraft:flint" },
+		"G": { "tag": "forge:gunpowder" }
+	},
+	"result": { "item": "gunswithoutroses:flint_bullet", "count": 32 }
+}
