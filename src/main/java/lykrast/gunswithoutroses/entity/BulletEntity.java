@@ -41,7 +41,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	@Override
 	public void tick() {
 		if (ticksExisted > 200 || getMotion().lengthSquared() < STOP_TRESHOLD) {
-			setDead();
+			remove();
 		}
 		ticksExisted++;
 		super.tick();
