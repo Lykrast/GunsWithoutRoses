@@ -31,12 +31,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class GunItem extends ShootableItem {
-	private int bonusDamage;
-	private double damageMultiplier;
-	private int fireDelay;
-	private double inaccuracy;
+	protected int bonusDamage;
+	protected double damageMultiplier;
+	protected int fireDelay;
+	protected double inaccuracy;
+	protected boolean ignoreInvulnerability;
 	private int enchantability;
-	private boolean ignoreInvulnerability;
 
 	public GunItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, boolean ignoreInvulnerability, int enchantability) {
 		super(properties);
@@ -61,14 +61,10 @@ public class GunItem extends ShootableItem {
 			BulletItem bulletItem = (BulletItem) (ammo.getItem() instanceof BulletItem ? ammo.getItem() : ModItems.flintBullet);
 			if (!world.isRemote) {
 				boolean bulletFree = player.abilities.isCreativeMode || !shouldConsumeAmmo(gun, player);
-				BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
-				shot.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0, 3, (float)getInaccuracy(gun, player));
-				shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
-				shot.setIgnoreInvulnerability(ignoreInvulnerability);
 
+				shoot(world, player, gun, ammo, bulletItem, bulletFree);
+				
 				gun.damageItem(1, player, (p) -> p.sendBreakAnimation(player.getActiveHand()));
-				world.addEntity(shot);
-
 				if (!bulletFree) bulletItem.consume(ammo, player);
 			}
 
@@ -79,6 +75,15 @@ public class GunItem extends ShootableItem {
 			return ActionResult.resultConsume(gun);
 		}
 		else return ActionResult.resultFail(gun);
+	}
+	
+	protected void shoot(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, BulletItem bulletItem, boolean bulletFree) {
+		BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
+		shot.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0, 3, (float)getInaccuracy(gun, player));
+		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
+		shot.setIgnoreInvulnerability(ignoreInvulnerability);
+
+		world.addEntity(shot);
 	}
 	
 	public boolean shouldConsumeAmmo(ItemStack stack, PlayerEntity player) {
@@ -127,7 +132,7 @@ public class GunItem extends ShootableItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		if (Screen.hasShiftDown()) {
 			double damageMultiplier = getDamageMultiplier(stack, null);
 			double damageBonus = getBonusDamage(stack, null) * damageMultiplier;
@@ -146,8 +151,14 @@ public class GunItem extends ShootableItem {
 			else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), String.format(Locale.ROOT, "%.2f", 1.0 / inaccuracy)));
 			
 			if (ignoreInvulnerability) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.ignore_invulnerability").func_240699_a_(TextFormatting.GRAY));
+			
+			addExtraStatsTooltip(stack, world, tooltip);
 		}
 		else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.shift"));
+	}
+	
+	protected void addExtraStatsTooltip(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip) {
+		
 	}
 
 	@Override
