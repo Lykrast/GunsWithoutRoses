@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 import javax.annotation.Nullable;
 
-import lykrast.gunswithoutroses.GunsWithoutRoses;
 import lykrast.gunswithoutroses.ModEnchantments;
 import lykrast.gunswithoutroses.ModItems;
 import lykrast.gunswithoutroses.entity.BulletEntity;
@@ -61,7 +60,6 @@ public class GunItem extends ShootableItem {
 				boolean bulletFree = player.abilities.isCreativeMode || !shouldConsumeAmmo(gun, player);
 				BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
 				shot.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0, 3, (float)getInaccuracy(gun, player));
-				GunsWithoutRoses.LOGGER.info(shot.getMotion());
 				shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 
 				gun.damageItem(1, player, (p) -> p.sendBreakAnimation(player.getActiveHand()));
