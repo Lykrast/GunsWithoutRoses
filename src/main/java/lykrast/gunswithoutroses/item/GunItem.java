@@ -24,6 +24,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -35,13 +36,15 @@ public class GunItem extends ShootableItem {
 	private int fireDelay;
 	private double inaccuracy;
 	private int enchantability;
+	private boolean ignoreInvulnerability;
 
-	public GunItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, int enchantability) {
+	public GunItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, boolean ignoreInvulnerability, int enchantability) {
 		super(properties);
 		this.bonusDamage = bonusDamage;
 		this.damageMultiplier = damageMultiplier;
 		this.enchantability = enchantability;
 		this.fireDelay = fireDelay;
+		this.ignoreInvulnerability = ignoreInvulnerability;
 		this.inaccuracy = inaccuracy;
 	}
 
@@ -61,6 +64,7 @@ public class GunItem extends ShootableItem {
 				BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
 				shot.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0, 3, (float)getInaccuracy(gun, player));
 				shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
+				shot.setIgnoreInvulnerability(ignoreInvulnerability);
 
 				gun.damageItem(1, player, (p) -> p.sendBreakAnimation(player.getActiveHand()));
 				world.addEntity(shot);
@@ -140,6 +144,8 @@ public class GunItem extends ShootableItem {
 			double inaccuracy = getInaccuracy(stack, null);
 			if (inaccuracy <= 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy.perfect" + (isInaccuracyModified(stack) ? ".modified" : "")));
 			else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), String.format(Locale.ROOT, "%.2f", 1.0 / inaccuracy)));
+			
+			if (ignoreInvulnerability) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.ignore_invulnerability").func_240699_a_(TextFormatting.GRAY));
 		}
 		else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.shift"));
 	}

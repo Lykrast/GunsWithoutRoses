@@ -16,6 +16,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BulletEntity extends AbstractFireballEntity {
 	private double damage = 1;
+	private boolean ignoreInvulnerability = false;
 
 	public BulletEntity(EntityType<? extends BulletEntity> p_i50160_1_, World p_i50160_2_) {
 		super(p_i50160_1_, p_i50160_2_);
@@ -41,11 +42,13 @@ public class BulletEntity extends AbstractFireballEntity {
 			Entity target = raytrace.getEntity();
 			Entity shooter = func_234616_v_();
 			if (isBurning()) target.setFire(5);
+			int lastHurtResistant = target.hurtResistantTime;
+			if (ignoreInvulnerability) target.hurtResistantTime = 0;
 			boolean damaged = target.attackEntityFrom((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float)damage);
 			if (damaged && shooter instanceof LivingEntity) {
 				applyEnchantments((LivingEntity) shooter, target);
 			}
-
+			else if (!damaged && ignoreInvulnerability) target.hurtResistantTime = lastHurtResistant;
 		}
 	}
 
@@ -58,13 +61,15 @@ public class BulletEntity extends AbstractFireballEntity {
 	@Override
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
-		compound.putDouble("damage", this.damage);
+		compound.putDouble("damage", damage);
+		compound.putBoolean("ignoreinv", ignoreInvulnerability);
 	}
 
 	@Override
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
-		this.damage = compound.getDouble("damage");
+		damage = compound.getDouble("damage");
+		ignoreInvulnerability = compound.getBoolean("ignoreinv");
 	}
 
 	public void setDamage(double damage) {
@@ -72,7 +77,11 @@ public class BulletEntity extends AbstractFireballEntity {
 	}
 
 	public double getDamage() {
-		return this.damage;
+		return damage;
+	}
+	
+	public void setIgnoreInvulnerability(boolean ignoreInvulnerability) {
+		this.ignoreInvulnerability = ignoreInvulnerability;
 	}
 
 	@Override
