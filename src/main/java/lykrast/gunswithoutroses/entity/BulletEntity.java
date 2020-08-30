@@ -17,6 +17,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 public class BulletEntity extends AbstractFireballEntity {
 	private double damage = 1;
 	private boolean ignoreInvulnerability = false;
+	protected int ticksExisted;
 
 	public BulletEntity(EntityType<? extends BulletEntity> p_i50160_1_, World p_i50160_2_) {
 		super(p_i50160_1_, p_i50160_2_);
@@ -35,6 +36,17 @@ public class BulletEntity extends AbstractFireballEntity {
 		super(ModEntities.BULLET, x, y, z, accelX, accelY, accelZ, worldIn);
 	}
 
+	private static final double STOP_TRESHOLD = 0.01;
+	
+	@Override
+	public void tick() {
+		if (ticksExisted > 200 || getMotion().lengthSquared() < STOP_TRESHOLD) {
+			setDead();
+		}
+		ticksExisted++;
+		super.tick();
+	}
+
 	@Override
 	protected void onEntityHit(EntityRayTraceResult raytrace) {
 		super.onEntityHit(raytrace);
@@ -44,7 +56,7 @@ public class BulletEntity extends AbstractFireballEntity {
 			if (isBurning()) target.setFire(5);
 			int lastHurtResistant = target.hurtResistantTime;
 			if (ignoreInvulnerability) target.hurtResistantTime = 0;
-			boolean damaged = target.attackEntityFrom((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float)damage);
+			boolean damaged = target.attackEntityFrom((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) damage);
 			if (damaged && shooter instanceof LivingEntity) {
 				applyEnchantments((LivingEntity) shooter, target);
 			}
@@ -79,7 +91,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	public double getDamage() {
 		return damage;
 	}
-	
+
 	public void setIgnoreInvulnerability(boolean ignoreInvulnerability) {
 		this.ignoreInvulnerability = ignoreInvulnerability;
 	}
