@@ -26,6 +26,7 @@
 	"tooltip.gunswithoutroses.gun.accuracy.perfect.modified": "§dAccuracy: §fPerfect§r",
 	"tooltip.gunswithoutroses.gun.ignore_invulnerability": "Projectiles ignore invulnerability time",
 	"tooltip.gunswithoutroses.shotgun.shots": "Fires %s projectiles at once",
+	"tooltip.gunswithoutroses.gatling.hold": "Slows user while firing",
 	
 	"tooltip.gunswithoutroses.blaze_bullet": "Sets entities on fire",
 	"tooltip.gunswithoutroses.hunger_bullet": "Uses hunger as ammo",
