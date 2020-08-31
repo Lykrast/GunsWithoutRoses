@@ -42,7 +42,7 @@ public class GatlingItem extends GunItem {
 	public void onUse(World world, LivingEntity user, ItemStack gun, int ticks) {
 		if (user instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) user;
-			if (ticks > 0 && ticks % getFireDelay(gun, player) == 0) {
+			if (ticks < 72000 && ticks % getFireDelay(gun, player) == 0) {
 				ItemStack ammo = player.findAmmo(gun);
 
 				if (!ammo.isEmpty() || player.abilities.isCreativeMode) {
@@ -60,7 +60,7 @@ public class GatlingItem extends GunItem {
 						if (!bulletFree) bulletItem.consume(ammo, player);
 					}
 
-					world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + 1.5F);
+					world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.PLAYERS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
 					player.addStat(Stats.ITEM_USED.get(this));
 				}
 			}
