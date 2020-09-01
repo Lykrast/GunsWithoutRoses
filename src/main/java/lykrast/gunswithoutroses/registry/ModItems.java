@@ -1,5 +1,7 @@
-package lykrast.gunswithoutroses;
+package lykrast.gunswithoutroses.registry;
 
+import lykrast.gunswithoutroses.GunsWithoutRoses;
+import lykrast.gunswithoutroses.ItemGroupGunsWithoutRoses;
 import lykrast.gunswithoutroses.item.*;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;

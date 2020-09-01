@@ -1,6 +1,8 @@
 package lykrast.gunswithoutroses;
 
 import lykrast.gunswithoutroses.item.HungerBulletItem;
+import lykrast.gunswithoutroses.registry.ModEntities;
+import lykrast.gunswithoutroses.registry.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.item.ItemModelsProperties;

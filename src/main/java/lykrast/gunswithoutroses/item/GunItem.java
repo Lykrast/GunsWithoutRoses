@@ -6,9 +6,9 @@ import java.util.function.Predicate;
 
 import javax.annotation.Nullable;
 
-import lykrast.gunswithoutroses.ModEnchantments;
-import lykrast.gunswithoutroses.ModItems;
 import lykrast.gunswithoutroses.entity.BulletEntity;
+import lykrast.gunswithoutroses.registry.ModEnchantments;
+import lykrast.gunswithoutroses.registry.ModItems;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;

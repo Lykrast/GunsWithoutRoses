@@ -1,5 +1,6 @@
-package lykrast.gunswithoutroses;
+package lykrast.gunswithoutroses.registry;
 
+import lykrast.gunswithoutroses.GunsWithoutRoses;
 import lykrast.gunswithoutroses.entity.BulletEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;

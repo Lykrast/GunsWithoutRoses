@@ -1,6 +1,6 @@
 package lykrast.gunswithoutroses.enchantment;
 
-import lykrast.gunswithoutroses.ModEnchantments;
+import lykrast.gunswithoutroses.registry.ModEnchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.DamageSource;

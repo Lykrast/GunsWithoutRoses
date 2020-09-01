@@ -1,5 +1,6 @@
 package lykrast.gunswithoutroses;
 
+import lykrast.gunswithoutroses.registry.ModItems;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 

@@ -1,6 +1,6 @@
 package lykrast.gunswithoutroses.entity;
 
-import lykrast.gunswithoutroses.ModEntities;
+import lykrast.gunswithoutroses.registry.ModEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

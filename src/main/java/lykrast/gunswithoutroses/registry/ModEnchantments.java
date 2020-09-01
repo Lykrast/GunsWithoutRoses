@@ -1,5 +1,6 @@
-package lykrast.gunswithoutroses;
+package lykrast.gunswithoutroses.registry;
 
+import lykrast.gunswithoutroses.GunsWithoutRoses;
 import lykrast.gunswithoutroses.enchantment.GunEnchantment;
 import lykrast.gunswithoutroses.item.GunItem;
 import net.minecraft.enchantment.Enchantment;
