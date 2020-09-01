@@ -1,5 +1,6 @@
 package lykrast.gunswithoutroses.entity;
 
+import lykrast.gunswithoutroses.registry.Holders;
 import lykrast.gunswithoutroses.registry.ModEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -62,9 +63,11 @@ public class BulletEntity extends AbstractFireballEntity {
 			if (damaged && target instanceof LivingEntity) {
 				LivingEntity livingTarget = (LivingEntity)target;
 				if (knockbackStrength > 0) {
-					//TODO Hanami's Instability
-					Vector3d vector3d = this.getMotion().mul(1, 0, 1).normalize().scale(knockbackStrength);
-					if (vector3d.lengthSquared() > 0.0D) livingTarget.addVelocity(vector3d.x, 0.1D, vector3d.z);
+					double actualKnockback = knockbackStrength;
+					if (Holders.Hanami.INSTABILITY != null && livingTarget.isPotionActive(Holders.Hanami.INSTABILITY)) actualKnockback *= 2 + livingTarget.getActivePotionEffect(Holders.Hanami.INSTABILITY).getAmplifier();
+					
+					Vector3d vec = getMotion().mul(1, 0, 1).normalize().scale(actualKnockback);
+					if (vec.lengthSquared() > 0) livingTarget.addVelocity(vec.x, 0.1, vec.z);
 				}
 
 				if (shooter instanceof LivingEntity) applyEnchantments((LivingEntity)shooter, target);

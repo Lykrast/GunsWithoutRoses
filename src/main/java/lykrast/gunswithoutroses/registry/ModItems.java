@@ -6,6 +6,7 @@ import lykrast.gunswithoutroses.item.*;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -29,11 +30,16 @@ public class ModItems {
 		blazeBullet = initItem(reg, new BlazeBulletItem(defP(), 7), "blaze_bullet");
 		hungerBullet = initItem(reg, new HungerBulletItem(defP().maxStackSize(1), 5), "hunger_bullet");
 		
-		hanamiBullet = initItem(reg, new HanamiBulletItem(defP(), 4), "hanami_bullet");
+		hanamiBullet = initItem(reg, new HanamiBulletItem(compat("hanami"), 4), "hanami_bullet");
 	}
 
 	public static Item.Properties defP() {
 		return new Item.Properties().group(ItemGroupGunsWithoutRoses.INSTANCE);
+	}
+
+	public static Item.Properties compat(String modid) {
+		//The Team Abnormals way, works for now cause not using classes from other mods
+		return new Item.Properties().group(ModList.get().isLoaded(modid) ? ItemGroupGunsWithoutRoses.INSTANCE : null);
 	}
 
 	public static <I extends Item> I initItem(IForgeRegistry<Item> reg, I item, String name) {
