@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"D  ",
+		"SIF",
+		" SL"
+	],
+	"key": {
+		"D": { "tag": "forge:gems/diamond" },
+		"I": { "tag": "forge:ingots/iron" },
+		"S": { "tag": "forge:rods/wooden" },
+		"F": { "item": "minecraft:flint" },
+		"L": { "tag": "minecraft:logs" }
+	},
+	"result": { "item": "gunswithoutroses:diamond_shotgun" }
+}

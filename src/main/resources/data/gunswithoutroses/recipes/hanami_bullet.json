@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"###",
+		"#G#",
+		"###"
+	],
+	"key": {
+		"#": { "item": "hanami:sakura_flower" },
+		"G": { "tag": "forge:gunpowder" }
+	},
+	"result": { "item": "gunswithoutroses:hanami_bullet", "count": 32 },
+	"conditions": [
+		{
+		"type": "forge:mod_loaded",
+		"modid": "hanami"
+		}
+	]
+}
