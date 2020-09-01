@@ -21,8 +21,8 @@ import net.minecraft.world.World;
 
 public class GatlingItem extends GunItem {
 
-	public GatlingItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, boolean ignoreInvulnerability, int enchantability) {
-		super(properties, bonusDamage, damageMultiplier, fireDelay, inaccuracy, ignoreInvulnerability, enchantability);
+	public GatlingItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, int enchantability) {
+		super(properties, bonusDamage, damageMultiplier, fireDelay, inaccuracy, enchantability);
 	}
 
 	@Override

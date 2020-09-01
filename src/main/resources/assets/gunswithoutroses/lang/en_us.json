@@ -26,6 +26,8 @@
 	"tooltip.gunswithoutroses.gun.accuracy.modified": "§dAccuracy: §f%s§r",
 	"tooltip.gunswithoutroses.gun.accuracy.perfect": "§2Accuracy: §fPerfect§r",
 	"tooltip.gunswithoutroses.gun.accuracy.perfect.modified": "§dAccuracy: §fPerfect§r",
+	"tooltip.gunswithoutroses.gun.chance_free": "§2Chance to not consume ammo: §f%s%%§r",
+	"tooltip.gunswithoutroses.gun.chance_free.modified": "§dChance to not consume ammo: §f%s%%§r",
 	"tooltip.gunswithoutroses.gun.ignore_invulnerability": "Projectiles ignore invulnerability time",
 	"tooltip.gunswithoutroses.shotgun.shots": "Fires %s projectiles at once",
 	"tooltip.gunswithoutroses.gatling.hold": "Slows user while firing",

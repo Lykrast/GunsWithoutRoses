@@ -16,11 +16,11 @@ public class ModItems {
 	public static void registerItems(final RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> reg = event.getRegistry();
 		
-		ironGun = initItem(reg, new GunItem(defP().maxDamage(813), 0, 1, 16, 1.5, false, 14), "iron_gun");
-		goldGun = initItem(reg, new GunItem(defP().maxDamage(104), 0, 1, 16, 1.5, false, 22), "gold_gun");
-		diamondShotgun = initItem(reg, new ShotgunItem(defP().maxDamage(5076), 0, 1/3.0, 16, 6, true, 10, 6), "diamond_shotgun");
-		diamondSniper = initItem(reg, new GunItem(defP().maxDamage(5076), 0, 2.5, 22, 0, false, 10), "diamond_sniper");
-		diamondGatling = initItem(reg, new GatlingItem(defP().maxDamage(5076), 0, 0.75, 4, 4, true, 10), "diamond_gatling");
+		ironGun = initItem(reg, new GunItem(defP().maxDamage(813), 0, 1, 16, 1.5, 14), "iron_gun");
+		goldGun = initItem(reg, new GunItem(defP().maxDamage(104), 0, 1, 16, 1.5, 22), "gold_gun");
+		diamondShotgun = initItem(reg, new ShotgunItem(defP().maxDamage(5076), 0, 0.3, 16, 6, 10, 6).ignoreInvulnerability(true), "diamond_shotgun");
+		diamondSniper = initItem(reg, new GunItem(defP().maxDamage(5076), 0, 2.5, 22, 0, 10), "diamond_sniper");
+		diamondGatling = initItem(reg, new GatlingItem(defP().maxDamage(5076), 0, 0.75, 4, 4, 10).chanceFreeShot(1/3.0).ignoreInvulnerability(true), "diamond_gatling");
 		
 		flintBullet = initItem(reg, new BulletItem(defP(), 5), "flint_bullet");
 		ironBullet = initItem(reg, new BulletItem(defP(), 6), "iron_bullet");

@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 public class ShotgunItem extends GunItem {
 	private int bulletCount;
 
-	public ShotgunItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, boolean ignoreInvulnerability, int enchantability, int bulletCount) {
-		super(properties, bonusDamage, damageMultiplier, fireDelay, inaccuracy, ignoreInvulnerability, enchantability);
+	public ShotgunItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, int enchantability, int bulletCount) {
+		super(properties, bonusDamage, damageMultiplier, fireDelay, inaccuracy, enchantability);
 		this.bulletCount = bulletCount;
 	}
 

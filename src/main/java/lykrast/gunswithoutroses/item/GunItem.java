@@ -35,16 +35,16 @@ public class GunItem extends ShootableItem {
 	protected double damageMultiplier;
 	protected int fireDelay;
 	protected double inaccuracy;
-	protected boolean ignoreInvulnerability;
 	private int enchantability;
+	protected boolean ignoreInvulnerability = false;
+	protected double chanceFreeShot = 0;
 
-	public GunItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, boolean ignoreInvulnerability, int enchantability) {
+	public GunItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, int enchantability) {
 		super(properties);
 		this.bonusDamage = bonusDamage;
 		this.damageMultiplier = damageMultiplier;
 		this.enchantability = enchantability;
 		this.fireDelay = fireDelay;
-		this.ignoreInvulnerability = ignoreInvulnerability;
 		this.inaccuracy = inaccuracy;
 	}
 
@@ -87,6 +87,8 @@ public class GunItem extends ShootableItem {
 	}
 	
 	public boolean shouldConsumeAmmo(ItemStack stack, PlayerEntity player) {
+		if (chanceFreeShot > 0 && random.nextDouble() < chanceFreeShot) return false;
+		
 		int preserving = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.preserving, stack);
 		//(level) in (level + 2) chance to not consume
 		if (preserving >= 1 && random.nextInt(preserving + 2) >= 2) return false;
@@ -111,6 +113,15 @@ public class GunItem extends ShootableItem {
 		return inaccuracy / (EnchantmentHelper.getEnchantmentLevel(ModEnchantments.bullseye, stack) + 1.0);
 	}
 	
+	//Chance to actually consume ammo, to properly multiply probabilities together
+	//Tooltip then does the math to display it nicely
+	public double getInverseChanceFreeShot(ItemStack stack, @Nullable PlayerEntity player) {
+		double chance = 1 - chanceFreeShot;
+		int preserving = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.preserving, stack);
+		if (preserving >= 1) chance *= 2.0/(preserving + 2);
+		return chance;
+	}
+	
 	protected boolean isDamageModified(ItemStack stack) {
 		return EnchantmentHelper.getEnchantmentLevel(ModEnchantments.impact, stack) >= 1;
 	}
@@ -121,6 +132,20 @@ public class GunItem extends ShootableItem {
 	
 	protected boolean isInaccuracyModified(ItemStack stack) {
 		return EnchantmentHelper.getEnchantmentLevel(ModEnchantments.bullseye, stack) >= 1;
+	}
+	
+	protected boolean isChanceFreeShotModified(ItemStack stack) {
+		return EnchantmentHelper.getEnchantmentLevel(ModEnchantments.preserving, stack) >= 1;
+	}
+	
+	public GunItem ignoreInvulnerability(boolean ignoreInvulnerability) {
+		this.ignoreInvulnerability = ignoreInvulnerability;
+		return this;
+	}
+	
+	public GunItem chanceFreeShot(double chanceFreeShot) {
+		this.chanceFreeShot = chanceFreeShot;
+		return this;
 	}
 	
 	@Override
@@ -134,6 +159,7 @@ public class GunItem extends ShootableItem {
 	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		if (Screen.hasShiftDown()) {
+			//Damage
 			double damageMultiplier = getDamageMultiplier(stack, null);
 			double damageBonus = getBonusDamage(stack, null) * damageMultiplier;
 			
@@ -143,13 +169,20 @@ public class GunItem extends ShootableItem {
 			}
 			else if (damageBonus != 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.flat" + (isDamageModified(stack) ? ".modified" : ""), String.format(Locale.ROOT, "%.2f", damageBonus)));
 			
+			//Fire rate
 			int fireDelay = getFireDelay(stack, null);
 			tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.firerate" + (isFireDelayModified(stack) ? ".modified" : ""), fireDelay, (60*20) / fireDelay));
 			
+			//Accuracy
 			double inaccuracy = getInaccuracy(stack, null);
 			if (inaccuracy <= 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy.perfect" + (isInaccuracyModified(stack) ? ".modified" : "")));
 			else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), String.format(Locale.ROOT, "%.2f", 1.0 / inaccuracy)));
 			
+			//Chance to not consume ammo
+			double inverseChanceFree = getInverseChanceFreeShot(stack, null);
+			if (inverseChanceFree < 1) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.chance_free" + (isChanceFreeShotModified(stack) ? ".modified" : ""), (int)((1 - inverseChanceFree) * 100)));
+			
+			//Other stats
 			if (ignoreInvulnerability) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.ignore_invulnerability").func_240699_a_(TextFormatting.GRAY));
 			
 			addExtraStatsTooltip(stack, world, tooltip);
