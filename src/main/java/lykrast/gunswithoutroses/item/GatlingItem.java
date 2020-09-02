@@ -13,7 +13,6 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -60,7 +59,7 @@ public class GatlingItem extends GunItem {
 						if (!bulletFree) bulletItem.consume(ammo, player);
 					}
 
-					world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.PLAYERS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
+					world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), fireSound, SoundCategory.PLAYERS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
 					player.addStat(Stats.ITEM_USED.get(this));
 				}
 			}

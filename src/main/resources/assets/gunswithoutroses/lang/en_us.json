@@ -48,5 +48,9 @@
 	"enchantment.gunswithoutroses.preserving": "Preserving",
 	"enchantment.gunswithoutroses.preserving.desc": "Gives a chance to not consume ammo when firing",
 	
-	"entity.gunswithoutroses.bullet": "Bullet"
+	"entity.gunswithoutroses.bullet": "Bullet",
+
+	"subtitles.gunswithoutroses.item.gun.shoot": "Gun fired",
+	"subtitles.gunswithoutroses.item.shotgun.shoot": "Shotgun fired",
+	"subtitles.gunswithoutroses.item.sniper.shoot": "Sniper fired"
 }

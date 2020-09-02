@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 import lykrast.gunswithoutroses.entity.BulletEntity;
 import lykrast.gunswithoutroses.registry.ModEnchantments;
 import lykrast.gunswithoutroses.registry.ModItems;
+import lykrast.gunswithoutroses.registry.ModSounds;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
@@ -22,7 +23,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -38,6 +39,7 @@ public class GunItem extends ShootableItem {
 	private int enchantability;
 	protected boolean ignoreInvulnerability = false;
 	protected double chanceFreeShot = 0;
+	protected SoundEvent fireSound = ModSounds.gun;
 
 	public GunItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, int enchantability) {
 		super(properties);
@@ -68,7 +70,7 @@ public class GunItem extends ShootableItem {
 				if (!bulletFree) bulletItem.consume(ammo, player);
 			}
 
-			world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.PLAYERS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
+			world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), fireSound, SoundCategory.PLAYERS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
 			player.addStat(Stats.ITEM_USED.get(this));
 
 			player.getCooldownTracker().setCooldown(this, getFireDelay(gun, player));
@@ -145,6 +147,11 @@ public class GunItem extends ShootableItem {
 	
 	public GunItem chanceFreeShot(double chanceFreeShot) {
 		this.chanceFreeShot = chanceFreeShot;
+		return this;
+	}
+	
+	public GunItem fireSound(SoundEvent fireSound) {
+		this.fireSound = fireSound;
 		return this;
 	}
 	
