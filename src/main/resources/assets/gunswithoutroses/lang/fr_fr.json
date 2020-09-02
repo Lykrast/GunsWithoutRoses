@@ -1,0 +1,56 @@
+{
+	"item.gunswithoutroses.iron_gun": "Fusil en fer",
+	"item.gunswithoutroses.gold_gun": "Fusil en or",
+	"item.gunswithoutroses.diamond_shotgun": "Fusil à pompe en diamant",
+	"item.gunswithoutroses.diamond_sniper": "Fusil de précision en diamant",
+	"item.gunswithoutroses.diamond_gatling": "Gatling en diamant",
+	
+	"item.gunswithoutroses.flint_bullet": "Balle en silex",
+	"item.gunswithoutroses.iron_bullet": "Balle en fer",
+	"item.gunswithoutroses.blaze_bullet": "Balle de Blaze",
+	"item.gunswithoutroses.hunger_bullet": "Gueules de la gourmandise",
+	
+	"item.gunswithoutroses.hanami_bullet": "Balle de cerisier",
+	
+	"tooltip.gunswithoutroses.shift": "§7Maintenir §fMAJ§7 pour les stats§r",
+	"tooltip.gunswithoutroses.bullet.damage": "%d dégâts",
+	"tooltip.gunswithoutroses.gun.damage.flat": "§2Dégâts: §f+%s§r",
+	"tooltip.gunswithoutroses.gun.damage.mult": "§2Dégâts: §fx%s§r",
+	"tooltip.gunswithoutroses.gun.damage.both": "§2Dégâts: §fx%s +%s§r",
+	"tooltip.gunswithoutroses.gun.damage.flat.modified": "§dDégâts: §f+%s§r",
+	"tooltip.gunswithoutroses.gun.damage.mult.modified": "§dDégâts: §fx%s§r",
+	"tooltip.gunswithoutroses.gun.damage.both.modified": "§dDégâts: §fx%s +%s§r",
+	"tooltip.gunswithoutroses.gun.firerate": "§2Interval de tir: §f%d§7 (§f%d§7 tr/min)§r",
+	"tooltip.gunswithoutroses.gun.firerate.modified": "§dInterval de tir: §f%d§7 (§f%d§7 tr/min)§r",
+	"tooltip.gunswithoutroses.gun.accuracy": "§2Précision: §f%s§r",
+	"tooltip.gunswithoutroses.gun.accuracy.modified": "§dPrécision: §f%s§r",
+	"tooltip.gunswithoutroses.gun.accuracy.perfect": "§2Précision: §fParfaite§r",
+	"tooltip.gunswithoutroses.gun.accuracy.perfect.modified": "§dPrécision: §fParfaite§r",
+	"tooltip.gunswithoutroses.gun.chance_free": "§2Chance de ne pas utiliser de munition: §f%s%%§r",
+	"tooltip.gunswithoutroses.gun.chance_free.modified": "§dChance de ne pas utiliser de munition: §f%s%%§r",
+	"tooltip.gunswithoutroses.gun.ignore_invulnerability": "Les projectiles ignorent le temps d'invincibilité",
+	"tooltip.gunswithoutroses.shotgun.shots": "Tire %s projectiles en même temps",
+	"tooltip.gunswithoutroses.gatling.hold": "Ralenti l'utilisateur pendant le tir",
+	
+	"tooltip.gunswithoutroses.blaze_bullet": "Enflamme les entités",
+	"tooltip.gunswithoutroses.hanami_bullet": "Recul élevé",
+	
+	"tooltip.gunswithoutroses.hunger_bullet": "Utilise la faim comme munitions",
+	
+	"itemGroup.gunswithoutroses": "Guns Without Roses",
+	
+	"enchantment.gunswithoutroses.impact": "Impact",
+	"enchantment.gunswithoutroses.impact.desc": "Augmente les dégâts des projectiles",
+	"enchantment.gunswithoutroses.bullseye": "Précision",
+	"enchantment.gunswithoutroses.bullseye.desc": "Augmente la précision des projectiles",
+	"enchantment.gunswithoutroses.sleight_of_hand": "Habileté",
+	"enchantment.gunswithoutroses.sleight_of_hand.desc": "Réduit l'interval de tir",
+	"enchantment.gunswithoutroses.preserving": "Préservation",
+	"enchantment.gunswithoutroses.preserving.desc": "Octroie une chance de ne pas utiliser de munition en tirant",
+	
+	"entity.gunswithoutroses.bullet": "Balle",
+
+	"subtitles.gunswithoutroses.item.gun.shoot": "Tir de fusil",
+	"subtitles.gunswithoutroses.item.shotgun.shoot": "Tir de fusil à pompe",
+	"subtitles.gunswithoutroses.item.sniper.shoot": "Tir de fusil de précision"
+}
