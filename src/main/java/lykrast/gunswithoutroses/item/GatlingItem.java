@@ -73,7 +73,7 @@ public class GatlingItem extends GunItem {
 
 	@Override
 	protected void addExtraStatsTooltip(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip) {
-		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gatling.hold").func_240699_a_(TextFormatting.GRAY));
+		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gatling.hold").mergeStyle(TextFormatting.GRAY));
 	}
 
 }

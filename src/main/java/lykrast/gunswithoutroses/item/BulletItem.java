@@ -46,7 +46,7 @@ public class BulletItem extends Item {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.bullet.damage", damage).func_240699_a_(TextFormatting.DARK_GREEN));
+		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.bullet.damage", damage).mergeStyle(TextFormatting.DARK_GREEN));
 	}
 
 }

@@ -190,7 +190,7 @@ public class GunItem extends ShootableItem {
 			if (inverseChanceFree < 1) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.chance_free" + (isChanceFreeShotModified(stack) ? ".modified" : ""), (int)((1 - inverseChanceFree) * 100)));
 			
 			//Other stats
-			if (ignoreInvulnerability) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.ignore_invulnerability").func_240699_a_(TextFormatting.GRAY));
+			if (ignoreInvulnerability) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.ignore_invulnerability").mergeStyle(TextFormatting.GRAY));
 			
 			addExtraStatsTooltip(stack, world, tooltip);
 		}

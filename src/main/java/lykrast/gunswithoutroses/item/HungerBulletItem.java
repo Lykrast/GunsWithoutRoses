@@ -40,7 +40,7 @@ public class HungerBulletItem extends BulletItem {
 	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		super.addInformation(stack, worldIn, tooltip, flagIn);
-		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.hunger_bullet").func_240699_a_(TextFormatting.GRAY));
+		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.hunger_bullet").mergeStyle(TextFormatting.GRAY));
 	}
 	
 	public static boolean isShot(ItemStack stack) {
