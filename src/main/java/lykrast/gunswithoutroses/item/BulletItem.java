@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class BulletItem extends Item {
+public class BulletItem extends Item implements IBullet {
 	private int damage;
 
 	public BulletItem(Properties properties, int damage) {
@@ -25,6 +25,7 @@ public class BulletItem extends Item {
 		this.damage = damage;
 	}
 
+	@Override
 	public BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter) {
 		BulletEntity entity = new BulletEntity(world, shooter);
 		entity.setStack(stack);
@@ -32,10 +33,7 @@ public class BulletItem extends Item {
 		return entity;
 	}
 
-	/**
-	 * Uses up 1 item worth of ammo. Can be used for RF or magic based bullet
-	 * pouches or something.
-	 */
+	@Override
 	public void consume(ItemStack stack, PlayerEntity player) {
 		stack.shrink(1);
 		if (stack.isEmpty()) {

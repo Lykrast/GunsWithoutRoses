@@ -49,7 +49,7 @@ public class GatlingItem extends GunItem {
 						ammo = new ItemStack(ModItems.flintBullet);
 					}
 
-					BulletItem bulletItem = (BulletItem) (ammo.getItem() instanceof BulletItem ? ammo.getItem() : ModItems.flintBullet);
+					IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
 					if (!world.isRemote) {
 						boolean bulletFree = player.abilities.isCreativeMode || !shouldConsumeAmmo(gun, player);
 

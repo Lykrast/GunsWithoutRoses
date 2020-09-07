@@ -36,6 +36,7 @@ public class GunItem extends ShootableItem {
 	protected double damageMultiplier;
 	protected int fireDelay;
 	protected double inaccuracy;
+	protected double projectileSpeed = 3;
 	private int enchantability;
 	protected boolean ignoreInvulnerability = false;
 	protected double chanceFreeShot = 0;
@@ -60,7 +61,7 @@ public class GunItem extends ShootableItem {
 				ammo = new ItemStack(ModItems.flintBullet);
 			}
 
-			BulletItem bulletItem = (BulletItem) (ammo.getItem() instanceof BulletItem ? ammo.getItem() : ModItems.flintBullet);
+			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
 			if (!world.isRemote) {
 				boolean bulletFree = player.abilities.isCreativeMode || !shouldConsumeAmmo(gun, player);
 
@@ -79,9 +80,9 @@ public class GunItem extends ShootableItem {
 		else return ActionResult.resultFail(gun);
 	}
 	
-	protected void shoot(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, BulletItem bulletItem, boolean bulletFree) {
+	protected void shoot(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
 		BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
-		shot.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0, 3, (float)getInaccuracy(gun, player));
+		shot.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);
 
@@ -111,8 +112,17 @@ public class GunItem extends ShootableItem {
 		return Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * 0.15));
 	}
 	
+	public boolean hasPerfectAccuracy() {
+		return inaccuracy <= 0;
+	}
+	
 	public double getInaccuracy(ItemStack stack, @Nullable PlayerEntity player) {
-		return inaccuracy / (EnchantmentHelper.getEnchantmentLevel(ModEnchantments.bullseye, stack) + 1.0);
+		return Math.max(0, inaccuracy / (EnchantmentHelper.getEnchantmentLevel(ModEnchantments.bullseye, stack) + 1.0));
+	}
+	
+	public double getProjectileSpeed(ItemStack stack, @Nullable PlayerEntity player) {
+		//TODO
+		return projectileSpeed;
 	}
 	
 	//Chance to actually consume ammo, to properly multiply probabilities together
@@ -133,7 +143,7 @@ public class GunItem extends ShootableItem {
 	}
 	
 	protected boolean isInaccuracyModified(ItemStack stack) {
-		return EnchantmentHelper.getEnchantmentLevel(ModEnchantments.bullseye, stack) >= 1;
+		return !hasPerfectAccuracy() && EnchantmentHelper.getEnchantmentLevel(ModEnchantments.bullseye, stack) >= 1;
 	}
 	
 	protected boolean isChanceFreeShotModified(ItemStack stack) {
@@ -152,6 +162,11 @@ public class GunItem extends ShootableItem {
 	
 	public GunItem fireSound(SoundEvent fireSound) {
 		this.fireSound = fireSound;
+		return this;
+	}
+	
+	public GunItem projectileSpeed(double projectileSpeed) {
+		this.projectileSpeed = projectileSpeed;
 		return this;
 	}
 	
@@ -211,7 +226,7 @@ public class GunItem extends ShootableItem {
 		return enchantability;
 	}
 
-	private static final Predicate<ItemStack> BULLETS = (stack) -> stack.getItem() instanceof BulletItem;
+	private static final Predicate<ItemStack> BULLETS = (stack) -> stack.getItem() instanceof IBullet;
 
 	@Override
 	public Predicate<ItemStack> getInventoryAmmoPredicate() {
