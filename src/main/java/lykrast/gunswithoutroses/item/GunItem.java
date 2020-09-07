@@ -121,7 +121,8 @@ public class GunItem extends ShootableItem {
 	}
 	
 	public double getProjectileSpeed(ItemStack stack, @Nullable PlayerEntity player) {
-		//TODO
+		//I wanted to follow kat's suggestion and make bullseye for snipers increase projectile speed
+		//But high projectile speed cause weird "snapping" issues on bullets
 		return projectileSpeed;
 	}
 	
@@ -173,7 +174,7 @@ public class GunItem extends ShootableItem {
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
 		//Disallow Bullseye if the gun has perfect accuracy
-		if (enchantment == ModEnchantments.bullseye && inaccuracy <= 0) return false;
+		if (enchantment == ModEnchantments.bullseye && hasPerfectAccuracy()) return false;
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}
 
