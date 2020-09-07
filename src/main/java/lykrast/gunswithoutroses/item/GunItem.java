@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ShootableItem;
 import net.minecraft.item.UseAction;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -41,6 +42,7 @@ public class GunItem extends ShootableItem {
 	protected boolean ignoreInvulnerability = false;
 	protected double chanceFreeShot = 0;
 	protected SoundEvent fireSound = ModSounds.gun;
+	protected Ingredient repairMaterial;
 
 	public GunItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, int enchantability) {
 		super(properties);
@@ -171,6 +173,11 @@ public class GunItem extends ShootableItem {
 		return this;
 	}
 	
+	public GunItem repair(Ingredient repairMaterial) {
+		this.repairMaterial = repairMaterial;
+		return this;
+	}
+	
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
 		//Disallow Bullseye if the gun has perfect accuracy
@@ -238,6 +245,11 @@ public class GunItem extends ShootableItem {
 	public int func_230305_d_() {
 		// No idea what this is yet, so using the Bow value (Crossbow is 8)
 		return 15;
+	}
+	
+	@Override
+	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+		return (repairMaterial != null && repairMaterial.test(repair)) || super.getIsRepairable(toRepair, repair);
 	}
 
 }
