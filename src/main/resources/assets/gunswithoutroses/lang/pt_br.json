@@ -1,16 +1,16 @@
 {
 	"item.gunswithoutroses.iron_gun": "Pistola de Ferro",
 	"item.gunswithoutroses.gold_gun": "Pistola de Ouro",
-	"item.gunswithoutroses.diamond_shotgun": "Espingarda de Diamante",
-	"item.gunswithoutroses.diamond_sniper": "Sniper de Diamante",
+	"item.gunswithoutroses.diamond_shotgun": "Escopeta de Diamante",
+	"item.gunswithoutroses.diamond_sniper": "Rifle de Precisão de Diamante",
 	"item.gunswithoutroses.diamond_gatling": "Metralhadora de Diamante",
 	
-	"item.gunswithoutroses.flint_bullet": "Bala de Sílex",
-	"item.gunswithoutroses.iron_bullet": "Bala de Ferro",
-	"item.gunswithoutroses.blaze_bullet": "Bala de Blaze",
-	"item.gunswithoutroses.hunger_bullet": "Mandíbulas da Gula",
+	"item.gunswithoutroses.flint_bullet": "Projétil de Sílex",
+	"item.gunswithoutroses.iron_bullet": "Projétil de Ferro",
+	"item.gunswithoutroses.blaze_bullet": "Projétil Incêndiario",
+	"item.gunswithoutroses.hunger_bullet": "Mandíbulas da Gula (Projétil)",
 	
-	"item.gunswithoutroses.hanami_bullet": "Cherround",
+	"item.gunswithoutroses.hanami_bullet": "Projétil de Cerejeira",
 	
 	"tooltip.gunswithoutroses.shift": "§7Segure §fSHIFT§7 para estatísticas§r",
 	"tooltip.gunswithoutroses.bullet.damage": "%d dano",
@@ -20,8 +20,8 @@
 	"tooltip.gunswithoutroses.gun.damage.flat.modified": "§dDano: §f+%s§r",
 	"tooltip.gunswithoutroses.gun.damage.mult.modified": "§dDano: §fx%s§r",
 	"tooltip.gunswithoutroses.gun.damage.both.modified": "§dDano: §fx%s +%s§r",
-	"tooltip.gunswithoutroses.gun.firerate": "§2Atraso do disparo: §f%d§7 (§f%d§7 RPM)§r",
-	"tooltip.gunswithoutroses.gun.firerate.modified": "§dAtraso do disparo: §f%d§7 (§f%d§7 RPM)§r",
+	"tooltip.gunswithoutroses.gun.firerate": "§2Cadência de tiro: §f%d§7 (§f%d§7 RPM)§r",
+	"tooltip.gunswithoutroses.gun.firerate.modified": "§dCadência de tiro: §f%d§7 (§f%d§7 RPM)§r",
 	"tooltip.gunswithoutroses.gun.accuracy": "§2Precisão: §f%s§r",
 	"tooltip.gunswithoutroses.gun.accuracy.modified": "§dPrecisão: §f%s§r",
 	"tooltip.gunswithoutroses.gun.accuracy.perfect": "§2Precisão: §fPerfect§r",
@@ -30,7 +30,7 @@
 	"tooltip.gunswithoutroses.gun.chance_free.modified": "§dChance de não consumir munição: §f%s%%§r",
 	"tooltip.gunswithoutroses.gun.ignore_invulnerability": "Projéteis ignoram o tempo de invulnerabilidade",
 	"tooltip.gunswithoutroses.shotgun.shots": "Dispara %s projéteis de uma vez",
-	"tooltip.gunswithoutroses.gatling.hold": "Retarda o usuário ao disparar",
+	"tooltip.gunswithoutroses.gatling.hold": "Retarda o usuário enquanto dispara",
 	
 	"tooltip.gunswithoutroses.blaze_bullet": "Incendeia entidades",
 	"tooltip.gunswithoutroses.hanami_bullet": "Recuo alto",
@@ -48,7 +48,7 @@
 	"enchantment.gunswithoutroses.preserving": "Preservação",
 	"enchantment.gunswithoutroses.preserving.desc": "Dá a chance de não consumir munição ao atirar",
 	
-	"entity.gunswithoutroses.bullet": "Bala",
+	"entity.gunswithoutroses.bullet": "Projétil",
 
 	"subtitles.gunswithoutroses.item.gun.shoot": "Arma disparada",
 	"subtitles.gunswithoutroses.item.shotgun.shoot": "Espingarda disparada",
