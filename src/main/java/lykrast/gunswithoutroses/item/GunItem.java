@@ -251,5 +251,10 @@ public class GunItem extends ShootableItem {
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
 		return (repairMaterial != null && repairMaterial.test(repair)) || super.getIsRepairable(toRepair, repair);
 	}
+	
+	@Override
+	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+		return !ItemStack.areItemsEqualIgnoreDurability(oldStack, newStack);
+	}
 
 }
