@@ -1,5 +1,6 @@
 package lykrast.gunswithoutroses.entity;
 
+import lykrast.gunswithoutroses.item.IBullet;
 import lykrast.gunswithoutroses.registry.Holders;
 import lykrast.gunswithoutroses.registry.ModEntities;
 import net.minecraft.entity.Entity;
@@ -71,6 +72,9 @@ public class BulletEntity extends AbstractFireballEntity {
 				}
 
 				if (shooter instanceof LivingEntity) applyEnchantments((LivingEntity)shooter, target);
+				
+				IBullet bullet = (IBullet) getStack().getItem();
+				bullet.onLivingEntityHit(this, livingTarget, shooter, world);
 			}
 			else if (!damaged && ignoreInvulnerability) target.hurtResistantTime = lastHurtResistant;
 		}
