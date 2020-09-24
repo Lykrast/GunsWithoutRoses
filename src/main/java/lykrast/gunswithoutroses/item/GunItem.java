@@ -3,6 +3,7 @@ package lykrast.gunswithoutroses.item;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
@@ -42,7 +43,8 @@ public class GunItem extends ShootableItem {
 	protected boolean ignoreInvulnerability = false;
 	protected double chanceFreeShot = 0;
 	protected SoundEvent fireSound = ModSounds.gun;
-	protected Ingredient repairMaterial;
+	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
+	protected Supplier<Ingredient> repairMaterial;
 
 	public GunItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, int enchantability) {
 		super(properties);
@@ -173,7 +175,7 @@ public class GunItem extends ShootableItem {
 		return this;
 	}
 	
-	public GunItem repair(Ingredient repairMaterial) {
+	public GunItem repair(Supplier<Ingredient> repairMaterial) {
 		this.repairMaterial = repairMaterial;
 		return this;
 	}
@@ -250,7 +252,7 @@ public class GunItem extends ShootableItem {
 	
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-		return (repairMaterial != null && repairMaterial.test(repair)) || super.getIsRepairable(toRepair, repair);
+		return (repairMaterial != null && repairMaterial.get().test(repair)) || super.getIsRepairable(toRepair, repair);
 	}
 	
 	@Override
