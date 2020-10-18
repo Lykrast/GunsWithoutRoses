@@ -100,8 +100,16 @@ public class GunItem extends ShootableItem {
 		shot.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);
+		changeBullet(world, player, gun, shot, bulletFree);
 
 		world.addEntity(shot);
+	}
+	
+	/**
+	 * Lets the gun do custom stuff to default bullets without redoing all the base stuff from shoot.
+	 */
+	protected void changeBullet(World world, PlayerEntity player, ItemStack gun, BulletEntity bullet, boolean bulletFree) {
+		
 	}
 	
 	/**

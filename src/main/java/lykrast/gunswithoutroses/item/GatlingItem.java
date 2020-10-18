@@ -41,7 +41,8 @@ public class GatlingItem extends GunItem {
 	public void onUse(World world, LivingEntity user, ItemStack gun, int ticks) {
 		if (user instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) user;
-			if (ticks < 72000 && ticks % getFireDelay(gun, player) == 0) {
+			int used = getUseDuration(gun) - ticks;
+			if (used > 0 && used % getFireDelay(gun, player) == 0) {
 				ItemStack ammo = player.findAmmo(gun);
 
 				if (!ammo.isEmpty() || player.abilities.isCreativeMode) {
