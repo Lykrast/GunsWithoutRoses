@@ -18,9 +18,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BulletEntity extends AbstractFireballEntity {
-	private double damage = 1;
-	private boolean ignoreInvulnerability = false;
-	private double knockbackStrength = 0;
+	protected double damage = 1;
+	protected boolean ignoreInvulnerability = false;
+	protected double knockbackStrength = 0;
 	protected int ticksExisted;
 
 	public BulletEntity(EntityType<? extends BulletEntity> p_i50160_1_, World p_i50160_2_) {
@@ -83,21 +83,23 @@ public class BulletEntity extends AbstractFireballEntity {
 	@Override
 	protected void onImpact(RayTraceResult result) {
 		super.onImpact(result);
-		if (!world.isRemote) remove();
+		//Don't disappear on blocks if we're set to noclipping
+		if (!world.isRemote && (!noClip || result.getType() != RayTraceResult.Type.BLOCK)) remove();
 	}
 
 	@Override
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
 		compound.putDouble("damage", damage);
-		compound.putBoolean("ignoreinv", ignoreInvulnerability);
-		compound.putDouble("knockback", knockbackStrength);
+		if (ignoreInvulnerability) compound.putBoolean("ignoreinv", ignoreInvulnerability);
+		if (knockbackStrength != 0) compound.putDouble("knockback", knockbackStrength);
 	}
 
 	@Override
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
 		damage = compound.getDouble("damage");
+		//The docs says if it's not here it's gonna be false/0 so it should be good
 		ignoreInvulnerability = compound.getBoolean("ignoreinv");
 		knockbackStrength = compound.getDouble("knockback");
 	}
