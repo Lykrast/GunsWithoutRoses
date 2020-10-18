@@ -21,7 +21,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected double damage = 1;
 	protected boolean ignoreInvulnerability = false;
 	protected double knockbackStrength = 0;
-	protected int ticksExisted;
+	protected int ticksSinceFired;
 
 	public BulletEntity(EntityType<? extends BulletEntity> p_i50160_1_, World p_i50160_2_) {
 		super(p_i50160_1_, p_i50160_2_);
@@ -44,10 +44,11 @@ public class BulletEntity extends AbstractFireballEntity {
 
 	@Override
 	public void tick() {
-		if (ticksExisted > 200 || getMotion().lengthSquared() < STOP_TRESHOLD) {
+		//Using a thing I save so that bullets don't get clogged up on chunk borders
+		ticksSinceFired++;
+		if (ticksSinceFired > 100 || getMotion().lengthSquared() < STOP_TRESHOLD) {
 			remove();
 		}
-		ticksExisted++;
 		super.tick();
 	}
 
@@ -90,6 +91,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	@Override
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
+		compound.putInt("tsf", ticksSinceFired);
 		compound.putDouble("damage", damage);
 		if (ignoreInvulnerability) compound.putBoolean("ignoreinv", ignoreInvulnerability);
 		if (knockbackStrength != 0) compound.putDouble("knockback", knockbackStrength);
@@ -98,6 +100,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	@Override
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
+		ticksSinceFired = compound.getInt("tsf");
 		damage = compound.getDouble("damage");
 		//The docs says if it's not here it's gonna be false/0 so it should be good
 		ignoreInvulnerability = compound.getBoolean("ignoreinv");
