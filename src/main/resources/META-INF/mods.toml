@@ -23,6 +23,6 @@ Adds a few simple Terraria-like guns, and bullets and enchantments to go with th
 [[dependencies.gunswithoutroses]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.3]"
+    versionRange="[1.16.3,]"
     ordering="NONE"
     side="BOTH"
