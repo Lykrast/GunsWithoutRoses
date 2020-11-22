@@ -17,7 +17,6 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.ShootableItem;
 import net.minecraft.item.UseAction;
 import net.minecraft.item.crafting.Ingredient;
@@ -58,19 +57,20 @@ public class GunItem extends ShootableItem {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
 		ItemStack gun = player.getHeldItem(hand);
+		//"Oh yeah I will use the vanilla method so that quivers can do their thing"
+		//guess what the quivers suck
 		ItemStack ammo = player.findAmmo(gun);
 
 		if (!ammo.isEmpty() || player.abilities.isCreativeMode) {
-			//findAmmo defaults to Arrows so we're specifically checking for that
-			if (ammo.isEmpty() || ammo.getItem() == Items.ARROW) {
-				ammo = new ItemStack(ModItems.flintBullet);
-			}
+			if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet);
 
 			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
 			if (!world.isRemote) {
 				boolean bulletFree = player.abilities.isCreativeMode || !shouldConsumeAmmo(gun, player);
-
-				shoot(world, player, gun, ammo, bulletItem, bulletFree);
+				
+				//Workaround for quivers not respecting getAmmoPredicate()
+				ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet);
+				shoot(world, player, gun, shotAmmo, bulletItem, bulletFree);
 				
 				gun.damageItem(1, player, (p) -> p.sendBreakAnimation(player.getActiveHand()));
 				if (!bulletFree) bulletItem.consume(ammo, player);
