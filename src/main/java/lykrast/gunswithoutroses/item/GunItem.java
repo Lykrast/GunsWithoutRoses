@@ -1,7 +1,6 @@
 package lykrast.gunswithoutroses.item;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -263,10 +262,10 @@ public class GunItem extends ShootableItem {
 			double damageBonus = getBonusDamage(stack, null) * damageMultiplier;
 			
 			if (damageMultiplier != 1) {
-				if (damageBonus != 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.both" + (isDamageModified(stack) ? ".modified" : ""), String.format(Locale.ROOT, "%.2f", damageMultiplier), String.format(Locale.ROOT, "%.2f", damageBonus)));
-				else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.mult" + (isDamageModified(stack) ? ".modified" : ""), String.format(Locale.ROOT, "%.2f", damageMultiplier)));
+				if (damageBonus != 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.both" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.DECIMALFORMAT.format(damageMultiplier), ItemStack.DECIMALFORMAT.format(damageBonus)));
+				else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.mult" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.DECIMALFORMAT.format(damageMultiplier)));
 			}
-			else if (damageBonus != 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.flat" + (isDamageModified(stack) ? ".modified" : ""), String.format(Locale.ROOT, "%.2f", damageBonus)));
+			else if (damageBonus != 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.flat" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.DECIMALFORMAT.format(damageBonus)));
 			
 			//Fire rate
 			int fireDelay = getFireDelay(stack, null);
@@ -275,7 +274,7 @@ public class GunItem extends ShootableItem {
 			//Accuracy
 			double inaccuracy = getInaccuracy(stack, null);
 			if (inaccuracy <= 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy.perfect" + (isInaccuracyModified(stack) ? ".modified" : "")));
-			else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), String.format(Locale.ROOT, "%.2f", 1.0 / inaccuracy)));
+			else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), ItemStack.DECIMALFORMAT.format(1.0 / inaccuracy)));
 			
 			//Chance to not consume ammo
 			double inverseChanceFree = getInverseChanceFreeShot(stack, null);
