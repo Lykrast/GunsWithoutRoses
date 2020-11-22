@@ -8,7 +8,6 @@ import lykrast.gunswithoutroses.registry.ModItems;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -43,18 +42,20 @@ public class GatlingItem extends GunItem {
 			PlayerEntity player = (PlayerEntity) user;
 			int used = getUseDuration(gun) - ticks;
 			if (used > 0 && used % getFireDelay(gun, player) == 0) {
+				//"Oh yeah I will use the vanilla method so that quivers can do their thing"
+				//guess what the quivers suck
 				ItemStack ammo = player.findAmmo(gun);
 
 				if (!ammo.isEmpty() || player.abilities.isCreativeMode) {
-					if (ammo.isEmpty() || ammo.getItem() == Items.ARROW) {
-						ammo = new ItemStack(ModItems.flintBullet);
-					}
+					if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet);
 
 					IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
 					if (!world.isRemote) {
 						boolean bulletFree = player.abilities.isCreativeMode || !shouldConsumeAmmo(gun, player);
 
-						shoot(world, player, gun, ammo, bulletItem, bulletFree);
+						//Workaround for quivers not respecting getAmmoPredicate()
+						ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet);
+						shoot(world, player, gun, shotAmmo, bulletItem, bulletFree);
 
 						gun.damageItem(1, player, (p) -> p.sendBreakAnimation(player.getActiveHand()));
 						if (!bulletFree) bulletItem.consume(ammo, player);
