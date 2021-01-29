@@ -14,7 +14,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GunsWithoutRoses.MODID)
 public class ModItems {
 	public static GunItem ironGun, goldGun, diamondShotgun, diamondSniper, diamondGatling;
-	public static BulletItem flintBullet, ironBullet, blazeBullet, hungerBullet, hanamiBullet;
+	public static BulletItem flintBullet, ironBullet, blazeBullet, hungerBullet;
 
 	@SubscribeEvent
 	public static void registerItems(final RegistryEvent.Register<Item> event) {
@@ -30,8 +30,6 @@ public class ModItems {
 		ironBullet = initItem(reg, new BulletItem(defP(), 6), "iron_bullet");
 		blazeBullet = initItem(reg, new BlazeBulletItem(defP(), 7), "blaze_bullet");
 		hungerBullet = initItem(reg, new HungerBulletItem(defP().maxStackSize(1), 5), "hunger_bullet");
-		
-		hanamiBullet = initItem(reg, new HanamiBulletItem(compat("hanami"), 4), "hanami_bullet");
 	}
 
 	public static Item.Properties defP() {

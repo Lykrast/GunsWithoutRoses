@@ -10,8 +10,6 @@
 	"item.gunswithoutroses.blaze_bullet": "블레이즈 총알",
 	"item.gunswithoutroses.hunger_bullet": "식탐의 목구멍",
 	
-	"item.gunswithoutroses.hanami_bullet": "벚탄",
-	
 	"tooltip.gunswithoutroses.shift": "§7§fSHIFT§7 키를 눌러 수치 확인§r",
 	"tooltip.gunswithoutroses.bullet.damage": "%d 피해량",
 	"tooltip.gunswithoutroses.gun.damage.flat": "§2피해량: §f+%s§r",
@@ -33,7 +31,6 @@
 	"tooltip.gunswithoutroses.gatling.hold": "발사 중에 사용자가 느려짐",
 	
 	"tooltip.gunswithoutroses.blaze_bullet": "목표물에 불을 붙임",
-	"tooltip.gunswithoutroses.hanami_bullet": "큰 밀치기",
 	
 	"tooltip.gunswithoutroses.hunger_bullet": "배고픔을 탄약으로 사용",
 	

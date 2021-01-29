@@ -1,7 +1,6 @@
 package lykrast.gunswithoutroses.entity;
 
 import lykrast.gunswithoutroses.item.IBullet;
-import lykrast.gunswithoutroses.registry.Holders;
 import lykrast.gunswithoutroses.registry.ModEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -66,7 +65,8 @@ public class BulletEntity extends AbstractFireballEntity {
 				LivingEntity livingTarget = (LivingEntity)target;
 				if (knockbackStrength > 0) {
 					double actualKnockback = knockbackStrength;
-					if (Holders.Hanami.INSTABILITY != null && livingTarget.isPotionActive(Holders.Hanami.INSTABILITY)) actualKnockback *= 2 + livingTarget.getActivePotionEffect(Holders.Hanami.INSTABILITY).getAmplifier();
+					//Knocback amplifying potion from Hanami TODO replace once it's in another mod
+					//if (Holders.Hanami.INSTABILITY != null && livingTarget.isPotionActive(Holders.Hanami.INSTABILITY)) actualKnockback *= 2 + livingTarget.getActivePotionEffect(Holders.Hanami.INSTABILITY).getAmplifier();
 					
 					Vector3d vec = getMotion().mul(1, 0, 1).normalize().scale(actualKnockback);
 					if (vec.lengthSquared() > 0) livingTarget.addVelocity(vec.x, 0.1, vec.z);
@@ -119,6 +119,9 @@ public class BulletEntity extends AbstractFireballEntity {
 		this.ignoreInvulnerability = ignoreInvulnerability;
 	}
 
+	/**
+	 * Knockback on impact, 0.6 is equivalent to Punch I.
+	 */
 	public void setKnockbackStrength(double knockbackStrength) {
 		this.knockbackStrength = knockbackStrength;
 	}
