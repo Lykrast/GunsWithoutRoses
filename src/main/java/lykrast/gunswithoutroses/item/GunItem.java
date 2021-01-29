@@ -113,7 +113,7 @@ public class GunItem extends ShootableItem {
 	
 	/**
 	 * Rolls chance to know if ammo should be consumed for the shot. Applies both the baseline chance and Preserving enchantment.<br>
-	 * If you chance this don't forget to tweak getInverseChanceFreeShot accordingly for the tooltip.
+	 * If you change this don't forget to tweak getInverseChanceFreeShot accordingly for the tooltip (and call super).
 	 */
 	public boolean shouldConsumeAmmo(ItemStack stack, PlayerEntity player) {
 		if (chanceFreeShot > 0 && random.nextDouble() < chanceFreeShot) return false;
@@ -153,6 +153,7 @@ public class GunItem extends ShootableItem {
 	}
 	
 	/**
+	 * Gets the inaccuracy, taking into account Bullseye enchantment.<br>
 	 * Accuracy is actually inarccuracy internally, because it's easier to math.<br>
 	 * The formula is just accuracy = 1 / inaccuracy.
 	 */
