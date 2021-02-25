@@ -57,10 +57,13 @@ public class BulletEntity extends AbstractFireballEntity {
 		if (!world.isRemote) {
 			Entity target = raytrace.getEntity();
 			Entity shooter = func_234616_v_();
+			IBullet bullet = (IBullet) getStack().getItem();
+			
 			if (isBurning()) target.setFire(5);
 			int lastHurtResistant = target.hurtResistantTime;
 			if (ignoreInvulnerability) target.hurtResistantTime = 0;
-			boolean damaged = target.attackEntityFrom((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) damage);
+			boolean damaged = target.attackEntityFrom((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) bullet.modifyDamage(damage, this, target, shooter, world));
+			
 			if (damaged && target instanceof LivingEntity) {
 				LivingEntity livingTarget = (LivingEntity)target;
 				if (knockbackStrength > 0) {
@@ -74,7 +77,6 @@ public class BulletEntity extends AbstractFireballEntity {
 
 				if (shooter instanceof LivingEntity) applyEnchantments((LivingEntity)shooter, target);
 				
-				IBullet bullet = (IBullet) getStack().getItem();
 				bullet.onLivingEntityHit(this, livingTarget, shooter, world);
 			}
 			else if (!damaged && ignoreInvulnerability) target.hurtResistantTime = lastHurtResistant;

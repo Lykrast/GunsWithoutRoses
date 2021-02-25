@@ -27,7 +27,18 @@ public interface IBullet {
 		return !stack.isEmpty();
 	}
 	
-	//might change later, it's mostly for testing now
-	default void onLivingEntityHit(Entity projectile, LivingEntity target, @Nullable Entity shooter, World world) {}
+	/**
+	 * Called on server only when a default projectile (or one that extends it) sucessfully damages a LivingEntity (so after damage).
+	 * <br/>May change that later.
+	 */
+	default void onLivingEntityHit(BulletEntity projectile, LivingEntity target, @Nullable Entity shooter, World world) {}
+	
+	/**
+	 * Called on server only as damage is being applied when a bullet carrying this item hits. The target may not be a LivingEntity.
+	 * <br/>May change that later.
+	 */
+	default double modifyDamage(double damage, BulletEntity projectile, Entity target, @Nullable Entity shooter, World world) {
+		return damage;
+	}
 
 }
