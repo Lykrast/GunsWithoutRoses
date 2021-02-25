@@ -22,7 +22,7 @@ public class ModItems {
 		
 		ironGun = initItem(reg, new GunItem(defP().maxDamage(513), 0, 1, 16, 1.5, 14).repair(() -> Ingredient.fromTag(Tags.Items.INGOTS_IRON)), "iron_gun");
 		goldGun = initItem(reg, new GunItem(defP().maxDamage(104), 0, 1, 16, 1.5, 22).repair(() -> Ingredient.fromTag(Tags.Items.INGOTS_GOLD)), "gold_gun");
-		diamondShotgun = initItem(reg, new ShotgunItem(defP().maxDamage(2076), 0, 0.3, 16, 6, 10, 6).ignoreInvulnerability(true).fireSound(ModSounds.shotgun).repair(() -> Ingredient.fromTag(Tags.Items.GEMS_DIAMOND)), "diamond_shotgun");
+		diamondShotgun = initItem(reg, new ShotgunItem(defP().maxDamage(2076), 0, 0.45, 16, 6, 10, 5).ignoreInvulnerability(true).fireSound(ModSounds.shotgun).repair(() -> Ingredient.fromTag(Tags.Items.GEMS_DIAMOND)), "diamond_shotgun");
 		diamondSniper = initItem(reg, new GunItem(defP().maxDamage(2076), 0, 1.6, 22, 0, 10).projectileSpeed(4).fireSound(ModSounds.sniper).repair(() -> Ingredient.fromTag(Tags.Items.GEMS_DIAMOND)), "diamond_sniper");
 		diamondGatling = initItem(reg, new GatlingItem(defP().maxDamage(2076), 0, 1, 4, 4, 10).chanceFreeShot(1/3.0).ignoreInvulnerability(true).repair(() -> Ingredient.fromTag(Tags.Items.GEMS_DIAMOND)), "diamond_gatling");
 		
