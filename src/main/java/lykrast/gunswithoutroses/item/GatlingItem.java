@@ -24,45 +24,45 @@ public class GatlingItem extends GunItem {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-		ItemStack itemstack = player.getHeldItem(hand);
+	public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+		ItemStack itemstack = player.getItemInHand(hand);
 
-		if (!player.abilities.isCreativeMode && player.findAmmo(itemstack).isEmpty()) {
-			return ActionResult.resultFail(itemstack);
+		if (!player.abilities.instabuild && player.getProjectile(itemstack).isEmpty()) {
+			return ActionResult.fail(itemstack);
 		}
 		else {
-			player.setActiveHand(hand);
-			return ActionResult.resultConsume(itemstack);
+			player.startUsingItem(hand);
+			return ActionResult.consume(itemstack);
 		}
 	}
 
 	@Override
-	public void onUse(World world, LivingEntity user, ItemStack gun, int ticks) {
+	public void onUseTick(World world, LivingEntity user, ItemStack gun, int ticks) {
 		if (user instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) user;
 			int used = getUseDuration(gun) - ticks;
 			if (used > 0 && used % getFireDelay(gun, player) == 0) {
 				//"Oh yeah I will use the vanilla method so that quivers can do their thing"
 				//guess what the quivers suck
-				ItemStack ammo = player.findAmmo(gun);
+				ItemStack ammo = player.getProjectile(gun);
 
-				if (!ammo.isEmpty() || player.abilities.isCreativeMode) {
+				if (!ammo.isEmpty() || player.abilities.instabuild) {
 					if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet);
 
 					IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
-					if (!world.isRemote) {
-						boolean bulletFree = player.abilities.isCreativeMode || !shouldConsumeAmmo(gun, player);
+					if (!world.isClientSide) {
+						boolean bulletFree = player.abilities.instabuild || !shouldConsumeAmmo(gun, player);
 
 						//Workaround for quivers not respecting getAmmoPredicate()
 						ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet);
 						shoot(world, player, gun, shotAmmo, bulletItem, bulletFree);
 
-						gun.damageItem(1, player, (p) -> p.sendBreakAnimation(player.getActiveHand()));
+						gun.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
 						if (!bulletFree) bulletItem.consume(ammo, player);
 					}
 
-					world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), fireSound, SoundCategory.PLAYERS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
-					player.addStat(Stats.ITEM_USED.get(this));
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
+					player.awardStat(Stats.ITEM_USED.get(this));
 				}
 			}
 		}
@@ -75,7 +75,7 @@ public class GatlingItem extends GunItem {
 
 	@Override
 	protected void addExtraStatsTooltip(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip) {
-		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gatling.hold").mergeStyle(TextFormatting.GRAY));
+		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gatling.hold").withStyle(TextFormatting.GRAY));
 	}
 
 }

@@ -26,7 +26,7 @@ public class ShotgunItem extends GunItem {
 	
 	@Override
 	protected void addExtraStatsTooltip(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip) {
-		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.shotgun.shots", bulletCount).mergeStyle(TextFormatting.GRAY));
+		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.shotgun.shots", bulletCount).withStyle(TextFormatting.GRAY));
 	}
 
 }

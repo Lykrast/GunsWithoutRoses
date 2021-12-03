@@ -28,7 +28,7 @@ public class BulletItem extends Item implements IBullet {
 	@Override
 	public BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter) {
 		BulletEntity entity = new BulletEntity(world, shooter);
-		entity.setStack(stack);
+		entity.setItem(stack);
 		entity.setDamage(damage);
 		return entity;
 	}
@@ -37,14 +37,14 @@ public class BulletItem extends Item implements IBullet {
 	public void consume(ItemStack stack, PlayerEntity player) {
 		stack.shrink(1);
 		if (stack.isEmpty()) {
-			player.inventory.deleteStack(stack);
+			player.inventory.removeItem(stack);
 		}
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.bullet.damage", damage).mergeStyle(TextFormatting.DARK_GREEN));
+	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.bullet.damage", damage).withStyle(TextFormatting.DARK_GREEN));
 	}
 
 }

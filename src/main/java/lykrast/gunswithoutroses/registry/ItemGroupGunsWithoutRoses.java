@@ -11,7 +11,7 @@ public class ItemGroupGunsWithoutRoses extends ItemGroup {
 	}
 
 	@Override
-	public ItemStack createIcon() {
+	public ItemStack makeIcon() {
 		return new ItemStack(ModItems.ironGun);
 	}
 
