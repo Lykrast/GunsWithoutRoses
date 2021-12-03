@@ -2,8 +2,8 @@ package lykrast.gunswithoutroses.registry;
 
 import lykrast.gunswithoutroses.GunsWithoutRoses;
 import lykrast.gunswithoutroses.item.*;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

@@ -4,12 +4,12 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class ShotgunItem extends GunItem {
 	private int bulletCount;
@@ -20,13 +20,13 @@ public class ShotgunItem extends GunItem {
 	}
 
 	@Override
-	protected void shoot(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
+	protected void shoot(Level world, Player player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
 		for (int i = 0; i < bulletCount; i++) super.shoot(world, player, gun, ammo, bulletItem, bulletFree);
 	}
 	
 	@Override
-	protected void addExtraStatsTooltip(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip) {
-		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.shotgun.shots", bulletCount).withStyle(TextFormatting.GRAY));
+	protected void addExtraStatsTooltip(ItemStack stack, @Nullable Level world, List<Component> tooltip) {
+		tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.shotgun.shots", bulletCount).withStyle(ChatFormatting.GRAY));
 	}
 
 }

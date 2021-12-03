@@ -5,15 +5,15 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import lykrast.gunswithoutroses.entity.BulletEntity;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -24,13 +24,13 @@ public class HungerBulletItem extends BulletItem {
 	}
 	
 	@Override
-	public void consume(ItemStack stack, PlayerEntity player) {
+	public void consume(ItemStack stack, Player player) {
 		if (player.getFoodData().getFoodLevel() <= 0) player.hurt(DamageSource.STARVE, 1);
 		player.causeFoodExhaustion(3);
 	}
 	
 	@Override
-	public BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter) {
+	public BulletEntity createProjectile(Level world, ItemStack stack, LivingEntity shooter) {
 		ItemStack fake = new ItemStack(this);
 		fake.getOrCreateTag().putBoolean("shot", true);
 		return super.createProjectile(world, fake, shooter);
@@ -38,9 +38,9 @@ public class HungerBulletItem extends BulletItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		super.appendHoverText(stack, worldIn, tooltip, flagIn);
-		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.hunger_bullet").withStyle(TextFormatting.GRAY));
+		tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.hunger_bullet").withStyle(ChatFormatting.GRAY));
 	}
 	
 	public static boolean isShot(ItemStack stack) {

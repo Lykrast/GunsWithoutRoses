@@ -1,26 +1,30 @@
 package lykrast.gunswithoutroses;
 
+import lykrast.gunswithoutroses.entity.BulletEntity;
 import lykrast.gunswithoutroses.item.HungerBulletItem;
 import lykrast.gunswithoutroses.registry.ModEntities;
 import lykrast.gunswithoutroses.registry.ModItems;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.SpriteRenderer;
-import net.minecraft.item.ItemModelsProperties;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GunsWithoutRoses.MODID, value = Dist.CLIENT)
 public class ClientStuff {
 
+    @SubscribeEvent
+    public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
+		//Same renderer as potions
+    	event.registerEntityRenderer(ModEntities.BULLET, (context) -> new ThrownItemRenderer<BulletEntity>(context));
+    }
+
 	@SubscribeEvent
 	public static void clientStuff(final FMLClientSetupEvent event) {
-		//Same renderer as potions
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.BULLET, (manager) -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
 		
-		ItemModelsProperties.register(ModItems.hungerBullet, GunsWithoutRoses.rl("shot"), (stack, world, entity) -> HungerBulletItem.isShot(stack) ? 1 : 0);
+		ItemProperties.register(ModItems.hungerBullet, GunsWithoutRoses.rl("shot"), (stack, world, entity, someint) -> HungerBulletItem.isShot(stack) ? 1 : 0);
 	}
 
 }

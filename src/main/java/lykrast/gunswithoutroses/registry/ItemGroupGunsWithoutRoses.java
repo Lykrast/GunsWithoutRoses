@@ -1,10 +1,10 @@
 package lykrast.gunswithoutroses.registry;
 
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
-public class ItemGroupGunsWithoutRoses extends ItemGroup {
-	public static final ItemGroup INSTANCE = new ItemGroupGunsWithoutRoses(ItemGroup.getGroupCountSafe(), "gunswithoutroses");
+public class ItemGroupGunsWithoutRoses extends CreativeModeTab {
+	public static final CreativeModeTab INSTANCE = new ItemGroupGunsWithoutRoses(CreativeModeTab.getGroupCountSafe(), "gunswithoutroses");
 
 	public ItemGroupGunsWithoutRoses(int index, String label) {
 		super(index, label);

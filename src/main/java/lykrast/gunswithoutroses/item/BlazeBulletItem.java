@@ -5,13 +5,13 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import lykrast.gunswithoutroses.entity.BulletEntity;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -22,7 +22,7 @@ public class BlazeBulletItem extends BulletItem {
 	}
 
 	@Override
-	public BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter) {
+	public BulletEntity createProjectile(Level world, ItemStack stack, LivingEntity shooter) {
 		BulletEntity entity = super.createProjectile(world, stack, shooter);
 		entity.setSecondsOnFire(100);
 		return entity;
@@ -30,8 +30,8 @@ public class BlazeBulletItem extends BulletItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		super.appendHoverText(stack, worldIn, tooltip, flagIn);
-		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.blaze_bullet").withStyle(TextFormatting.GRAY));
+		tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.blaze_bullet").withStyle(ChatFormatting.GRAY));
 	}
 }

@@ -5,15 +5,15 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import lykrast.gunswithoutroses.entity.BulletEntity;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -26,7 +26,7 @@ public class BulletItem extends Item implements IBullet {
 	}
 
 	@Override
-	public BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter) {
+	public BulletEntity createProjectile(Level world, ItemStack stack, LivingEntity shooter) {
 		BulletEntity entity = new BulletEntity(world, shooter);
 		entity.setItem(stack);
 		entity.setDamage(damage);
@@ -34,17 +34,17 @@ public class BulletItem extends Item implements IBullet {
 	}
 
 	@Override
-	public void consume(ItemStack stack, PlayerEntity player) {
+	public void consume(ItemStack stack, Player player) {
 		stack.shrink(1);
 		if (stack.isEmpty()) {
-			player.inventory.removeItem(stack);
+			player.getInventory().removeItem(stack);
 		}
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.bullet.damage", damage).withStyle(TextFormatting.DARK_GREEN));
+	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+		tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.bullet.damage", damage).withStyle(ChatFormatting.DARK_GREEN));
 	}
 
 }

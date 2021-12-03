@@ -5,17 +5,17 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import lykrast.gunswithoutroses.registry.ModItems;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class GatlingItem extends GunItem {
 
@@ -24,34 +24,34 @@ public class GatlingItem extends GunItem {
 	}
 
 	@Override
-	public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack itemstack = player.getItemInHand(hand);
 
-		if (!player.abilities.instabuild && player.getProjectile(itemstack).isEmpty()) {
-			return ActionResult.fail(itemstack);
+		if (!player.getAbilities().instabuild && player.getProjectile(itemstack).isEmpty()) {
+			return InteractionResultHolder.fail(itemstack);
 		}
 		else {
 			player.startUsingItem(hand);
-			return ActionResult.consume(itemstack);
+			return InteractionResultHolder.consume(itemstack);
 		}
 	}
 
 	@Override
-	public void onUseTick(World world, LivingEntity user, ItemStack gun, int ticks) {
-		if (user instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity) user;
+	public void onUseTick(Level world, LivingEntity user, ItemStack gun, int ticks) {
+		if (user instanceof Player) {
+			Player player = (Player) user;
 			int used = getUseDuration(gun) - ticks;
 			if (used > 0 && used % getFireDelay(gun, player) == 0) {
 				//"Oh yeah I will use the vanilla method so that quivers can do their thing"
 				//guess what the quivers suck
 				ItemStack ammo = player.getProjectile(gun);
 
-				if (!ammo.isEmpty() || player.abilities.instabuild) {
+				if (!ammo.isEmpty() || player.getAbilities().instabuild) {
 					if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet);
 
 					IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
 					if (!world.isClientSide) {
-						boolean bulletFree = player.abilities.instabuild || !shouldConsumeAmmo(gun, player);
+						boolean bulletFree = player.getAbilities().instabuild || !shouldConsumeAmmo(world, gun, player);
 
 						//Workaround for quivers not respecting getAmmoPredicate()
 						ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet);
@@ -61,7 +61,7 @@ public class GatlingItem extends GunItem {
 						if (!bulletFree) bulletItem.consume(ammo, player);
 					}
 
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundSource.PLAYERS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
 					player.awardStat(Stats.ITEM_USED.get(this));
 				}
 			}
@@ -74,8 +74,8 @@ public class GatlingItem extends GunItem {
 	}
 
 	@Override
-	protected void addExtraStatsTooltip(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip) {
-		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gatling.hold").withStyle(TextFormatting.GRAY));
+	protected void addExtraStatsTooltip(ItemStack stack, @Nullable Level world, List<Component> tooltip) {
+		tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.gatling.hold").withStyle(ChatFormatting.GRAY));
 	}
 
 }
