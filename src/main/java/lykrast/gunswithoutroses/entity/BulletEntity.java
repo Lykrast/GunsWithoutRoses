@@ -4,6 +4,7 @@ import lykrast.gunswithoutroses.item.IBullet;
 import lykrast.gunswithoutroses.registry.ModEntities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.IndirectEntityDamageSource;
 import net.minecraft.world.entity.Entity;
@@ -119,6 +120,17 @@ public class BulletEntity extends Fireball {
 
 	public void setIgnoreInvulnerability(boolean ignoreInvulnerability) {
 		this.ignoreInvulnerability = ignoreInvulnerability;
+	}
+
+	@Override
+	//Same as normal but ignores player velocity
+	public void shootFromRotation(Entity shooter, float xRot, float yRot, float p_37255_, float speed, float spread) {
+		float f = -Mth.sin(yRot * ((float) Math.PI / 180F)) * Mth.cos(xRot * ((float) Math.PI / 180F));
+		float f1 = -Mth.sin((xRot + p_37255_) * ((float) Math.PI / 180F));
+		float f2 = Mth.cos(yRot * ((float) Math.PI / 180F)) * Mth.cos(xRot * ((float) Math.PI / 180F));
+		shoot((double) f, (double) f1, (double) f2, speed, spread);
+		//Vec3 vec3 = shooter.getDeltaMovement();
+		//this.setDeltaMovement(this.getDeltaMovement().add(vec3.x, shooter.isOnGround() ? 0.0D : vec3.y, vec3.z));
 	}
 
 	/**
