@@ -20,11 +20,12 @@ public class ModItems {
 	public static void registerItems(final RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> reg = event.getRegistry();
 		
-		ironGun = initItem(reg, new GunItem(defP().durability(513), 0, 1, 16, 1.5, 14).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "iron_gun");
-		goldGun = initItem(reg, new GunItem(defP().durability(104), 0, 1, 16, 1.5, 22).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "gold_gun");
-		diamondShotgun = initItem(reg, new ShotgunItem(defP().durability(2076), 0, 0.45, 16, 6, 10, 5).ignoreInvulnerability(true).fireSound(ModSounds.shotgun).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_shotgun");
-		diamondSniper = initItem(reg, new GunItem(defP().durability(2076), 0, 1.6, 22, 0, 10).projectileSpeed(4).fireSound(ModSounds.sniper).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_sniper");
-		diamondGatling = initItem(reg, new GatlingItem(defP().durability(2076), 0, 1, 4, 4, 10).ignoreInvulnerability(true).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_gatling");
+		//I think maybe some mapping stuff failed on that 1.18.2 build... either way it was called "Ingredient.of" before
+		ironGun = initItem(reg, new GunItem(defP().durability(513), 0, 1, 16, 1.5, 14).repair(() -> Ingredient.m_204132_(Tags.Items.INGOTS_IRON)), "iron_gun");
+		goldGun = initItem(reg, new GunItem(defP().durability(104), 0, 1, 16, 1.5, 22).repair(() -> Ingredient.m_204132_(Tags.Items.INGOTS_GOLD)), "gold_gun");
+		diamondShotgun = initItem(reg, new ShotgunItem(defP().durability(2076), 0, 0.45, 16, 6, 10, 5).ignoreInvulnerability(true).fireSound(ModSounds.shotgun).repair(() -> Ingredient.m_204132_(Tags.Items.GEMS_DIAMOND)), "diamond_shotgun");
+		diamondSniper = initItem(reg, new GunItem(defP().durability(2076), 0, 1.6, 22, 0, 10).projectileSpeed(4).fireSound(ModSounds.sniper).repair(() -> Ingredient.m_204132_(Tags.Items.GEMS_DIAMOND)), "diamond_sniper");
+		diamondGatling = initItem(reg, new GatlingItem(defP().durability(2076), 0, 1, 4, 4, 10).ignoreInvulnerability(true).repair(() -> Ingredient.m_204132_(Tags.Items.GEMS_DIAMOND)), "diamond_gatling");
 		
 		flintBullet = initItem(reg, new BulletItem(defP(), 5), "flint_bullet");
 		ironBullet = initItem(reg, new BulletItem(defP(), 6), "iron_bullet");
