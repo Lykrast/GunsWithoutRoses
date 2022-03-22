@@ -130,7 +130,7 @@ public class GunItem extends ShootableItem {
 	 */
 	public double getBonusDamage(ItemStack stack, @Nullable PlayerEntity player) {
 		int impact = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.impact, stack);
-		return bonusDamage + (impact >= 1 ? 0.5 * (impact + 1) : 0);
+		return bonusDamage + (impact >= 1 ? (impact + 1) : 0);
 	}
 	
 	public double getDamageMultiplier(ItemStack stack, @Nullable PlayerEntity player) {
@@ -141,7 +141,7 @@ public class GunItem extends ShootableItem {
 	 * Gets the min time in ticks between 2 shots. This takes into account Sleight of Hand enchantment.
 	 */
 	public int getFireDelay(ItemStack stack, @Nullable PlayerEntity player) {
-		return Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * 0.15));
+		return Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * 0.2));
 	}
 	
 	/**
