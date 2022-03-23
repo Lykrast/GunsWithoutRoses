@@ -37,7 +37,7 @@ public class GunItem extends ShootableItem {
 	protected int fireDelay;
 	protected double inaccuracy;
 	protected double projectileSpeed = 3;
-	private int enchantability;
+	private final int enchantability;
 	protected boolean ignoreInvulnerability = false;
 	protected double chanceFreeShot = 0;
 	protected SoundEvent fireSound = ModSounds.gun;

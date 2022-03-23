@@ -11,7 +11,10 @@ import net.minecraftforge.fml.common.Mod;
 public class ModSounds {
 
 	//Items need the soundevents, so we make them before
-	public static SoundEvent gun = initSound("item.gun.shoot"), shotgun = initSound("item.shotgun.shoot"), sniper = initSound("item.sniper.shoot");
+	public static SoundEvent
+			gun = initSound("item.gun.shoot"),
+			shotgun = initSound("item.shotgun.shoot"),
+			sniper = initSound("item.sniper.shoot");
 
 	@SubscribeEvent
 	public static void registerEnchantments(final RegistryEvent.Register<SoundEvent> event) {
@@ -20,7 +23,6 @@ public class ModSounds {
 
 	public static SoundEvent initSound(String name) {
 		ResourceLocation loc = GunsWithoutRoses.rl(name);
-		SoundEvent se = new SoundEvent(loc).setRegistryName(loc);
-		return se;
+		return new SoundEvent(loc).setRegistryName(loc);
 	}
 }

@@ -7,7 +7,10 @@ import net.minecraft.util.DamageSource;
 
 public class GunEnchantment extends Enchantment {
 
-	private int maxLevel, minCost, levelCost, levelCostSpan;
+	private final int maxLevel;
+	private final int minCost;
+	private final int levelCost;
+	private final int levelCostSpan;
 
 	public GunEnchantment(Rarity rarityIn, int maxLevel, int minCost, int levelCost, int levelCostSpan) {
 		super(rarityIn, ModEnchantments.TYPE_GUN, new EquipmentSlotType[] { EquipmentSlotType.MAINHAND });

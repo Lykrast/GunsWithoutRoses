@@ -23,8 +23,8 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected double knockbackStrength = 0;
 	protected int ticksSinceFired;
 
-	public BulletEntity(EntityType<? extends BulletEntity> p_i50160_1_, World p_i50160_2_) {
-		super(p_i50160_1_, p_i50160_2_);
+	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
+		super(entityType, worldIn);
 	}
 
 	public BulletEntity(World worldIn, LivingEntity shooter) {
@@ -69,9 +69,6 @@ public class BulletEntity extends AbstractFireballEntity {
 				LivingEntity livingTarget = (LivingEntity)target;
 				if (knockbackStrength > 0) {
 					double actualKnockback = knockbackStrength;
-					//Knocback amplifying potion from Hanami TODO replace once it's in another mod
-					//if (Holders.Hanami.INSTABILITY != null && livingTarget.isPotionActive(Holders.Hanami.INSTABILITY)) actualKnockback *= 2 + livingTarget.getActivePotionEffect(Holders.Hanami.INSTABILITY).getAmplifier();
-
 					Vector3d vec = getDeltaMovement().multiply(1, 0, 1).normalize().scale(actualKnockback);
 					if (vec.lengthSqr() > 0) livingTarget.push(vec.x, 0.1, vec.z);
 				}

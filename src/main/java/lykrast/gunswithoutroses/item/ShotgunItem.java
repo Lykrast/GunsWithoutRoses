@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ShotgunItem extends GunItem {
 
-	private int bulletCount;
+	private final int bulletCount;
 
 	public ShotgunItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, int enchantability, int bulletCount) {
 		super(properties, bonusDamage, damageMultiplier, fireDelay, inaccuracy, enchantability);

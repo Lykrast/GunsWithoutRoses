@@ -18,7 +18,7 @@ import java.util.List;
 
 public class BulletItem extends Item implements IBullet {
 
-	private int damage;
+	private final int damage;
 
 	public BulletItem(Properties properties, int damage) {
 		super(properties);
