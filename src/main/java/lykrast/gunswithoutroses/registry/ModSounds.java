@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GunsWithoutRoses.MODID)
 public class ModSounds {
+
 	//Items need the soundevents, so we make them before
 	public static SoundEvent gun = initSound("item.gun.shoot"), shotgun = initSound("item.shotgun.shoot"), sniper = initSound("item.sniper.shoot");
 

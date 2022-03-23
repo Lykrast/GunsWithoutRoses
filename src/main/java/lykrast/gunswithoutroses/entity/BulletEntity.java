@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BulletEntity extends AbstractFireballEntity {
+
 	protected double damage = 1;
 	protected boolean ignoreInvulnerability = false;
 	protected double knockbackStrength = 0;
@@ -58,25 +59,25 @@ public class BulletEntity extends AbstractFireballEntity {
 			Entity target = raytrace.getEntity();
 			Entity shooter = func_234616_v_();
 			IBullet bullet = (IBullet) getStack().getItem();
-			
+
 			if (isBurning()) target.setFire(5);
 			int lastHurtResistant = target.hurtResistantTime;
 			if (ignoreInvulnerability) target.hurtResistantTime = 0;
 			boolean damaged = target.attackEntityFrom((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) bullet.modifyDamage(damage, this, target, shooter, world));
-			
+
 			if (damaged && target instanceof LivingEntity) {
 				LivingEntity livingTarget = (LivingEntity)target;
 				if (knockbackStrength > 0) {
 					double actualKnockback = knockbackStrength;
 					//Knocback amplifying potion from Hanami TODO replace once it's in another mod
 					//if (Holders.Hanami.INSTABILITY != null && livingTarget.isPotionActive(Holders.Hanami.INSTABILITY)) actualKnockback *= 2 + livingTarget.getActivePotionEffect(Holders.Hanami.INSTABILITY).getAmplifier();
-					
+
 					Vector3d vec = getMotion().mul(1, 0, 1).normalize().scale(actualKnockback);
 					if (vec.lengthSquared() > 0) livingTarget.addVelocity(vec.x, 0.1, vec.z);
 				}
 
 				if (shooter instanceof LivingEntity) applyEnchantments((LivingEntity)shooter, target);
-				
+
 				bullet.onLivingEntityHit(this, livingTarget, shooter, world);
 			}
 			else if (!damaged && ignoreInvulnerability) target.hurtResistantTime = lastHurtResistant;

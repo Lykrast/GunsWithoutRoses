@@ -11,6 +11,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GunsWithoutRoses.MODID)
 public class ModEntities {
+
 	public static final EntityType<BulletEntity> BULLET = EntityType.Builder
 			.<BulletEntity>create(BulletEntity::new, EntityClassification.MISC)
 			.size(0.3125f, 0.3125f).setUpdateInterval(10).setTrackingRange(64).setShouldReceiveVelocityUpdates(true)

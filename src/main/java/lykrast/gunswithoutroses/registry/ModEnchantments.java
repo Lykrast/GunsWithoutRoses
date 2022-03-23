@@ -12,13 +12,14 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GunsWithoutRoses.MODID)
 public class ModEnchantments {
+
 	public static Enchantment impact, bullseye, sleightOfHand, preserving;
 	public static final EnchantmentType TYPE_GUN = EnchantmentType.create("GWR_GUN", (item) -> item instanceof GunItem);
 
 	@SubscribeEvent
 	public static void registerEnchantments(final RegistryEvent.Register<Enchantment> event) {
 		IForgeRegistry<Enchantment> reg = event.getRegistry();
-		
+
 		impact = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 5, 1, 11, 20), "impact");
 		bullseye = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 3, 5, 9, 15), "bullseye");
 		sleightOfHand = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 3, 12, 20, 40), "sleight_of_hand");

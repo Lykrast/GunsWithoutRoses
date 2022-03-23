@@ -1,15 +1,15 @@
 modLoader="javafml"
 loaderVersion="[34,)"
-issueTrackerURL="https://github.com/Lykrast/GunsWithoutRoses/issues"
+issueTrackerURL="https://github.com/Exploding-Creeper/GunsWithoutRoses/issues"
 license="MIT License https://github.com/Lykrast/GunsWithoutRoses/blob/master/LICENSE"
 
 [[mods]]
 modId="gunswithoutroses"
 version="${version}"
 displayName="Guns Without Roses"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/guns-without-roses"
+#displayURL="https://www.curseforge.com/minecraft/mc-mods/guns-without-roses"
 credits="freesound.org for sounds, Rye for naming the Cherrounds"
-authors="Lykrast"
+authors="Lykrast, HypherionSA, Kaleidio"
 description='''
 Adds a few simple Terraria-like guns, and bullets and enchantments to go with them. Does not add roses of any kind.
 '''
@@ -20,6 +20,7 @@ Adds a few simple Terraria-like guns, and bullets and enchantments to go with th
     versionRange="[34,)"
     ordering="NONE"
     side="BOTH"
+
 [[dependencies.gunswithoutroses]]
     modId="minecraft"
     mandatory=true

@@ -18,6 +18,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class BulletItem extends Item implements IBullet {
+
 	private int damage;
 
 	public BulletItem(Properties properties, int damage) {

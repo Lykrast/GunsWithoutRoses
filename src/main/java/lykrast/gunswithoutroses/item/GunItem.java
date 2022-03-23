@@ -32,6 +32,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class GunItem extends ShootableItem {
+
 	protected int bonusDamage;
 	protected double damageMultiplier;
 	protected int fireDelay;
@@ -66,11 +67,11 @@ public class GunItem extends ShootableItem {
 			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
 			if (!world.isRemote) {
 				boolean bulletFree = player.abilities.isCreativeMode || !shouldConsumeAmmo(gun, player);
-				
+
 				//Workaround for quivers not respecting getAmmoPredicate()
 				ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet);
 				shoot(world, player, gun, shotAmmo, bulletItem, bulletFree);
-				
+
 				gun.damageItem(1, player, (p) -> p.sendBreakAnimation(player.getActiveHand()));
 				if (!bulletFree) bulletItem.consume(ammo, player);
 			}
@@ -83,7 +84,7 @@ public class GunItem extends ShootableItem {
 		}
 		else return ActionResult.resultFail(gun);
 	}
-	
+
 	/**
 	 * Fires one shot after all the checks have passed. You can actually fire whatever you want here.<br>
 	 * Ammo is consumed afterwards, we're only shooting the bullet(s) here.
@@ -103,25 +104,25 @@ public class GunItem extends ShootableItem {
 
 		world.addEntity(shot);
 	}
-	
+
 	/**
 	 * Lets the gun do custom stuff to default bullets without redoing all the base stuff from shoot.
 	 */
 	protected void changeBullet(World world, PlayerEntity player, ItemStack gun, BulletEntity bullet, boolean bulletFree) {
-		
+
 	}
-	
+
 	/**
 	 * Rolls chance to know if ammo should be consumed for the shot. Applies both the baseline chance and Preserving enchantment.<br>
 	 * If you change this don't forget to tweak getInverseChanceFreeShot accordingly for the tooltip (and call super).
 	 */
 	public boolean shouldConsumeAmmo(ItemStack stack, PlayerEntity player) {
 		if (chanceFreeShot > 0 && random.nextDouble() < chanceFreeShot) return false;
-		
+
 		int preserving = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.preserving, stack);
 		//(level) in (level + 2) chance to not consume
 		if (preserving >= 1 && random.nextInt(preserving + 2) >= 2) return false;
-		
+
 		return true;
 	}
 
@@ -132,18 +133,18 @@ public class GunItem extends ShootableItem {
 		int impact = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.impact, stack);
 		return bonusDamage + (impact >= 1 ? (impact + 1) : 0);
 	}
-	
+
 	public double getDamageMultiplier(ItemStack stack, @Nullable PlayerEntity player) {
 		return damageMultiplier;
 	}
-	
+
 	/**
 	 * Gets the min time in ticks between 2 shots. This takes into account Sleight of Hand enchantment.
 	 */
 	public int getFireDelay(ItemStack stack, @Nullable PlayerEntity player) {
 		return Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * 0.2));
 	}
-	
+
 	/**
 	 * Checks if the gun has baseline perfect accuracy.<br>
 	 * Used for tooltip and for Bullseye (which can't be applied since it would do nothing).
@@ -151,7 +152,7 @@ public class GunItem extends ShootableItem {
 	public boolean hasPerfectAccuracy() {
 		return inaccuracy <= 0;
 	}
-	
+
 	/**
 	 * Gets the inaccuracy, taking into account Bullseye enchantment.<br>
 	 * Accuracy is actually inarccuracy internally, because it's easier to math.<br>
@@ -160,13 +161,13 @@ public class GunItem extends ShootableItem {
 	public double getInaccuracy(ItemStack stack, @Nullable PlayerEntity player) {
 		return Math.max(0, inaccuracy / (EnchantmentHelper.getEnchantmentLevel(ModEnchantments.bullseye, stack) + 1.0));
 	}
-	
+
 	public double getProjectileSpeed(ItemStack stack, @Nullable PlayerEntity player) {
 		//I wanted to follow kat's suggestion and make bullseye for snipers increase projectile speed
 		//But high projectile speed cause weird "snapping" issues on bullets
 		return projectileSpeed;
 	}
-	
+
 	/**
 	 * Chance to actually CONSUME ammo, to properly multiply probabilities together.<br>
 	 * Tooltip then does the math to display it nicely.
@@ -177,28 +178,28 @@ public class GunItem extends ShootableItem {
 		if (preserving >= 1) chance *= 2.0/(preserving + 2);
 		return chance;
 	}
-	
+
 	/**
 	 * Says if the damage is changed from base value. Used for tooltip.
 	 */
 	protected boolean isDamageModified(ItemStack stack) {
 		return EnchantmentHelper.getEnchantmentLevel(ModEnchantments.impact, stack) >= 1;
 	}
-	
+
 	/**
 	 * Says if the fire delay is changed from base value. Used for tooltip.
 	 */
 	protected boolean isFireDelayModified(ItemStack stack) {
 		return EnchantmentHelper.getEnchantmentLevel(ModEnchantments.sleightOfHand, stack) >= 1;
 	}
-	
+
 	/**
 	 * Says if the (in)accuracy is changed from base value. Used for tooltip.
 	 */
 	protected boolean isInaccuracyModified(ItemStack stack) {
 		return !hasPerfectAccuracy() && EnchantmentHelper.getEnchantmentLevel(ModEnchantments.bullseye, stack) >= 1;
 	}
-	
+
 	/**
 	 * Says if the chance for free shots is changed from base value. Used for tooltip.
 	 */
@@ -221,7 +222,7 @@ public class GunItem extends ShootableItem {
 		this.chanceFreeShot = chanceFreeShot;
 		return this;
 	}
-	
+
 	/**
 	 * Sets the firing sound, used when making the item for registering.
 	 */
@@ -238,7 +239,7 @@ public class GunItem extends ShootableItem {
 		this.projectileSpeed = projectileSpeed;
 		return this;
 	}
-	
+
 	/**
 	 * Sets the repair material, used when making the item for registering.
 	 */
@@ -246,7 +247,7 @@ public class GunItem extends ShootableItem {
 		this.repairMaterial = repairMaterial;
 		return this;
 	}
-	
+
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
 		//Disallow Bullseye if the gun has perfect accuracy
@@ -261,39 +262,39 @@ public class GunItem extends ShootableItem {
 			//Damage
 			double damageMultiplier = getDamageMultiplier(stack, null);
 			double damageBonus = getBonusDamage(stack, null) * damageMultiplier;
-			
+
 			if (damageMultiplier != 1) {
 				if (damageBonus != 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.both" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.DECIMALFORMAT.format(damageMultiplier), ItemStack.DECIMALFORMAT.format(damageBonus)));
 				else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.mult" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.DECIMALFORMAT.format(damageMultiplier)));
 			}
 			else if (damageBonus != 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.flat" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.DECIMALFORMAT.format(damageBonus)));
-			
+
 			//Fire rate
 			int fireDelay = getFireDelay(stack, null);
 			tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.firerate" + (isFireDelayModified(stack) ? ".modified" : ""), fireDelay, (60*20) / fireDelay));
-			
+
 			//Accuracy
 			double inaccuracy = getInaccuracy(stack, null);
 			if (inaccuracy <= 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy.perfect" + (isInaccuracyModified(stack) ? ".modified" : "")));
 			else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), ItemStack.DECIMALFORMAT.format(1.0 / inaccuracy)));
-			
+
 			//Chance to not consume ammo
 			double inverseChanceFree = getInverseChanceFreeShot(stack, null);
 			if (inverseChanceFree < 1) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.chance_free" + (isChanceFreeShotModified(stack) ? ".modified" : ""), (int)((1 - inverseChanceFree) * 100)));
-			
+
 			//Other stats
 			if (ignoreInvulnerability) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.ignore_invulnerability").mergeStyle(TextFormatting.GRAY));
-			
+
 			addExtraStatsTooltip(stack, world, tooltip);
 		}
 		else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.shift"));
 	}
-	
+
 	/**
 	 * Add more tooltips that will be displayed below the base stats.
 	 */
 	protected void addExtraStatsTooltip(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip) {
-		
+
 	}
 
 	@Override
@@ -319,12 +320,12 @@ public class GunItem extends ShootableItem {
 		// No idea what this is yet, so using the Bow value (Crossbow is 8)
 		return 15;
 	}
-	
+
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
 		return (repairMaterial != null && repairMaterial.get().test(repair)) || super.getIsRepairable(toRepair, repair);
 	}
-	
+
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
 		return !ItemStack.areItemsEqualIgnoreDurability(oldStack, newStack);
