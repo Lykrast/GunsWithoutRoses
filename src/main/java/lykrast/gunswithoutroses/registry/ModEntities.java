@@ -13,8 +13,8 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class ModEntities {
 
 	public static final EntityType<BulletEntity> BULLET = EntityType.Builder
-			.<BulletEntity>create(BulletEntity::new, EntityClassification.MISC)
-			.size(0.3125f, 0.3125f).setUpdateInterval(10).setTrackingRange(64).setShouldReceiveVelocityUpdates(true)
+			.<BulletEntity>of(BulletEntity::new, EntityClassification.MISC)
+			.sized(0.3125f, 0.3125f).setUpdateInterval(10).setTrackingRange(64).setShouldReceiveVelocityUpdates(true)
 			.build(GunsWithoutRoses.MODID + ":bullet");
 
 	@SubscribeEvent

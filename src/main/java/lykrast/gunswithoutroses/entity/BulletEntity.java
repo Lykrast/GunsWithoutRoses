@@ -29,7 +29,7 @@ public class BulletEntity extends AbstractFireballEntity {
 
 	public BulletEntity(World worldIn, LivingEntity shooter) {
 		this(worldIn, shooter, 0, 0, 0);
-		setPosition(shooter.getPosX(), shooter.getPosYEye() - 0.1, shooter.getPosZ());
+		setPos(shooter.getX(), shooter.getEyeY() - 0.1, shooter.getZ());
 	}
 
 	public BulletEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
@@ -46,24 +46,24 @@ public class BulletEntity extends AbstractFireballEntity {
 	public void tick() {
 		//Using a thing I save so that bullets don't get clogged up on chunk borders
 		ticksSinceFired++;
-		if (ticksSinceFired > 100 || getMotion().lengthSquared() < STOP_TRESHOLD) {
+		if (ticksSinceFired > 100 || getDeltaMovement().lengthSqr() < STOP_TRESHOLD) {
 			remove();
 		}
 		super.tick();
 	}
 
 	@Override
-	protected void onEntityHit(EntityRayTraceResult raytrace) {
-		super.onEntityHit(raytrace);
-		if (!world.isRemote) {
+	protected void onHitEntity(EntityRayTraceResult raytrace) {
+		super.onHitEntity(raytrace);
+		if (!level.isClientSide) {
 			Entity target = raytrace.getEntity();
-			Entity shooter = func_234616_v_();
-			IBullet bullet = (IBullet) getStack().getItem();
+			Entity shooter = getOwner();
+			IBullet bullet = (IBullet) getItemRaw().getItem();
 
-			if (isBurning()) target.setFire(5);
-			int lastHurtResistant = target.hurtResistantTime;
-			if (ignoreInvulnerability) target.hurtResistantTime = 0;
-			boolean damaged = target.attackEntityFrom((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) bullet.modifyDamage(damage, this, target, shooter, world));
+			if (isOnFire()) target.setSecondsOnFire(5);
+			int lastHurtResistant = target.invulnerableTime;
+			if (ignoreInvulnerability) target.invulnerableTime = 0;
+			boolean damaged = target.hurt((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) bullet.modifyDamage(damage, this, target, shooter, level));
 
 			if (damaged && target instanceof LivingEntity) {
 				LivingEntity livingTarget = (LivingEntity)target;
@@ -72,28 +72,28 @@ public class BulletEntity extends AbstractFireballEntity {
 					//Knocback amplifying potion from Hanami TODO replace once it's in another mod
 					//if (Holders.Hanami.INSTABILITY != null && livingTarget.isPotionActive(Holders.Hanami.INSTABILITY)) actualKnockback *= 2 + livingTarget.getActivePotionEffect(Holders.Hanami.INSTABILITY).getAmplifier();
 
-					Vector3d vec = getMotion().mul(1, 0, 1).normalize().scale(actualKnockback);
-					if (vec.lengthSquared() > 0) livingTarget.addVelocity(vec.x, 0.1, vec.z);
+					Vector3d vec = getDeltaMovement().multiply(1, 0, 1).normalize().scale(actualKnockback);
+					if (vec.lengthSqr() > 0) livingTarget.push(vec.x, 0.1, vec.z);
 				}
 
-				if (shooter instanceof LivingEntity) applyEnchantments((LivingEntity)shooter, target);
+				if (shooter instanceof LivingEntity) doEnchantDamageEffects((LivingEntity)shooter, target);
 
-				bullet.onLivingEntityHit(this, livingTarget, shooter, world);
+				bullet.onLivingEntityHit(this, livingTarget, shooter, level);
 			}
-			else if (!damaged && ignoreInvulnerability) target.hurtResistantTime = lastHurtResistant;
+			else if (!damaged && ignoreInvulnerability) target.invulnerableTime = lastHurtResistant;
 		}
 	}
 
 	@Override
-	protected void onImpact(RayTraceResult result) {
-		super.onImpact(result);
+	protected void onHit(RayTraceResult result) {
+		super.onHit(result);
 		//Don't disappear on blocks if we're set to noclipping
-		if (!world.isRemote && (!noClip || result.getType() != RayTraceResult.Type.BLOCK)) remove();
+		if (!level.isClientSide && (!noPhysics || result.getType() != RayTraceResult.Type.BLOCK)) remove();
 	}
 
 	@Override
-	public void writeAdditional(CompoundNBT compound) {
-		super.writeAdditional(compound);
+	public void addAdditionalSaveData(CompoundNBT compound) {
+		super.addAdditionalSaveData(compound);
 		compound.putInt("tsf", ticksSinceFired);
 		compound.putDouble("damage", damage);
 		if (ignoreInvulnerability) compound.putBoolean("ignoreinv", ignoreInvulnerability);
@@ -101,8 +101,8 @@ public class BulletEntity extends AbstractFireballEntity {
 	}
 
 	@Override
-	public void readAdditional(CompoundNBT compound) {
-		super.readAdditional(compound);
+	public void readAdditionalSaveData(CompoundNBT compound) {
+		super.readAdditionalSaveData(compound);
 		ticksSinceFired = compound.getInt("tsf");
 		damage = compound.getDouble("damage");
 		//The docs says if it's not here it's gonna be false/0 so it should be good
@@ -130,27 +130,27 @@ public class BulletEntity extends AbstractFireballEntity {
 	}
 
 	@Override
-	public boolean canBeCollidedWith() {
+	public boolean isPickable() {
 		return false;
 	}
 
 	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount) {
+	public boolean hurt(DamageSource source, float amount) {
 		return false;
 	}
 
 	@Override
-	protected boolean isFireballFiery() {
+	protected boolean shouldBurn() {
 		return false;
 	}
 
 	@Override
-	protected float getMotionFactor() {
+	protected float getInertia() {
 		return 1;
 	}
 
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public IPacket<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 

@@ -5,6 +5,8 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.DamageSource;
 
+import net.minecraft.enchantment.Enchantment.Rarity;
+
 public class GunEnchantment extends Enchantment {
 
 	private int maxLevel, minCost, levelCost, levelCostSpan;
@@ -23,17 +25,17 @@ public class GunEnchantment extends Enchantment {
 	}
 
 	@Override
-	public int getMinEnchantability(int enchantmentLevel) {
+	public int getMinCost(int enchantmentLevel) {
 		return minCost + (enchantmentLevel - 1) * levelCost;
 	}
 
 	@Override
-	public int getMaxEnchantability(int enchantmentLevel) {
-		return getMinEnchantability(enchantmentLevel) + levelCostSpan;
+	public int getMaxCost(int enchantmentLevel) {
+		return getMinCost(enchantmentLevel) + levelCostSpan;
 	}
 
 	@Override
-	public int calcModifierDamage(int level, DamageSource source) {
+	public int getDamageProtection(int level, DamageSource source) {
 		return 0;
 	}
 

@@ -20,7 +20,7 @@ public class ClientStuff {
 		//Same renderer as potions
 		RenderingRegistry.registerEntityRenderingHandler(ModEntities.BULLET, (manager) -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
 		
-		ItemModelsProperties.func_239418_a_(ModItems.hungerBullet, GunsWithoutRoses.rl("shot"), (stack, world, entity) -> HungerBulletItem.isShot(stack) ? 1 : 0);
+		ItemModelsProperties.register(ModItems.hungerBullet, GunsWithoutRoses.rl("shot"), (stack, world, entity) -> HungerBulletItem.isShot(stack) ? 1 : 0);
 	}
 
 }

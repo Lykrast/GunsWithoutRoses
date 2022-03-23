@@ -11,6 +11,8 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
+import net.minecraft.item.Item.Properties;
+
 public class ShotgunItem extends GunItem {
 
 	private int bulletCount;
@@ -27,7 +29,7 @@ public class ShotgunItem extends GunItem {
 
 	@Override
 	protected void addExtraStatsTooltip(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip) {
-		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.shotgun.shots", bulletCount).mergeStyle(TextFormatting.GRAY));
+		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.shotgun.shots", bulletCount).withStyle(TextFormatting.GRAY));
 	}
 
 }

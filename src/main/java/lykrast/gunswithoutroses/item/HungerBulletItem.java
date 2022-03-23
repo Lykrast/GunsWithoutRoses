@@ -17,6 +17,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import net.minecraft.item.Item.Properties;
+
 public class HungerBulletItem extends BulletItem {
 
 	public HungerBulletItem(Properties properties, int damage) {
@@ -25,8 +27,8 @@ public class HungerBulletItem extends BulletItem {
 	
 	@Override
 	public void consume(ItemStack stack, PlayerEntity player) {
-		if (player.getFoodStats().getFoodLevel() <= 0) player.attackEntityFrom(DamageSource.STARVE, 1);
-		player.addExhaustion(3);
+		if (player.getFoodData().getFoodLevel() <= 0) player.hurt(DamageSource.STARVE, 1);
+		player.causeFoodExhaustion(3);
 	}
 	
 	@Override
@@ -38,9 +40,9 @@ public class HungerBulletItem extends BulletItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		super.addInformation(stack, worldIn, tooltip, flagIn);
-		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.hunger_bullet").mergeStyle(TextFormatting.GRAY));
+	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		super.appendHoverText(stack, worldIn, tooltip, flagIn);
+		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.hunger_bullet").withStyle(TextFormatting.GRAY));
 	}
 	
 	public static boolean isShot(ItemStack stack) {

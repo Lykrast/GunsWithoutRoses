@@ -31,6 +31,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import net.minecraft.item.Item.Properties;
+
 public class GunItem extends ShootableItem {
 
 	protected int bonusDamage;
@@ -55,34 +57,34 @@ public class GunItem extends ShootableItem {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-		ItemStack gun = player.getHeldItem(hand);
+	public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+		ItemStack gun = player.getItemInHand(hand);
 		//"Oh yeah I will use the vanilla method so that quivers can do their thing"
 		//guess what the quivers suck
-		ItemStack ammo = player.findAmmo(gun);
+		ItemStack ammo = player.getProjectile(gun);
 
-		if (!ammo.isEmpty() || player.abilities.isCreativeMode) {
+		if (!ammo.isEmpty() || player.abilities.instabuild) {
 			if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet);
 
 			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
-			if (!world.isRemote) {
-				boolean bulletFree = player.abilities.isCreativeMode || !shouldConsumeAmmo(gun, player);
+			if (!world.isClientSide) {
+				boolean bulletFree = player.abilities.instabuild || !shouldConsumeAmmo(gun, player);
 
 				//Workaround for quivers not respecting getAmmoPredicate()
 				ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet);
 				shoot(world, player, gun, shotAmmo, bulletItem, bulletFree);
 
-				gun.damageItem(1, player, (p) -> p.sendBreakAnimation(player.getActiveHand()));
+				gun.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
 				if (!bulletFree) bulletItem.consume(ammo, player);
 			}
 
-			world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), fireSound, SoundCategory.PLAYERS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
-			player.addStat(Stats.ITEM_USED.get(this));
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
+			player.awardStat(Stats.ITEM_USED.get(this));
 
-			player.getCooldownTracker().setCooldown(this, getFireDelay(gun, player));
-			return ActionResult.resultConsume(gun);
+			player.getCooldowns().addCooldown(this, getFireDelay(gun, player));
+			return ActionResult.consume(gun);
 		}
-		else return ActionResult.resultFail(gun);
+		else return ActionResult.fail(gun);
 	}
 
 	/**
@@ -97,12 +99,12 @@ public class GunItem extends ShootableItem {
 	 */
 	protected void shoot(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
 		BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
-		shot.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
+		shot.shootFromRotation(player, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);
 		changeBullet(world, player, gun, shot, bulletFree);
 
-		world.addEntity(shot);
+		world.addFreshEntity(shot);
 	}
 
 	/**
@@ -119,7 +121,7 @@ public class GunItem extends ShootableItem {
 	public boolean shouldConsumeAmmo(ItemStack stack, PlayerEntity player) {
 		if (chanceFreeShot > 0 && random.nextDouble() < chanceFreeShot) return false;
 
-		int preserving = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.preserving, stack);
+		int preserving = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving, stack);
 		//(level) in (level + 2) chance to not consume
 		if (preserving >= 1 && random.nextInt(preserving + 2) >= 2) return false;
 
@@ -130,7 +132,7 @@ public class GunItem extends ShootableItem {
 	 * Gets the flat bonus damage (applied BEFORE the multiplier). This takes into account Impact enchantment.
 	 */
 	public double getBonusDamage(ItemStack stack, @Nullable PlayerEntity player) {
-		int impact = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.impact, stack);
+		int impact = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack);
 		return bonusDamage + (impact >= 1 ? (impact + 1) : 0);
 	}
 
@@ -142,7 +144,7 @@ public class GunItem extends ShootableItem {
 	 * Gets the min time in ticks between 2 shots. This takes into account Sleight of Hand enchantment.
 	 */
 	public int getFireDelay(ItemStack stack, @Nullable PlayerEntity player) {
-		return Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * 0.2));
+		return Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * 0.2));
 	}
 
 	/**
@@ -159,7 +161,7 @@ public class GunItem extends ShootableItem {
 	 * The formula is just accuracy = 1 / inaccuracy.
 	 */
 	public double getInaccuracy(ItemStack stack, @Nullable PlayerEntity player) {
-		return Math.max(0, inaccuracy / (EnchantmentHelper.getEnchantmentLevel(ModEnchantments.bullseye, stack) + 1.0));
+		return Math.max(0, inaccuracy / (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) + 1.0));
 	}
 
 	public double getProjectileSpeed(ItemStack stack, @Nullable PlayerEntity player) {
@@ -174,7 +176,7 @@ public class GunItem extends ShootableItem {
 	 */
 	public double getInverseChanceFreeShot(ItemStack stack, @Nullable PlayerEntity player) {
 		double chance = 1 - chanceFreeShot;
-		int preserving = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.preserving, stack);
+		int preserving = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving, stack);
 		if (preserving >= 1) chance *= 2.0/(preserving + 2);
 		return chance;
 	}
@@ -183,28 +185,28 @@ public class GunItem extends ShootableItem {
 	 * Says if the damage is changed from base value. Used for tooltip.
 	 */
 	protected boolean isDamageModified(ItemStack stack) {
-		return EnchantmentHelper.getEnchantmentLevel(ModEnchantments.impact, stack) >= 1;
+		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) >= 1;
 	}
 
 	/**
 	 * Says if the fire delay is changed from base value. Used for tooltip.
 	 */
 	protected boolean isFireDelayModified(ItemStack stack) {
-		return EnchantmentHelper.getEnchantmentLevel(ModEnchantments.sleightOfHand, stack) >= 1;
+		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) >= 1;
 	}
 
 	/**
 	 * Says if the (in)accuracy is changed from base value. Used for tooltip.
 	 */
 	protected boolean isInaccuracyModified(ItemStack stack) {
-		return !hasPerfectAccuracy() && EnchantmentHelper.getEnchantmentLevel(ModEnchantments.bullseye, stack) >= 1;
+		return !hasPerfectAccuracy() && EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) >= 1;
 	}
 
 	/**
 	 * Says if the chance for free shots is changed from base value. Used for tooltip.
 	 */
 	protected boolean isChanceFreeShotModified(ItemStack stack) {
-		return EnchantmentHelper.getEnchantmentLevel(ModEnchantments.preserving, stack) >= 1;
+		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving, stack) >= 1;
 	}
 
 	/**
@@ -257,17 +259,17 @@ public class GunItem extends ShootableItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		if (Screen.hasShiftDown()) {
 			//Damage
 			double damageMultiplier = getDamageMultiplier(stack, null);
 			double damageBonus = getBonusDamage(stack, null) * damageMultiplier;
 
 			if (damageMultiplier != 1) {
-				if (damageBonus != 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.both" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.DECIMALFORMAT.format(damageMultiplier), ItemStack.DECIMALFORMAT.format(damageBonus)));
-				else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.mult" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.DECIMALFORMAT.format(damageMultiplier)));
+				if (damageBonus != 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.both" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageMultiplier), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageBonus)));
+				else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.mult" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageMultiplier)));
 			}
-			else if (damageBonus != 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.flat" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.DECIMALFORMAT.format(damageBonus)));
+			else if (damageBonus != 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.damage.flat" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageBonus)));
 
 			//Fire rate
 			int fireDelay = getFireDelay(stack, null);
@@ -276,14 +278,14 @@ public class GunItem extends ShootableItem {
 			//Accuracy
 			double inaccuracy = getInaccuracy(stack, null);
 			if (inaccuracy <= 0) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy.perfect" + (isInaccuracyModified(stack) ? ".modified" : "")));
-			else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), ItemStack.DECIMALFORMAT.format(1.0 / inaccuracy)));
+			else tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(1.0 / inaccuracy)));
 
 			//Chance to not consume ammo
 			double inverseChanceFree = getInverseChanceFreeShot(stack, null);
 			if (inverseChanceFree < 1) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.chance_free" + (isChanceFreeShotModified(stack) ? ".modified" : ""), (int)((1 - inverseChanceFree) * 100)));
 
 			//Other stats
-			if (ignoreInvulnerability) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.ignore_invulnerability").mergeStyle(TextFormatting.GRAY));
+			if (ignoreInvulnerability) tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.gun.ignore_invulnerability").withStyle(TextFormatting.GRAY));
 
 			addExtraStatsTooltip(stack, world, tooltip);
 		}
@@ -298,12 +300,12 @@ public class GunItem extends ShootableItem {
 	}
 
 	@Override
-	public UseAction getUseAction(ItemStack stack) {
+	public UseAction getUseAnimation(ItemStack stack) {
 		return UseAction.BOW;
 	}
 
 	@Override
-	public int getItemEnchantability() {
+	public int getEnchantmentValue() {
 		return enchantability;
 	}
 
@@ -311,24 +313,24 @@ public class GunItem extends ShootableItem {
 	private static final Predicate<ItemStack> BULLETS = (stack) -> stack.getItem() instanceof IBullet && ((IBullet)stack.getItem()).hasAmmo(stack);
 
 	@Override
-	public Predicate<ItemStack> getInventoryAmmoPredicate() {
+	public Predicate<ItemStack> getAllSupportedProjectiles() {
 		return BULLETS;
 	}
 
 	@Override
-	public int func_230305_d_() {
+	public int getDefaultProjectileRange() {
 		// No idea what this is yet, so using the Bow value (Crossbow is 8)
 		return 15;
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-		return (repairMaterial != null && repairMaterial.get().test(repair)) || super.getIsRepairable(toRepair, repair);
+	public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
+		return (repairMaterial != null && repairMaterial.get().test(repair)) || super.isValidRepairItem(toRepair, repair);
 	}
 
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-		return !ItemStack.areItemsEqualIgnoreDurability(oldStack, newStack);
+		return !ItemStack.isSameIgnoreDurability(oldStack, newStack);
 	}
 
 }
