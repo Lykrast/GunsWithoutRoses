@@ -1,5 +1,8 @@
 package lykrast.gunswithoutroses;
 
+import lykrast.gunswithoutroses.config.GunsWithoutRosesConfig;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +16,7 @@ public class GunsWithoutRoses {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	public GunsWithoutRoses() {
-		//Configs one day
+		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, GunsWithoutRosesConfig.spec);
 	}
 
 	public static ResourceLocation rl(String name) {
