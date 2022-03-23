@@ -1,13 +1,12 @@
 package lykrast.gunswithoutroses;
 
 import lykrast.gunswithoutroses.config.GunsWithoutRosesConfig;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.Mod;
 
 @Mod("gunswithoutroses")
 public class GunsWithoutRoses {

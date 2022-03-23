@@ -1,9 +1,5 @@
 package lykrast.gunswithoutroses.item;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import lykrast.gunswithoutroses.entity.BulletEntity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -17,20 +13,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import net.minecraft.item.Item.Properties;
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class HungerBulletItem extends BulletItem {
 
 	public HungerBulletItem(Properties properties, int damage) {
 		super(properties, damage);
 	}
-	
+
 	@Override
 	public void consume(ItemStack stack, PlayerEntity player) {
 		if (player.getFoodData().getFoodLevel() <= 0) player.hurt(DamageSource.STARVE, 1);
 		player.causeFoodExhaustion(3);
 	}
-	
+
 	@Override
 	public BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter) {
 		ItemStack fake = new ItemStack(this);
@@ -44,7 +41,7 @@ public class HungerBulletItem extends BulletItem {
 		super.appendHoverText(stack, worldIn, tooltip, flagIn);
 		tooltip.add(new TranslationTextComponent("tooltip.gunswithoutroses.hunger_bullet").withStyle(TextFormatting.GRAY));
 	}
-	
+
 	public static boolean isShot(ItemStack stack) {
 		return !stack.isEmpty() && stack.getOrCreateTag().contains("shot") && stack.getOrCreateTag().getBoolean("shot");
 	}

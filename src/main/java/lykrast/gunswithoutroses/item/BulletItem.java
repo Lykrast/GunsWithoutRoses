@@ -1,9 +1,5 @@
 package lykrast.gunswithoutroses.item;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import lykrast.gunswithoutroses.entity.BulletEntity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -17,7 +13,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import net.minecraft.item.Item.Properties;
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class BulletItem extends Item implements IBullet {
 

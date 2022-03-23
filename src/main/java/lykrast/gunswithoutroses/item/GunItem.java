@@ -1,11 +1,5 @@
 package lykrast.gunswithoutroses.item;
 
-import java.util.List;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-
-import javax.annotation.Nullable;
-
 import lykrast.gunswithoutroses.entity.BulletEntity;
 import lykrast.gunswithoutroses.registry.ModEnchantments;
 import lykrast.gunswithoutroses.registry.ModItems;
@@ -31,7 +25,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import net.minecraft.item.Item.Properties;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class GunItem extends ShootableItem {
 

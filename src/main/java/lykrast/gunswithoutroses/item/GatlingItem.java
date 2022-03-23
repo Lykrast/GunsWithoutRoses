@@ -1,9 +1,5 @@
 package lykrast.gunswithoutroses.item;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import lykrast.gunswithoutroses.registry.ModItems;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,7 +13,8 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
-import net.minecraft.item.Item.Properties;
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class GatlingItem extends GunItem {
 

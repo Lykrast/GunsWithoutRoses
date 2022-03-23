@@ -5,8 +5,6 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.DamageSource;
 
-import net.minecraft.enchantment.Enchantment.Rarity;
-
 public class GunEnchantment extends Enchantment {
 
 	private int maxLevel, minCost, levelCost, levelCostSpan;
