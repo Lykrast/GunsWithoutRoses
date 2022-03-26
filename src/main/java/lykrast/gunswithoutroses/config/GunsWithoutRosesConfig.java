@@ -98,6 +98,8 @@ public class GunsWithoutRosesConfig {
                 .comment("Configure the damage of Hunger Bullets")
                 .defineInRange("fireDelayModifier", 6, 1, 20);
         builder.pop();
+
+        spec = builder.build();
     }
 
 }

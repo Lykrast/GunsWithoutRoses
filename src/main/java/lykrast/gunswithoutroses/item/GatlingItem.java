@@ -54,7 +54,7 @@ public class GatlingItem extends GunItem {
 
 						//Workaround for quivers not respecting getAmmoPredicate()
 						ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet);
-						shoot(world, player, gun, shotAmmo, bulletItem, bulletFree);
+						fireWeapon(world, player, gun, shotAmmo, bulletItem, bulletFree);
 
 						gun.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
 						if (!bulletFree) bulletItem.consume(ammo, player);

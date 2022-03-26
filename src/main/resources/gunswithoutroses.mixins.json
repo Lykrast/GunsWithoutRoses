@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "lykrast.gunswithoutroses.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "gunswithoutroses.refmap.json",
+  "mixins": [
+    "TrackedEntityMixin"
+  ],
+  "client": [
+  ],
+  "minVersion": "0.8"
+}

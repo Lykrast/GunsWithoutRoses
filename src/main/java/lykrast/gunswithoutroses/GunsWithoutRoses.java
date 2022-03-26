@@ -1,6 +1,7 @@
 package lykrast.gunswithoutroses;
 
 import lykrast.gunswithoutroses.config.GunsWithoutRosesConfig;
+import lykrast.gunswithoutroses.network.CustomNetworkHandler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -16,6 +17,7 @@ public class GunsWithoutRoses {
 
 	public GunsWithoutRoses() {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, GunsWithoutRosesConfig.spec);
+		new CustomNetworkHandler().init();
 	}
 
 	public static ResourceLocation rl(String name) {

@@ -9,6 +9,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShootableItem;
 import net.minecraft.item.UseAction;
@@ -18,6 +19,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -69,7 +71,7 @@ public class GunItem extends ShootableItem {
 
 				//Workaround for quivers not respecting getAmmoPredicate()
 				ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet);
-				shoot(world, player, gun, shotAmmo, bulletItem, bulletFree);
+				fireWeapon(world, player, gun, shotAmmo, bulletItem, bulletFree);
 
 				gun.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
 				if (!bulletFree) bulletItem.consume(ammo, player);
@@ -94,9 +96,10 @@ public class GunItem extends ShootableItem {
 	 * @param bulletItem IBullet used for the shot, may not match the ammo
 	 * @param bulletFree true if no ammo was actually consumed (creative or Preserving enchant for example)
 	 */
-	protected void shoot(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
+	protected void fireWeapon(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
 		BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
-		shot.shootFromRotation(player, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
+		//shot.shootFromRotation(player, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
+		this.shootProjectile(shot, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);
 		changeBullet(world, player, gun, shot, bulletFree);
@@ -162,8 +165,6 @@ public class GunItem extends ShootableItem {
 	}
 
 	public double getProjectileSpeed(ItemStack stack, @Nullable PlayerEntity player) {
-		//I wanted to follow kat's suggestion and make bullseye for snipers increase projectile speed
-		//But high projectile speed cause weird "snapping" issues on bullets
 		return projectileSpeed;
 	}
 
@@ -316,7 +317,6 @@ public class GunItem extends ShootableItem {
 
 	@Override
 	public int getDefaultProjectileRange() {
-		// No idea what this is yet, so using the Bow value (Crossbow is 8)
 		return 15;
 	}
 
@@ -330,4 +330,10 @@ public class GunItem extends ShootableItem {
 		return !ItemStack.isSameIgnoreDurability(oldStack, newStack);
 	}
 
+	private void shootProjectile(ProjectileEntity entity, float pX, float pY, float pZ, float pVelocity, float pInaccuracy) {
+		float f = -MathHelper.sin(pY * ((float)Math.PI / 180F)) * MathHelper.cos(pX * ((float)Math.PI / 180F));
+		float f1 = -MathHelper.sin((pX + pZ) * ((float)Math.PI / 180F));
+		float f2 = MathHelper.cos(pY * ((float)Math.PI / 180F)) * MathHelper.cos(pX * ((float)Math.PI / 180F));
+		entity.shoot(f, f1, f2, pVelocity, pInaccuracy);
+	}
 }

@@ -3,14 +3,17 @@ buildscript {
         maven { url = 'https://files.minecraftforge.net/maven' }
         mavenCentral()
         maven { url = "https://maven.parchmentmc.org" }
+        maven { url = 'https://repo.spongepowered.org/maven' }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath 'org.parchmentmc:librarian:1.+'
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: "org.parchmentmc.librarian.forgegradle"
+apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
@@ -30,6 +33,7 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'info'
+            arg "-mixin.config=gunswithoutroses.mixins.json"
 
             mods {
                 gunswithoutroses {
@@ -68,4 +72,20 @@ minecraft {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}"
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    testAnnotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+
+jar {
+    manifest {
+        attributes([
+                "MixinConfigs": "gunswithoutroses.mixins.json"
+        ])
+    }
+}
+
+mixin {
+    add sourceSets.main, "gunswithoutroses.refmap.json"
+    config 'gunswithoutroses.mixins.json'
 }

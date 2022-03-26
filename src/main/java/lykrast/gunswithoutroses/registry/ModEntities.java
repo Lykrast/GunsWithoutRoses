@@ -14,7 +14,7 @@ public class ModEntities {
 
 	public static final EntityType<BulletEntity> BULLET = EntityType.Builder
 			.<BulletEntity>of(BulletEntity::new, EntityClassification.MISC)
-			.sized(0.3125f, 0.3125f).setUpdateInterval(10).setTrackingRange(64).setShouldReceiveVelocityUpdates(true)
+			.sized(0.3125f, 0.3125f).setUpdateInterval(10).setTrackingRange(64).setShouldReceiveVelocityUpdates(false)
 			.build(GunsWithoutRoses.MODID + ":bullet");
 
 	@SubscribeEvent

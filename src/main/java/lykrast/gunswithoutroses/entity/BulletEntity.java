@@ -1,6 +1,7 @@
 package lykrast.gunswithoutroses.entity;
 
 import lykrast.gunswithoutroses.item.IBullet;
+import lykrast.gunswithoutroses.network.NetworkUtils;
 import lykrast.gunswithoutroses.registry.ModEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -14,7 +15,6 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BulletEntity extends AbstractFireballEntity {
 
@@ -34,19 +34,18 @@ public class BulletEntity extends AbstractFireballEntity {
 
 	public BulletEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
 		super(ModEntities.BULLET, shooter, accelX, accelY, accelZ, worldIn);
+		this.setNoGravity(true);
 	}
 
 	public BulletEntity(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
 		super(ModEntities.BULLET, x, y, z, accelX, accelY, accelZ, worldIn);
 	}
 
-	private static final double STOP_TRESHOLD = 0.01;
-
 	@Override
 	public void tick() {
 		//Using a thing I save so that bullets don't get clogged up on chunk borders
 		ticksSinceFired++;
-		if (ticksSinceFired > 100 || getDeltaMovement().lengthSqr() < STOP_TRESHOLD) {
+		if (ticksSinceFired > 100) {
 			remove();
 		}
 		super.tick();
@@ -148,7 +147,7 @@ public class BulletEntity extends AbstractFireballEntity {
 
 	@Override
 	public IPacket<?> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+		return NetworkUtils.getProjectileSpawnPacket(this);
 	}
 
 }
