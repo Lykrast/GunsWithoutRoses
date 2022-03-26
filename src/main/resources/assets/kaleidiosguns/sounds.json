@@ -9,6 +9,41 @@
 			"kaleidiosguns:gun4"
 		]
 	},
+	"item.pistol.shoot": {
+		"category": "players",
+		"subtitle": "subtitles.kaleidiosguns.item.gun.shoot",
+		"sounds": [
+			"kaleidiosguns:pistol_shot"
+		]
+	},
+	"item.smg.shoot": {
+		"category": "players",
+		"subtitle": "subtitles.kaleidiosguns.item.gun.shoot",
+		"sounds": [
+			"kaleidiosguns:assault_rifle"
+		]
+	},
+	"item.double_shotgun.shoot": {
+		"category": "players",
+		"subtitle": "subtitles.kaleidiosguns.item.gun.shoot",
+		"sounds": [
+			"kaleidiosguns:double_shotgun"
+		]
+	},
+	"item.stream_rifle.shoot": {
+		"category": "players",
+		"subtitle": "subtitles.kaleidiosguns.item.gun.shoot",
+		"sounds": [
+			"kaleidiosguns:stream_rifle"
+		]
+	},
+	"item.carbine.shoot": {
+		"category": "players",
+		"subtitle": "subtitles.kaleidiosguns.item.gun.shoot",
+		"sounds": [
+			"kaleidiosguns:carbine_rifle"
+		]
+	},
 	"item.shotgun.shoot": {
 		"category": "players",
 		"subtitle": "subtitles.kaleidiosguns.item.shotgun.shoot",

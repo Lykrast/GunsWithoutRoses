@@ -13,12 +13,17 @@ public class ModSounds {
 	//Items need the soundevents, so we make them before
 	public static SoundEvent
 			gun = initSound("item.gun.shoot"),
+			pistol = initSound("item.pistol.shoot"),
+			smg = initSound("item.smg.shoot"),
+			double_shotgun = initSound("item.double_shotgun.shoot"),
+			stream_rifle = initSound("item.stream_rifle.shoot"),
+			carbine = initSound("item.carbine.shoot"),
 			shotgun = initSound("item.shotgun.shoot"),
 			sniper = initSound("item.sniper.shoot");
 
 	@SubscribeEvent
-	public static void registerEnchantments(final RegistryEvent.Register<SoundEvent> event) {
-		event.getRegistry().registerAll(gun, shotgun, sniper);
+	public static void registerSounds(final RegistryEvent.Register<SoundEvent> event) {
+		event.getRegistry().registerAll(gun, pistol, smg, double_shotgun, stream_rifle, carbine, shotgun, sniper);
 	}
 
 	public static SoundEvent initSound(String name) {
