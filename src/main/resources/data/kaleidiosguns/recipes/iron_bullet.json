@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"###",
+		"#G#",
+		"###"
+	],
+	"key": {
+		"#": { "tag": "forge:ingots/iron" },
+		"G": { "tag": "forge:gunpowder" }
+	},
+	"result": { "item": "kaleidiosguns:iron_bullet", "count": 32 }
+}

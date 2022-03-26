@@ -1,0 +1,22 @@
+{
+	"item.gun.shoot": {
+		"category": "players",
+		"subtitle": "subtitles.kaleidiosguns.item.gun.shoot",
+		"sounds": [
+			"kaleidiosguns:gun1",
+			"kaleidiosguns:gun2",
+			"kaleidiosguns:gun3",
+			"kaleidiosguns:gun4"
+		]
+	},
+	"item.shotgun.shoot": {
+		"category": "players",
+		"subtitle": "subtitles.kaleidiosguns.item.shotgun.shoot",
+		"sounds": [ "kaleidiosguns:shotgun" ]
+	},
+	"item.sniper.shoot": {
+		"category": "players",
+		"subtitle": "subtitles.kaleidiosguns.item.sniper.shoot",
+		"sounds": [ "kaleidiosguns:sniper" ]
+	}
+}

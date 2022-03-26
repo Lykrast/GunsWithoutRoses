@@ -1,0 +1,56 @@
+{
+	"item.kaleidiosguns.pistol": "Pistol",
+	"item.kaleidiosguns.shotgun": "Shotgun",
+	"item.kaleidiosguns.double_barrel_shotgun": "Double Barrel Shotgun",
+	"item.kaleidiosguns.sniper": "Sniper",
+	"item.kaleidiosguns.carbine": "Carbine",
+	"item.kaleidiosguns.machine_pistol": "Machine Pistol",
+	"item.kaleidiosguns.stream_rifle": "Stream Rifle",
+	"item.kaleidiosguns.assault_rifle": "Assault Rifle",
+
+	"item.kaleidiosguns.flint_bullet": "Flint Bullet",
+	"item.kaleidiosguns.iron_bullet": "Iron Bullet",
+	"item.kaleidiosguns.blaze_bullet": "Blaze Bullet",
+	"item.kaleidiosguns.hunger_bullet": "Maws of Gluttony",
+
+	"tooltip.kaleidiosguns.shift": "§7Hold §fSHIFT§7 for stats§r",
+	"tooltip.kaleidiosguns.bullet.damage": "%d damage",
+	"tooltip.kaleidiosguns.gun.damage.flat": "§2Damage: §f+%s§r",
+	"tooltip.kaleidiosguns.gun.damage.mult": "§2Damage: §fx%s§r",
+	"tooltip.kaleidiosguns.gun.damage.both": "§2Damage: §fx%s +%s§r",
+	"tooltip.kaleidiosguns.gun.damage.flat.modified": "§dDamage: §f+%s§r",
+	"tooltip.kaleidiosguns.gun.damage.mult.modified": "§dDamage: §fx%s§r",
+	"tooltip.kaleidiosguns.gun.damage.both.modified": "§dDamage: §fx%s +%s§r",
+	"tooltip.kaleidiosguns.gun.firerate": "§2Fire delay: §f%d§7 (§f%d§7 RPM)§r",
+	"tooltip.kaleidiosguns.gun.firerate.modified": "§dFire delay: §f%d§7 (§f%d§7 RPM)§r",
+	"tooltip.kaleidiosguns.gun.accuracy": "§2Accuracy: §f%s§r",
+	"tooltip.kaleidiosguns.gun.accuracy.modified": "§dAccuracy: §f%s§r",
+	"tooltip.kaleidiosguns.gun.accuracy.perfect": "§2Accuracy: §fPerfect§r",
+	"tooltip.kaleidiosguns.gun.accuracy.perfect.modified": "§dAccuracy: §fPerfect§r",
+	"tooltip.kaleidiosguns.gun.chance_free": "§2Chance to not consume ammo: §f%s%%§r",
+	"tooltip.kaleidiosguns.gun.chance_free.modified": "§dChance to not consume ammo: §f%s%%§r",
+	"tooltip.kaleidiosguns.gun.ignore_invulnerability": "Projectiles ignore invulnerability time",
+	"tooltip.kaleidiosguns.shotgun.shots": "Fires %s projectiles at once",
+	"tooltip.kaleidiosguns.gatling.hold": "Slows user while firing",
+
+	"tooltip.kaleidiosguns.blaze_bullet": "Sets entities on fire",
+
+	"tooltip.kaleidiosguns.hunger_bullet": "Uses hunger as ammo",
+
+	"itemGroup.kaleidiosguns": "Guns Without Roses",
+
+	"enchantment.kaleidiosguns.impact": "Impact",
+	"enchantment.kaleidiosguns.impact.desc": "Increases projectile damage",
+	"enchantment.kaleidiosguns.bullseye": "Bullseye",
+	"enchantment.kaleidiosguns.bullseye.desc": "Increases projectile accuracy",
+	"enchantment.kaleidiosguns.sleight_of_hand": "Sleight of Hand",
+	"enchantment.kaleidiosguns.sleight_of_hand.desc": "Decreases fire delay",
+	"enchantment.kaleidiosguns.preserving": "Preserving",
+	"enchantment.kaleidiosguns.preserving.desc": "Gives a chance to not consume ammo when firing",
+
+	"entity.kaleidiosguns.bullet": "Bullet",
+
+	"subtitles.kaleidiosguns.item.gun.shoot": "Gun fired",
+	"subtitles.kaleidiosguns.item.shotgun.shoot": "Shotgun fired",
+	"subtitles.kaleidiosguns.item.sniper.shoot": "Sniper fired"
+}

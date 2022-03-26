@@ -1,0 +1,12 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "kaleidiosguns:item/hunger_generator"
+    },
+    "overrides": [
+        {
+            "predicate": { "kaleidiosguns:shot": 1 },
+            "model": "kaleidiosguns:item/hunger_bullet_shot"
+        }
+	]
+}

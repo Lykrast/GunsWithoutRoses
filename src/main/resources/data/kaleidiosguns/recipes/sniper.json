@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"DG ",
+		"SDF",
+		" SI"
+	],
+	"key": {
+		"D": { "tag": "forge:gems/diamond" },
+		"I": { "tag": "forge:ingots/iron" },
+		"S": { "tag": "forge:rods/wooden" },
+		"F": { "item": "minecraft:flint" },
+		"G": { "tag": "forge:glass" }
+	},
+	"result": { "item": "kaleidiosguns:sniper" }
+}

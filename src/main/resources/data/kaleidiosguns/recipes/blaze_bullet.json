@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"BBB",
+		"BPB",
+		"BBB"
+	],
+	"key": {
+		"B": { "item": "kaleidiosguns:iron_bullet" },
+		"P": { "item": "minecraft:blaze_powder" }
+	},
+	"result": { "item": "kaleidiosguns:blaze_bullet", "count": 8 }
+}

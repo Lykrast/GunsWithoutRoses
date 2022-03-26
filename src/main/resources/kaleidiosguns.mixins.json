@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "xyz.kaleidiodev.kaleidiosguns.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "kaleidiosguns.refmap.json",
+  "mixins": [
+    "TrackedEntityMixin"
+  ],
+  "client": [
+  ],
+  "minVersion": "0.8"
+}

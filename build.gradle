@@ -18,8 +18,8 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = "${project.minecraft_version}-${project.mod_version}"
-group = "lykrast.gunswithoutroses"
-archivesBaseName = "gunswithoutroses"
+group = "xyz.kaleidiodev.kaleidiosguns"
+archivesBaseName = "KaleidiosGuns"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
@@ -33,10 +33,10 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'info'
-            arg "-mixin.config=gunswithoutroses.mixins.json"
+            arg "-mixin.config=kaleidiosguns.mixins.json"
 
             mods {
-                gunswithoutroses {
+                kaleidiosguns {
                     source sourceSets.main
                 }
             }
@@ -48,7 +48,7 @@ minecraft {
             property 'forge.logging.console.level', 'info'
 
             mods {
-                gunswithoutroses {
+                kaleidiosguns {
                     source sourceSets.main
                 }
             }
@@ -59,10 +59,10 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'info'
 
-            args '--mod', 'gunswithoutroses', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'kaleidiosguns', '--all', '--output', file('src/generated/resources/')
 
             mods {
-                examplemod {
+                kaleidiosguns {
                     source sourceSets.main
                 }
             }
@@ -80,12 +80,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "MixinConfigs": "gunswithoutroses.mixins.json"
+                "MixinConfigs": "kaleidiosguns.mixins.json"
         ])
     }
 }
 
 mixin {
-    add sourceSets.main, "gunswithoutroses.refmap.json"
-    config 'gunswithoutroses.mixins.json'
+    add sourceSets.main, "kaleidiosguns.refmap.json"
+    config 'kaleidiosguns.mixins.json'
 }
