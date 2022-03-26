@@ -144,7 +144,7 @@ public class GunItem extends ShootableItem {
 	 * Gets the min time in ticks between 2 shots. This takes into account Sleight of Hand enchantment.
 	 */
 	public int getFireDelay(ItemStack stack, @Nullable PlayerEntity player) {
-		return Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * 0.2));
+		return Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * 0.25));
 	}
 
 	/**
