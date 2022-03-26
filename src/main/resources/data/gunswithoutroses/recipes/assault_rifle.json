@@ -1,0 +1,15 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"DIF",
+		"DII",
+		" SI"
+	],
+	"key": {
+		"D": { "tag": "forge:ingots/iron" },
+		"I": { "tag": "forge:ingots/iron" },
+		"S": { "tag": "forge:rods/wooden" },
+		"F": { "item": "minecraft:flint" }
+	},
+	"result": { "item": "gunswithoutroses:assault_rifle" }
+}

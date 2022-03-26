@@ -1,6 +1,6 @@
 {
     "parent": "gunswithoutroses:item/base_gun",
     "textures": {
-        "layer0": "gunswithoutroses:item/diamond_sniper"
+        "layer0": "gunswithoutroses:item/double_barrel_shotgun"
     }
 }

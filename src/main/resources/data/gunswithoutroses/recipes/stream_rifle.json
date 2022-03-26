@@ -6,10 +6,10 @@
 		" SI"
 	],
 	"key": {
-		"D": { "tag": "forge:gems/diamond" },
+		"D": { "tag": "forge:ingots/gold" },
 		"I": { "tag": "forge:ingots/iron" },
 		"S": { "tag": "forge:rods/wooden" },
 		"F": { "item": "minecraft:flint" }
 	},
-	"result": { "item": "gunswithoutroses:diamond_gatling" }
+	"result": { "item": "gunswithoutroses:stream_rifle" }
 }

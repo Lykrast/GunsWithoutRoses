@@ -6,11 +6,11 @@
 		" SI"
 	],
 	"key": {
-		"D": { "tag": "forge:gems/diamond" },
+		"D": { "tag": "forge:ingots_iron" },
 		"I": { "tag": "forge:ingots/iron" },
 		"S": { "tag": "forge:rods/wooden" },
 		"F": { "item": "minecraft:flint" },
 		"G": { "tag": "forge:glass" }
 	},
-	"result": { "item": "gunswithoutroses:diamond_sniper" }
+	"result": { "item": "gunswithoutroses:carbine" }
 }

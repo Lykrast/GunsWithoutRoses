@@ -67,15 +67,6 @@ public class GunsWithoutRosesConfig {
                 .defineInRange("ironFireDelay", 12, 0, 48);
         builder.pop();
 
-        builder.push("gold_gun");
-        goldDamageMultiplier = builder
-                .comment("Define the Damage multiplier for Gold guns")
-                .defineInRange("goldDamageMultiplier", 1.5D, 0.5D, 1.5D);
-        goldFireDelay = builder
-                .comment("Configure the Fire delay for Gold Guns")
-                .defineInRange("goldFireDelay", 28, 0, 48);
-        builder.pop();
-
         builder.push("diamond_weapons");
         diamondShotgunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Diamond Shotguns")
@@ -117,7 +108,7 @@ public class GunsWithoutRosesConfig {
                 .defineInRange("diamondAssaultDamageMultiplier", 0.75D, 0.5D, 2.5D);
         diamondAssaultFireDelay = builder
                 .comment("Configure the Fire delay for Diamond SMG")
-                .defineInRange("diamondAssaultFireDelay", 6, 0, 48);
+                .defineInRange("diamondAssaultFireDelay", 5, 0, 48);
 
         diamondStreamGatlingDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Diamond SMG")
@@ -125,14 +116,6 @@ public class GunsWithoutRosesConfig {
         diamondStreamGatlingFireDelay = builder
                 .comment("Configure the Fire delay for Diamond SMG")
                 .defineInRange("diamondStreamGatlingFireDelay", 4, 0, 48);
-
-        diamondGatlingDamageMultiplier = builder
-                .comment("Define the Damage multiplier for Diamond Gatlings")
-                .defineInRange("diamondGatlingDamageMultiplier", 0.75D, 0.5D, 2.5D);
-        diamondGatlingFireDelay = builder
-                .comment("Configure the Fire delay for Diamond Gatlings")
-                .defineInRange("diamondGatlingFireDelay", 4, 0, 48);
-        builder.pop();
 
         builder.push("bullet_config");
         flintBulletDamage = builder

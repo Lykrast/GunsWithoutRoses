@@ -1,9 +1,12 @@
 {
-	"item.gunswithoutroses.iron_gun": "Iron Pistol",
-	"item.gunswithoutroses.gold_gun": "Gold Pistol",
-	"item.gunswithoutroses.diamond_shotgun": "Diamond Shotgun",
-	"item.gunswithoutroses.diamond_sniper": "Diamond Sniper",
-	"item.gunswithoutroses.diamond_gatling": "Diamond Gatling",
+	"item.gunswithoutroses.pistol": "Pistol",
+	"item.gunswithoutroses.shotgun": "Shotgun",
+	"item.gunswithoutroses.double_barrel_shotgun": "Double Barrel Shotgun",
+	"item.gunswithoutroses.sniper": "Sniper",
+	"item.gunswithoutroses.carbine": "Carbine",
+	"item.gunswithoutroses.machine_pistol": "Machine Pistol",
+	"item.gunswithoutroses.stream_rifle": "Stream Rifle",
+	"item.gunswithoutroses.assault_rifle": "Assault Rifle",
 
 	"item.gunswithoutroses.flint_bullet": "Flint Bullet",
 	"item.gunswithoutroses.iron_bullet": "Iron Bullet",

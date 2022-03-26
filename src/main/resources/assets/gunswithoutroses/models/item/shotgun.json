@@ -1,6 +1,6 @@
 {
     "parent": "gunswithoutroses:item/base_gun",
     "textures": {
-        "layer0": "gunswithoutroses:item/iron_gun"
+        "layer0": "gunswithoutroses:item/shotgun"
     }
 }

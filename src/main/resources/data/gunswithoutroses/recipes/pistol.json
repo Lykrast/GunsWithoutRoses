@@ -10,5 +10,5 @@
 		"S": { "tag": "forge:rods/wooden" },
 		"F": { "item": "minecraft:flint" }
 	},
-	"result": { "item": "gunswithoutroses:iron_gun" }
+	"result": { "item": "gunswithoutroses:pistol" }
 }

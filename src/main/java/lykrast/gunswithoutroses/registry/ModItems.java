@@ -17,12 +17,10 @@ public class ModItems {
 
 	public static GunItem
 			ironGun,
-			goldGun,
 			diamondShotgun,
 			doubleBarrelShotgun,
 			carbineSniper,
 			diamondSniper,
-			diamondGatling,
 			smgGatling,
 			streamGatling,
 			assaultGatling;
@@ -34,22 +32,20 @@ public class ModItems {
 		IForgeRegistry<Item> reg = event.getRegistry();
 
 		// Pistols
-		ironGun = initItem(reg, new GunItem(defP().durability(513), 0, GunsWithoutRosesConfig.ironDamageMultiplier.get(), GunsWithoutRosesConfig.ironFireDelay.get(), 5, 14).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "iron_gun").projectileSpeed(4);
-		goldGun = initItem(reg, new GunItem(defP().durability(104), 0, GunsWithoutRosesConfig.goldDamageMultiplier.get(), GunsWithoutRosesConfig.goldFireDelay.get(), 5, 22).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "gold_gun").projectileSpeed(4);
+		ironGun = initItem(reg, new GunItem(defP().durability(1000), 0, GunsWithoutRosesConfig.ironDamageMultiplier.get(), GunsWithoutRosesConfig.ironFireDelay.get(), 5, 14).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "pistol").projectileSpeed(16);
 
 		// Shotguns
-		diamondShotgun = initItem(reg, new ShotgunItem(defP().durability(2076), 0, GunsWithoutRosesConfig.diamondShotgunDamageMultiplier.get(), GunsWithoutRosesConfig.diamondShotgunFireDelay.get(), 6, 10, 5).ignoreInvulnerability(true).fireSound(ModSounds.shotgun).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_shotgun").projectileSpeed(16);
-		doubleBarrelShotgun = initItem(reg, new ShotgunItem(defP().durability(2076), 0, GunsWithoutRosesConfig.diamondDoubleShotgunDamageMultiplier.get(), GunsWithoutRosesConfig.diamondDoubleShotgunFireDelay.get(), 20, 10, 10).ignoreInvulnerability(true).fireSound(ModSounds.shotgun).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "double_barrel_shotgun").projectileSpeed(16);
+		diamondShotgun = initItem(reg, new ShotgunItem(defP().durability(2000), 0, GunsWithoutRosesConfig.diamondShotgunDamageMultiplier.get(), GunsWithoutRosesConfig.diamondShotgunFireDelay.get(), 5, 10, 5).ignoreInvulnerability(true).fireSound(ModSounds.shotgun).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "shotgun").projectileSpeed(16);
+		doubleBarrelShotgun = initItem(reg, new ShotgunItem(defP().durability(500), 0, GunsWithoutRosesConfig.diamondDoubleShotgunDamageMultiplier.get(), GunsWithoutRosesConfig.diamondDoubleShotgunFireDelay.get(), 10, 23, 10).ignoreInvulnerability(true).fireSound(ModSounds.shotgun).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "double_barrel_shotgun").projectileSpeed(16);
 
 		// Snipers
-		diamondSniper = initItem(reg, new GunItem(defP().durability(2076), 0, GunsWithoutRosesConfig.diamondSniperDamageMultiplier.get(), GunsWithoutRosesConfig.diamondSniperFireDelay.get(), 0, 10).projectileSpeed(32).fireSound(ModSounds.sniper).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_sniper");
-		carbineSniper = initItem(reg, new GunItem(defP().durability(2076), 0, GunsWithoutRosesConfig.diamondCarbineDamageMultiplier.get(), GunsWithoutRosesConfig.diamondCarbineFireDelay.get(), 0, 10).projectileSpeed(32).fireSound(ModSounds.sniper).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "carbine_sniper");
+		diamondSniper = initItem(reg, new GunItem(defP().durability(2000), 0, GunsWithoutRosesConfig.diamondSniperDamageMultiplier.get(), GunsWithoutRosesConfig.diamondSniperFireDelay.get(), 0, 10).projectileSpeed(32).fireSound(ModSounds.sniper).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "sniper");
+		carbineSniper = initItem(reg, new GunItem(defP().durability(1000), 0, GunsWithoutRosesConfig.diamondCarbineDamageMultiplier.get(), GunsWithoutRosesConfig.diamondCarbineFireDelay.get(), 0, 14).projectileSpeed(16).fireSound(ModSounds.sniper).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "carbine");
 
 		// Gatlings
-		diamondGatling = initItem(reg, new GatlingItem(defP().durability(2076), 0, GunsWithoutRosesConfig.diamondGatlingDamageMultiplier.get(), GunsWithoutRosesConfig.diamondGatlingFireDelay.get(), 4, 10).ignoreInvulnerability(true).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_gatling").projectileSpeed(16);
-		smgGatling = initItem(reg, new GatlingItem(defP().durability(2076), 0, GunsWithoutRosesConfig.diamondSmgDamageMultiplier.get(), GunsWithoutRosesConfig.diamondSmgFireDelay.get(), 15, 10).ignoreInvulnerability(true).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "smg_gatling").projectileSpeed(16);
-		streamGatling = initItem(reg, new GatlingItem(defP().durability(2076), 0, GunsWithoutRosesConfig.diamondStreamGatlingDamageMultiplier.get(), GunsWithoutRosesConfig.diamondStreamGatlingFireDelay.get(), 5, 10).ignoreInvulnerability(true).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "stream_gatling").projectileSpeed(3);
-		assaultGatling = initItem(reg, new GatlingItem(defP().durability(2076), 0, GunsWithoutRosesConfig.diamondAssaultDamageMultiplier.get(), GunsWithoutRosesConfig.diamondAssaultFireDelay.get(), 10, 10).ignoreInvulnerability(true).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "assault_gatling").projectileSpeed(16);
+		smgGatling = initItem(reg, new GatlingItem(defP().durability(2000), 0, GunsWithoutRosesConfig.diamondSmgDamageMultiplier.get(), GunsWithoutRosesConfig.diamondSmgFireDelay.get(), 10, 10).ignoreInvulnerability(true).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "machine_pistol").projectileSpeed(16);
+		streamGatling = initItem(reg, new GatlingItem(defP().durability(500), 0, GunsWithoutRosesConfig.diamondStreamGatlingDamageMultiplier.get(), GunsWithoutRosesConfig.diamondStreamGatlingFireDelay.get(), 0, 23).ignoreInvulnerability(true).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "stream_rifle").projectileSpeed(4);
+		assaultGatling = initItem(reg, new GatlingItem(defP().durability(1000), 0, GunsWithoutRosesConfig.diamondAssaultDamageMultiplier.get(), GunsWithoutRosesConfig.diamondAssaultFireDelay.get(), 5, 14).ignoreInvulnerability(true).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "assault_rifle").projectileSpeed(16);
 
         // Bullets
 		flintBullet = initItem(reg, new BulletItem(defP(), GunsWithoutRosesConfig.flintBulletDamage.get()), "flint_bullet");
