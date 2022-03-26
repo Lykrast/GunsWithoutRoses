@@ -5,7 +5,7 @@ license="MIT License https://github.com/Lykrast/GunsWithoutRoses/blob/master/LIC
 
 [[mods]]
 modId="kaleidiosguns"
-version="${version}"
+version="${file.jarVersion}"
 displayName="Kaleidio's Guns"
 #displayURL="https://www.curseforge.com/minecraft/mc-mods/guns-without-roses"
 credits="freesound.org for sounds, Rye for naming the Cherrounds, Lykrast for the original Guns Without Roses Mod"
