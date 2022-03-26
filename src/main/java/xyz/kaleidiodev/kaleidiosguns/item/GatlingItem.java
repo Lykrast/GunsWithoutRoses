@@ -60,7 +60,7 @@ public class GatlingItem extends GunItem {
 						if (!bulletFree) bulletItem.consume(ammo, player);
 					}
 
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, 1.0F, 1.0F);
 					player.awardStat(Stats.ITEM_USED.get(this));
 				}
 			}

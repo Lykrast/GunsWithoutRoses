@@ -77,7 +77,7 @@ public class GunItem extends ShootableItem {
 				if (!bulletFree) bulletItem.consume(ammo, player);
 			}
 
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, 1.0F, 1.0F);
 			player.awardStat(Stats.ITEM_USED.get(this));
 
 			player.getCooldowns().addCooldown(this, getFireDelay(gun, player));
@@ -97,8 +97,7 @@ public class GunItem extends ShootableItem {
 	 * @param bulletFree true if no ammo was actually consumed (creative or Preserving enchant for example)
 	 */
 	protected void fireWeapon(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
-		BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
-		//shot.shootFromRotation(player, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
+		BulletEntity shot = bulletItem.createProjectile(world, ammo, player, gun.getItem() == ModItems.streamGatling);
 		this.shootProjectile(shot, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);

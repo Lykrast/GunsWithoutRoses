@@ -29,10 +29,10 @@ public class HungerBulletItem extends BulletItem {
 	}
 
 	@Override
-	public BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter) {
+	public BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter, boolean isPlasma) {
 		ItemStack fake = new ItemStack(this);
 		fake.getOrCreateTag().putBoolean("shot", true);
-		return super.createProjectile(world, fake, shooter);
+		return super.createProjectile(world, fake, shooter, isPlasma);
 	}
 
 	@Override

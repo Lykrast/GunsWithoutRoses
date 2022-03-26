@@ -13,7 +13,7 @@ public interface IBullet {
 	/**
 	 * Creates a projectile and set its stats and stuff. The gun will give it velocity and spawn it in the world.
 	 */
-	BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter);
+	BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter, boolean isPlasma);
 
 	/**
 	 * Uses up 1 item worth of ammo. Can be used for RF or magic based bullet pouches or something.

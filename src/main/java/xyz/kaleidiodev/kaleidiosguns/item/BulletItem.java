@@ -26,9 +26,11 @@ public class BulletItem extends Item implements IBullet {
 	}
 
 	@Override
-	public BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter) {
+	public BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter, boolean isPlasma) {
+		ItemStack fake = new ItemStack(this);
+		fake.getOrCreateTag().putBoolean("isPlasma", isPlasma);
 		BulletEntity entity = new BulletEntity(world, shooter);
-		entity.setItem(stack);
+		entity.setItem(fake);
 		entity.setDamage(damage);
 		return entity;
 	}
@@ -47,4 +49,8 @@ public class BulletItem extends Item implements IBullet {
 		tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.bullet.damage", damage).withStyle(TextFormatting.DARK_GREEN));
 	}
 
+	@Override
+	public boolean isFoil(ItemStack pStack) {
+		return pStack.getOrCreateTag().getBoolean("isPlasma");
+	}
 }

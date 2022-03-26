@@ -37,10 +37,6 @@ public class BulletEntity extends AbstractFireballEntity {
 		this.setNoGravity(true);
 	}
 
-	public BulletEntity(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
-		super(ModEntities.BULLET, x, y, z, accelX, accelY, accelZ, worldIn);
-	}
-
 	@Override
 	public void tick() {
 		//Using a thing I save so that bullets don't get clogged up on chunk borders
@@ -92,6 +88,7 @@ public class BulletEntity extends AbstractFireballEntity {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("tsf", ticksSinceFired);
 		compound.putDouble("damage", damage);
+		//compound.putBoolean("isPlasma", isPlasma);
 		if (ignoreInvulnerability) compound.putBoolean("ignoreinv", ignoreInvulnerability);
 		if (knockbackStrength != 0) compound.putDouble("knockback", knockbackStrength);
 	}
@@ -101,6 +98,7 @@ public class BulletEntity extends AbstractFireballEntity {
 		super.readAdditionalSaveData(compound);
 		ticksSinceFired = compound.getInt("tsf");
 		damage = compound.getDouble("damage");
+		//isPlasma = compound.getBoolean("isPlasma");
 		//The docs says if it's not here it's gonna be false/0 so it should be good
 		ignoreInvulnerability = compound.getBoolean("ignoreinv");
 		knockbackStrength = compound.getDouble("knockback");

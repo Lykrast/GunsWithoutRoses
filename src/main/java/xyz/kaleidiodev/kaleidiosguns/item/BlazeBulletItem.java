@@ -21,8 +21,8 @@ public class BlazeBulletItem extends BulletItem {
 	}
 
 	@Override
-	public BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter) {
-		BulletEntity entity = super.createProjectile(world, stack, shooter);
+	public BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter, boolean isPlasma) {
+		BulletEntity entity = super.createProjectile(world, stack, shooter, isPlasma);
 		entity.setSecondsOnFire(100);
 		return entity;
 	}
