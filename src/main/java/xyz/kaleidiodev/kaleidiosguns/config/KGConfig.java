@@ -70,7 +70,7 @@ public class KGConfig {
 
         diamondDoubleShotgunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Double Barrel Shotguns")
-                .defineInRange("diamondDoubleShotgunDamageMultiplier", 0.75D, 0.5D, 1.5D);
+                .defineInRange("diamondDoubleShotgunDamageMultiplier", 0.5D, 0.5D, 1.5D);
         diamondDoubleShotgunFireDelay = builder
                 .comment("Configure the Fire delay for Double Barrel Shotguns")
                 .defineInRange("diamondDoubleShotgunFireDelay", 60, 0, 48);
