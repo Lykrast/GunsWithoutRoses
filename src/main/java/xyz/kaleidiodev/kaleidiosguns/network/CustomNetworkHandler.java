@@ -1,5 +1,7 @@
 package xyz.kaleidiodev.kaleidiosguns.network;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.event.EventNetworkChannel;
 import xyz.kaleidiodev.kaleidiosguns.KaleidiosGuns;
@@ -24,6 +26,6 @@ public class CustomNetworkHandler {
                 .serverAcceptedVersions(serverAcceptedVersions)
                 .eventNetworkChannel();
 
-        channel.registerObject(new ClientPacketHandler());
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> channel.registerObject(new ClientPacketHandler()));
     }
 }
