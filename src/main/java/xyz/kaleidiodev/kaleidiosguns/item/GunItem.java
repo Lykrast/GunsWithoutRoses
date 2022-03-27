@@ -67,6 +67,7 @@ public class GunItem extends ShootableItem {
 
 			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
 			if (!world.isClientSide) {
+				player.startUsingItem(hand);
 				boolean bulletFree = player.abilities.instabuild || !shouldConsumeAmmo(gun, player);
 
 				//Workaround for quivers not respecting getAmmoPredicate()
@@ -334,5 +335,10 @@ public class GunItem extends ShootableItem {
 		float f1 = -MathHelper.sin((pX + pZ) * ((float)Math.PI / 180F));
 		float f2 = MathHelper.cos(pY * ((float)Math.PI / 180F)) * MathHelper.cos(pX * ((float)Math.PI / 180F));
 		entity.shoot(f, f1, f2, pVelocity, pInaccuracy);
+	}
+
+	@Override
+	public int getUseDuration(ItemStack pStack) {
+		return Math.max(getFireDelay(pStack, null) / 20, 10);
 	}
 }
