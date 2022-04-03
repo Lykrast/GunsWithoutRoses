@@ -1,0 +1,53 @@
+{
+	"item.gunswithoutroses.iron_gun": "Железный пистолет",
+	"item.gunswithoutroses.gold_gun": "Золотой пистолет",
+	"item.gunswithoutroses.diamond_shotgun": "Алмазный дробовик",
+	"item.gunswithoutroses.diamond_sniper": "Алмазная винтовка",
+	"item.gunswithoutroses.diamond_gatling": "Алмазный пулемет Гатлинга",
+	
+	"item.gunswithoutroses.flint_bullet": "Кремниевая пуля",
+	"item.gunswithoutroses.iron_bullet": "Железная пуля",
+	"item.gunswithoutroses.blaze_bullet": "Огненная пуля",
+	"item.gunswithoutroses.hunger_bullet": "Пасть чревоугодия",
+	
+	"tooltip.gunswithoutroses.shift": "§7Удерживайте §fSHIFT§7 чтобы увидеть характеристики§r",
+	"tooltip.gunswithoutroses.bullet.damage": "%d урона",
+	"tooltip.gunswithoutroses.gun.damage.flat": "§2Урон: §f+%s§r",
+	"tooltip.gunswithoutroses.gun.damage.mult": "§2Урон: §fx%s§r",
+	"tooltip.gunswithoutroses.gun.damage.both": "§2Урон: §fx%s +%s§r",
+	"tooltip.gunswithoutroses.gun.damage.flat.modified": "§dУрон: §f+%s§r",
+	"tooltip.gunswithoutroses.gun.damage.mult.modified": "§dУрон: §fx%s§r",
+	"tooltip.gunswithoutroses.gun.damage.both.modified": "§dУрон: §fx%s +%s§r",
+	"tooltip.gunswithoutroses.gun.firerate": "§2Задержка выстрела: §f%d§7 (§f%d§7 RPM)§r",
+	"tooltip.gunswithoutroses.gun.firerate.modified": "§dЗадержка выстрела: §f%d§7 (§f%d§7 RPM)§r",
+	"tooltip.gunswithoutroses.gun.accuracy": "§2Точность: §f%s§r",
+	"tooltip.gunswithoutroses.gun.accuracy.modified": "§dТочность: §f%s§r",
+	"tooltip.gunswithoutroses.gun.accuracy.perfect": "§2Точность: §fPerfect§r",
+	"tooltip.gunswithoutroses.gun.accuracy.perfect.modified": "§dТочность: §fPerfect§r",
+	"tooltip.gunswithoutroses.gun.chance_free": "§2Шанс не израсходовать боеприпасы: §f%s%%§r",
+	"tooltip.gunswithoutroses.gun.chance_free.modified": "§dШанс не израсходовать боеприпасы: §f%s%%§r",
+	"tooltip.gunswithoutroses.gun.ignore_invulnerability": "Снаряды игнорируют время неуязвимости",
+	"tooltip.gunswithoutroses.shotgun.shots": "Выпускает одновременно %s снарядов",
+	"tooltip.gunswithoutroses.gatling.hold": "Замедляет пользователя при стрельбе",
+	
+	"tooltip.gunswithoutroses.blaze_bullet": "Поджигает сущности",
+	
+	"tooltip.gunswithoutroses.hunger_bullet": "Использует голод вместо боеприпасов",
+	
+	"itemGroup.gunswithoutroses": "Guns Without Roses",
+	
+	"enchantment.gunswithoutroses.impact": "Ударная сила",
+	"enchantment.gunswithoutroses.impact.desc": "Увеличенный урон снарядами",
+	"enchantment.gunswithoutroses.bullseye": "Снайпер",
+	"enchantment.gunswithoutroses.bullseye.desc": "Увеличение точности снарядов",
+	"enchantment.gunswithoutroses.sleight_of_hand": "Ловкость рук",
+	"enchantment.gunswithoutroses.sleight_of_hand.desc": "Уменьшает задержку между выстрелами",
+	"enchantment.gunswithoutroses.preserving": "Экономист",
+	"enchantment.gunswithoutroses.preserving.desc": "Дает шанс не расходовать боеприпасы при стрельбе",
+	
+	"entity.gunswithoutroses.bullet": "Пуля",
+
+	"subtitles.gunswithoutroses.item.gun.shoot": "Пистолет выстрелил",
+	"subtitles.gunswithoutroses.item.shotgun.shoot": "Дробовик выстрелил",
+	"subtitles.gunswithoutroses.item.sniper.shoot": "Винтовка выстрелила"
+}
