@@ -1,13 +1,11 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		"###",
-		"#G#",
-		"###"
-	],
-	"key": {
-		"#": { "item": "minecraft:flint" },
-		"G": { "tag": "forge:gunpowder" }
-	},
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+		{ "item": "minecraft:flint" },
+		{ "item": "minecraft:flint" },
+		{ "item": "minecraft:flint" },
+		{ "item": "minecraft:flint" },
+        { "tag": "forge:gunpowder" }
+    ],
 	"result": { "item": "gunswithoutroses:flint_bullet", "count": 32 }
 }

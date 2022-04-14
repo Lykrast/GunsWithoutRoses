@@ -1,13 +1,11 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		"###",
-		"#G#",
-		"###"
-	],
-	"key": {
-		"#": { "tag": "forge:ingots/iron" },
-		"G": { "tag": "forge:gunpowder" }
-	},
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+		{ "tag": "forge:ingots/iron" },
+		{ "tag": "forge:ingots/iron" },
+		{ "tag": "forge:ingots/iron" },
+		{ "tag": "forge:ingots/iron" },
+        { "tag": "forge:gunpowder" }
+    ],
 	"result": { "item": "gunswithoutroses:iron_bullet", "count": 32 }
 }
