@@ -114,7 +114,7 @@ public class BulletEntity extends AbstractFireballEntity {
 
 	public void setIgnoreInvulnerability(boolean ignoreInvulnerability) {
 		//quick workaround, always make it ignore invulnerability.
-		this.ignoreInvulnerability = true;
+		this.ignoreInvulnerability = ignoreInvulnerability;
 	}
 
 	/**
