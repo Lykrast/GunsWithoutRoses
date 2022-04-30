@@ -89,8 +89,7 @@ public class BulletEntity extends AbstractFireballEntity {
 		compound.putInt("tsf", ticksSinceFired);
 		compound.putDouble("damage", damage);
 		//compound.putBoolean("isPlasma", isPlasma);
-		//quick workaround for ignore invulnerability; make it so it always gets ignored.
-		compound.putBoolean("ignoreinv", true);
+		if (ignoreInvulnerability) compound.putBoolean("ignoreinv", ignoreInvulnerability);
 		if (knockbackStrength != 0) compound.putDouble("knockback", knockbackStrength);
 	}
 
@@ -114,7 +113,8 @@ public class BulletEntity extends AbstractFireballEntity {
 	}
 
 	public void setIgnoreInvulnerability(boolean ignoreInvulnerability) {
-		this.ignoreInvulnerability = ignoreInvulnerability;
+		//quick workaround, always make it ignore invulnerability.
+		this.ignoreInvulnerability = true;
 	}
 
 	/**
