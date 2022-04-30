@@ -34,17 +34,17 @@ public class ModItems {
 		ironGun = initItem(reg, new GunItem(defP().durability(1000), 0, KGConfig.ironDamageMultiplier.get(), KGConfig.ironFireDelay.get(), 1.5, 14).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "pistol").projectileSpeed(12).fireSound(ModSounds.pistol);
 
 		// Shotguns
-		diamondShotgun = initItem(reg, new ShotgunItem(defP().durability(2000), 0, KGConfig.diamondShotgunDamageMultiplier.get(), KGConfig.diamondShotgunFireDelay.get(), 5, 10, 5).ignoreInvulnerability(true).fireSound(ModSounds.shotgun).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "shotgun").projectileSpeed(12);
-		doubleBarrelShotgun = initItem(reg, new ShotgunItem(defP().durability(500), 0, KGConfig.diamondDoubleShotgunDamageMultiplier.get(), KGConfig.diamondDoubleShotgunFireDelay.get(), 10, 23, 10).ignoreInvulnerability(true).fireSound(ModSounds.double_shotgun).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "double_barrel_shotgun").projectileSpeed(12);
+		diamondShotgun = initItem(reg, new ShotgunItem(defP().durability(400), 0, KGConfig.diamondShotgunDamageMultiplier.get(), KGConfig.diamondShotgunFireDelay.get(), 5, 10, 5).ignoreInvulnerability(true).fireSound(ModSounds.shotgun).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "shotgun").projectileSpeed(12);
+		doubleBarrelShotgun = initItem(reg, new ShotgunItem(defP().durability(100), 0, KGConfig.diamondDoubleShotgunDamageMultiplier.get(), KGConfig.diamondDoubleShotgunFireDelay.get(), 10, 23, 10).ignoreInvulnerability(true).fireSound(ModSounds.double_shotgun).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "double_barrel_shotgun").projectileSpeed(12);
 
 		// Snipers
-		diamondSniper = initItem(reg, new GunItem(defP().durability(2000), 0, KGConfig.diamondSniperDamageMultiplier.get(), KGConfig.diamondSniperFireDelay.get(), 0, 10).projectileSpeed(24).fireSound(ModSounds.sniper).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "sniper");
-		carbineSniper = initItem(reg, new GunItem(defP().durability(1000), 0, KGConfig.diamondCarbineDamageMultiplier.get(), KGConfig.diamondCarbineFireDelay.get(), 0, 14).projectileSpeed(12).fireSound(ModSounds.carbine).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "carbine");
+		diamondSniper = initItem(reg, new GunItem(defP().durability(200), 0, KGConfig.diamondSniperDamageMultiplier.get(), KGConfig.diamondSniperFireDelay.get(), 0, 10).projectileSpeed(24).fireSound(ModSounds.sniper).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "sniper");
+		carbineSniper = initItem(reg, new GunItem(defP().durability(500), 0, KGConfig.diamondCarbineDamageMultiplier.get(), KGConfig.diamondCarbineFireDelay.get(), 0, 14).projectileSpeed(12).fireSound(ModSounds.carbine).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "carbine");
 
 		// Gatlings
 		smgGatling = initItem(reg, new GatlingItem(defP().durability(2000), 0, KGConfig.diamondSmgDamageMultiplier.get(), KGConfig.diamondSmgFireDelay.get(), 5, 10).ignoreInvulnerability(true).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "machine_pistol").projectileSpeed(12);
-		streamGatling = initItem(reg, new GatlingItem(defP().durability(500), 0, KGConfig.diamondStreamGatlingDamageMultiplier.get(), KGConfig.diamondStreamGatlingFireDelay.get(), 0, 23).ignoreInvulnerability(true).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "stream_rifle").projectileSpeed(4).fireSound(ModSounds.stream_rifle);
-		assaultGatling = initItem(reg, new GatlingItem(defP().durability(1000), 0, KGConfig.diamondAssaultDamageMultiplier.get(), KGConfig.diamondAssaultFireDelay.get(), 2.5, 14).ignoreInvulnerability(true).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "assault_rifle").projectileSpeed(12).fireSound(ModSounds.smg);
+		streamGatling = initItem(reg, new GatlingItem(defP().durability(1000), 0, KGConfig.diamondStreamGatlingDamageMultiplier.get(), KGConfig.diamondStreamGatlingFireDelay.get(), 0, 23).ignoreInvulnerability(true).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "stream_rifle").projectileSpeed(4).fireSound(ModSounds.stream_rifle);
+		assaultGatling = initItem(reg, new GatlingItem(defP().durability(2000), 0, KGConfig.diamondAssaultDamageMultiplier.get(), KGConfig.diamondAssaultFireDelay.get(), 2.5, 14).ignoreInvulnerability(true).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "assault_rifle").projectileSpeed(12).fireSound(ModSounds.smg);
 
         // Bullets
 		flintBullet = initItem(reg, new BulletItem(defP(), KGConfig.flintBulletDamage.get()), "flint_bullet");
