@@ -87,7 +87,7 @@ public class KGConfig {
                 .defineInRange("diamondCarbineDamageMultiplier", 1.5D, 0.5D, 2.5D);
         diamondCarbineFireDelay = builder
                 .comment("Configure the Fire delay for Carbines")
-                .defineInRange("diamondCarbineFireDelay", 28, 0, 48);
+                .defineInRange("diamondCarbineFireDelay", 24, 0, 48);
 
         diamondSmgDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Machine Pistols")
