@@ -119,7 +119,7 @@ public class KGConfig {
                 .defineInRange("fireDelayModifier", 7, 1, 20);
         blazeBulletDamage = builder
                 .comment("Configure the damage of Blaze Bullets")
-                .defineInRange("fireDelayModifier", 10, 1, 20);
+                .defineInRange("fireDelayModifier", 8, 1, 20);
         hungerBulletDamage = builder
                 .comment("Configure the damage of Hunger Bullets")
                 .defineInRange("fireDelayModifier", 6, 1, 20);
