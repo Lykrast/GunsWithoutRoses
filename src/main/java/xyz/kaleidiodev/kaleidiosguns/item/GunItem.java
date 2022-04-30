@@ -40,7 +40,7 @@ public class GunItem extends ShootableItem {
 	protected double inaccuracy;
 	protected double projectileSpeed = 3;
 	private final int enchantability;
-	protected boolean ignoreInvulnerability = false;
+	protected boolean ignoreInvulnerability = true;
 	protected double chanceFreeShot = 0;
 	protected SoundEvent fireSound = ModSounds.gun;
 	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
