@@ -23,6 +23,9 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import xyz.kaleidiodev.kaleidiosguns.entity.BulletEntity;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEnchantments;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModItems;
@@ -32,6 +35,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+
+import static xyz.kaleidiodev.kaleidiosguns.KaleidiosGuns.VivecraftForgeExtensionPresent;
 
 public class GunItem extends ShootableItem {
 
@@ -100,11 +105,13 @@ public class GunItem extends ShootableItem {
 	 */
 	protected void fireWeapon(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
 		BulletEntity shot = bulletItem.createProjectile(world, ammo, player, gun.getItem() == ModItems.streamGatling);
-		shot.shootFromRotation(player, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
+		shot.shootFromRotation(player, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), VivecraftForgeExtensionPresent ? 0.0F : (float)getInaccuracy(gun, player));
 
 		//subtract player velocity to make the bullet independent
 		Vector3d projectileMotion = player.getDeltaMovement();
 		shot.setDeltaMovement(shot.getDeltaMovement().subtract(projectileMotion.x, player.isOnGround() ? 0.0D : projectileMotion.y, projectileMotion.z));
+
+		shot.setInaccuracy(getInaccuracy(gun, player));
 
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);
@@ -346,5 +353,22 @@ public class GunItem extends ShootableItem {
 	@Override
 	public int getUseDuration(ItemStack pStack) {
 		return Math.max(getFireDelay(pStack, null) / 20, 10);
+	}
+
+	//Event to change add bullet inaccuracy if VivecraftForgeExtension is present
+	@SubscribeEvent(priority = EventPriority.LOW)
+	public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
+		if (event.getEntity() instanceof BulletEntity) {
+			BulletEntity shot = (BulletEntity)event.getEntity();
+			Vector3d direction = shot.getDeltaMovement();
+			double velocity = direction.length();
+			direction = direction.normalize().add(random.nextGaussian() * 0.0075 * shot.getInaccuracy(), random.nextGaussian() * 0.0075 * shot.getInaccuracy(), random.nextGaussian() * 0.0075 * shot.getInaccuracy()).scale(velocity);
+			shot.setDeltaMovement(direction);
+			float horizontalDistance = MathHelper.sqrt(direction.x * direction.x + direction.z * direction.z);
+			shot.yRot = (float)(MathHelper.atan2(direction.x, direction.z) * (double)(180F / (float)Math.PI));
+			shot.xRot = (float)(MathHelper.atan2(direction.y, horizontalDistance) * (double)(180F / (float)Math.PI));
+			shot.yRotO = shot.yRot;
+			shot.xRotO = shot.xRot;
+		}
 	}
 }

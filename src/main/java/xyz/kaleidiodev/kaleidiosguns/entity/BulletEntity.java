@@ -19,6 +19,7 @@ import xyz.kaleidiodev.kaleidiosguns.registry.ModEntities;
 public class BulletEntity extends AbstractFireballEntity {
 
 	protected double damage = 1;
+	protected double inaccuracy = 0.0;
 	protected boolean ignoreInvulnerability = false;
 	protected double knockbackStrength = 0;
 	protected int ticksSinceFired;
@@ -110,6 +111,14 @@ public class BulletEntity extends AbstractFireballEntity {
 
 	public double getDamage() {
 		return damage;
+	}
+
+	public double getInaccuracy() {
+		return inaccuracy;
+	}
+
+	public void setInaccuracy(double inaccuracy) {
+		this.inaccuracy = inaccuracy;
 	}
 
 	public void setIgnoreInvulnerability(boolean ignoreInvulnerability) {
