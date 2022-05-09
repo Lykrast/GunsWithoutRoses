@@ -16,6 +16,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -99,7 +100,12 @@ public class GunItem extends ShootableItem {
 	 */
 	protected void fireWeapon(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
 		BulletEntity shot = bulletItem.createProjectile(world, ammo, player, gun.getItem() == ModItems.streamGatling);
-		shot.shootFromRotation(shot, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
+		shot.shootFromRotation(player, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
+
+		//subtract player velocity to make the bullet independent
+		Vector3d projectileMotion = player.getDeltaMovement();
+		shot.setDeltaMovement(shot.getDeltaMovement().subtract(projectileMotion.x, player.isOnGround() ? 0.0D : projectileMotion.y, projectileMotion.z));
+
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);
 		changeBullet(world, player, gun, shot, bulletFree);
