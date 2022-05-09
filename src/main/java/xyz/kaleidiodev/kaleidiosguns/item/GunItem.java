@@ -99,7 +99,7 @@ public class GunItem extends ShootableItem {
 	 */
 	protected void fireWeapon(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
 		BulletEntity shot = bulletItem.createProjectile(world, ammo, player, gun.getItem() == ModItems.streamGatling);
-		this.shootProjectile(shot, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
+		shot.shootFromRotation(shot, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);
 		changeBullet(world, player, gun, shot, bulletFree);
