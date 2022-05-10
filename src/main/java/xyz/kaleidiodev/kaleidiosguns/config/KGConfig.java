@@ -7,11 +7,11 @@ public class KGConfig {
     public static ForgeConfigSpec spec;
 
     //Guns
-    public static ForgeConfigSpec.DoubleValue ironDamageMultiplier;
-    public static ForgeConfigSpec.IntValue ironFireDelay;
-    public static ForgeConfigSpec.IntValue ironEnchantability;
-    public static ForgeConfigSpec.IntValue ironDurability;
-    public static ForgeConfigSpec.DoubleValue ironInaccuracy;
+    public static ForgeConfigSpec.DoubleValue ironPistolDamageMultiplier;
+    public static ForgeConfigSpec.IntValue ironPistolFireDelay;
+    public static ForgeConfigSpec.IntValue ironPistolEnchantability;
+    public static ForgeConfigSpec.IntValue ironPistolDurability;
+    public static ForgeConfigSpec.DoubleValue ironPistolInaccuracy;
 
     public static ForgeConfigSpec.DoubleValue diamondShotgunDamageMultiplier;
     public static ForgeConfigSpec.IntValue diamondShotgunFireDelay;
@@ -19,11 +19,11 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue diamondShotgunDurability;
     public static ForgeConfigSpec.DoubleValue diamondShotgunInaccuracy;
 
-    public static ForgeConfigSpec.DoubleValue diamondDoubleShotgunDamageMultiplier;
-    public static ForgeConfigSpec.IntValue diamondDoubleShotgunFireDelay;
-    public static ForgeConfigSpec.IntValue diamondDoubleShotgunEnchantability;
-    public static ForgeConfigSpec.IntValue diamondDoubleShotgunDurability;
-    public static ForgeConfigSpec.DoubleValue diamondDoubleShotgunInaccuracy;
+    public static ForgeConfigSpec.DoubleValue goldDoubleShotgunDamageMultiplier;
+    public static ForgeConfigSpec.IntValue goldDoubleShotgunFireDelay;
+    public static ForgeConfigSpec.IntValue goldDoubleShotgunEnchantability;
+    public static ForgeConfigSpec.IntValue goldDoubleShotgunDurability;
+    public static ForgeConfigSpec.DoubleValue goldDoubleShotgunInaccuracy;
 
     public static ForgeConfigSpec.DoubleValue diamondSniperDamageMultiplier;
     public static ForgeConfigSpec.IntValue diamondSniperFireDelay;
@@ -31,11 +31,11 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue diamondSniperDurability;
     public static ForgeConfigSpec.DoubleValue diamondSniperInaccuracy;
 
-    public static ForgeConfigSpec.DoubleValue diamondCarbineDamageMultiplier;
-    public static ForgeConfigSpec.IntValue diamondCarbineFireDelay;
-    public static ForgeConfigSpec.IntValue diamondCarbineEnchantability;
-    public static ForgeConfigSpec.IntValue diamondCarbineDurability;
-    public static ForgeConfigSpec.DoubleValue diamondCarbineInaccuracy;
+    public static ForgeConfigSpec.DoubleValue ironCarbineDamageMultiplier;
+    public static ForgeConfigSpec.IntValue ironCarbineFireDelay;
+    public static ForgeConfigSpec.IntValue ironCarbineEnchantability;
+    public static ForgeConfigSpec.IntValue ironCarbineDurability;
+    public static ForgeConfigSpec.DoubleValue ironCarbineInaccuracy;
 
     public static ForgeConfigSpec.DoubleValue diamondSmgDamageMultiplier;
     public static ForgeConfigSpec.IntValue diamondSmgFireDelay;
@@ -43,17 +43,17 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue diamondSmgDurability;
     public static ForgeConfigSpec.DoubleValue diamondSmgInaccuracy;
 
-    public static ForgeConfigSpec.DoubleValue diamondAssaultDamageMultiplier;
-    public static ForgeConfigSpec.IntValue diamondAssaultFireDelay;
-    public static ForgeConfigSpec.IntValue diamondAssaultEnchantability;
-    public static ForgeConfigSpec.IntValue diamondAssaultDurability;
-    public static ForgeConfigSpec.DoubleValue diamondAssaultInaccuracy;
+    public static ForgeConfigSpec.DoubleValue ironAssaultDamageMultiplier;
+    public static ForgeConfigSpec.IntValue ironAssaultFireDelay;
+    public static ForgeConfigSpec.IntValue ironAssaultEnchantability;
+    public static ForgeConfigSpec.IntValue ironAssaultDurability;
+    public static ForgeConfigSpec.DoubleValue ironAssaultInaccuracy;
 
-    public static ForgeConfigSpec.DoubleValue diamondStreamGatlingDamageMultiplier;
-    public static ForgeConfigSpec.IntValue diamondStreamGatlingFireDelay;
-    public static ForgeConfigSpec.IntValue diamondStreamEnchantability;
-    public static ForgeConfigSpec.IntValue diamondStreamDurability;
-    public static ForgeConfigSpec.DoubleValue diamondStreamInaccuracy;
+    public static ForgeConfigSpec.DoubleValue goldStreamDamageMultiplier;
+    public static ForgeConfigSpec.IntValue goldStreamFireDelay;
+    public static ForgeConfigSpec.IntValue goldStreamEnchantability;
+    public static ForgeConfigSpec.IntValue goldStreamDurability;
+    public static ForgeConfigSpec.DoubleValue goldStreamInaccuracy;
 
     //Bullets
     public static ForgeConfigSpec.IntValue flintBulletDamage;
@@ -66,21 +66,21 @@ public class KGConfig {
         builder.comment("Kaleidio's Guns Config");
 
         builder.push("pistols");
-        ironDamageMultiplier = builder
+        ironPistolDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Pistols")
-                .defineInRange("ironDamageModifier", 1D, 0.5D, 1.5D);
-        ironFireDelay = builder
+                .defineInRange("ironPistolDamageModifier", 1D, 0.5D, 1.5D);
+        ironPistolFireDelay = builder
                 .comment("Configure the Fire delay for Pistols")
-                .defineInRange("ironFireDelay", 12, 0, 72000);
-        ironEnchantability = builder
+                .defineInRange("ironPistolFireDelay", 12, 0, 72000);
+        ironPistolEnchantability = builder
                 .comment("Configure the Enchantability for Pistols")
-                .defineInRange("ironEnchantability", 14, 0, 30);
-        ironDurability = builder
+                .defineInRange("ironPistolEnchantability", 14, 0, 30);
+        ironPistolDurability = builder
                 .comment("Configure the Durability for Pistols")
-                .defineInRange("ironDurability", 4000, 0, 32767);
-        ironInaccuracy = builder
+                .defineInRange("ironPistolDurability", 4000, 0, 32767);
+        ironPistolInaccuracy = builder
                 .comment("Configure the Inaccuracy for Pistols")
-                .defineInRange("ironInaccuracy", 2D, 0D, 90D);
+                .defineInRange("ironPistolInaccuracy", 2D, 0D, 90D);
         builder.pop();
 
         builder.push("shotguns");
@@ -100,21 +100,21 @@ public class KGConfig {
                 .comment("Configure the Inaccuracy for Shotguns")
                 .defineInRange("diamondShotgunInaccuracy", 5D, 0D, 90D);
 
-        diamondDoubleShotgunDamageMultiplier = builder
+        goldDoubleShotgunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Double Barrel Shotguns")
-                .defineInRange("diamondDoubleShotgunDamageMultiplier", 0.5D, 0.5D, 1.5D);
-        diamondDoubleShotgunFireDelay = builder
+                .defineInRange("goldDoubleShotgunDamageMultiplier", 0.5D, 0.5D, 1.5D);
+        goldDoubleShotgunFireDelay = builder
                 .comment("Configure the Fire delay for Double Barrel Shotguns")
-                .defineInRange("diamondDoubleShotgunFireDelay", 60, 0, 72000);
-        diamondDoubleShotgunEnchantability = builder
+                .defineInRange("goldDoubleShotgunFireDelay", 60, 0, 72000);
+        goldDoubleShotgunEnchantability = builder
                 .comment("Configure the Enchantability for Double Barrel Shotguns")
-                .defineInRange("diamondDoubleShotgunEnchantability", 23, 0, 30);
-        diamondDoubleShotgunDurability = builder
+                .defineInRange("goldDoubleShotgunEnchantability", 23, 0, 30);
+        goldDoubleShotgunDurability = builder
                 .comment("Configure the Durability for Double Barrel Shotguns")
-                .defineInRange("diamondDoubleShotgunDurability", 160, 0, 32767);
-        diamondDoubleShotgunInaccuracy = builder
+                .defineInRange("goldDoubleShotgunDurability", 160, 0, 32767);
+        goldDoubleShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Double Barrel Shotguns")
-                .defineInRange("diamondDoubleShotgunInaccuracy", 10D, 0D, 90D);
+                .defineInRange("goldDoubleShotgunInaccuracy", 10D, 0D, 90D);
         builder.pop();
 
         builder.push("rifles");
@@ -134,21 +134,21 @@ public class KGConfig {
                 .comment("Configure the Inaccuracy for Snipers")
                 .defineInRange("diamondSniperInaccuracy", 0D, 0D, 90D);
 
-        diamondCarbineDamageMultiplier = builder
+        ironCarbineDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Carbines")
-                .defineInRange("diamondCarbineDamageMultiplier", 1.5D, 0.5D, 2.5D);
-        diamondCarbineFireDelay = builder
+                .defineInRange("ironCarbineDamageMultiplier", 1.5D, 0.5D, 2.5D);
+        ironCarbineFireDelay = builder
                 .comment("Configure the Fire delay for Carbines")
-                .defineInRange("diamondCarbineFireDelay", 24, 0, 72000);
-        diamondCarbineEnchantability = builder
+                .defineInRange("ironCarbineFireDelay", 24, 0, 72000);
+        ironCarbineEnchantability = builder
                 .comment("Configure the Enchantability for Carbines")
-                .defineInRange("diamondCarbineEnchantability", 14, 0, 30);
-        diamondCarbineDurability = builder
+                .defineInRange("ironCarbineEnchantability", 14, 0, 30);
+        ironCarbineDurability = builder
                 .comment("Configure the Durability for Carbines")
-                .defineInRange("diamondCarbineDurability", 1334, 0, 32767);
-        diamondCarbineInaccuracy = builder
+                .defineInRange("ironCarbineDurability", 1334, 0, 32767);
+        ironCarbineInaccuracy = builder
                 .comment("Configure the Inaccuracy for Carbines")
-                .defineInRange("diamondCarbineInaccuracy", 0D, 0D, 90D);
+                .defineInRange("ironCarbineInaccuracy", 0D, 0D, 90D);
         builder.pop();
 
         builder.push("automatics");
@@ -168,37 +168,37 @@ public class KGConfig {
                 .comment("Configure the Inaccuracy for Smgs")
                 .defineInRange("diamondSmgInaccuracy", 5D, 0D, 90D);
 
-        diamondAssaultDamageMultiplier = builder
+        ironAssaultDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Assault Rifles")
-                .defineInRange("diamondAssaultDamageMultiplier", 0.75D, 0.5D, 2.5D);
-        diamondAssaultFireDelay = builder
+                .defineInRange("ironAssaultDamageMultiplier", 0.75D, 0.5D, 2.5D);
+        ironAssaultFireDelay = builder
                 .comment("Configure the Fire delay for Assault Rifles")
-                .defineInRange("diamondAssaultFireDelay", 5, 0, 72000);
-        diamondAssaultEnchantability = builder
+                .defineInRange("ironAssaultFireDelay", 5, 0, 72000);
+        ironAssaultEnchantability = builder
                 .comment("Configure the Enchantability for Assault Rifles")
-                .defineInRange("diamondAssaultEnchantability", 14, 0, 30);
-        diamondAssaultDurability = builder
+                .defineInRange("ironAssaultEnchantability", 14, 0, 30);
+        ironAssaultDurability = builder
                 .comment("Configure the Durability for Assault Rifles")
-                .defineInRange("diamondAssaultDurability", 6000, 0, 32767);
-        diamondAssaultInaccuracy = builder
+                .defineInRange("ironAssaultDurability", 6000, 0, 32767);
+        ironAssaultInaccuracy = builder
                 .comment("Configure the Inaccuracy for Assault Rifles")
-                .defineInRange("diamondAssaultInaccuracy", 2.5D, 0D, 90D);
+                .defineInRange("ironAssaultInaccuracy", 2.5D, 0D, 90D);
 
-        diamondStreamGatlingDamageMultiplier = builder
+        goldStreamDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Stream Rifles")
-                .defineInRange("diamondStreamGatlingDamageMultiplier", 1D, 0.5D, 2.5D);
-        diamondStreamGatlingFireDelay = builder
+                .defineInRange("goldStreamDamageMultiplier", 1D, 0.5D, 2.5D);
+        goldStreamFireDelay = builder
                 .comment("Configure the Fire delay for Stream Rifles")
-                .defineInRange("diamondStreamGatlingFireDelay", 5, 0, 72000);
-        diamondStreamEnchantability = builder
+                .defineInRange("goldStreamFireDelay", 5, 0, 72000);
+        goldStreamEnchantability = builder
                 .comment("Configure the Enchantability for Stream Rifles")
-                .defineInRange("diamondStreamEnchantability", 23, 0, 30);
-        diamondStreamDurability = builder
+                .defineInRange("goldStreamEnchantability", 23, 0, 30);
+        goldStreamDurability = builder
                 .comment("Configure the Durability for Stream Rifles")
-                .defineInRange("diamondStreamDurability", 8000, 0, 32767);
-        diamondStreamInaccuracy = builder
+                .defineInRange("goldStreamDurability", 8000, 0, 32767);
+        goldStreamInaccuracy = builder
                 .comment("Configure the Inaccuracy for Stream Rifles")
-                .defineInRange("diamondStreamInaccuracy", 0D, 0D, 90D);
+                .defineInRange("goldStreamInaccuracy", 0D, 0D, 90D);
         builder.pop();
 
         builder.push("bullet_config");
