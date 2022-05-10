@@ -27,6 +27,8 @@
 	"tooltip.kaleidiosguns.gun.accuracy.modified": "§dAccuracy: §f%s§r",
 	"tooltip.kaleidiosguns.gun.accuracy.perfect": "§2Accuracy: §fPerfect§r",
 	"tooltip.kaleidiosguns.gun.accuracy.perfect.modified": "§dAccuracy: §fPerfect§r",
+	"tooltip.kaleidiosguns.gun.speed": "§2Projectile Speed: §f%s§r",
+	"tooltip.kaleidiosguns.gun.speed.modified": "§dProjectile Speed: §f%s§r",
 	"tooltip.kaleidiosguns.gun.chance_free": "§2Chance to not consume ammo: §f%s%%§r",
 	"tooltip.kaleidiosguns.gun.chance_free.modified": "§dChance to not consume ammo: §f%s%%§r",
 	"tooltip.kaleidiosguns.gun.ignore_invulnerability": "Projectiles ignore invulnerability time",
@@ -47,6 +49,8 @@
 	"enchantment.kaleidiosguns.sleight_of_hand.desc": "Decreases fire delay",
 	"enchantment.kaleidiosguns.preserving": "Preserving",
 	"enchantment.kaleidiosguns.preserving.desc": "Gives a chance to not consume ammo when firing",
+	"enchantment.kaleidiosguns.accelerator": "Accelerator",
+	"enchantment.kaleidiosguns.accelerator.desc": "Accelerates projectile flight speed",
 
 	"entity.kaleidiosguns.bullet": "Bullet",
 

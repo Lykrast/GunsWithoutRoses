@@ -170,8 +170,12 @@ public class GunItem extends ShootableItem {
 		return Math.max(0, inaccuracy / (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) + 1.0));
 	}
 
+	/**
+	 *
+	 * Gets the projectile speed, taking into account Accelerator enchantment.
+	 */
 	public double getProjectileSpeed(ItemStack stack, @Nullable PlayerEntity player) {
-		return projectileSpeed;
+		return Math.max(0, projectileSpeed + (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.accelerator, stack) * 0.25 * projectileSpeed));
 	}
 
 	/**
@@ -213,6 +217,10 @@ public class GunItem extends ShootableItem {
 		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving, stack) >= 1;
 	}
 
+	protected boolean isProjectileSpeedModified(ItemStack stack) {
+		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.accelerator, stack) >= 1;
+	}
+
 	/**
 	 * Sets whether the bullets ignore invulnerability frame (default no), used when making the item for registering.
 	 */
@@ -239,7 +247,7 @@ public class GunItem extends ShootableItem {
 
 	/**
 	 * Sets a projectile speed, used when making the item for registering.<br>
-	 * Base value is 3. High values (like 5-6) cause weird behavior so don't with the base bullets.
+	 * Base value is 3.
 	 */
 	public GunItem projectileSpeed(double projectileSpeed) {
 		this.projectileSpeed = projectileSpeed;
@@ -283,6 +291,10 @@ public class GunItem extends ShootableItem {
 			double inaccuracy = getInaccuracy(stack, null);
 			if (inaccuracy <= 0) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.accuracy.perfect" + (isInaccuracyModified(stack) ? ".modified" : "")));
 			else tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(1.0 / inaccuracy)));
+
+			//Projectile Speed
+			double projectileSpeed = getProjectileSpeed(stack, null);
+			tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.speed" + (isProjectileSpeedModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(projectileSpeed)));
 
 			//Chance to not consume ammo
 			double inverseChanceFree = getInverseChanceFreeShot(stack, null);
