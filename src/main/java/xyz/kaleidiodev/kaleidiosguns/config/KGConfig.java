@@ -18,12 +18,14 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue diamondShotgunEnchantability;
     public static ForgeConfigSpec.IntValue diamondShotgunDurability;
     public static ForgeConfigSpec.DoubleValue diamondShotgunInaccuracy;
+    public static ForgeConfigSpec.IntValue diamondShotgunBulletCount;
 
     public static ForgeConfigSpec.DoubleValue goldDoubleShotgunDamageMultiplier;
     public static ForgeConfigSpec.IntValue goldDoubleShotgunFireDelay;
     public static ForgeConfigSpec.IntValue goldDoubleShotgunEnchantability;
     public static ForgeConfigSpec.IntValue goldDoubleShotgunDurability;
     public static ForgeConfigSpec.DoubleValue goldDoubleShotgunInaccuracy;
+    public static ForgeConfigSpec.IntValue goldDoubleShotgunBulletCount;
 
     public static ForgeConfigSpec.DoubleValue diamondSniperDamageMultiplier;
     public static ForgeConfigSpec.IntValue diamondSniperFireDelay;
@@ -99,6 +101,9 @@ public class KGConfig {
         diamondShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Shotguns")
                 .defineInRange("diamondShotgunInaccuracy", 5D, 0D, 90D);
+        diamondShotgunBulletCount = builder
+                .comment("Configure the amount of Bullets at once for Shotguns")
+                .defineInRange("diamondShotgunInaccuracy", 5, 0, 64);
 
         goldDoubleShotgunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Double Barrel Shotguns")
@@ -115,6 +120,9 @@ public class KGConfig {
         goldDoubleShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunInaccuracy", 10D, 0D, 90D);
+        diamondShotgunBulletCount = builder
+                .comment("Configure the amount of Bullets at once for Double Barrel Shotguns")
+                .defineInRange("diamondShotgunInaccuracy", 10, 0, 64);
         builder.pop();
 
         builder.push("rifles");
