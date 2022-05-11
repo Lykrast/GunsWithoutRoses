@@ -366,4 +366,21 @@ public class GunItem extends ShootableItem {
 	public int getUseDuration(ItemStack pStack) {
 		return Math.max(getFireDelay(pStack, null) / 20, 10);
 	}
+
+	//Event to change add bullet inaccuracy if VivecraftForgeExtension is present
+	@SubscribeEvent(priority = EventPriority.LOW)
+	public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
+		if (event.getEntity() instanceof BulletEntity) {
+			BulletEntity shot = (BulletEntity)event.getEntity();
+			Vector3d direction = shot.getDeltaMovement();
+			double velocity = direction.length();
+			direction = direction.normalize().add(random.nextGaussian() * 0.0075 * shot.getInaccuracy(), random.nextGaussian() * 0.0075 * shot.getInaccuracy(), random.nextGaussian() * 0.0075 * shot.getInaccuracy()).scale(velocity);
+			shot.setDeltaMovement(direction);
+			float horizontalDistance = MathHelper.sqrt(direction.x * direction.x + direction.z * direction.z);
+			shot.yRot = (float)(MathHelper.atan2(direction.x, direction.z) * (double)(180F / (float)Math.PI));
+			shot.xRot = (float)(MathHelper.atan2(direction.y, horizontalDistance) * (double)(180F / (float)Math.PI));
+			shot.yRotO = shot.yRot;
+			shot.xRotO = shot.xRot;
+		}
+	}
 }
