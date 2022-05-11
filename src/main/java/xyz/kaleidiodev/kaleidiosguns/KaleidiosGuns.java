@@ -9,6 +9,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
+import xyz.kaleidiodev.kaleidiosguns.event.ShootEvent;
 import xyz.kaleidiodev.kaleidiosguns.item.GunItem;
 import xyz.kaleidiodev.kaleidiosguns.network.CustomNetworkHandler;
 
@@ -25,7 +26,7 @@ public class KaleidiosGuns {
 		new CustomNetworkHandler().init();
 		if (ModList.get().isLoaded("vivecraftforgeextensions")) {
 			VivecraftForgeExtensionPresent = true;
-			MinecraftForge.EVENT_BUS.register(GunItem.class);
+			MinecraftForge.EVENT_BUS.register(ShootEvent.class);
 		}
 	}
 
