@@ -13,7 +13,7 @@
 			"kaleidiosguns:pistol_shot"
 		]
 	},
-	"item.assault_rifle.shoot": {
+	"item.smg.shoot": {
 		"category": "players",
 		"subtitle": "subtitles.kaleidiosguns.item.assault_rifle.shoot",
 		"sounds": [
