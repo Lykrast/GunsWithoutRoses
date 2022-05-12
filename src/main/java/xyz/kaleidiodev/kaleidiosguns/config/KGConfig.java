@@ -78,7 +78,7 @@ public class KGConfig {
         builder.push("pistols");
         ironPistolDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Pistols")
-                .defineInRange("ironPistolDamageModifier", 1D, 0.5D, 2.5D);
+                .defineInRange("ironPistolDamageModifier", 1D, 0.5D, 5D);
         ironPistolFireDelay = builder
                 .comment("Configure the Fire delay for Pistols")
                 .defineInRange("ironPistolFireDelay", 12, 0, 72000);
@@ -99,7 +99,7 @@ public class KGConfig {
         builder.push("shotguns");
         diamondShotgunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Shotguns")
-                .defineInRange("diamondShotgunDamageMultiplier", 0.5D, 0.5D, 2.5D);
+                .defineInRange("diamondShotgunDamageMultiplier", 0.5D, 0.5D, 5D);
         diamondShotgunFireDelay = builder
                 .comment("Configure the Fire delay for Shotguns")
                 .defineInRange("diamondShotgunFireDelay", 24, 0, 72000);
@@ -121,7 +121,7 @@ public class KGConfig {
 
         goldDoubleShotgunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Double Barrel Shotguns")
-                .defineInRange("goldDoubleShotgunDamageMultiplier", 0.5D, 0.5D, 2.5D);
+                .defineInRange("goldDoubleShotgunDamageMultiplier", 0.5D, 0.5D, 5D);
         goldDoubleShotgunFireDelay = builder
                 .comment("Configure the Fire delay for Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunFireDelay", 48, 0, 72000);
@@ -145,7 +145,7 @@ public class KGConfig {
         builder.push("rifles");
         diamondSniperDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Snipers")
-                .defineInRange("diamondSniperDamageMultiplier", 2.5D, 0.5D, 2.5D);
+                .defineInRange("diamondSniperDamageMultiplier", 3.0D, 0.5D, 5D);
         diamondSniperFireDelay = builder
                 .comment("Configure the Fire delay for Snipers")
                 .defineInRange("diamondSniperFireDelay", 60, 0, 72000);
@@ -164,7 +164,7 @@ public class KGConfig {
 
         ironCarbineDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Carbines")
-                .defineInRange("ironCarbineDamageMultiplier", 1.25D, 0.5D, 2.5D);
+                .defineInRange("ironCarbineDamageMultiplier", 1.25D, 0.5D, 5D);
         ironCarbineFireDelay = builder
                 .comment("Configure the Fire delay for Carbines")
                 .defineInRange("ironCarbineFireDelay", 20, 0, 72000);
@@ -185,7 +185,7 @@ public class KGConfig {
         builder.push("automatics");
         diamondSmgDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Machine Pistols")
-                .defineInRange("diamondSmgDamageMultiplier", 0.75D, 0.5D, 2.5D);
+                .defineInRange("diamondSmgDamageMultiplier", 0.75D, 0.5D, 5D);
         diamondSmgFireDelay = builder
                 .comment("Configure the Fire delay for Machine Pistols")
                 .defineInRange("diamondSmgFireDelay", 4, 0, 72000);
@@ -204,7 +204,7 @@ public class KGConfig {
 
         ironAssaultDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Assault Rifles")
-                .defineInRange("ironAssaultDamageMultiplier", 0.75D, 0.5D, 2.5D);
+                .defineInRange("ironAssaultDamageMultiplier", 0.75D, 0.5D, 5D);
         ironAssaultFireDelay = builder
                 .comment("Configure the Fire delay for Assault Rifles")
                 .defineInRange("ironAssaultFireDelay", 5, 0, 72000);
@@ -223,7 +223,7 @@ public class KGConfig {
 
         goldStreamDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Stream Rifles")
-                .defineInRange("goldStreamDamageMultiplier", 1D, 0.5D, 2.5D);
+                .defineInRange("goldStreamDamageMultiplier", 1D, 0.5D, 5D);
         goldStreamFireDelay = builder
                 .comment("Configure the Fire delay for Stream Rifles")
                 .defineInRange("goldStreamFireDelay", 5, 0, 72000);
@@ -238,7 +238,7 @@ public class KGConfig {
                 .defineInRange("goldStreamInaccuracy", 0D, 0D, 90D);
         goldStreamProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Stream Rifles")
-                .defineInRange("goldStreamProjectileSpeed", 3D, 0D, 64D);
+                .defineInRange("goldStreamProjectileSpeed", 2D, 0D, 64D);
         builder.pop();
 
         builder.push("bullet_config");
