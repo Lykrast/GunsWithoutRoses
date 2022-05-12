@@ -50,5 +50,10 @@
 		"category": "players",
 		"subtitle": "subtitles.kaleidiosguns.item.sniper.shoot",
 		"sounds": [ "kaleidiosguns:sniper" ]
+	},
+	"item.bullet.land": {
+		"category": "players",
+		"subtitle": "subtitles.kaleidiosguns.item.bullet.impact",
+		"sounds": [ "kaleidiosguns:impact" ]
 	}
 }

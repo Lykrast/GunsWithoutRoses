@@ -1,20 +1,27 @@
 package xyz.kaleidiodev.kaleidiosguns.entity;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SoundSource;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IndirectEntityDamageSource;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.sound.SoundEvent;
+import net.minecraftforge.eventbus.api.Event;
 import xyz.kaleidiodev.kaleidiosguns.item.IBullet;
 import xyz.kaleidiodev.kaleidiosguns.network.NetworkUtils;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEntities;
+import xyz.kaleidiodev.kaleidiosguns.registry.ModSounds;
 
 public class BulletEntity extends AbstractFireballEntity {
 
@@ -81,7 +88,13 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected void onHit(RayTraceResult result) {
 		super.onHit(result);
 		//Don't disappear on blocks if we're set to noclipping
-		if (!level.isClientSide && (!noPhysics || result.getType() != RayTraceResult.Type.BLOCK)) remove();
+		if (!level.isClientSide && (!noPhysics || result.getType() != RayTraceResult.Type.BLOCK)) {
+			//play a sound when it lands on a block
+			if (result.getType() == RayTraceResult.Type.BLOCK) {
+				//play ModSounds.impact here
+			}
+			remove();
+		}
 	}
 
 	@Override
