@@ -3,10 +3,7 @@
 		"category": "players",
 		"subtitle": "subtitles.kaleidiosguns.item.gun.shoot",
 		"sounds": [
-			"kaleidiosguns:gun1",
-			"kaleidiosguns:gun2",
-			"kaleidiosguns:gun3",
-			"kaleidiosguns:gun4"
+			"kaleidiosguns:gun1"
 		]
 	},
 	"item.pistol.shoot": {
