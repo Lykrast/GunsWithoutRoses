@@ -307,9 +307,6 @@ public class GunItem extends ShootableItem {
 			double inverseChanceFree = getInverseChanceFreeShot(stack, null);
 			if (inverseChanceFree < 1) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.chance_free" + (isChanceFreeShotModified(stack) ? ".modified" : ""), (int)((1 - inverseChanceFree) * 100)));
 
-			//Other stats
-			if (ignoreInvulnerability) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.ignore_invulnerability").withStyle(TextFormatting.GRAY));
-
 			addExtraStatsTooltip(stack, world, tooltip);
 		}
 		else tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.shift"));

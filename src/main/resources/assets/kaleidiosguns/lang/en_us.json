@@ -31,7 +31,6 @@
 	"tooltip.kaleidiosguns.gun.speed.modified": "§dProjectile Speed: §f%s§r",
 	"tooltip.kaleidiosguns.gun.chance_free": "§2Chance to not consume ammo: §f%s%%§r",
 	"tooltip.kaleidiosguns.gun.chance_free.modified": "§dChance to not consume ammo: §f%s%%§r",
-	"tooltip.kaleidiosguns.gun.ignore_invulnerability": "Projectiles ignore invulnerability time",
 	"tooltip.kaleidiosguns.shotgun.shots": "Fires %s projectiles at once",
 	"tooltip.kaleidiosguns.gatling.hold": "Slows user while firing",
 
