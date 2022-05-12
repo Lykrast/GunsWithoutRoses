@@ -190,16 +190,16 @@ public class KGConfig {
                 .comment("Configure the Fire delay for Machine Pistols")
                 .defineInRange("diamondSmgFireDelay", 4, 0, 72000);
         diamondSmgEnchantability = builder
-                .comment("Configure the Enchantability for Smgs")
+                .comment("Configure the Enchantability for Machine Pistols")
                 .defineInRange("diamondSmgEnchantability", 10, 0, 30);
         diamondSmgDurability = builder
-                .comment("Configure the Durability for Smgs")
+                .comment("Configure the Durability for Machine Pistols")
                 .defineInRange("diamondSmgDurability", 16000, 0, 32767);
         diamondSmgInaccuracy = builder
-                .comment("Configure the Inaccuracy for Smgs")
+                .comment("Configure the Inaccuracy for Machine Pistols")
                 .defineInRange("diamondSmgInaccuracy", 7.5D, 0D, 90D);
         diamondSmgProjectileSpeed = builder
-                .comment("Configure the Projectile Speed for Smgs")
+                .comment("Configure the Projectile Speed for Machine Pistols")
                 .defineInRange("diamondSmgProjectileSpeed", 8D, 0D, 64D);
 
         ironAssaultDamageMultiplier = builder
