@@ -1,59 +1,61 @@
 {
 	"item.gun.shoot": {
-		"category": "players",
+		"category": "item",
 		"subtitle": "subtitles.kaleidiosguns.item.smg.shoot",
 		"sounds": [
 			"kaleidiosguns:gun1"
 		]
 	},
 	"item.pistol.shoot": {
-		"category": "players",
+		"category": "item",
 		"subtitle": "subtitles.kaleidiosguns.item.pistol.shoot",
 		"sounds": [
 			"kaleidiosguns:pistol_shot"
 		]
 	},
 	"item.smg.shoot": {
-		"category": "players",
+		"category": "item",
 		"subtitle": "subtitles.kaleidiosguns.item.assault_rifle.shoot",
 		"sounds": [
 			"kaleidiosguns:assault_rifle"
 		]
 	},
 	"item.double_shotgun.shoot": {
-		"category": "players",
+		"category": "item",
 		"subtitle": "subtitles.kaleidiosguns.item.double_shotgun.shoot",
 		"sounds": [
 			"kaleidiosguns:double_shotgun"
 		]
 	},
 	"item.stream_rifle.shoot": {
-		"category": "players",
+		"category": "item",
 		"subtitle": "subtitles.kaleidiosguns.item.stream_rifle.shoot",
 		"sounds": [
 			"kaleidiosguns:stream_rifle"
 		]
 	},
 	"item.carbine.shoot": {
-		"category": "players",
+		"category": "item",
 		"subtitle": "subtitles.kaleidiosguns.item.carbine.shoot",
 		"sounds": [
 			"kaleidiosguns:carbine_rifle"
 		]
 	},
 	"item.shotgun.shoot": {
-		"category": "players",
+		"category": "item",
 		"subtitle": "subtitles.kaleidiosguns.item.shotgun.shoot",
 		"sounds": [ "kaleidiosguns:shotgun" ]
 	},
 	"item.sniper.shoot": {
-		"category": "players",
+		"category": "item",
 		"subtitle": "subtitles.kaleidiosguns.item.sniper.shoot",
 		"sounds": [ "kaleidiosguns:sniper" ]
 	},
-	"item.bullet.land": {
-		"category": "players",
+	"entity.bullet.impact": {
+		"category": "entity",
 		"subtitle": "subtitles.kaleidiosguns.item.bullet.impact",
-		"sounds": [ "kaleidiosguns:impact" ]
+		"sounds": [
+			"kaleidiosguns:impact"
+		]
 	}
 }

@@ -20,7 +20,7 @@ public class ModSounds {
 			carbine = initSound("item.carbine.shoot"),
 			shotgun = initSound("item.shotgun.shoot"),
 			sniper = initSound("item.sniper.shoot"),
-			impact = initSound("item.bullet.impact");
+			impact = initSound("entity.bullet.impact");
 
 	@SubscribeEvent
 	public static void registerSounds(final RegistryEvent.Register<SoundEvent> event) {

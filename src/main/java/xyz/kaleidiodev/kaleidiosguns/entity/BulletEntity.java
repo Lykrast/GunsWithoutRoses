@@ -22,6 +22,7 @@ import xyz.kaleidiodev.kaleidiosguns.item.IBullet;
 import xyz.kaleidiodev.kaleidiosguns.network.NetworkUtils;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEntities;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModSounds;
+import net.minecraft.util.SoundEvents;
 
 public class BulletEntity extends AbstractFireballEntity {
 
@@ -91,7 +92,7 @@ public class BulletEntity extends AbstractFireballEntity {
 		if (!level.isClientSide && (!noPhysics || result.getType() != RayTraceResult.Type.BLOCK)) {
 			//play a sound when it lands on a block
 			if (result.getType() == RayTraceResult.Type.BLOCK) {
-				//play ModSounds.impact here
+				this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.impact, this.getSoundSource(), 0.25f, 1.0f);
 			}
 			remove();
 		}
