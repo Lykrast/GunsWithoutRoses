@@ -54,7 +54,13 @@
 
 	"entity.kaleidiosguns.bullet": "Bullet",
 
-	"subtitles.kaleidiosguns.item.gun.shoot": "Gun fired",
+	"subtitles.kaleidiosguns.item.pistol.shoot": "Pistol fired",
 	"subtitles.kaleidiosguns.item.shotgun.shoot": "Shotgun fired",
-	"subtitles.kaleidiosguns.item.sniper.shoot": "Sniper fired"
+	"subtitles.kaleidiosguns.item.sniper.shoot": "Sniper fired",
+	"subtitles.kaleidiosguns.item.smg.shoot": "Machine Pistol fired",
+	"subtitles.kaleidiosguns.item.double_shotgun.shoot": "Double Barrel Shotgun fired",
+	"subtitles.kaleidiosguns.item.carbine.shoot": "Carbine fired",
+	"subtitles.kaleidiosguns.item.assault_rifle.shoot": "Assault fired",
+	"subtitles.kaleidiosguns.item.stream_rifle.shoot": "Stream Rifle fired",
+	"subtitles.kaleidiosguns.item.bullet.impact": "Bullet landed"
 }
