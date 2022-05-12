@@ -111,7 +111,7 @@ public class KGConfig {
                 .defineInRange("diamondShotgunDurability", 800, 0, 32767);
         diamondShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Shotguns")
-                .defineInRange("diamondShotgunInaccuracy", 5D, 0D, 90D);
+                .defineInRange("diamondShotgunInaccuracy", 7.5D, 0D, 90D);
         diamondShotgunBulletCount = builder
                 .comment("Configure the amount of Bullets at once for Shotguns")
                 .defineInRange("diamondShotgunBulletCount", 5, 0, 50);
@@ -133,7 +133,7 @@ public class KGConfig {
                 .defineInRange("goldDoubleShotgunDurability", 160, 0, 32767);
         goldDoubleShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Double Barrel Shotguns")
-                .defineInRange("goldDoubleShotgunInaccuracy", 10D, 0D, 90D);
+                .defineInRange("goldDoubleShotgunInaccuracy", 15D, 0D, 90D);
         goldDoubleShotgunBulletCount = builder
                 .comment("Configure the amount of Bullets at once for Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunBulletCount", 10, 0, 100);
@@ -197,7 +197,7 @@ public class KGConfig {
                 .defineInRange("diamondSmgDurability", 16000, 0, 32767);
         diamondSmgInaccuracy = builder
                 .comment("Configure the Inaccuracy for Smgs")
-                .defineInRange("diamondSmgInaccuracy", 5D, 0D, 90D);
+                .defineInRange("diamondSmgInaccuracy", 7.5D, 0D, 90D);
         diamondSmgProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Smgs")
                 .defineInRange("diamondSmgProjectileSpeed", 8D, 0D, 64D);
@@ -216,10 +216,10 @@ public class KGConfig {
                 .defineInRange("ironAssaultDurability", 6000, 0, 32767);
         ironAssaultInaccuracy = builder
                 .comment("Configure the Inaccuracy for Assault Rifles")
-                .defineInRange("ironAssaultInaccuracy", 2.5D, 0D, 90D);
+                .defineInRange("ironAssaultInaccuracy", 3.5D, 0D, 90D);
         ironAssaultProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Assault Rifles")
-                .defineInRange("ironAssaultProjectileSpeed", 8D, 0D, 64D);
+                .defineInRange("ironAssaultProjectileSpeed", 10D, 0D, 64D);
 
         goldStreamDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Stream Rifles")
