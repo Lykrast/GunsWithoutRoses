@@ -90,7 +90,7 @@ public class KGConfig {
                 .defineInRange("ironPistolDurability", 4000, 0, 32767);
         ironPistolInaccuracy = builder
                 .comment("Configure the Inaccuracy for Pistols")
-                .defineInRange("ironPistolInaccuracy", 2D, 0D, 90D);
+                .defineInRange("ironPistolInaccuracy", 2.5D, 0D, 90D);
         ironPistolProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Pistols")
                 .defineInRange("ironPistolProjectileSpeed", 8D, 0D, 64D);
@@ -185,7 +185,7 @@ public class KGConfig {
         builder.push("automatics");
         diamondSmgDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Machine Pistols")
-                .defineInRange("diamondSmgDamageMultiplier", 0.75D, 0.5D, 5D);
+                .defineInRange("diamondSmgDamageMultiplier", 0.5D, 0.5D, 5D);
         diamondSmgFireDelay = builder
                 .comment("Configure the Fire delay for Machine Pistols")
                 .defineInRange("diamondSmgFireDelay", 4, 0, 72000);
@@ -194,7 +194,7 @@ public class KGConfig {
                 .defineInRange("diamondSmgEnchantability", 10, 0, 30);
         diamondSmgDurability = builder
                 .comment("Configure the Durability for Machine Pistols")
-                .defineInRange("diamondSmgDurability", 16000, 0, 32767);
+                .defineInRange("diamondSmgDurability", 12000, 0, 32767);
         diamondSmgInaccuracy = builder
                 .comment("Configure the Inaccuracy for Machine Pistols")
                 .defineInRange("diamondSmgInaccuracy", 7.5D, 0D, 90D);
@@ -216,7 +216,7 @@ public class KGConfig {
                 .defineInRange("ironAssaultDurability", 6000, 0, 32767);
         ironAssaultInaccuracy = builder
                 .comment("Configure the Inaccuracy for Assault Rifles")
-                .defineInRange("ironAssaultInaccuracy", 3.5D, 0D, 90D);
+                .defineInRange("ironAssaultInaccuracy", 5D, 0D, 90D);
         ironAssaultProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Assault Rifles")
                 .defineInRange("ironAssaultProjectileSpeed", 10D, 0D, 64D);
