@@ -53,6 +53,8 @@
 	"enchantment.kaleidiosguns.accelerator.desc": "Accelerates projectile flight speed",
 	"enchantment.kaleidiosguns.division": "Division",
 	"enchantment.kaleidiosguns.division.desc": "Adds more divisions in a shotgun blast",
+	"enchantment.kaleidiosguns.passion_for_blood": "Passion for Blood",
+	"enchantment.kaleidiosguns.passion_for_blood.desc": "A fraction of damage will be rewarded as health",
 
 	"entity.kaleidiosguns.bullet": "Bullet",
 

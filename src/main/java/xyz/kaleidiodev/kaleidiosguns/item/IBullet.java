@@ -31,7 +31,17 @@ public interface IBullet {
 	 * Called on server only when a default projectile (or one that extends it) sucessfully damages a LivingEntity (so after damage).
 	 * <br/>May change that later.
 	 */
-	default void onLivingEntityHit(BulletEntity projectile, LivingEntity target, @Nullable Entity shooter, World world) {}
+	default void onLivingEntityHit(BulletEntity projectile, LivingEntity target, @Nullable Entity shooter, World world) {
+		//if the chance to heal rolls successfully
+		if (projectile.rollRewardChance()) {
+			//calculate the damage the enemy recieved.
+			float damageDelta = projectile.getHealthOfVictim() - target.getHealth();
+
+			//heal the shooter by a fraction of what damage the enemy recieved.
+			LivingEntity shooterEntity = (LivingEntity)shooter;
+			shooterEntity.setHealth(shooterEntity.getHealth() + (damageDelta / 2f));
+		}
+	}
 
 	/**
 	 * Called on server only as damage is being applied when a bullet carrying this item hits. The target may not be a LivingEntity.

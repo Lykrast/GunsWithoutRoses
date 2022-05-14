@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
@@ -23,6 +24,7 @@ import xyz.kaleidiodev.kaleidiosguns.network.NetworkUtils;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEntities;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModSounds;
 import net.minecraft.util.SoundEvents;
+import java.util.Random;
 
 public class BulletEntity extends AbstractFireballEntity {
 
@@ -31,6 +33,8 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected boolean ignoreInvulnerability = false;
 	protected double knockbackStrength = 0;
 	protected int ticksSinceFired;
+	protected double healthRewardChance = 0.0f;
+	protected float healthOfVictim;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);
@@ -64,6 +68,10 @@ public class BulletEntity extends AbstractFireballEntity {
 			Entity shooter = getOwner();
 			IBullet bullet = (IBullet) getItemRaw().getItem();
 
+			//get health of the victim before they get hit.
+			LivingEntity victim = (LivingEntity)target;
+			healthOfVictim = victim.getHealth();
+
 			if (isOnFire()) target.setSecondsOnFire(5);
 			int lastHurtResistant = target.invulnerableTime;
 			if (ignoreInvulnerability) target.invulnerableTime = 0;
@@ -71,6 +79,7 @@ public class BulletEntity extends AbstractFireballEntity {
 
 			if (damaged && target instanceof LivingEntity) {
 				LivingEntity livingTarget = (LivingEntity)target;
+
 				if (knockbackStrength > 0) {
 					double actualKnockback = knockbackStrength;
 					Vector3d vec = getDeltaMovement().multiply(1, 0, 1).normalize().scale(actualKnockback);
@@ -129,6 +138,15 @@ public class BulletEntity extends AbstractFireballEntity {
 
 	public double getInaccuracy() {
 		return inaccuracy;
+	}
+
+	public void setHealthRewardChance(double rewardChance) { this.healthRewardChance = rewardChance; };
+
+	public float getHealthOfVictim() { return healthOfVictim; };
+
+	public boolean rollRewardChance() {
+		Random random = new Random();
+		return (healthRewardChance - random.nextDouble()) > 0.0D;
 	}
 
 	public void setInaccuracy(double inaccuracy) {
