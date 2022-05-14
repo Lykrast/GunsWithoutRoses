@@ -9,22 +9,25 @@ import net.minecraftforge.registries.IForgeRegistry;
 import xyz.kaleidiodev.kaleidiosguns.KaleidiosGuns;
 import xyz.kaleidiodev.kaleidiosguns.enchantment.GunEnchantment;
 import xyz.kaleidiodev.kaleidiosguns.item.GunItem;
+import xyz.kaleidiodev.kaleidiosguns.item.ShotgunItem;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = KaleidiosGuns.MODID)
 public class ModEnchantments {
 
-	public static Enchantment impact, bullseye, sleightOfHand, preserving, accelerator;
+	public static Enchantment impact, bullseye, sleightOfHand, preserving, accelerator, division;
 	public static final EnchantmentType TYPE_GUN = EnchantmentType.create("GWR_GUN", (item) -> item instanceof GunItem);
+	public static final EnchantmentType TYPE_SHOTGUN = EnchantmentType.create("GWR_SHOTGUN", (item) -> item instanceof ShotgunItem);
 
 	@SubscribeEvent
 	public static void registerEnchantments(final RegistryEvent.Register<Enchantment> event) {
 		IForgeRegistry<Enchantment> reg = event.getRegistry();
 
-		impact = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 5, 3, 11, 20), "impact");
-		bullseye = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 3, 5, 9, 15), "bullseye");
-		sleightOfHand = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 2, 12, 20, 40), "sleight_of_hand");
-		preserving = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 3, 15, 9, 50), "preserving");
-		accelerator = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 3, 10, 15, 35), "accelerator");
+		impact = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 5, 3, 11, 20, TYPE_GUN), "impact");
+		bullseye = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 3, 5, 9, 15, TYPE_GUN), "bullseye");
+		sleightOfHand = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 2, 12, 20, 40, TYPE_GUN), "sleight_of_hand");
+		preserving = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 3, 15, 9, 50, TYPE_GUN), "preserving");
+		accelerator = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 3, 10, 15, 35, TYPE_GUN), "accelerator");
+		division = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 4, 8, 15, 25, TYPE_SHOTGUN), "division");
 	}
 
 	public static Enchantment initEnchant(IForgeRegistry<Enchantment> reg, Enchantment enchantment, String name) {

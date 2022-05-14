@@ -1,6 +1,7 @@
 package xyz.kaleidiodev.kaleidiosguns.enchantment;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.DamageSource;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEnchantments;
@@ -12,8 +13,8 @@ public class GunEnchantment extends Enchantment {
 	private final int levelCost;
 	private final int levelCostSpan;
 
-	public GunEnchantment(Rarity rarityIn, int maxLevel, int minCost, int levelCost, int levelCostSpan) {
-		super(rarityIn, ModEnchantments.TYPE_GUN, new EquipmentSlotType[] { EquipmentSlotType.MAINHAND });
+	public GunEnchantment(Rarity rarityIn, int maxLevel, int minCost, int levelCost, int levelCostSpan, EnchantmentType enchantmentType) {
+		super(rarityIn, enchantmentType, new EquipmentSlotType[] { EquipmentSlotType.MAINHAND });
 		this.maxLevel = maxLevel;
 		this.minCost = minCost;
 		this.levelCost = levelCost;

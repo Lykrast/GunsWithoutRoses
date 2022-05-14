@@ -32,6 +32,7 @@
 	"tooltip.kaleidiosguns.gun.chance_free": "§2Chance to not consume ammo: §f%s%%§r",
 	"tooltip.kaleidiosguns.gun.chance_free.modified": "§dChance to not consume ammo: §f%s%%§r",
 	"tooltip.kaleidiosguns.shotgun.shots": "Fires %s projectiles at once",
+	"tooltip.kaleidiosguns.shotgun.shots.modified": "§dFires %s projectiles at once",
 	"tooltip.kaleidiosguns.gatling.hold": "Slows user while firing",
 
 	"tooltip.kaleidiosguns.blaze_bullet": "Sets entities on fire",
@@ -50,6 +51,8 @@
 	"enchantment.kaleidiosguns.preserving.desc": "Gives a chance to not consume ammo when firing",
 	"enchantment.kaleidiosguns.accelerator": "Accelerator",
 	"enchantment.kaleidiosguns.accelerator.desc": "Accelerates projectile flight speed",
+	"enchantment.kaleidiosguns.division": "Division",
+	"enchantment.kaleidiosguns.division.desc": "Adds more divisions in a shotgun blast",
 
 	"entity.kaleidiosguns.bullet": "Bullet",
 
