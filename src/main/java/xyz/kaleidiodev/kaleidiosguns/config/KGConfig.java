@@ -154,7 +154,7 @@ public class KGConfig {
                 .defineInRange("diamondSniperEnchantability", 10, 0, 30);
         diamondSniperDurability = builder
                 .comment("Configure the Durability for Snipers")
-                .defineInRange("diamondSniperDurability", 320, 0, 32767);
+                .defineInRange("diamondSniperDurability", 400, 0, 32767);
         diamondSniperInaccuracy = builder
                 .comment("Configure the Inaccuracy for Snipers")
                 .defineInRange("diamondSniperInaccuracy", 0D, 0D, 90D);

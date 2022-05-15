@@ -158,8 +158,6 @@ public class BulletEntity extends AbstractFireballEntity {
 			}
 			if (shouldCollateral){
 				//put some code here for the manual raytrace
-				//remember to exclude the entity already been hit as it's likely that has already had an onHitEntity fired
-				//this exclusion should be manually done by ignore invulnerability already though
 				//the raytrace needs to be from current position to delta from last known position
 				List<Entity> entities = new ArrayList<Entity>();
 				AxisAlignedBB bb = this.getBoundingBox();
@@ -169,8 +167,6 @@ public class BulletEntity extends AbstractFireballEntity {
 				for (double i = 0; i < this.bulletSpeed; i += 0.1) {
 					bb = bb.move(incPosition);
 					List<Entity> nextEntities = this.level.getEntities(this, bb);
-
-					System.out.println(bb.getCenter().x + " " + bb.getCenter().y + " " + bb.getCenter().z);
 
 					//don't bother adding entities to the list that are already there.
 					for (Entity entity : nextEntities) {
