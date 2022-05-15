@@ -185,16 +185,16 @@ public class KGConfig {
         builder.push("automatics");
         diamondSmgDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Mineguns")
-                .defineInRange("diamondSmgDamageMultiplier", 0.75D, 0.5D, 5D);
+                .defineInRange("diamondSmgDamageMultiplier", 0.8D, 0.5D, 5D);
         diamondSmgFireDelay = builder
                 .comment("Configure the Fire delay for Mineguns")
-                .defineInRange("diamondSmgFireDelay", 6, 0, 72000);
+                .defineInRange("diamondSmgFireDelay", 10, 0, 72000);
         diamondSmgEnchantability = builder
                 .comment("Configure the Enchantability for Mineguns")
                 .defineInRange("diamondSmgEnchantability", 10, 0, 30);
         diamondSmgDurability = builder
                 .comment("Configure the Durability for Mineguns")
-                .defineInRange("diamondSmgDurability", 8000, 0, 32767);
+                .defineInRange("diamondSmgDurability", 5000, 0, 32767);
         diamondSmgInaccuracy = builder
                 .comment("Configure the Inaccuracy for Mineguns")
                 .defineInRange("diamondSmgInaccuracy", 2D, 0D, 90D);
