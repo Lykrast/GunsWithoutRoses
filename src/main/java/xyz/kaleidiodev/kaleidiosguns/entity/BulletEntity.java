@@ -1,5 +1,6 @@
 package xyz.kaleidiodev.kaleidiosguns.entity;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundSource;
 import net.minecraft.entity.Entity;
@@ -10,6 +11,7 @@ import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
@@ -175,6 +177,11 @@ public class BulletEntity extends AbstractFireballEntity {
 							entities.add(entity);
 						}
 					}
+
+					//kill trace early if we hit a tile doing this, so it doesn't trace through walls.
+					BlockPos someBlockPos = new BlockPos(bb.getCenter());
+					BlockState someBlockState = this.level.getBlockState(someBlockPos);
+					if ((someBlockState.getBlock() != Blocks.AIR) && !(someBlockState.getBlockState().is(BlockTags.FLOWERS)) && !(someBlockState.getBlockState().is(BlockTags.TALL_FLOWERS)) && !(someBlockState.getBlockState().is(BlockTags.SMALL_FLOWERS))) break;
 				}
 
 				//because the sniper cannot have a projectile ignore invulnerability anyway, this is safe to do.
@@ -194,7 +201,7 @@ public class BulletEntity extends AbstractFireballEntity {
 		{
 			//drop the block in a fixed chance
 			Random random = new Random();
-			if (0.2D - random.nextDouble() > 0) this.level.destroyBlock(blockPosToTest, true);
+			if (0.5D - random.nextDouble() > 0) this.level.destroyBlock(blockPosToTest, true);
 		}
 	}
 
