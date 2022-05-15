@@ -17,8 +17,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class GatlingItem extends GunItem {
-	protected boolean firstUseFlag = false;
-
 	public GatlingItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, int enchantability) {
 		super(properties, bonusDamage, damageMultiplier, fireDelay, inaccuracy, enchantability);
 	}
@@ -31,9 +29,6 @@ public class GatlingItem extends GunItem {
 			return ActionResult.fail(itemstack);
 		}
 		else {
-			//use this workaround to tell the if statement to fire, since we cannot change the parameters of an overridden method.
-			firstUseFlag = true;
-			onUseTick(world, player, itemstack, 0);
 			player.startUsingItem(hand);
 			return ActionResult.consume(itemstack);
 		}
@@ -44,7 +39,7 @@ public class GatlingItem extends GunItem {
 		if (user instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) user;
 			int used = getUseDuration(gun) - ticks;
-			if ((used > 0 && used % getFireDelay(gun, player) == 0) || (firstUseFlag)) {
+			if (used > 0 && used % getFireDelay(gun, player) == 0) {
 				//"Oh yeah I will use the vanilla method so that quivers can do their thing"
 				//guess what the quivers suck
 				ItemStack ammo = player.getProjectile(gun);
@@ -68,7 +63,6 @@ public class GatlingItem extends GunItem {
 					player.awardStat(Stats.ITEM_USED.get(this));
 				}
 			}
-			firstUseFlag = false;
 		}
 	}
 
