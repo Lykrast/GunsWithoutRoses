@@ -48,6 +48,7 @@ public class GunItem extends ShootableItem {
 	private final int enchantability;
 	protected boolean ignoreInvulnerability = true;
 	protected double chanceFreeShot = 0;
+	protected boolean hasBlockMineAbility = false;
 	protected SoundEvent fireSound = ModSounds.gun;
 	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
 	protected Supplier<Ingredient> repairMaterial;
@@ -115,6 +116,7 @@ public class GunItem extends ShootableItem {
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);
 		shot.setHealthRewardChance(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.passionForBlood, gun) * 0.1);
+		shot.setShouldBreakBlock(hasBlockMineAbility);
 		changeBullet(world, player, gun, shot, bulletFree);
 
 		world.addFreshEntity(shot);
@@ -262,6 +264,14 @@ public class GunItem extends ShootableItem {
 	}
 
 	/**
+	 * Gives the gun the ability to break blocks.
+	 */
+	public GunItem canMineBlocks(boolean mineBlocks){
+		this.hasBlockMineAbility = mineBlocks;
+		return this;
+	}
+
+	/**
 	 * Sets the repair material, used when making the item for registering.
 	 */
 	public GunItem repair(Supplier<Ingredient> repairMaterial) {
@@ -306,6 +316,8 @@ public class GunItem extends ShootableItem {
 			//Chance to not consume ammo
 			double inverseChanceFree = getInverseChanceFreeShot(stack, null);
 			if (inverseChanceFree < 1) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.chance_free" + (isChanceFreeShotModified(stack) ? ".modified" : ""), (int)((1 - inverseChanceFree) * 100)));
+
+			if (hasBlockMineAbility) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.minegun"));
 
 			addExtraStatsTooltip(stack, world, tooltip);
 		}

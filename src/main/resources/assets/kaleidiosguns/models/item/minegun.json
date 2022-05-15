@@ -1,6 +1,6 @@
 {
     "parent": "kaleidiosguns:item/base_gun",
     "textures": {
-        "layer0": "kaleidiosguns:item/machine_pistol"
+        "layer0": "kaleidiosguns:item/minegun"
     }
 }

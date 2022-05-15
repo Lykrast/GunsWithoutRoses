@@ -11,5 +11,5 @@
 		"S": { "tag": "forge:rods/wooden" },
 		"F": { "item": "minecraft:flint" }
 	},
-	"result": { "item": "kaleidiosguns:machine_pistol" }
+	"result": { "item": "kaleidiosguns:minegun" }
 }

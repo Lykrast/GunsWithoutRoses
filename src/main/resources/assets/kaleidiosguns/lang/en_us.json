@@ -4,7 +4,7 @@
 	"item.kaleidiosguns.double_barrel_shotgun": "Double Barrel Shotgun",
 	"item.kaleidiosguns.sniper": "Sniper",
 	"item.kaleidiosguns.carbine": "Carbine",
-	"item.kaleidiosguns.machine_pistol": "Machine Pistol",
+	"item.kaleidiosguns.minegun": "Minegun",
 	"item.kaleidiosguns.stream_rifle": "Stream Rifle",
 	"item.kaleidiosguns.assault_rifle": "Assault Rifle",
 
@@ -34,6 +34,7 @@
 	"tooltip.kaleidiosguns.shotgun.shots": "Fires %s projectiles at once",
 	"tooltip.kaleidiosguns.shotgun.shots.modified": "§dFires %s projectiles at once",
 	"tooltip.kaleidiosguns.gatling.hold": "Slows user while firing",
+	"tooltip.kaleidiosguns.minegun": "Can mine blocks tiered by bullet damage",
 
 	"tooltip.kaleidiosguns.blaze_bullet": "Sets entities on fire",
 
@@ -61,7 +62,7 @@
 	"subtitles.kaleidiosguns.item.pistol.shoot": "Pistol fired",
 	"subtitles.kaleidiosguns.item.shotgun.shoot": "Shotgun fired",
 	"subtitles.kaleidiosguns.item.sniper.shoot": "Sniper fired",
-	"subtitles.kaleidiosguns.item.smg.shoot": "Machine Pistol fired",
+	"subtitles.kaleidiosguns.item.smg.shoot": "Minegun fired",
 	"subtitles.kaleidiosguns.item.double_shotgun.shoot": "Double Barrel Shotgun fired",
 	"subtitles.kaleidiosguns.item.carbine.shoot": "Carbine fired",
 	"subtitles.kaleidiosguns.item.assault_rifle.shoot": "Assault Rifle fired",

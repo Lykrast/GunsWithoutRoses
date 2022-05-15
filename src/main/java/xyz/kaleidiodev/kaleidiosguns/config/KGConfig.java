@@ -93,7 +93,7 @@ public class KGConfig {
                 .defineInRange("ironPistolInaccuracy", 2.5D, 0D, 90D);
         ironPistolProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Pistols")
-                .defineInRange("ironPistolProjectileSpeed", 8D, 0D, 64D);
+                .defineInRange("ironPistolProjectileSpeed", 10D, 0D, 64D);
         builder.pop();
 
         builder.push("shotguns");
@@ -184,30 +184,30 @@ public class KGConfig {
 
         builder.push("automatics");
         diamondSmgDamageMultiplier = builder
-                .comment("Define the Damage multiplier for Machine Pistols")
-                .defineInRange("diamondSmgDamageMultiplier", 0.5D, 0.5D, 5D);
+                .comment("Define the Damage multiplier for Mineguns")
+                .defineInRange("diamondSmgDamageMultiplier", 0.75D, 0.5D, 5D);
         diamondSmgFireDelay = builder
-                .comment("Configure the Fire delay for Machine Pistols")
-                .defineInRange("diamondSmgFireDelay", 4, 0, 72000);
+                .comment("Configure the Fire delay for Mineguns")
+                .defineInRange("diamondSmgFireDelay", 6, 0, 72000);
         diamondSmgEnchantability = builder
-                .comment("Configure the Enchantability for Machine Pistols")
+                .comment("Configure the Enchantability for Mineguns")
                 .defineInRange("diamondSmgEnchantability", 10, 0, 30);
         diamondSmgDurability = builder
-                .comment("Configure the Durability for Machine Pistols")
+                .comment("Configure the Durability for Mineguns")
                 .defineInRange("diamondSmgDurability", 12000, 0, 32767);
         diamondSmgInaccuracy = builder
-                .comment("Configure the Inaccuracy for Machine Pistols")
-                .defineInRange("diamondSmgInaccuracy", 7.5D, 0D, 90D);
+                .comment("Configure the Inaccuracy for Mineguns")
+                .defineInRange("diamondSmgInaccuracy", 2D, 0D, 90D);
         diamondSmgProjectileSpeed = builder
-                .comment("Configure the Projectile Speed for Machine Pistols")
-                .defineInRange("diamondSmgProjectileSpeed", 8D, 0D, 64D);
+                .comment("Configure the Projectile Speed for Mineguns")
+                .defineInRange("diamondSmgProjectileSpeed", 2.5D, 0D, 64D);
 
         ironAssaultDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Assault Rifles")
-                .defineInRange("ironAssaultDamageMultiplier", 0.75D, 0.5D, 5D);
+                .defineInRange("ironAssaultDamageMultiplier", 0.5D, 0.5D, 5D);
         ironAssaultFireDelay = builder
                 .comment("Configure the Fire delay for Assault Rifles")
-                .defineInRange("ironAssaultFireDelay", 5, 0, 72000);
+                .defineInRange("ironAssaultFireDelay", 4, 0, 72000);
         ironAssaultEnchantability = builder
                 .comment("Configure the Enchantability for Assault Rifles")
                 .defineInRange("ironAssaultEnchantability", 14, 0, 30);
@@ -219,7 +219,7 @@ public class KGConfig {
                 .defineInRange("ironAssaultInaccuracy", 5D, 0D, 90D);
         ironAssaultProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Assault Rifles")
-                .defineInRange("ironAssaultProjectileSpeed", 10D, 0D, 64D);
+                .defineInRange("ironAssaultProjectileSpeed", 8D, 0D, 64D);
 
         goldStreamDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Stream Rifles")

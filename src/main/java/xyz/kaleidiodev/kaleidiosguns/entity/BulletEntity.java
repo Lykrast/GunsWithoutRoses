@@ -10,20 +10,24 @@ import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.IndirectEntityDamageSource;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Block;
 import net.minecraftforge.client.event.sound.SoundEvent;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.eventbus.api.Event;
 import xyz.kaleidiodev.kaleidiosguns.item.IBullet;
 import xyz.kaleidiodev.kaleidiosguns.network.NetworkUtils;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEntities;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModSounds;
-import net.minecraft.util.SoundEvents;
+
 import java.util.Random;
 
 public class BulletEntity extends AbstractFireballEntity {
@@ -35,6 +39,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected int ticksSinceFired;
 	protected double healthRewardChance = 0.0f;
 	protected float healthOfVictim;
+	protected boolean shouldBreakBlock;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);
@@ -102,8 +107,63 @@ public class BulletEntity extends AbstractFireballEntity {
 			//play a sound when it lands on a block
 			if (result.getType() == RayTraceResult.Type.BLOCK) {
 				this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.impact, this.getSoundSource(), 0.25f, 1.0f);
+
+				if (shouldBreakBlock) {
+					//test if the block is of the right tool type to mine with.
+					//we could not guarantee the projectile ended up inside the block on this tick, so let's add some mathematics to work around that
+					double x = result.getLocation().x;
+					double y = result.getLocation().y;
+					double z = result.getLocation().z;
+
+					System.out.println(x + " " + y + " " + z);
+
+					BlockPos blockPositionToMine = new BlockPos(x, y, z);
+					ItemStack newTool;
+
+					if (this.getDamage() > 9.0D) {
+						newTool = new ItemStack(Items.DIAMOND_PICKAXE);
+						tryBreakBlock(blockPositionToMine, newTool);
+						newTool = new ItemStack(Items.DIAMOND_AXE);
+						tryBreakBlock(blockPositionToMine, newTool);
+						newTool = new ItemStack(Items.DIAMOND_SHOVEL);
+						tryBreakBlock(blockPositionToMine, newTool);
+					} else if (this.getDamage() > 6.0D) {
+						newTool = new ItemStack(Items.IRON_PICKAXE);
+						tryBreakBlock(blockPositionToMine, newTool);
+						newTool = new ItemStack(Items.IRON_AXE);
+						tryBreakBlock(blockPositionToMine, newTool);
+						newTool = new ItemStack(Items.IRON_SHOVEL);
+						tryBreakBlock(blockPositionToMine, newTool);
+					} else if (this.getDamage() > 5.0D) {
+						newTool = new ItemStack(Items.STONE_PICKAXE);
+						tryBreakBlock(blockPositionToMine, newTool);
+						newTool = new ItemStack(Items.STONE_AXE);
+						tryBreakBlock(blockPositionToMine, newTool);
+						newTool = new ItemStack(Items.STONE_SHOVEL);
+						tryBreakBlock(blockPositionToMine, newTool);
+					} else {
+						newTool = new ItemStack(Items.WOODEN_PICKAXE);
+						tryBreakBlock(blockPositionToMine, newTool);
+						newTool = new ItemStack(Items.WOODEN_AXE);
+						tryBreakBlock(blockPositionToMine, newTool);
+						newTool = new ItemStack(Items.WOODEN_SHOVEL);
+						tryBreakBlock(blockPositionToMine, newTool);
+					}
+				}
 			}
 			remove();
+		}
+	}
+
+	protected void tryBreakBlock(BlockPos blockPosToTest, ItemStack stack) {
+		//test if the tool tier found works
+
+		if (ForgeHooks.isToolEffective(this.level, blockPosToTest, stack))
+		{
+			//drop the block in a fixed chance
+			//if (0.25D - random.nextDouble() > 0)
+			Random random = new Random();
+			this.level.destroyBlock(blockPosToTest, true);
 		}
 	}
 
@@ -143,6 +203,8 @@ public class BulletEntity extends AbstractFireballEntity {
 	public void setHealthRewardChance(double rewardChance) { this.healthRewardChance = rewardChance; };
 
 	public float getHealthOfVictim() { return healthOfVictim; };
+
+	public void setShouldBreakBlock(boolean breakBlock) { this.shouldBreakBlock = breakBlock; };
 
 	public boolean rollRewardChance() {
 		Random random = new Random();
