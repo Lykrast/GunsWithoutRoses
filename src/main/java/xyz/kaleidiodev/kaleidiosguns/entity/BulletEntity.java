@@ -82,33 +82,37 @@ public class BulletEntity extends AbstractFireballEntity {
 
 		if (!level.isClientSide) {
 			Entity target = raytrace.getEntity();
-			Entity shooter = getOwner();
-			IBullet bullet = (IBullet) getItemRaw().getItem();
-
-			//get health of the victim before they get hit.
-			LivingEntity victim = (LivingEntity)target;
-			healthOfVictim = victim.getHealth();
-
-			if (isOnFire()) target.setSecondsOnFire(5);
-			int lastHurtResistant = target.invulnerableTime;
-			if (ignoreInvulnerability) target.invulnerableTime = 0;
-			boolean damaged = target.hurt((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) bullet.modifyDamage(damage, this, target, shooter, level));
-
-			if (damaged && target instanceof LivingEntity) {
-				LivingEntity livingTarget = (LivingEntity)target;
-
-				if (knockbackStrength > 0) {
-					double actualKnockback = knockbackStrength;
-					Vector3d vec = getDeltaMovement().multiply(1, 0, 1).normalize().scale(actualKnockback);
-					if (vec.lengthSqr() > 0) livingTarget.push(vec.x, 0.1, vec.z);
-				}
-
-				if (shooter instanceof LivingEntity) doEnchantDamageEffects((LivingEntity)shooter, target);
-
-				bullet.onLivingEntityHit(this, livingTarget, shooter, level);
-			}
-			else if (!damaged && ignoreInvulnerability) target.invulnerableTime = lastHurtResistant;
+			entityHitProcess(target);
 		}
+	}
+
+	protected void entityHitProcess(Entity entity) {
+		Entity shooter = getOwner();
+		IBullet bullet = (IBullet) getItemRaw().getItem();
+
+		//get health of the victim before they get hit.
+		LivingEntity victim = (LivingEntity)entity;
+		healthOfVictim = victim.getHealth();
+
+		if (isOnFire()) entity.setSecondsOnFire(5);
+		int lastHurtResistant = entity.invulnerableTime;
+		if (ignoreInvulnerability) entity.invulnerableTime = 0;
+		boolean damaged = entity.hurt((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) bullet.modifyDamage(damage, this, entity, shooter, level));
+
+		if (damaged && entity instanceof LivingEntity) {
+			LivingEntity livingTarget = (LivingEntity)entity;
+
+			if (knockbackStrength > 0) {
+				double actualKnockback = knockbackStrength;
+				Vector3d vec = getDeltaMovement().multiply(1, 0, 1).normalize().scale(actualKnockback);
+				if (vec.lengthSqr() > 0) livingTarget.push(vec.x, 0.1, vec.z);
+			}
+
+			if (shooter instanceof LivingEntity) doEnchantDamageEffects((LivingEntity)shooter, entity);
+
+			bullet.onLivingEntityHit(this, livingTarget, shooter, level);
+		}
+		else if (!damaged && ignoreInvulnerability) entity.invulnerableTime = lastHurtResistant;
 	}
 
 	@Override
@@ -163,9 +167,16 @@ public class BulletEntity extends AbstractFireballEntity {
 
 			if (!shouldCollateral) {
 				remove();
-			}
-			else {
+			} else {
 				//put some code here for the manual raytrace
+				//remember to exclude the entity already been hit as it's likely that has already had an onHitEntity fired
+				//the raytrace needs to be from current position to delta from last known position
+				List<Entity> entities = this.level.getEntities(this,this.getBoundingBox());
+
+				System.out.println("tried");
+
+				//because the sniper cannot have a projectile ignore invulnerability anyway, this is safe to do.
+				for (Entity entity : entities) entityHitProcess(entity);
 			}
 		}
 	}
