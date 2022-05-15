@@ -12,6 +12,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
@@ -111,13 +112,9 @@ public class BulletEntity extends AbstractFireballEntity {
 				if (shouldBreakBlock) {
 					//test if the block is of the right tool type to mine with.
 					//we could not guarantee the projectile ended up inside the block on this tick, so let's add some mathematics to work around that
-					double x = result.getLocation().x;
-					double y = result.getLocation().y;
-					double z = result.getLocation().z;
+					BlockRayTraceResult blockResult = (BlockRayTraceResult) result;
 
-					System.out.println(x + " " + y + " " + z);
-
-					BlockPos blockPositionToMine = new BlockPos(x, y, z);
+					BlockPos blockPositionToMine = ((BlockRayTraceResult) result).getBlockPos();
 					ItemStack newTool;
 
 					if (this.getDamage() > 9.0D) {
@@ -161,9 +158,8 @@ public class BulletEntity extends AbstractFireballEntity {
 		if (ForgeHooks.isToolEffective(this.level, blockPosToTest, stack))
 		{
 			//drop the block in a fixed chance
-			//if (0.25D - random.nextDouble() > 0)
 			Random random = new Random();
-			this.level.destroyBlock(blockPosToTest, true);
+			if (0.2D - random.nextDouble() > 0) this.level.destroyBlock(blockPosToTest, true);
 		}
 	}
 
