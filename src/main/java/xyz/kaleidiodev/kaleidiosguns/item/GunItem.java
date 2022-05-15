@@ -49,6 +49,8 @@ public class GunItem extends ShootableItem {
 	protected boolean ignoreInvulnerability = true;
 	protected double chanceFreeShot = 0;
 	protected boolean hasBlockMineAbility = false;
+	protected boolean isDoubleBarrel = false;
+	protected boolean barrelSide;
 	protected SoundEvent fireSound = ModSounds.gun;
 	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
 	protected Supplier<Ingredient> repairMaterial;
@@ -75,6 +77,8 @@ public class GunItem extends ShootableItem {
 			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
 			if (!world.isClientSide) {
 				player.startUsingItem(hand);
+				//invert the barrel side.
+				if (isDoubleBarrel) barrelSide = !barrelSide;
 				boolean bulletFree = player.abilities.instabuild || !shouldConsumeAmmo(gun, player);
 
 				//Workaround for quivers not respecting getAmmoPredicate()
@@ -159,7 +163,9 @@ public class GunItem extends ShootableItem {
 	 * Gets the min time in ticks between 2 shots. This takes into account Sleight of Hand enchantment.
 	 */
 	public int getFireDelay(ItemStack stack, @Nullable PlayerEntity player) {
-		return Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * 0.25));
+		int base = Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * 0.25));
+		//have instant tick time if barrel side has been switched
+		return barrelSide ? (int) Math.max(1, 4 - (4 * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * 0.25)) : base;
 	}
 
 	/**
@@ -276,6 +282,11 @@ public class GunItem extends ShootableItem {
 	 */
 	public GunItem repair(Supplier<Ingredient> repairMaterial) {
 		this.repairMaterial = repairMaterial;
+		return this;
+	}
+
+	public GunItem doubleBarrel(boolean barrel) {
+		this.isDoubleBarrel = barrel;
 		return this;
 	}
 
