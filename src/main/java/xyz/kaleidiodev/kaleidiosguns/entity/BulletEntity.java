@@ -161,7 +161,12 @@ public class BulletEntity extends AbstractFireballEntity {
 				remove();
 			}
 
-			if (!shouldCollateral) remove();
+			if (!shouldCollateral) {
+				remove();
+			}
+			else {
+				//put some code here for the manual raytrace
+			}
 		}
 	}
 
