@@ -194,7 +194,7 @@ public class KGConfig {
                 .defineInRange("diamondSmgEnchantability", 10, 0, 30);
         diamondSmgDurability = builder
                 .comment("Configure the Durability for Mineguns")
-                .defineInRange("diamondSmgDurability", 12000, 0, 32767);
+                .defineInRange("diamondSmgDurability", 8000, 0, 32767);
         diamondSmgInaccuracy = builder
                 .comment("Configure the Inaccuracy for Mineguns")
                 .defineInRange("diamondSmgInaccuracy", 2D, 0D, 90D);
@@ -213,7 +213,7 @@ public class KGConfig {
                 .defineInRange("ironAssaultEnchantability", 14, 0, 30);
         ironAssaultDurability = builder
                 .comment("Configure the Durability for Assault Rifles")
-                .defineInRange("ironAssaultDurability", 6000, 0, 32767);
+                .defineInRange("ironAssaultDurability", 24000, 0, 32767);
         ironAssaultInaccuracy = builder
                 .comment("Configure the Inaccuracy for Assault Rifles")
                 .defineInRange("ironAssaultInaccuracy", 5D, 0D, 90D);
@@ -232,7 +232,7 @@ public class KGConfig {
                 .defineInRange("goldStreamEnchantability", 23, 0, 30);
         goldStreamDurability = builder
                 .comment("Configure the Durability for Stream Rifles")
-                .defineInRange("goldStreamDurability", 8000, 0, 32767);
+                .defineInRange("goldStreamDurability", 6000, 0, 32767);
         goldStreamInaccuracy = builder
                 .comment("Configure the Inaccuracy for Stream Rifles")
                 .defineInRange("goldStreamInaccuracy", 0D, 0D, 90D);
