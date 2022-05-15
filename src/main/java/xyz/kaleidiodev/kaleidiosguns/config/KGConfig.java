@@ -133,7 +133,7 @@ public class KGConfig {
                 .defineInRange("goldDoubleShotgunDurability", 200, 0, 32767);
         goldDoubleShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Double Barrel Shotguns")
-                .defineInRange("goldDoubleShotgunInaccuracy", 15D, 0D, 90D);
+                .defineInRange("goldDoubleShotgunInaccuracy", 12.5D, 0D, 90D);
         goldDoubleShotgunBulletCount = builder
                 .comment("Configure the amount of Bullets at once for Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunBulletCount", 5, 0, 100);
