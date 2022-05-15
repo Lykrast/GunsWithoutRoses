@@ -68,15 +68,16 @@ public class BulletEntity extends AbstractFireballEntity {
 			remove();
 		}
 
+		//
+
+
 		super.tick();
 	}
 
 	@Override
 	protected void onHitEntity(EntityRayTraceResult raytrace) {
-		if (!shouldCollateral) super.onHitEntity(raytrace); //this seems to be on the right track, but we also need a manual raytrace to get a full list of entities in the next delta, just in case the projectile is moving too fast
-
-		if (shouldCollateral) {
-			
+		if (!shouldCollateral) {
+			super.onHitEntity(raytrace); //this seems to be on the right track, but we also need a manual raytrace to get a full list of entities in the next delta, just in case the projectile is moving too fast
 		}
 
 		if (!level.isClientSide) {
@@ -113,8 +114,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	@Override
 	protected void onHit(RayTraceResult result) {
 		super.onHit(result);
-		//Don't disappear on blocks if we're set to noclipping
-		if (!level.isClientSide && (!noPhysics || result.getType() != RayTraceResult.Type.BLOCK)) {
+		if (!level.isClientSide) {
 			//play a sound when it lands on a block
 			if (result.getType() == RayTraceResult.Type.BLOCK) {
 				this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.impact, this.getSoundSource(), 0.25f, 1.0f);
@@ -160,6 +160,8 @@ public class BulletEntity extends AbstractFireballEntity {
 
 				remove();
 			}
+
+			if (!shouldCollateral) remove();
 		}
 	}
 
