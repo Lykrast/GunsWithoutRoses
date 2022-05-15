@@ -29,6 +29,9 @@ import xyz.kaleidiodev.kaleidiosguns.network.NetworkUtils;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEntities;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModSounds;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BulletEntity extends AbstractFireballEntity {
@@ -41,6 +44,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected double healthRewardChance = 0.0f;
 	protected float healthOfVictim;
 	protected boolean shouldBreakBlock;
+	protected boolean shouldCollateral;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);
@@ -63,12 +67,18 @@ public class BulletEntity extends AbstractFireballEntity {
 		if (ticksSinceFired > 100) {
 			remove();
 		}
+
 		super.tick();
 	}
 
 	@Override
 	protected void onHitEntity(EntityRayTraceResult raytrace) {
-		super.onHitEntity(raytrace);
+		if (!shouldCollateral) super.onHitEntity(raytrace); //this seems to be on the right track, but we also need a manual raytrace to get a full list of entities in the next delta, just in case the projectile is moving too fast
+
+		if (shouldCollateral) {
+			
+		}
+
 		if (!level.isClientSide) {
 			Entity target = raytrace.getEntity();
 			Entity shooter = getOwner();
@@ -147,8 +157,9 @@ public class BulletEntity extends AbstractFireballEntity {
 						tryBreakBlock(blockPositionToMine, newTool);
 					}
 				}
+
+				remove();
 			}
-			remove();
 		}
 	}
 
@@ -214,6 +225,10 @@ public class BulletEntity extends AbstractFireballEntity {
 	public void setIgnoreInvulnerability(boolean ignoreInvulnerability) {
 		//quick workaround, always make it ignore invulnerability.
 		this.ignoreInvulnerability = ignoreInvulnerability;
+	}
+
+	public void setShouldCollateral(boolean collateral) {
+		this.shouldCollateral = collateral;
 	}
 
 	/**

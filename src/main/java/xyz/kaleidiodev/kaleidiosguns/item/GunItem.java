@@ -51,6 +51,7 @@ public class GunItem extends ShootableItem {
 	protected boolean hasBlockMineAbility = false;
 	protected boolean isDoubleBarrel = false;
 	protected boolean barrelSide;
+	protected boolean shouldCollateral = false;
 	protected SoundEvent fireSound = ModSounds.gun;
 	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
 	protected Supplier<Ingredient> repairMaterial;
@@ -121,6 +122,7 @@ public class GunItem extends ShootableItem {
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);
 		shot.setHealthRewardChance(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.passionForBlood, gun) * 0.1);
 		shot.setShouldBreakBlock(hasBlockMineAbility);
+		shot.setShouldCollateral(shouldCollateral);
 		changeBullet(world, player, gun, shot, bulletFree);
 
 		world.addFreshEntity(shot);
@@ -287,6 +289,11 @@ public class GunItem extends ShootableItem {
 
 	public GunItem doubleBarrel(boolean barrel) {
 		this.isDoubleBarrel = barrel;
+		return this;
+	}
+
+	public GunItem collateral(boolean collateralSetting) {
+		this.shouldCollateral = collateralSetting;
 		return this;
 	}
 

@@ -145,7 +145,7 @@ public class KGConfig {
         builder.push("rifles");
         diamondSniperDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Snipers")
-                .defineInRange("diamondSniperDamageMultiplier", 3.0D, 0.5D, 5D);
+                .defineInRange("diamondSniperDamageMultiplier", 2.0D, 0.5D, 5D);
         diamondSniperFireDelay = builder
                 .comment("Configure the Fire delay for Snipers")
                 .defineInRange("diamondSniperFireDelay", 60, 0, 72000);
