@@ -123,6 +123,8 @@ public class GunItem extends ShootableItem {
 		shot.setHealthRewardChance(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.passionForBlood, gun) * 0.1);
 		shot.setShouldBreakBlock(hasBlockMineAbility);
 		shot.setShouldCollateral(shouldCollateral);
+		shot.setBulletSpeed(projectileSpeed);
+		if (shouldCollateral) shot.noPhysics = true;
 		changeBullet(world, player, gun, shot, bulletFree);
 
 		world.addFreshEntity(shot);

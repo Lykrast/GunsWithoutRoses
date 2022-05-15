@@ -11,10 +11,7 @@ import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.item.ItemStack;
@@ -45,6 +42,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected float healthOfVictim;
 	protected boolean shouldBreakBlock;
 	protected boolean shouldCollateral;
+	protected double bulletSpeed;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);
@@ -68,17 +66,12 @@ public class BulletEntity extends AbstractFireballEntity {
 			remove();
 		}
 
-		//
-
-
 		super.tick();
 	}
 
 	@Override
 	protected void onHitEntity(EntityRayTraceResult raytrace) {
-		if (!shouldCollateral) {
-			super.onHitEntity(raytrace); //this seems to be on the right track, but we also need a manual raytrace to get a full list of entities in the next delta, just in case the projectile is moving too fast
-		}
+		super.onHitEntity(raytrace); //this seems to be on the right track, but we also need a manual raytrace to get a full list of entities in the next delta, just in case the projectile is moving too fast
 
 		if (!level.isClientSide) {
 			Entity target = raytrace.getEntity();
@@ -161,23 +154,40 @@ public class BulletEntity extends AbstractFireballEntity {
 						tryBreakBlock(blockPositionToMine, newTool);
 					}
 				}
-
 				remove();
 			}
-
-			if (!shouldCollateral) {
-				remove();
-			} else {
+			if (shouldCollateral){
 				//put some code here for the manual raytrace
 				//remember to exclude the entity already been hit as it's likely that has already had an onHitEntity fired
+				//this exclusion should be manually done by ignore invulnerability already though
 				//the raytrace needs to be from current position to delta from last known position
-				List<Entity> entities = this.level.getEntities(this,this.getBoundingBox());
+				List<Entity> entities = new ArrayList<Entity>();
+				AxisAlignedBB bb = this.getBoundingBox();
+				Vector3d incPosition = new Vector3d(this.getDeltaMovement().x / (bulletSpeed * 10),this.getDeltaMovement().y / (bulletSpeed * 10),this.getDeltaMovement().z / (bulletSpeed * 10));
 
-				System.out.println("tried");
+				//the raytrace is really just a bunch of steps for boundary boxes.  this means accelerator makes sniper collateral further
+				for (double i = 0; i < this.bulletSpeed; i += 0.1) {
+					bb = bb.move(incPosition);
+					List<Entity> nextEntities = this.level.getEntities(this, bb);
+
+					System.out.println(bb.getCenter().x + " " + bb.getCenter().y + " " + bb.getCenter().z);
+
+					//don't bother adding entities to the list that are already there.
+					for (Entity entity : nextEntities) {
+						//that entity doesn't exist in the array, so add it
+						if (!entities.contains(entity)) {
+							entities.add(entity);
+						}
+					}
+				}
 
 				//because the sniper cannot have a projectile ignore invulnerability anyway, this is safe to do.
-				for (Entity entity : entities) entityHitProcess(entity);
+				for (Entity entity : entities) {
+					if (!(entity instanceof PlayerEntity) && (entity instanceof LivingEntity)) entityHitProcess(entity);
+				}
+
 			}
+			else remove();
 		}
 	}
 
@@ -238,6 +248,10 @@ public class BulletEntity extends AbstractFireballEntity {
 
 	public void setInaccuracy(double inaccuracy) {
 		this.inaccuracy = inaccuracy;
+	}
+
+	public void setBulletSpeed(double speed) {
+		this.bulletSpeed = speed;
 	}
 
 	public void setIgnoreInvulnerability(boolean ignoreInvulnerability) {
