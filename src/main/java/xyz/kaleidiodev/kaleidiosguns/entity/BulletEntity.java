@@ -66,7 +66,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	//change the particle type the projectile is going to emit
 	@Override
 	protected IParticleData getTrailParticle() {
-		return ParticleTypes.END_ROD;
+		return ParticleTypes.INSTANT_EFFECT;
 	}
 
 	@Override
@@ -128,6 +128,8 @@ public class BulletEntity extends AbstractFireballEntity {
 		if (!level.isClientSide) {
 			//play a sound when it lands on a block
 			if (result.getType() == RayTraceResult.Type.BLOCK) {
+				//make a spherical poof and a sound
+
 				this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.impact, this.getSoundSource(), 0.25f, 1.0f);
 
 				if (shouldBreakBlock) {
