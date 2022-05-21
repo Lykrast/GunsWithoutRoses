@@ -126,34 +126,36 @@ public class BulletEntity extends AbstractFireballEntity {
 					BlockPos blockPositionToMine = ((BlockRayTraceResult) result).getBlockPos();
 					ItemStack newTool;
 
-					if (this.getDamage() > 9.0D) {
+					if (this.getDamage() > 6.0D) {
 						newTool = new ItemStack(Items.DIAMOND_PICKAXE);
 						tryBreakBlock(blockPositionToMine, newTool);
 						newTool = new ItemStack(Items.DIAMOND_AXE);
 						tryBreakBlock(blockPositionToMine, newTool);
 						newTool = new ItemStack(Items.DIAMOND_SHOVEL);
 						tryBreakBlock(blockPositionToMine, newTool);
-					} else if (this.getDamage() > 6.0D) {
+					} else if (this.getDamage() > 5.0D) {
 						newTool = new ItemStack(Items.IRON_PICKAXE);
 						tryBreakBlock(blockPositionToMine, newTool);
 						newTool = new ItemStack(Items.IRON_AXE);
 						tryBreakBlock(blockPositionToMine, newTool);
 						newTool = new ItemStack(Items.IRON_SHOVEL);
 						tryBreakBlock(blockPositionToMine, newTool);
-					} else if (this.getDamage() > 5.0D) {
+					} else if (this.getDamage() > 4.0D) {
 						newTool = new ItemStack(Items.STONE_PICKAXE);
 						tryBreakBlock(blockPositionToMine, newTool);
 						newTool = new ItemStack(Items.STONE_AXE);
 						tryBreakBlock(blockPositionToMine, newTool);
 						newTool = new ItemStack(Items.STONE_SHOVEL);
 						tryBreakBlock(blockPositionToMine, newTool);
-					} else {
+					} else if (this.getDamage() > 3.0D){
 						newTool = new ItemStack(Items.WOODEN_PICKAXE);
 						tryBreakBlock(blockPositionToMine, newTool);
 						newTool = new ItemStack(Items.WOODEN_AXE);
 						tryBreakBlock(blockPositionToMine, newTool);
 						newTool = new ItemStack(Items.WOODEN_SHOVEL);
 						tryBreakBlock(blockPositionToMine, newTool);
+					} else {
+						//get weapon tier, if it's lower than wood say foliage, break it.
 					}
 				}
 				remove();
