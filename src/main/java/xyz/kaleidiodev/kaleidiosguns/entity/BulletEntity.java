@@ -7,10 +7,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
@@ -60,6 +63,12 @@ public class BulletEntity extends AbstractFireballEntity {
 		this.setNoGravity(true);
 	}
 
+	//change the particle type the projectile is going to emit
+	@Override
+	protected IParticleData getTrailParticle() {
+		return ParticleTypes.END_ROD;
+	}
+
 	@Override
 	public void tick() {
 		//Using a thing I save so that bullets don't get clogged up on chunk borders
@@ -86,8 +95,11 @@ public class BulletEntity extends AbstractFireballEntity {
 		IBullet bullet = (IBullet) getItemRaw().getItem();
 
 		//get health of the victim before they get hit.
-		LivingEntity victim = (LivingEntity)entity;
-		healthOfVictim = victim.getHealth();
+		if (entity instanceof LivingEntity) {
+			LivingEntity victim = (LivingEntity) entity;
+			healthOfVictim = victim.getHealth();
+		}
+		else healthOfVictim = 0.0f;
 
 		if (isOnFire()) entity.setSecondsOnFire(5);
 		int lastHurtResistant = entity.invulnerableTime;
