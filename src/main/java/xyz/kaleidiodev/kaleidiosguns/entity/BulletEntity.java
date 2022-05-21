@@ -88,6 +88,82 @@ public class BulletEntity extends AbstractFireballEntity {
 			Entity target = raytrace.getEntity();
 			entityHitProcess(target);
 		}
+
+		if (shouldCollateral){
+			//put some code here for the manual raytrace
+			//the raytrace needs to be from current position to delta from last known position
+			List<Entity> entities = new ArrayList<Entity>();
+			AxisAlignedBB bb = this.getBoundingBox();
+			Vector3d incPosition = new Vector3d(this.getDeltaMovement().x / (bulletSpeed * 10),this.getDeltaMovement().y / (bulletSpeed * 10),this.getDeltaMovement().z / (bulletSpeed * 10));
+
+			//the raytrace is really just a bunch of steps for boundary boxes.  this means accelerator makes sniper collateral further
+			for (double i = 0; i < this.bulletSpeed; i += 0.1) {
+				bb = bb.move(incPosition);
+				List<Entity> nextEntities = this.level.getEntities(this, bb);
+
+				//don't bother adding entities to the list that are already there.
+				for (Entity entity : nextEntities) {
+					//that entity doesn't exist in the array, so add it
+					if (!entities.contains(entity)) {
+						entities.add(entity);
+					}
+				}
+
+				//kill trace early if we hit a tile doing this, so it doesn't trace through walls.
+				BlockPos someBlockPos = new BlockPos(bb.getCenter());
+				BlockState someBlockState = this.level.getBlockState(someBlockPos);
+				if ((someBlockState.getBlock() != Blocks.AIR) && !(someBlockState.getBlockState().is(BlockTags.FLOWERS)) && !(someBlockState.getBlockState().is(BlockTags.TALL_FLOWERS)) && !(someBlockState.getBlockState().is(BlockTags.SMALL_FLOWERS))) break;
+			}
+
+			//because the sniper cannot have a projectile ignore invulnerability anyway, this is safe to do.
+			for (Entity entity : entities) {
+				if (!(entity instanceof PlayerEntity) && (entity instanceof LivingEntity)) entityHitProcess(entity);
+			}
+
+		}
+	}
+
+	@Override
+	protected void onHitBlock(BlockRayTraceResult raytrace) {
+		if (shouldBreakBlock) {
+			//test if the block is of the right tool type to mine with.
+			//we could not guarantee the projectile ended up inside the block on this tick, so let's add some mathematics to work around that
+
+			BlockPos blockPositionToMine = ((BlockRayTraceResult) raytrace).getBlockPos();
+			ItemStack newTool;
+
+			if (this.getDamage() > 6.0D) {
+				newTool = new ItemStack(Items.DIAMOND_PICKAXE);
+				tryBreakBlock(blockPositionToMine, newTool);
+				newTool = new ItemStack(Items.DIAMOND_AXE);
+				tryBreakBlock(blockPositionToMine, newTool);
+				newTool = new ItemStack(Items.DIAMOND_SHOVEL);
+				tryBreakBlock(blockPositionToMine, newTool);
+			} else if (this.getDamage() > 5.0D) {
+				newTool = new ItemStack(Items.IRON_PICKAXE);
+				tryBreakBlock(blockPositionToMine, newTool);
+				newTool = new ItemStack(Items.IRON_AXE);
+				tryBreakBlock(blockPositionToMine, newTool);
+				newTool = new ItemStack(Items.IRON_SHOVEL);
+				tryBreakBlock(blockPositionToMine, newTool);
+			} else if (this.getDamage() > 4.0D) {
+				newTool = new ItemStack(Items.STONE_PICKAXE);
+				tryBreakBlock(blockPositionToMine, newTool);
+				newTool = new ItemStack(Items.STONE_AXE);
+				tryBreakBlock(blockPositionToMine, newTool);
+				newTool = new ItemStack(Items.STONE_SHOVEL);
+				tryBreakBlock(blockPositionToMine, newTool);
+			} else if (this.getDamage() > 3.0D){
+				newTool = new ItemStack(Items.WOODEN_PICKAXE);
+				tryBreakBlock(blockPositionToMine, newTool);
+				newTool = new ItemStack(Items.WOODEN_AXE);
+				tryBreakBlock(blockPositionToMine, newTool);
+				newTool = new ItemStack(Items.WOODEN_SHOVEL);
+				tryBreakBlock(blockPositionToMine, newTool);
+			} else {
+				//get weapon tier, if it's lower than wood say foliage, break it.
+			}
+		}
 	}
 
 	protected void entityHitProcess(Entity entity) {
@@ -131,82 +207,8 @@ public class BulletEntity extends AbstractFireballEntity {
 				//make a spherical poof and a sound
 
 				this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.impact, this.getSoundSource(), 0.25f, 1.0f);
-
-				if (shouldBreakBlock) {
-					//test if the block is of the right tool type to mine with.
-					//we could not guarantee the projectile ended up inside the block on this tick, so let's add some mathematics to work around that
-					BlockRayTraceResult blockResult = (BlockRayTraceResult) result;
-
-					BlockPos blockPositionToMine = ((BlockRayTraceResult) result).getBlockPos();
-					ItemStack newTool;
-
-					if (this.getDamage() > 6.0D) {
-						newTool = new ItemStack(Items.DIAMOND_PICKAXE);
-						tryBreakBlock(blockPositionToMine, newTool);
-						newTool = new ItemStack(Items.DIAMOND_AXE);
-						tryBreakBlock(blockPositionToMine, newTool);
-						newTool = new ItemStack(Items.DIAMOND_SHOVEL);
-						tryBreakBlock(blockPositionToMine, newTool);
-					} else if (this.getDamage() > 5.0D) {
-						newTool = new ItemStack(Items.IRON_PICKAXE);
-						tryBreakBlock(blockPositionToMine, newTool);
-						newTool = new ItemStack(Items.IRON_AXE);
-						tryBreakBlock(blockPositionToMine, newTool);
-						newTool = new ItemStack(Items.IRON_SHOVEL);
-						tryBreakBlock(blockPositionToMine, newTool);
-					} else if (this.getDamage() > 4.0D) {
-						newTool = new ItemStack(Items.STONE_PICKAXE);
-						tryBreakBlock(blockPositionToMine, newTool);
-						newTool = new ItemStack(Items.STONE_AXE);
-						tryBreakBlock(blockPositionToMine, newTool);
-						newTool = new ItemStack(Items.STONE_SHOVEL);
-						tryBreakBlock(blockPositionToMine, newTool);
-					} else if (this.getDamage() > 3.0D){
-						newTool = new ItemStack(Items.WOODEN_PICKAXE);
-						tryBreakBlock(blockPositionToMine, newTool);
-						newTool = new ItemStack(Items.WOODEN_AXE);
-						tryBreakBlock(blockPositionToMine, newTool);
-						newTool = new ItemStack(Items.WOODEN_SHOVEL);
-						tryBreakBlock(blockPositionToMine, newTool);
-					} else {
-						//get weapon tier, if it's lower than wood say foliage, break it.
-					}
-				}
-				remove();
 			}
-			if (shouldCollateral){
-				//put some code here for the manual raytrace
-				//the raytrace needs to be from current position to delta from last known position
-				List<Entity> entities = new ArrayList<Entity>();
-				AxisAlignedBB bb = this.getBoundingBox();
-				Vector3d incPosition = new Vector3d(this.getDeltaMovement().x / (bulletSpeed * 10),this.getDeltaMovement().y / (bulletSpeed * 10),this.getDeltaMovement().z / (bulletSpeed * 10));
-
-				//the raytrace is really just a bunch of steps for boundary boxes.  this means accelerator makes sniper collateral further
-				for (double i = 0; i < this.bulletSpeed; i += 0.1) {
-					bb = bb.move(incPosition);
-					List<Entity> nextEntities = this.level.getEntities(this, bb);
-
-					//don't bother adding entities to the list that are already there.
-					for (Entity entity : nextEntities) {
-						//that entity doesn't exist in the array, so add it
-						if (!entities.contains(entity)) {
-							entities.add(entity);
-						}
-					}
-
-					//kill trace early if we hit a tile doing this, so it doesn't trace through walls.
-					BlockPos someBlockPos = new BlockPos(bb.getCenter());
-					BlockState someBlockState = this.level.getBlockState(someBlockPos);
-					if ((someBlockState.getBlock() != Blocks.AIR) && !(someBlockState.getBlockState().is(BlockTags.FLOWERS)) && !(someBlockState.getBlockState().is(BlockTags.TALL_FLOWERS)) && !(someBlockState.getBlockState().is(BlockTags.SMALL_FLOWERS))) break;
-				}
-
-				//because the sniper cannot have a projectile ignore invulnerability anyway, this is safe to do.
-				for (Entity entity : entities) {
-					if (!(entity instanceof PlayerEntity) && (entity instanceof LivingEntity)) entityHitProcess(entity);
-				}
-
-			}
-			else remove();
+			remove();
 		}
 	}
 
