@@ -126,6 +126,11 @@ public class BulletEntity extends AbstractFireballEntity {
 
 	@Override
 	protected void onHitBlock(BlockRayTraceResult raytrace) {
+		double d0 = raytrace.getLocation().x();
+		double d1 = raytrace.getLocation().y() + (this.getBoundingBox().getYsize() / 2);
+		double d2 = raytrace.getLocation().z();
+		this.level.addParticle(ParticleTypes.POOF, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+
 		if (shouldBreakBlock) {
 			//test if the block is of the right tool type to mine with.
 			//we could not guarantee the projectile ended up inside the block on this tick, so let's add some mathematics to work around that
