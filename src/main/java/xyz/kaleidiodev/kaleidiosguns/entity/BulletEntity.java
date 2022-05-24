@@ -25,6 +25,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.Block;
 import net.minecraftforge.client.event.sound.SoundEvent;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.data.ForgeBlockTagsProvider;
 import net.minecraftforge.eventbus.api.Event;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.item.IBullet;
@@ -145,6 +146,7 @@ public class BulletEntity extends AbstractFireballEntity {
 				tryBreakBlock(blockPositionToMine, newTool);
 				newTool = new ItemStack(Items.DIAMOND_SHOVEL);
 				tryBreakBlock(blockPositionToMine, newTool);
+				breakWeakBlocks(blockPositionToMine);
 			} else if (this.getDamage() > KGConfig.mineGunFourthLevel.get()) {
 				newTool = new ItemStack(Items.IRON_PICKAXE);
 				tryBreakBlock(blockPositionToMine, newTool);
@@ -152,6 +154,7 @@ public class BulletEntity extends AbstractFireballEntity {
 				tryBreakBlock(blockPositionToMine, newTool);
 				newTool = new ItemStack(Items.IRON_SHOVEL);
 				tryBreakBlock(blockPositionToMine, newTool);
+				breakWeakBlocks(blockPositionToMine);
 			} else if (this.getDamage() > KGConfig.mineGunThirdLevel.get()) {
 				newTool = new ItemStack(Items.STONE_PICKAXE);
 				tryBreakBlock(blockPositionToMine, newTool);
@@ -159,6 +162,7 @@ public class BulletEntity extends AbstractFireballEntity {
 				tryBreakBlock(blockPositionToMine, newTool);
 				newTool = new ItemStack(Items.STONE_SHOVEL);
 				tryBreakBlock(blockPositionToMine, newTool);
+				breakWeakBlocks(blockPositionToMine);
 			} else if (this.getDamage() > KGConfig.mineGunSecondLevel.get()){
 				newTool = new ItemStack(Items.WOODEN_PICKAXE);
 				tryBreakBlock(blockPositionToMine, newTool);
@@ -166,9 +170,20 @@ public class BulletEntity extends AbstractFireballEntity {
 				tryBreakBlock(blockPositionToMine, newTool);
 				newTool = new ItemStack(Items.WOODEN_SHOVEL);
 				tryBreakBlock(blockPositionToMine, newTool);
+				breakWeakBlocks(blockPositionToMine);
 			} else {
-				//get weapon tier, if it's lower than wood say foliage, break it.
+				breakWeakBlocks(blockPositionToMine);
 			}
+		}
+	}
+
+	protected void breakWeakBlocks(BlockPos blockPosToTest) {
+		if (level.getBlockState(blockPosToTest).is(BlockTags.WOOL) ||
+				level.getBlockState(blockPosToTest).is(BlockTags.ICE) ||
+				level.getBlockState(blockPosToTest).is(BlockTags.LOGS) ||
+				level.getBlockState(blockPosToTest).is(BlockTags.LEAVES)) {
+			Random random = new Random();
+			if (KGConfig.diamondSmgMineChance.get() - random.nextDouble() > 0) this.level.destroyBlock(blockPosToTest, true);
 		}
 	}
 
