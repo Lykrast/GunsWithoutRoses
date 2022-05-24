@@ -5,6 +5,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.entity.BulletEntity;
 
 import javax.annotation.Nullable;
@@ -39,7 +40,8 @@ public interface IBullet {
 
 			//heal the shooter by a fraction of what damage the enemy recieved.
 			LivingEntity shooterEntity = (LivingEntity)shooter;
-			shooterEntity.setHealth(shooterEntity.getHealth() + (damageDelta / 2f));
+			//cast to primitive first before casting to float.  thanks forge.
+			shooterEntity.setHealth(shooterEntity.getHealth() + (damageDelta * (float)(double) KGConfig.passionForBloodHealIncrease.get()));
 		}
 	}
 

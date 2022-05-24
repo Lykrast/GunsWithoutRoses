@@ -50,6 +50,7 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue diamondSmgDurability;
     public static ForgeConfigSpec.DoubleValue diamondSmgInaccuracy;
     public static ForgeConfigSpec.DoubleValue diamondSmgProjectileSpeed;
+    public static ForgeConfigSpec.DoubleValue diamondSmgMineChance;
 
     public static ForgeConfigSpec.DoubleValue ironAssaultDamageMultiplier;
     public static ForgeConfigSpec.IntValue ironAssaultFireDelay;
@@ -71,9 +72,26 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue blazeBulletDamage;
     public static ForgeConfigSpec.IntValue hungerBulletDamage;
 
+    //Minegun balance curve
+    public static ForgeConfigSpec.DoubleValue mineGunSecondLevel;
+    public static ForgeConfigSpec.DoubleValue mineGunThirdLevel;
+    public static ForgeConfigSpec.DoubleValue mineGunFourthLevel;
+    public static ForgeConfigSpec.DoubleValue mineGunFifthLevel;
+
+    public static ForgeConfigSpec.DoubleValue impactDamageIncrease;
+    public static ForgeConfigSpec.DoubleValue bullseyeAccuracyIncrease;
+    public static ForgeConfigSpec.DoubleValue sleightOfHandFireRateDecrease;
+    public static ForgeConfigSpec.DoubleValue preservingRateIncrease;
+    public static ForgeConfigSpec.DoubleValue acceleratorSpeedIncrease;
+    public static ForgeConfigSpec.DoubleValue passionForBloodRateIncrease;
+    public static ForgeConfigSpec.DoubleValue passionForBloodHealIncrease;
+    public static ForgeConfigSpec.IntValue divisionCountIncrease;
+
+
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         builder.comment("Kaleidio's Guns Config");
+        builder.comment("Please note that the below options may effect the balance, as usually values cap at 100%.  higher values may not work as expected, or the curve of balance may flatten at the top.");
 
         builder.push("pistols");
         ironPistolDamageMultiplier = builder
@@ -201,6 +219,9 @@ public class KGConfig {
         diamondSmgProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Mineguns")
                 .defineInRange("diamondSmgProjectileSpeed", 2.5D, 0D, 64D);
+        diamondSmgMineChance = builder
+                .comment("Configure the Break Block Chance for Mineguns")
+                .defineInRange("diamondSmgMineChance", 0.33D, 0D, 1D);
 
         ironAssaultDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Assault Rifles")
@@ -254,6 +275,49 @@ public class KGConfig {
         hungerBulletDamage = builder
                 .comment("Configure the damage of Hunger Bullets")
                 .defineInRange("hungerBulletDamage", 6, 1, 20);
+        builder.pop();
+
+        builder.push("minegun_config");
+        builder.comment("Also note that the first level, which mines like a hand, is of any value not listed here.");
+        mineGunSecondLevel = builder
+                .comment("Damage required to mine like a wooden tool")
+                .defineInRange("mineGunSecondLevel", 3D, 0.5D, 40D);
+        mineGunThirdLevel = builder
+                .comment("Damage required to mine like a stone tool")
+                .defineInRange("mineGunThirdLevel", 4D, 0.5D, 40D);
+        mineGunFourthLevel = builder
+                .comment("Damage required to mine like an iron tool")
+                .defineInRange("mineGunFourthLevel", 5D, 0.5D, 40D);
+        mineGunFifthLevel = builder
+                .comment("Damage required to mine like a diamond tool")
+                .defineInRange("mineGunFifthLevel", 6D, 0.5D, 40D);
+        builder.pop();
+
+        builder.push("enchantments_config");
+        preservingRateIncrease = builder
+                .comment("How much percentage per preserving level, represented as floating point only")
+                .defineInRange("preservingRateIncrease", 0.1D, 0.1D, 1D);
+        impactDamageIncrease = builder
+                .comment("How much damage increase per impact level")
+                .defineInRange("impactDamageIncrease", 1D, 0.5D, 20D);
+        bullseyeAccuracyIncrease = builder
+                .comment("How much accuracy increase per bullseye level, represented as a division + 1 of base inaccuracy")
+                .defineInRange("bullseyeAccuracyIncrease", 0.5D, 0.1D, 5D);
+        sleightOfHandFireRateDecrease = builder
+                .comment("How much percentage fire rate increase per sleight of hand level, represented as floating point only")
+                .defineInRange("sleightOfHandFireRateIncrease", 0.25D, 0.1D, 1D);
+        acceleratorSpeedIncrease = builder
+                .comment("How much percentage speed increase per accelerator level, represented as multiplication + 1 of base speed")
+                .defineInRange("acceleratorSpeedIncrease", 0.25D, 0.1D, 1D);
+        passionForBloodRateIncrease = builder
+                .comment("How much percentage chance increase per passion for blood level, represented as floating point only")
+                .defineInRange("passionForBloodRateIncrease", 0.1D, 0.01D, 1.0D);
+        passionForBloodHealIncrease = builder
+                .comment("Multiplier for how much healing passion for blood should give in relation to damage delivered")
+                .defineInRange("passionForBloodHealIncrease", 0.5D, 0.1D, 5.0D);
+        divisionCountIncrease = builder
+                .comment("Multiplier for how many extra bullets per division level on shotguns")
+                .defineInRange("divisionCountIncrease", 1, 1, 5);
         builder.pop();
 
         spec = builder.build();

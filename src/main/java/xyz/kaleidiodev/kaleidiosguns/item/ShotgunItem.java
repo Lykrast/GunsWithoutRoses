@@ -7,6 +7,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEnchantments;
 
 import javax.annotation.Nullable;
@@ -32,7 +33,7 @@ public class ShotgunItem extends GunItem {
 	}
 
 	protected int getBulletCount(ItemStack stack) {
-		return bulletCount + EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack);
+		return bulletCount + EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack) * KGConfig.divisionCountIncrease.get();
 	}
 
 	protected boolean isProjectileCountModified(ItemStack stack) {

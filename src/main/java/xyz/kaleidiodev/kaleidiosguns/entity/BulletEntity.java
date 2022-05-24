@@ -26,6 +26,7 @@ import net.minecraft.block.Block;
 import net.minecraftforge.client.event.sound.SoundEvent;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.eventbus.api.Event;
+import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.item.IBullet;
 import xyz.kaleidiodev.kaleidiosguns.network.NetworkUtils;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEntities;
@@ -132,28 +133,28 @@ public class BulletEntity extends AbstractFireballEntity {
 			BlockPos blockPositionToMine = ((BlockRayTraceResult) raytrace).getBlockPos();
 			ItemStack newTool;
 
-			if (this.getDamage() > 6.0D) {
+			if (this.getDamage() > KGConfig.mineGunFifthLevel.get()) {
 				newTool = new ItemStack(Items.DIAMOND_PICKAXE);
 				tryBreakBlock(blockPositionToMine, newTool);
 				newTool = new ItemStack(Items.DIAMOND_AXE);
 				tryBreakBlock(blockPositionToMine, newTool);
 				newTool = new ItemStack(Items.DIAMOND_SHOVEL);
 				tryBreakBlock(blockPositionToMine, newTool);
-			} else if (this.getDamage() > 5.0D) {
+			} else if (this.getDamage() > KGConfig.mineGunFourthLevel.get()) {
 				newTool = new ItemStack(Items.IRON_PICKAXE);
 				tryBreakBlock(blockPositionToMine, newTool);
 				newTool = new ItemStack(Items.IRON_AXE);
 				tryBreakBlock(blockPositionToMine, newTool);
 				newTool = new ItemStack(Items.IRON_SHOVEL);
 				tryBreakBlock(blockPositionToMine, newTool);
-			} else if (this.getDamage() > 4.0D) {
+			} else if (this.getDamage() > KGConfig.mineGunThirdLevel.get()) {
 				newTool = new ItemStack(Items.STONE_PICKAXE);
 				tryBreakBlock(blockPositionToMine, newTool);
 				newTool = new ItemStack(Items.STONE_AXE);
 				tryBreakBlock(blockPositionToMine, newTool);
 				newTool = new ItemStack(Items.STONE_SHOVEL);
 				tryBreakBlock(blockPositionToMine, newTool);
-			} else if (this.getDamage() > 3.0D){
+			} else if (this.getDamage() > KGConfig.mineGunSecondLevel.get()){
 				newTool = new ItemStack(Items.WOODEN_PICKAXE);
 				tryBreakBlock(blockPositionToMine, newTool);
 				newTool = new ItemStack(Items.WOODEN_AXE);
@@ -219,7 +220,7 @@ public class BulletEntity extends AbstractFireballEntity {
 		{
 			//drop the block in a fixed chance
 			Random random = new Random();
-			if (0.5D - random.nextDouble() > 0) this.level.destroyBlock(blockPosToTest, true);
+			if (KGConfig.diamondSmgMineChance.get() - random.nextDouble() > 0) this.level.destroyBlock(blockPosToTest, true);
 		}
 	}
 

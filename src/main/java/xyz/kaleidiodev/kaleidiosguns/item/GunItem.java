@@ -26,6 +26,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.entity.BulletEntity;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEnchantments;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModItems;
@@ -145,8 +146,7 @@ public class GunItem extends ShootableItem {
 		if (chanceFreeShot > 0 && random.nextDouble() < chanceFreeShot) return false;
 
 		int preserving = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving, stack);
-		//(level) in (level + 2) chance to not consume
-		if (preserving >= 1 && random.nextInt(preserving + 2) >= 2) return false;
+		if ((preserving * KGConfig.preservingRateIncrease.get())- random.nextDouble() > 0) return false;
 
 		return true;
 	}
@@ -156,7 +156,7 @@ public class GunItem extends ShootableItem {
 	 */
 	public double getBonusDamage(ItemStack stack, @Nullable PlayerEntity player) {
 		int impact = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack);
-		return bonusDamage + (impact >= 1 ? (impact + 1) : 0);
+		return bonusDamage + (impact >= 1 ? (impact * KGConfig.impactDamageIncrease.get()) : 0);
 	}
 
 	public double getDamageMultiplier(ItemStack stack, @Nullable PlayerEntity player) {
@@ -167,9 +167,9 @@ public class GunItem extends ShootableItem {
 	 * Gets the min time in ticks between 2 shots. This takes into account Sleight of Hand enchantment.
 	 */
 	public int getFireDelay(ItemStack stack, @Nullable PlayerEntity player) {
-		int base = Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * 0.25));
+		int base = Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * KGConfig.sleightOfHandFireRateDecrease.get()));
 		//have instant tick time if barrel side has been switched
-		return barrelSide ? (int) Math.max(1, 4 - (4 * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * 0.25)) : base;
+		return barrelSide ? 1 : base;
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class GunItem extends ShootableItem {
 	 * The formula is just accuracy = 1 / inaccuracy.
 	 */
 	public double getInaccuracy(ItemStack stack, @Nullable PlayerEntity player) {
-		return Math.max(0, inaccuracy / (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) + 1.0));
+		return Math.max(0, inaccuracy / ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) * KGConfig.bullseyeAccuracyIncrease.get()) + 1.0));
 	}
 
 	/**
@@ -194,7 +194,7 @@ public class GunItem extends ShootableItem {
 	 * Gets the projectile speed, taking into account Accelerator enchantment.
 	 */
 	public double getProjectileSpeed(ItemStack stack, @Nullable PlayerEntity player) {
-		return Math.max(0, projectileSpeed + (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.accelerator, stack) * 0.25 * projectileSpeed));
+		return Math.max(0, projectileSpeed + ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.accelerator, stack) * KGConfig.acceleratorSpeedIncrease.get() * projectileSpeed)));
 	}
 
 	/**
@@ -204,7 +204,7 @@ public class GunItem extends ShootableItem {
 	public double getInverseChanceFreeShot(ItemStack stack, @Nullable PlayerEntity player) {
 		double chance = 1 - chanceFreeShot;
 		int preserving = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving, stack);
-		if (preserving >= 1) chance *= 2.0/(preserving + 2);
+		if (preserving >= 1) chance *= preserving * KGConfig.preservingRateIncrease.get();
 		return chance;
 	}
 
