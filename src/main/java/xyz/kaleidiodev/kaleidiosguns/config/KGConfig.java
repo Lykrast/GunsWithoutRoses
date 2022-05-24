@@ -111,7 +111,7 @@ public class KGConfig {
                 .defineInRange("ironPistolInaccuracy", 2.5D, 0D, 90D);
         ironPistolProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Pistols")
-                .defineInRange("ironPistolProjectileSpeed", 10D, 0D, 64D);
+                .defineInRange("ironPistolProjectileSpeed", 8D, 0D, 64D);
         builder.pop();
 
         builder.push("shotguns");
@@ -237,10 +237,10 @@ public class KGConfig {
                 .defineInRange("ironAssaultDurability", 24000, 0, 32767);
         ironAssaultInaccuracy = builder
                 .comment("Configure the Inaccuracy for Assault Rifles")
-                .defineInRange("ironAssaultInaccuracy", 5D, 0D, 90D);
+                .defineInRange("ironAssaultInaccuracy", 5.0D, 0D, 90D);
         ironAssaultProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Assault Rifles")
-                .defineInRange("ironAssaultProjectileSpeed", 8D, 0D, 64D);
+                .defineInRange("ironAssaultProjectileSpeed", 10D, 0D, 64D);
 
         goldStreamDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Stream Rifles")
