@@ -34,7 +34,7 @@ public class GatlingItem extends GunItem {
 		}
 		else {
 			player.startUsingItem(hand);
-			if (this.isFirstShot){
+			if (this.isFirstShot && !world.isClientSide()){
 				onUseTick(world, player, itemstack, 0);
 			}
 			return ActionResult.consume(itemstack);
@@ -43,7 +43,7 @@ public class GatlingItem extends GunItem {
 
 	@Override
 	public void releaseUsing(ItemStack itemstack, World level, LivingEntity living, int timeLeft) {
-		this.isFirstShot = true;
+		if (!level.isClientSide()) this.isFirstShot = true;
 		//prevent first shot from being taken again for delay
 		if (living instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) living;
@@ -56,7 +56,7 @@ public class GatlingItem extends GunItem {
 		if (user instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) user;
 			int used = getUseDuration(gun) - ticks;
-			if ((used > 0 && used % getFireDelay(gun, player) == 0) || this.isFirstShot) {
+			if ((used > 0 && used % getFireDelay(gun, player) == 0) || (this.isFirstShot && !world.isClientSide())) {
 				//"Oh yeah I will use the vanilla method so that quivers can do their thing"
 				//guess what the quivers suck
 				this.isFirstShot = false;
