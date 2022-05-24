@@ -299,7 +299,7 @@ public class KGConfig {
                 .defineInRange("preservingRateIncrease", 0.1D, 0.1D, 1D);
         impactDamageIncrease = builder
                 .comment("How much damage increase per impact level")
-                .defineInRange("impactDamageIncrease", 1D, 0.5D, 20D);
+                .defineInRange("impactDamageIncrease", 1D, 0.1D, 20D);
         bullseyeAccuracyIncrease = builder
                 .comment("How much accuracy increase per bullseye level, represented as a division + 1 of base inaccuracy")
                 .defineInRange("bullseyeAccuracyIncrease", 0.5D, 0.1D, 5D);
