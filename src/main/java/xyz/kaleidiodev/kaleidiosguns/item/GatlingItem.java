@@ -17,6 +17,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class GatlingItem extends GunItem {
+	protected boolean isFirstShot = true;
+
 	public GatlingItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, int enchantability) {
 		super(properties, bonusDamage, damageMultiplier, fireDelay, inaccuracy, enchantability);
 	}
@@ -25,12 +27,27 @@ public class GatlingItem extends GunItem {
 	public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
 		ItemStack itemstack = player.getItemInHand(hand);
 
+		System.out.println("on use: " + this.isFirstShot);
+
 		if (!player.abilities.instabuild && player.getProjectile(itemstack).isEmpty()) {
 			return ActionResult.fail(itemstack);
 		}
 		else {
 			player.startUsingItem(hand);
+			if (this.isFirstShot){
+				onUseTick(world, player, itemstack, 0);
+			}
 			return ActionResult.consume(itemstack);
+		}
+	}
+
+	@Override
+	public void releaseUsing(ItemStack itemstack, World level, LivingEntity living, int timeLeft) {
+		this.isFirstShot = true;
+		//prevent first shot from being taken again for delay
+		if (living instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) living;
+			player.getCooldowns().addCooldown(this, getFireDelay(itemstack, player));
 		}
 	}
 
@@ -39,9 +56,10 @@ public class GatlingItem extends GunItem {
 		if (user instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) user;
 			int used = getUseDuration(gun) - ticks;
-			if (used > 0 && used % getFireDelay(gun, player) == 0) {
+			if ((used > 0 && used % getFireDelay(gun, player) == 0) || this.isFirstShot) {
 				//"Oh yeah I will use the vanilla method so that quivers can do their thing"
 				//guess what the quivers suck
+				this.isFirstShot = false;
 				ItemStack ammo = player.getProjectile(gun);
 
 				if (!ammo.isEmpty() || player.abilities.instabuild) {
