@@ -5,7 +5,7 @@
 	"item.kaleidiosguns.sniper": "Sniper",
 	"item.kaleidiosguns.carbine": "Carbine",
 	"item.kaleidiosguns.minegun": "Minegun",
-	"item.kaleidiosguns.stream_rifle": "Stream Rifle",
+	"item.kaleidiosguns.stream_rifle": "Plasma Rifle",
 	"item.kaleidiosguns.assault_rifle": "Assault Rifle",
 
 	"item.kaleidiosguns.flint_bullet": "Flint Bullet",
@@ -66,6 +66,6 @@
 	"subtitles.kaleidiosguns.item.double_shotgun.shoot": "Double Barrel Shotgun fired",
 	"subtitles.kaleidiosguns.item.carbine.shoot": "Carbine fired",
 	"subtitles.kaleidiosguns.item.assault_rifle.shoot": "Assault Rifle fired",
-	"subtitles.kaleidiosguns.item.stream_rifle.shoot": "Stream Rifle fired",
+	"subtitles.kaleidiosguns.item.stream_rifle.shoot": "Plasma Rifle fired",
 	"subtitles.kaleidiosguns.item.bullet.impact": "Bullet landed"
 }

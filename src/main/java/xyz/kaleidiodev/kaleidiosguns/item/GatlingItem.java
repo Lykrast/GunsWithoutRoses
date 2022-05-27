@@ -35,7 +35,7 @@ public class GatlingItem extends GunItem {
 		else {
 			player.startUsingItem(hand);
 			if (this.isFirstShot && !world.isClientSide()){
-				onUseTick(world, player, itemstack, 0);
+				onUseTick(world, player, itemstack, 1);
 			}
 			return ActionResult.consume(itemstack);
 		}

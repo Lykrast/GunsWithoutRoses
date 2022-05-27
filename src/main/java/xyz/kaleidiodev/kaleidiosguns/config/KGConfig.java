@@ -243,23 +243,23 @@ public class KGConfig {
                 .defineInRange("ironAssaultProjectileSpeed", 10D, 0D, 64D);
 
         goldStreamDamageMultiplier = builder
-                .comment("Define the Damage multiplier for Stream Rifles")
-                .defineInRange("goldStreamDamageMultiplier", 0.75D, 0.1D, 5D);
+                .comment("Define the Damage multiplier for Plasma Rifles")
+                .defineInRange("goldPlasmaDamageMultiplier", 0.75D, 0.1D, 5D);
         goldStreamFireDelay = builder
-                .comment("Configure the Fire delay for Stream Rifles")
-                .defineInRange("goldStreamFireDelay", 5, 0, 72000);
+                .comment("Configure the Fire delay for Plasma Rifles")
+                .defineInRange("goldPlasmaFireDelay", 5, 0, 72000);
         goldStreamEnchantability = builder
-                .comment("Configure the Enchantability for Stream Rifles")
-                .defineInRange("goldStreamEnchantability", 23, 0, 30);
+                .comment("Configure the Enchantability for Plasma Rifles")
+                .defineInRange("goldPlasmaEnchantability", 23, 0, 30);
         goldStreamDurability = builder
-                .comment("Configure the Durability for Stream Rifles")
-                .defineInRange("goldStreamDurability", 8000, 0, 32767);
+                .comment("Configure the Durability for Plasma Rifles")
+                .defineInRange("goldPlasmaDurability", 8000, 0, 32767);
         goldStreamInaccuracy = builder
-                .comment("Configure the Inaccuracy for Stream Rifles")
-                .defineInRange("goldStreamInaccuracy", 0D, 0D, 90D);
+                .comment("Configure the Inaccuracy for Plasma Rifles")
+                .defineInRange("goldPlasmaInaccuracy", 0D, 0D, 90D);
         goldStreamProjectileSpeed = builder
-                .comment("Configure the Projectile Speed for Stream Rifles")
-                .defineInRange("goldStreamProjectileSpeed", 2D, 0D, 64D);
+                .comment("Configure the Projectile Speed for Plasma Rifles")
+                .defineInRange("goldPlasmaProjectileSpeed", 2D, 0D, 64D);
         builder.pop();
 
         builder.push("bullet_config");
