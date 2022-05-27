@@ -16,7 +16,6 @@ public class ModEnchantments {
 
 	public static Enchantment impact, bullseye, sleightOfHand, preserving, accelerator, division, passionForBlood;
 	public static final EnchantmentType TYPE_GUN = EnchantmentType.create("GWR_GUN", (item) -> item instanceof GunItem);
-	public static final EnchantmentType TYPE_SHOTGUN = EnchantmentType.create("GWR_SHOTGUN", (item) -> item instanceof ShotgunItem);
 
 	@SubscribeEvent
 	public static void registerEnchantments(final RegistryEvent.Register<Enchantment> event) {
@@ -27,7 +26,7 @@ public class ModEnchantments {
 		sleightOfHand = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 2, 12, 15, 40, TYPE_GUN), "sleight_of_hand");
 		preserving = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 3, 15, 9, 50, TYPE_GUN), "preserving");
 		accelerator = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 3, 10, 15, 35, TYPE_GUN), "accelerator");
-		division = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 4, 8, 15, 25, TYPE_SHOTGUN), "division");
+		division = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 4, 8, 15, 25, TYPE_GUN), "division");
 		passionForBlood = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 2, 25, 20, 50, TYPE_GUN), "passion_for_blood");
 	}
 

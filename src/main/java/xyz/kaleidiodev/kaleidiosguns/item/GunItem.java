@@ -309,6 +309,7 @@ public class GunItem extends ShootableItem {
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
 		//Disallow Bullseye if the gun has perfect accuracy
 		if (enchantment == ModEnchantments.bullseye && hasPerfectAccuracy()) return false;
+		if (enchantment == ModEnchantments.division && !(stack.getItem() instanceof ShotgunItem)) return false;
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}
 
