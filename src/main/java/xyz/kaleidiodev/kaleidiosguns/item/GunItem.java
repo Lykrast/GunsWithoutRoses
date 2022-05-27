@@ -300,6 +300,12 @@ public class GunItem extends ShootableItem {
 	}
 
 	@Override
+	public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+		if (EnchantmentHelper.getEnchantments(stack).size() >= 3) return false;
+		return super.isBookEnchantable(stack, book);
+	}
+
+	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
 		//Disallow Bullseye if the gun has perfect accuracy
 		if (enchantment == ModEnchantments.bullseye && hasPerfectAccuracy()) return false;
