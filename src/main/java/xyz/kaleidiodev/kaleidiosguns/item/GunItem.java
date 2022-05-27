@@ -301,7 +301,7 @@ public class GunItem extends ShootableItem {
 
 	@Override
 	public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
-		if (EnchantmentHelper.getEnchantments(stack).size() >= 3) return false;
+		if (EnchantmentHelper.getEnchantments(stack).size() + EnchantmentHelper.getEnchantments(book).size() > 3) return false;
 		return super.isBookEnchantable(stack, book);
 	}
 
