@@ -1,6 +1,7 @@
 package xyz.kaleidiodev.kaleidiosguns.registry;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.KnowledgeBookItem;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.RegistryEvent;
