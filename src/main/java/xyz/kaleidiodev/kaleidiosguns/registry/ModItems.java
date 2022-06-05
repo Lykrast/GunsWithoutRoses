@@ -1,7 +1,6 @@
 package xyz.kaleidiodev.kaleidiosguns.registry;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.KnowledgeBookItem;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.RegistryEvent;
@@ -21,8 +20,8 @@ public class ModItems {
 			doubleBarrelShotgun,
 			carbineSniper,
 			diamondSniper,
-			smgGatling,
-			streamGatling,
+			minegunGatling,
+			plasmaGatling,
 			assaultGatling;
 
 	public static BulletItem flintBullet, ironBullet, blazeBullet, hungerBullet;
@@ -43,8 +42,8 @@ public class ModItems {
 		carbineSniper = initItem(reg, new GunItem(defP().durability(KGConfig.ironCarbineDurability.get()), 0, KGConfig.ironCarbineDamageMultiplier.get(), KGConfig.ironCarbineFireDelay.get(), KGConfig.ironCarbineInaccuracy.get(), KGConfig.ironCarbineEnchantability.get()).projectileSpeed(KGConfig.ironCarbineProjectileSpeed.get()).fireSound(ModSounds.carbine).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "carbine");
 
 		// Gatlings
-		smgGatling = initItem(reg, new GatlingItem(defP().durability(KGConfig.diamondSmgDurability.get()), 0, KGConfig.diamondSmgDamageMultiplier.get(), KGConfig.diamondSmgFireDelay.get(), KGConfig.diamondSmgInaccuracy.get(), KGConfig.diamondSmgEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "minegun").projectileSpeed(KGConfig.diamondSmgProjectileSpeed.get()).canMineBlocks(true);
-		streamGatling = initItem(reg, new GatlingItem(defP().durability(KGConfig.goldStreamDurability.get()), 0, KGConfig.goldStreamDamageMultiplier.get(), KGConfig.goldStreamFireDelay.get(), KGConfig.goldStreamInaccuracy.get(), KGConfig.goldStreamEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "stream_rifle").projectileSpeed(KGConfig.goldStreamProjectileSpeed.get()).fireSound(ModSounds.stream_rifle);
+		minegunGatling = initItem(reg, new GatlingItem(defP().durability(KGConfig.diamondSmgDurability.get()), 0, KGConfig.diamondSmgDamageMultiplier.get(), KGConfig.diamondSmgFireDelay.get(), KGConfig.diamondSmgInaccuracy.get(), KGConfig.diamondSmgEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "minegun").projectileSpeed(KGConfig.diamondSmgProjectileSpeed.get()).canMineBlocks(true);
+		plasmaGatling = initItem(reg, new GatlingItem(defP().durability(KGConfig.goldStreamDurability.get()), 0, KGConfig.goldStreamDamageMultiplier.get(), KGConfig.goldStreamFireDelay.get(), KGConfig.goldStreamInaccuracy.get(), KGConfig.goldStreamEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "plasma_rifle").projectileSpeed(KGConfig.goldStreamProjectileSpeed.get()).fireSound(ModSounds.plasma_rifle);
 		assaultGatling = initItem(reg, new GatlingItem(defP().durability(KGConfig.ironAssaultDurability.get()), 0, KGConfig.ironAssaultDamageMultiplier.get(), KGConfig.ironAssaultFireDelay.get(), KGConfig.ironAssaultInaccuracy.get(), KGConfig.ironAssaultEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "assault_rifle").projectileSpeed(KGConfig.ironAssaultProjectileSpeed.get()).fireSound(ModSounds.smg);
 
         // Bullets

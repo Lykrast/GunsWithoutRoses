@@ -1,6 +1,6 @@
 {
     "parent": "kaleidiosguns:item/base_gun",
     "textures": {
-        "layer0": "kaleidiosguns:item/stream_rifle"
+        "layer0": "kaleidiosguns:item/plasma_rifle"
     }
 }

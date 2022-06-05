@@ -18,14 +18,10 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.entity.BulletEntity;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEnchantments;
@@ -111,7 +107,7 @@ public class GunItem extends ShootableItem {
 	 * @param bulletFree true if no ammo was actually consumed (creative or Preserving enchant for example)
 	 */
 	protected void fireWeapon(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
-		BulletEntity shot = bulletItem.createProjectile(world, ammo, player, gun.getItem() == ModItems.streamGatling);
+		BulletEntity shot = bulletItem.createProjectile(world, ammo, player, gun.getItem() == ModItems.plasmaGatling);
 		shot.shootFromRotation(player, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), VivecraftForgeExtensionPresent ? 0.0F : (float)getInaccuracy(gun, player));
 
 		//subtract player velocity to make the bullet independent

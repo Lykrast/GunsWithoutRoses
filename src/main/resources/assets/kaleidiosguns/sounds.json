@@ -27,11 +27,11 @@
 			"kaleidiosguns:double_shotgun"
 		]
 	},
-	"item.stream_rifle.shoot": {
+	"item.plasma_rifle.shoot": {
 		"category": "item",
-		"subtitle": "subtitles.kaleidiosguns.item.stream_rifle.shoot",
+		"subtitle": "subtitles.kaleidiosguns.item.plasma_rifle.shoot",
 		"sounds": [
-			"kaleidiosguns:stream_rifle"
+			"kaleidiosguns:plasma_rifle"
 		]
 	},
 	"item.carbine.shoot": {
