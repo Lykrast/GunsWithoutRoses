@@ -68,7 +68,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	//change the particle type the projectile is going to emit
 	@Override
 	protected IParticleData getTrailParticle() {
-		return ParticleTypes.INSTANT_EFFECT;
+		return ParticleTypes.CRIT;
 	}
 
 	@Override
