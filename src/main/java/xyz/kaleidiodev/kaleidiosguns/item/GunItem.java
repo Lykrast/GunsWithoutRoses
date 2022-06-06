@@ -122,6 +122,7 @@ public class GunItem extends ShootableItem {
 		shot.setShouldCollateral(shouldCollateral);
 		shot.setBulletSpeed(projectileSpeed);
 		if (shouldCollateral) shot.noPhysics = true;
+		if (isDoubleBarrel) shot.setKnockbackStrength(1.2);
 		changeBullet(world, player, gun, shot, bulletFree);
 
 		world.addFreshEntity(shot);
