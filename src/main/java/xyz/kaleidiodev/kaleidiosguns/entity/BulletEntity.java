@@ -1,15 +1,11 @@
 package xyz.kaleidiodev.kaleidiosguns.entity;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SoundSource;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
@@ -23,18 +19,13 @@ import net.minecraft.world.World;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Block;
-import net.minecraftforge.client.event.sound.SoundEvent;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.data.ForgeBlockTagsProvider;
-import net.minecraftforge.eventbus.api.Event;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.item.IBullet;
 import xyz.kaleidiodev.kaleidiosguns.network.NetworkUtils;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEntities;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModSounds;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -221,7 +212,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected void breakWeakBlocks(BlockPos blockPosToTest) {
 		if (!level.getBlockState(blockPosToTest).requiresCorrectToolForDrops()) {
 			Random random = new Random();
-			if (KGConfig.diamondSmgMineChance.get() - random.nextDouble() > 0) this.level.destroyBlock(blockPosToTest, true);
+			if (KGConfig.diamondMinegunMineChance.get() - random.nextDouble() > 0) this.level.destroyBlock(blockPosToTest, true);
 		}
 	}
 
@@ -278,7 +269,7 @@ public class BulletEntity extends AbstractFireballEntity {
 		{
 			//drop the block in a fixed chance
 			Random random = new Random();
-			if (KGConfig.diamondSmgMineChance.get() - random.nextDouble() > 0) this.level.destroyBlock(blockPosToTest, true);
+			if (KGConfig.diamondMinegunMineChance.get() - random.nextDouble() > 0) this.level.destroyBlock(blockPosToTest, true);
 		}
 	}
 

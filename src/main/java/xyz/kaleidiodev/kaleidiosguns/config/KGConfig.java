@@ -44,13 +44,13 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue ironCarbineInaccuracy;
     public static ForgeConfigSpec.DoubleValue ironCarbineProjectileSpeed;
 
-    public static ForgeConfigSpec.DoubleValue diamondSmgDamageMultiplier;
-    public static ForgeConfigSpec.IntValue diamondSmgFireDelay;
-    public static ForgeConfigSpec.IntValue diamondSmgEnchantability;
-    public static ForgeConfigSpec.IntValue diamondSmgDurability;
-    public static ForgeConfigSpec.DoubleValue diamondSmgInaccuracy;
-    public static ForgeConfigSpec.DoubleValue diamondSmgProjectileSpeed;
-    public static ForgeConfigSpec.DoubleValue diamondSmgMineChance;
+    public static ForgeConfigSpec.DoubleValue diamondMinegunDamageMultiplier;
+    public static ForgeConfigSpec.IntValue diamondMinegunFireDelay;
+    public static ForgeConfigSpec.IntValue diamondMinegunEnchantability;
+    public static ForgeConfigSpec.IntValue diamondMinegunDurability;
+    public static ForgeConfigSpec.DoubleValue diamondMinegunInaccuracy;
+    public static ForgeConfigSpec.DoubleValue diamondMinegunProjectileSpeed;
+    public static ForgeConfigSpec.DoubleValue diamondMinegunMineChance;
 
     public static ForgeConfigSpec.DoubleValue ironAssaultDamageMultiplier;
     public static ForgeConfigSpec.IntValue ironAssaultFireDelay;
@@ -201,27 +201,27 @@ public class KGConfig {
         builder.pop();
 
         builder.push("automatics");
-        diamondSmgDamageMultiplier = builder
+        diamondMinegunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Mineguns")
-                .defineInRange("diamondSmgDamageMultiplier", 0.5D, 0.1D, 5D);
-        diamondSmgFireDelay = builder
+                .defineInRange("diamondMinegunDamageMultiplier", 0.5D, 0.1D, 5D);
+        diamondMinegunFireDelay = builder
                 .comment("Configure the Fire delay for Mineguns")
-                .defineInRange("diamondSmgFireDelay", 10, 0, 72000);
-        diamondSmgEnchantability = builder
+                .defineInRange("diamondMinegunFireDelay", 10, 0, 72000);
+        diamondMinegunEnchantability = builder
                 .comment("Configure the Enchantability for Mineguns")
-                .defineInRange("diamondSmgEnchantability", 10, 0, 30);
-        diamondSmgDurability = builder
+                .defineInRange("diamondMinegunEnchantability", 10, 0, 30);
+        diamondMinegunDurability = builder
                 .comment("Configure the Durability for Mineguns")
-                .defineInRange("diamondSmgDurability", 8000, 0, 32767);
-        diamondSmgInaccuracy = builder
+                .defineInRange("diamondMinegunDurability", 8000, 0, 32767);
+        diamondMinegunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Mineguns")
-                .defineInRange("diamondSmgInaccuracy", 2D, 0D, 90D);
-        diamondSmgProjectileSpeed = builder
+                .defineInRange("diamondMinegunInaccuracy", 2D, 0D, 90D);
+        diamondMinegunProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Mineguns")
-                .defineInRange("diamondSmgProjectileSpeed", 2.5D, 0D, 64D);
-        diamondSmgMineChance = builder
+                .defineInRange("diamondMinegunProjectileSpeed", 2.5D, 0D, 64D);
+        diamondMinegunMineChance = builder
                 .comment("Configure the Break Block Chance for Mineguns")
-                .defineInRange("diamondSmgMineChance", 0.33D, 0D, 1D);
+                .defineInRange("diamondMinegunMineChance", 0.33D, 0D, 1D);
 
         ironAssaultDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Assault Rifles")
