@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.particles.IParticleData;
@@ -50,6 +51,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected boolean shouldBreakBlock;
 	protected boolean shouldCollateral;
 	protected double bulletSpeed;
+	protected boolean isTorpedo;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);
@@ -79,7 +81,42 @@ public class BulletEntity extends AbstractFireballEntity {
 			remove();
 		}
 
-		super.tick();
+		//completely rewrite the entity code here
+		Entity entity = this.getOwner();
+		if (this.level.isClientSide || (entity == null || !entity.removed) && this.level.hasChunkAt(this.blockPosition())) {
+			if (!this.level.isClientSide) {
+				this.setSharedFlag(6, this.isGlowing());
+			}
+			//note that "is away from owner" is absolutely useless anyway, so it was not included
+			this.baseTick();
+
+			RayTraceResult raytraceresult = ProjectileHelper.getHitResult(this, this::canHitEntity);
+			if (raytraceresult.getType() != RayTraceResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
+				this.onHit(raytraceresult);
+			}
+
+			//why rotate toward movement?  that makes no sense
+			this.checkInsideBlocks();
+			ProjectileHelper.rotateTowardsMovement(this, 0.2F);
+
+			//add support for torpedo enchantment, make inertia falloff even more intense otherwise
+			float f = this.getInertia();
+			Vector3d vector3d = this.getDeltaMovement();
+			//don't bother with the other messy calculations
+			if (this.isInWater()) {
+				this.level.addParticle(ParticleTypes.BUBBLE, this.getBoundingBox().getCenter().x, this.getBoundingBox().getCenter().y, this.getBoundingBox().getCenter().z, vector3d.x, vector3d.y, vector3d.z);
+				//on this, don't decrease inertia if the torpedo enchantment was on the gun
+				if (!this.isTorpedo) f = 0.67f;
+			}
+
+			this.setDeltaMovement(vector3d.add(this.xPower, this.yPower, this.zPower).scale((double)f));
+			//summon the particles in the center of the projectile instead of above it.
+			//only do these particles if not in water, as otherwise it looks messy to have two emitters.
+			if (!this.isInWater()) this.level.addParticle(this.getTrailParticle(), this.getBoundingBox().getCenter().x, this.getBoundingBox().getCenter().y, this.getBoundingBox().getCenter().z, 0.0D, 0.0D, 0.0D);
+			this.setPos(this.getX() + vector3d.x, this.getY() + vector3d.y, this.getZ() + vector3d.z);
+		} else {
+			this.remove();
+		}
 	}
 
 	@Override
@@ -321,6 +358,10 @@ public class BulletEntity extends AbstractFireballEntity {
 
 	public void setShouldCollateral(boolean collateral) {
 		this.shouldCollateral = collateral;
+	}
+
+	public void setIsTorpedo(boolean torpedo) {
+		this.isTorpedo = torpedo;
 	}
 
 	/**
