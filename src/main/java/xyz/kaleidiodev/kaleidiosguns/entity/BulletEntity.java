@@ -219,24 +219,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	}
 
 	protected void breakWeakBlocks(BlockPos blockPosToTest) {
-		if (level.getBlockState(blockPosToTest).is(BlockTags.WOOL) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.ICE) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.FLOWERS) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.TALL_FLOWERS) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.LOGS) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.WOODEN_BUTTONS) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.WOODEN_TRAPDOORS) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.WOODEN_DOORS) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.WOODEN_FENCES) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.WOODEN_SLABS) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.WOODEN_PRESSURE_PLATES) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.WOODEN_STAIRS) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.BASE_STONE_NETHER) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.SAND) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.CROPS) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.SMALL_FLOWERS) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.BEDS) ||
-				level.getBlockState(blockPosToTest).is(BlockTags.CARPETS)) {
+		if (!level.getBlockState(blockPosToTest).requiresCorrectToolForDrops()) {
 			Random random = new Random();
 			if (KGConfig.diamondSmgMineChance.get() - random.nextDouble() > 0) this.level.destroyBlock(blockPosToTest, true);
 		}
