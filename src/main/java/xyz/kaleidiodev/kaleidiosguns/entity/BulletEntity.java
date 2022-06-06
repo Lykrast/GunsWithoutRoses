@@ -106,7 +106,7 @@ public class BulletEntity extends AbstractFireballEntity {
 			if (this.isInWater()) {
 				this.level.addParticle(ParticleTypes.BUBBLE, this.getBoundingBox().getCenter().x, this.getBoundingBox().getCenter().y, this.getBoundingBox().getCenter().z, vector3d.x, vector3d.y, vector3d.z);
 				//on this, don't decrease inertia if the torpedo enchantment was on the gun
-				if (!this.isTorpedo) f = 0.67f;
+				f = 0.8f;
 			}
 
 			this.setDeltaMovement(vector3d.add(this.xPower, this.yPower, this.zPower).scale((double)f));
