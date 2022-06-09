@@ -102,8 +102,8 @@ public class BulletEntity extends AbstractFireballEntity {
 
 			this.setDeltaMovement(vector3d.add(this.xPower, this.yPower, this.zPower).scale((double)f));
 			//summon the particles in the center of the projectile instead of above it.
-			//only do these particles if not in water, as otherwise it looks messy to have two emitters.
-			if (!this.isInWater()) this.level.addParticle(this.getTrailParticle(), this.getBoundingBox().getCenter().x, this.getBoundingBox().getCenter().y, this.getBoundingBox().getCenter().z, 0.0D, 0.0D, 0.0D);
+			//disable emitters when underwater, as otherwise it looks messy to have two emitters (bubble emitter happens elsewhere)
+			if (!this.isInWater() && ticksSinceFired > 1) this.level.addParticle(this.getTrailParticle(), this.getBoundingBox().getCenter().x, this.getBoundingBox().getCenter().y, this.getBoundingBox().getCenter().z, 0.0D, 0.0D, 0.0D);
 			this.setPos(this.getX() + vector3d.x, this.getY() + vector3d.y, this.getZ() + vector3d.z);
 		} else {
 			this.remove();
