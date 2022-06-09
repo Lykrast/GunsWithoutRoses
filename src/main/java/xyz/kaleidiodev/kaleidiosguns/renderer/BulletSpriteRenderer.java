@@ -39,7 +39,7 @@ public class BulletSpriteRenderer<T extends Entity & IRendersAsItem> extends Ent
     public void render(T pEntity, float pEntityYaw, float pPartialTicks, MatrixStack pMatrixStack, IRenderTypeBuffer pBuffer, int pPackedLight) {
         if (pEntity.tickCount >= 2) {
             pMatrixStack.pushPose();
-            pMatrixStack.scale(this.scale, this.scale, this.scale);
+            pMatrixStack.scale((float)pEntity.getBoundingBox().getXsize()*3, (float)pEntity.getBoundingBox().getYsize()*3, (float)pEntity.getBoundingBox().getZsize()*3);
             pMatrixStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
             pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
             ItemStack stack = pEntity.getItem();
