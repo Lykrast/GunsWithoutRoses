@@ -21,13 +21,13 @@ public class ModEnchantments {
 	public static void registerEnchantments(final RegistryEvent.Register<Enchantment> event) {
 		IForgeRegistry<Enchantment> reg = event.getRegistry();
 
-		impact = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 5, 4, 4, 20, TYPE_GUN), "impact");
-		bullseye = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 3, 4, 4, 15, TYPE_GUN), "bullseye");
-		sleightOfHand = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 2, 6, 6, 40, TYPE_GUN), "sleight_of_hand");
-		preserving = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 3, 5, 5, 50, TYPE_GUN), "preserving");
-		accelerator = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 3, 3, 3, 35, TYPE_GUN), "accelerator");
-		division = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 4, 4, 4, 25, TYPE_GUN), "division");
-		passionForBlood = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 2, 8, 8, 50, TYPE_GUN), "passion_for_blood");
+		impact = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 5, 4, 8, 20, TYPE_GUN), "impact");
+		bullseye = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 3, 4, 8, 15, TYPE_GUN), "bullseye");
+		sleightOfHand = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 2, 6, 12, 30, TYPE_GUN), "sleight_of_hand");
+		preserving = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 3, 5, 10, 30, TYPE_GUN), "preserving");
+		accelerator = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 3, 3, 6, 20, TYPE_GUN), "accelerator");
+		division = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 4, 4, 8, 20, TYPE_GUN), "division");
+		passionForBlood = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 2, 8, 16, 20, TYPE_GUN), "passion_for_blood");
 	}
 
 	public static Enchantment initEnchant(IForgeRegistry<Enchantment> reg, Enchantment enchantment, String name) {
