@@ -26,9 +26,6 @@ public class GatlingItem extends GunItem {
 	@Override
 	public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
 		ItemStack itemstack = player.getItemInHand(hand);
-
-		System.out.println("on use: " + this.isFirstShot);
-
 		if (!player.abilities.instabuild && player.getProjectile(itemstack).isEmpty()) {
 			return ActionResult.fail(itemstack);
 		}
