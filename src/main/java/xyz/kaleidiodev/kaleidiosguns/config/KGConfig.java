@@ -151,7 +151,7 @@ public class KGConfig {
                 .defineInRange("goldRevolverChamberSwitchSpeed", 4, 1, 72000);
         goldRevolverStabilityTime = builder
                 .comment("Configure how long the gun must not be fired for spread cone to stabilize on Revolver")
-                .defineInRange("goldRevolverStabilityTime", 20, 1, 72000);
+                .defineInRange("goldRevolverStabilityTime", 15, 1, 72000);
         builder.pop();
 
         builder.push("shotguns");

@@ -48,7 +48,7 @@ public class GunItem extends ShootableItem {
 	protected double chanceFreeShot = 0;
 	protected boolean hasBlockMineAbility = false;
 	protected int revolutions = 1;
-	protected int chamber;
+	protected int chamber = 1;
 	protected boolean shouldCollateral = false;
 	protected int barrelSwitchSpeed = -1;
 	protected double myKnockback = 0.6D;
@@ -207,12 +207,12 @@ public class GunItem extends ShootableItem {
 	public int getFireDelay(ItemStack stack, @Nullable PlayerEntity player) {
 		int base = Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * KGConfig.sleightOfHandFireRateDecrease.get()));
 		//have instant tick time if barrel side has been switched
-		if (chamber != 1) {
-			return Math.max(1, base / barrelSwitchSpeed);
+		if (chamber == revolutions) {
+			return base;
 		}
 		else
 		{
-			return base;
+			return Math.max(1, base / barrelSwitchSpeed);
 		}
 	}
 
