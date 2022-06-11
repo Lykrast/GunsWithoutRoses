@@ -127,7 +127,7 @@ public class KGConfig {
 
         goldRevolverDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Pistols")
-                .defineInRange("goldRevolverDamageModifier", 1D, 0.1D, 5D);
+                .defineInRange("goldRevolverDamageModifier", 1.75D, 0.1D, 5D);
         goldRevolverFireDelay = builder
                 .comment("Configure the Fire delay for Pistols")
                 .defineInRange("goldRevolverFireDelay", 40, 0, 72000);

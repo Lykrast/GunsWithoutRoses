@@ -4,6 +4,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -51,6 +52,10 @@ public class GunItem extends ShootableItem {
 	protected boolean shouldCollateral = false;
 	protected int barrelSwitchSpeed = -1;
 	protected double knockback = 0.6D;
+	protected int stabilityTime = 0;
+	protected int shotsBeforeStability = 0;
+	protected int stabilizerTimer = 0; //internal timer.  falls to zero when gun is stable.
+	protected double instabilitySpreadAdditional; //additional spread to add every time a shot recharges stabilizer timer.
 
 	protected SoundEvent fireSound = ModSounds.gun;
 	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
@@ -132,7 +137,25 @@ public class GunItem extends ShootableItem {
 			if (chamber <= 0) chamber = revolutions;
 		}
 
+		//reset timer for stability
+		int base = Math.max(1, stabilityTime - (int)(stabilityTime * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, gun) * KGConfig.sleightOfHandFireRateDecrease.get()));
+		stabilizerTimer = base;
+		shotsBeforeStability++;
+
 		world.addFreshEntity(shot);
+	}
+
+	//used to tick the stability timer on guns that use it.
+	@Override
+	public void inventoryTick(ItemStack pStack, World pLevel, Entity pEntity, int pItemSlot, boolean pIsSelected) {
+		if (stabilizerTimer > 0) {
+			stabilizerTimer--;
+		}
+
+		if (stabilizerTimer == 0) {
+			System.out.println("revolver stabilized");
+			shotsBeforeStability = 0;
+		}
 	}
 
 	/**
@@ -203,7 +226,9 @@ public class GunItem extends ShootableItem {
 	 * The formula is just accuracy = 1 / inaccuracy.
 	 */
 	public double getInaccuracy(ItemStack stack, @Nullable PlayerEntity player) {
-		return Math.max(0, inaccuracy / ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) * KGConfig.bullseyeAccuracyIncrease.get()) + 1.0));
+		double nextInaccuracy = Math.max(0, inaccuracy / ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) * KGConfig.bullseyeAccuracyIncrease.get()) + 1.0));
+		nextInaccuracy += shotsBeforeStability * instabilitySpreadAdditional;
+		return nextInaccuracy;
 	}
 
 	/**
@@ -319,6 +344,16 @@ public class GunItem extends ShootableItem {
 
 	public GunItem setKnockbackStrength(double newKnockback) {
 		this.knockback = newKnockback;
+		return this;
+	}
+
+	public GunItem instabilityAdditionalSpread(double additionalSpread) {
+		this.instabilitySpreadAdditional = additionalSpread;
+		return this;
+	}
+
+	public GunItem setStabilityTime(int stability) {
+		this.stabilityTime = stability;
 		return this;
 	}
 
