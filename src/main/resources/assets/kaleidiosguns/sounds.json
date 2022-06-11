@@ -51,6 +51,11 @@
 		"subtitle": "subtitles.kaleidiosguns.item.sniper.shoot",
 		"sounds": [ "kaleidiosguns:sniper" ]
 	},
+	"item.revolver.shoot": {
+		"category": "item",
+		"subtitle": "subtitles.kaleidiosguns.item.revolver.shoot",
+		"sounds": [ "kaleidiosguns:revolver" ]
+	},
 	"entity.bullet.impact": {
 		"category": "entity",
 		"subtitle": "subtitles.kaleidiosguns.item.bullet.impact",
