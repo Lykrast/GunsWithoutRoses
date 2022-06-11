@@ -136,7 +136,7 @@ public class KGConfig {
                 .defineInRange("goldRevolverEnchantability", 23, 0, 30);
         goldRevolverDurability = builder
                 .comment("Configure the Durability for Revolver")
-                .defineInRange("goldRevolverDurability", 914, 0, 32767);
+                .defineInRange("goldRevolverDurability", 900, 0, 32767);
         goldRevolverInaccuracy = builder
                 .comment("Configure the Inaccuracy for Revolver")
                 .defineInRange("goldRevolverInaccuracy", 2.5D, 0D, 90D);
@@ -166,7 +166,7 @@ public class KGConfig {
                 .defineInRange("diamondShotgunEnchantability", 10, 0, 30);
         diamondShotgunDurability = builder
                 .comment("Configure the Durability for Shotguns")
-                .defineInRange("diamondShotgunDurability", 667, 0, 32767);
+                .defineInRange("diamondShotgunDurability", 700, 0, 32767);
         diamondShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Shotguns")
                 .defineInRange("diamondShotgunInaccuracy", 5.0D, 0D, 90D);
@@ -188,7 +188,7 @@ public class KGConfig {
                 .defineInRange("goldDoubleShotgunEnchantability", 23, 0, 30);
         goldDoubleShotgunDurability = builder
                 .comment("Configure the Durability for Double Barrel Shotguns")
-                .defineInRange("goldDoubleShotgunDurability", 267, 0, 32767);
+                .defineInRange("goldDoubleShotgunDurability", 300, 0, 32767);
         goldDoubleShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunInaccuracy", 8.5D, 0D, 90D);
@@ -234,7 +234,7 @@ public class KGConfig {
                 .defineInRange("ironCarbineEnchantability", 14, 0, 30);
         ironCarbineDurability = builder
                 .comment("Configure the Durability for Carbines")
-                .defineInRange("ironCarbineDurability", 1333, 0, 32767);
+                .defineInRange("ironCarbineDurability", 1400, 0, 32767);
         ironCarbineInaccuracy = builder
                 .comment("Configure the Inaccuracy for Carbines")
                 .defineInRange("ironCarbineInaccuracy", 0D, 0D, 90D);
