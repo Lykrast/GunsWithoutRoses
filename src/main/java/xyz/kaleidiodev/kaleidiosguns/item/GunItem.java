@@ -51,7 +51,7 @@ public class GunItem extends ShootableItem {
 	protected int chamber;
 	protected boolean shouldCollateral = false;
 	protected int barrelSwitchSpeed = -1;
-	protected double knockback = 0.6D;
+	protected double myKnockback = 0.6D;
 	protected int stabilityTime;
 	protected int shotsBeforeStability;
 	protected int stabilizerTimer; //internal timer.  falls to zero when gun is stable.
@@ -128,7 +128,7 @@ public class GunItem extends ShootableItem {
 		shot.setShouldBreakBlock(hasBlockMineAbility);
 		shot.setShouldCollateral(shouldCollateral);
 		shot.setBulletSpeed(projectileSpeed);
-		shot.setKnockbackStrength(knockback);
+		shot.setKnockbackStrength(myKnockback);
 		shot.noPhysics = shouldCollateral;
 		changeBullet(world, player, gun, shot, bulletFree);
 
@@ -347,7 +347,7 @@ public class GunItem extends ShootableItem {
 	}
 
 	public GunItem setKnockbackStrength(double newKnockback) {
-		this.knockback = newKnockback;
+		this.myKnockback = newKnockback;
 		return this;
 	}
 
