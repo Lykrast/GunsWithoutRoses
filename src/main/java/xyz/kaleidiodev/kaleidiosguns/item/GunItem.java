@@ -46,10 +46,10 @@ public class GunItem extends ShootableItem {
 	protected boolean ignoreInvulnerability = true;
 	protected double chanceFreeShot = 0;
 	protected boolean hasBlockMineAbility = false;
-	protected int revolutions = 0;
+	protected int revolutions = 1;
 	protected int chamber;
 	protected boolean shouldCollateral = false;
-	protected int barrelSwitchSpeed;
+	protected int barrelSwitchSpeed = -1;
 	protected double knockback = 0.6D;
 
 	protected SoundEvent fireSound = ModSounds.gun;
@@ -78,11 +78,6 @@ public class GunItem extends ShootableItem {
 			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
 			if (!world.isClientSide) {
 				player.startUsingItem(hand);
-				//change chamber
-				if (revolutions > 0) {
-					chamber--;
-					if (chamber <= -1) chamber = revolutions;
-				}
 				boolean bulletFree = player.abilities.instabuild || !shouldConsumeAmmo(gun, player);
 
 				//Workaround for quivers not respecting getAmmoPredicate()
@@ -131,6 +126,12 @@ public class GunItem extends ShootableItem {
 		shot.noPhysics = shouldCollateral;
 		changeBullet(world, player, gun, shot, bulletFree);
 
+		//change chamber if multiple revolutions
+		if (revolutions > 1) {
+			chamber--;
+			if (chamber <= 0) chamber = revolutions;
+		}
+
 		world.addFreshEntity(shot);
 	}
 
@@ -172,8 +173,15 @@ public class GunItem extends ShootableItem {
 	public int getFireDelay(ItemStack stack, @Nullable PlayerEntity player) {
 		int base = Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * KGConfig.sleightOfHandFireRateDecrease.get()));
 		//have instant tick time if barrel side has been switched
-		if (chamber == 0) {
-			return fireDelay / barrelSwitchSpeed;
+		if (chamber != 1) {
+			//barrel switch speed defined at all?
+			if (barrelSwitchSpeed != -1) {
+				//don't divide by zero
+				if (barrelSwitchSpeed == 0) return 1;
+				else return fireDelay / barrelSwitchSpeed;
+			} else {
+				return fireDelay;
+			}
 		}
 		else
 		{
@@ -299,7 +307,7 @@ public class GunItem extends ShootableItem {
 	}
 
 	public GunItem chambers(int revolverCount) {
-		this.revolutions = revolverCount - 1;
+		this.revolutions = revolverCount;
 		this.chamber = this.revolutions;
 		return this;
 	}
