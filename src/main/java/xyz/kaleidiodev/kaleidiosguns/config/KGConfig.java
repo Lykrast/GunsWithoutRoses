@@ -127,16 +127,16 @@ public class KGConfig {
 
         goldRevolverDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Revolver")
-                .defineInRange("goldRevolverDamageModifier", 1.25D, 0.1D, 5D);
+                .defineInRange("goldRevolverDamageModifier", 1.75D, 0.1D, 5D);
         goldRevolverFireDelay = builder
                 .comment("Configure the Fire delay for Revolver")
-                .defineInRange("goldRevolverFireDelay", 36, 0, 72000);
+                .defineInRange("goldRevolverFireDelay", 60, 0, 72000);
         goldRevolverEnchantability = builder
                 .comment("Configure the Enchantability for Revolver")
                 .defineInRange("goldRevolverEnchantability", 23, 0, 30);
         goldRevolverDurability = builder
                 .comment("Configure the Durability for Revolver")
-                .defineInRange("goldRevolverDurability", 1920, 0, 32767);
+                .defineInRange("goldRevolverDurability", 914, 0, 32767);
         goldRevolverInaccuracy = builder
                 .comment("Configure the Inaccuracy for Revolver")
                 .defineInRange("goldRevolverInaccuracy", 2.5D, 0D, 90D);
@@ -151,7 +151,7 @@ public class KGConfig {
                 .defineInRange("goldRevolverChamberSwitchSpeed", 3, 1, 72000);
         goldRevolverStabilityTime = builder
                 .comment("Configure how long the gun must not be fired for spread cone to stabilize on Revolver")
-                .defineInRange("goldRevolverStabilityTime", 18, 1, 72000);
+                .defineInRange("goldRevolverStabilityTime", 28, 1, 72000);
         builder.pop();
 
         builder.push("shotguns");
@@ -228,13 +228,13 @@ public class KGConfig {
                 .defineInRange("ironCarbineDamageMultiplier", 1.5D, 0.5D, 5D);
         ironCarbineFireDelay = builder
                 .comment("Configure the Fire delay for Carbines")
-                .defineInRange("ironCarbineFireDelay", 20, 0, 72000);
+                .defineInRange("ironCarbineFireDelay", 24, 0, 72000);
         ironCarbineEnchantability = builder
                 .comment("Configure the Enchantability for Carbines")
                 .defineInRange("ironCarbineEnchantability", 14, 0, 30);
         ironCarbineDurability = builder
                 .comment("Configure the Durability for Carbines")
-                .defineInRange("ironCarbineDurability", 2400, 0, 32767);
+                .defineInRange("ironCarbineDurability", 1333, 0, 32767);
         ironCarbineInaccuracy = builder
                 .comment("Configure the Inaccuracy for Carbines")
                 .defineInRange("ironCarbineInaccuracy", 0D, 0D, 90D);
