@@ -142,8 +142,6 @@ public class GunItem extends ShootableItem {
 		int base = Math.max(1, stabilityTime - (int)(stabilityTime * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, gun) * KGConfig.sleightOfHandFireRateDecrease.get()));
 		stabilizerTimer = base;
 		shotsBeforeStability++;
-		System.out.println("stabilizer timer is now: " + stabilizerTimer);
-		System.out.println("shots before stability reached: " + shotsBeforeStability);
 
 		world.addFreshEntity(shot);
 	}
@@ -152,25 +150,22 @@ public class GunItem extends ShootableItem {
 	@Override
 	public void inventoryTick(ItemStack pStack, World pLevel, Entity pEntity, int pItemSlot, boolean pIsSelected) {
 		//turns out this method gets called for every chunk generator thread.  let's avoid that, with a tick elapsed counter and client filter
-		if (!pLevel.isClientSide) {
-			long currentTime = pLevel.getGameTime();
-			if (currentTime > ticksPassed) {
-				ticksPassed = currentTime;
-				onActualInventoryTick();
-			}
+		long currentTime = pLevel.getGameTime();
+		if (currentTime > this.ticksPassed) {
+			this.ticksPassed = currentTime;
+			this.onActualInventoryTick();
 		}
 
 		super.inventoryTick(pStack, pLevel, pEntity, pItemSlot, pIsSelected);
 	}
 
 	protected void onActualInventoryTick() {
-		if (stabilizerTimer > 0) {
-			System.out.println("Ticking timer");
-			stabilizerTimer--;
+		if (this.stabilizerTimer > 0) {
+			this.stabilizerTimer--;
 		}
 
-		if (stabilizerTimer == 0) {
-			shotsBeforeStability = 0;
+		if (this.stabilizerTimer == 0) {
+			this.shotsBeforeStability = 0;
 		}
 	}
 
