@@ -141,6 +141,8 @@ public class GunItem extends ShootableItem {
 		int base = Math.max(1, stabilityTime - (int)(stabilityTime * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, gun) * KGConfig.sleightOfHandFireRateDecrease.get()));
 		stabilizerTimer = base;
 		shotsBeforeStability++;
+		System.out.println("stabilizer timer is now: " + stabilizerTimer);
+		System.out.println("shots before stability reached: " + shotsBeforeStability);
 
 		world.addFreshEntity(shot);
 	}
@@ -149,11 +151,12 @@ public class GunItem extends ShootableItem {
 	@Override
 	public void inventoryTick(ItemStack pStack, World pLevel, Entity pEntity, int pItemSlot, boolean pIsSelected) {
 		if (stabilizerTimer > 0) {
+			System.out.println("Ticking timer");
 			stabilizerTimer--;
 		}
 
 		if (stabilizerTimer == 0) {
-			System.out.println("revolver stabilized");
+			System.out.println("timer is done");
 			shotsBeforeStability = 0;
 		}
 	}
@@ -197,14 +200,7 @@ public class GunItem extends ShootableItem {
 		int base = Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * KGConfig.sleightOfHandFireRateDecrease.get()));
 		//have instant tick time if barrel side has been switched
 		if (chamber != 1) {
-			//barrel switch speed defined at all?
-			if (barrelSwitchSpeed != -1) {
-				//don't divide by zero
-				if (barrelSwitchSpeed == 0) return 1;
-				else return fireDelay / barrelSwitchSpeed;
-			} else {
-				return fireDelay;
-			}
+			return Math.max(1, base / barrelSwitchSpeed);
 		}
 		else
 		{
@@ -222,7 +218,7 @@ public class GunItem extends ShootableItem {
 
 	/**
 	 * Gets the inaccuracy, taking into account Bullseye enchantment.<br>
-	 * Accuracy is actually inarccuracy internally, because it's easier to math.<br>
+	 * Accuracy is actually inaccuracy internally, because it's easier to math.<br>
 	 * The formula is just accuracy = 1 / inaccuracy.
 	 */
 	public double getInaccuracy(ItemStack stack, @Nullable PlayerEntity player) {
