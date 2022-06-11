@@ -126,22 +126,22 @@ public class KGConfig {
                 .defineInRange("ironPistolProjectileSpeed", 8D, 0D, 64D);
 
         goldRevolverDamageMultiplier = builder
-                .comment("Define the Damage multiplier for Pistols")
-                .defineInRange("goldRevolverDamageModifier", 1.75D, 0.1D, 5D);
+                .comment("Define the Damage multiplier for Revolver")
+                .defineInRange("goldRevolverDamageModifier", 1.25D, 0.1D, 5D);
         goldRevolverFireDelay = builder
-                .comment("Configure the Fire delay for Pistols")
+                .comment("Configure the Fire delay for Revolver")
                 .defineInRange("goldRevolverFireDelay", 40, 0, 72000);
         goldRevolverEnchantability = builder
-                .comment("Configure the Enchantability for Pistols")
-                .defineInRange("goldRevolverEnchantability", 14, 0, 30);
+                .comment("Configure the Enchantability for Revolver")
+                .defineInRange("goldRevolverEnchantability", 23, 0, 30);
         goldRevolverDurability = builder
-                .comment("Configure the Durability for Pistols")
-                .defineInRange("goldRevolverDurability", 4000, 0, 32767);
+                .comment("Configure the Durability for Revolver")
+                .defineInRange("goldRevolverDurability", 1920, 0, 32767);
         goldRevolverInaccuracy = builder
-                .comment("Configure the Inaccuracy for Pistols")
+                .comment("Configure the Inaccuracy for Revolver")
                 .defineInRange("goldRevolverInaccuracy", 2.5D, 0D, 90D);
         goldRevolverProjectileSpeed = builder
-                .comment("Configure the Projectile Speed for Pistols")
+                .comment("Configure the Projectile Speed for Revolver")
                 .defineInRange("goldRevolverProjectileSpeed", 8D, 0D, 64D);
         goldRevolverSpreadoutStrength = builder
                 .comment("Configure the strength a Revolver increases its spread cone every time it's used too fast")
@@ -151,7 +151,7 @@ public class KGConfig {
                 .defineInRange("goldRevolverChamberSwitchSpeed", 4, 1, 72000);
         goldRevolverStabilityTime = builder
                 .comment("Configure how long the gun must not be fired for spread cone to stabilize on Revolver")
-                .defineInRange("goldRevolverStabilityTime", 18, 1, 72000);
+                .defineInRange("goldRevolverStabilityTime", 20, 1, 72000);
         builder.pop();
 
         builder.push("shotguns");
@@ -234,7 +234,7 @@ public class KGConfig {
                 .defineInRange("ironCarbineEnchantability", 14, 0, 30);
         ironCarbineDurability = builder
                 .comment("Configure the Durability for Carbines")
-                .defineInRange("ironCarbineDurability", 1600, 0, 32767);
+                .defineInRange("ironCarbineDurability", 2400, 0, 32767);
         ironCarbineInaccuracy = builder
                 .comment("Configure the Inaccuracy for Carbines")
                 .defineInRange("ironCarbineInaccuracy", 0D, 0D, 90D);

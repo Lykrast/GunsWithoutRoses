@@ -236,7 +236,7 @@ public class GunItem extends ShootableItem {
 	 */
 	public double getInaccuracy(ItemStack stack, @Nullable PlayerEntity player) {
 		double nextInaccuracy = Math.max(0, inaccuracy / ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) * KGConfig.bullseyeAccuracyIncrease.get()) + 1.0));
-		nextInaccuracy += shotsBeforeStability * instabilitySpreadAdditional;
+		nextInaccuracy += shotsBeforeStability * Math.max(0, instabilitySpreadAdditional / (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) * KGConfig.bullseyeAccuracyIncrease.get()));
 		return nextInaccuracy;
 	}
 
