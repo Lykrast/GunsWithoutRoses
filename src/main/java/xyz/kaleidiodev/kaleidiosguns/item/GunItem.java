@@ -52,9 +52,10 @@ public class GunItem extends ShootableItem {
 	protected boolean shouldCollateral = false;
 	protected int barrelSwitchSpeed = -1;
 	protected double knockback = 0.6D;
-	protected int stabilityTime = 0;
-	protected int shotsBeforeStability = 0;
-	protected int stabilizerTimer = 0; //internal timer.  falls to zero when gun is stable.
+	protected int stabilityTime;
+	protected int shotsBeforeStability;
+	protected int stabilizerTimer; //internal timer.  falls to zero when gun is stable.
+	protected long ticksPassed;
 	protected double instabilitySpreadAdditional; //additional spread to add every time a shot recharges stabilizer timer.
 
 	protected SoundEvent fireSound = ModSounds.gun;
@@ -150,13 +151,25 @@ public class GunItem extends ShootableItem {
 	//used to tick the stability timer on guns that use it.
 	@Override
 	public void inventoryTick(ItemStack pStack, World pLevel, Entity pEntity, int pItemSlot, boolean pIsSelected) {
+		//turns out this method gets called for every chunk generator thread.  let's avoid that, with a tick elapsed counter and client filter
+		if (!pLevel.isClientSide) {
+			long currentTime = pLevel.getGameTime();
+			if (currentTime > ticksPassed) {
+				ticksPassed = currentTime;
+				onActualInventoryTick();
+			}
+		}
+
+		super.inventoryTick(pStack, pLevel, pEntity, pItemSlot, pIsSelected);
+	}
+
+	protected void onActualInventoryTick() {
 		if (stabilizerTimer > 0) {
 			System.out.println("Ticking timer");
 			stabilizerTimer--;
 		}
 
 		if (stabilizerTimer == 0) {
-			System.out.println("timer is done");
 			shotsBeforeStability = 0;
 		}
 	}
