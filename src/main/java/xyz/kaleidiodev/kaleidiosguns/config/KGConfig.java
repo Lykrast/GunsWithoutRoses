@@ -1,6 +1,7 @@
 package xyz.kaleidiodev.kaleidiosguns.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
+import org.lwjgl.system.CallbackI;
 
 public class KGConfig {
 
@@ -13,6 +14,16 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue ironPistolDurability;
     public static ForgeConfigSpec.DoubleValue ironPistolInaccuracy;
     public static ForgeConfigSpec.DoubleValue ironPistolProjectileSpeed;
+
+    public static ForgeConfigSpec.DoubleValue goldRevolverDamageMultiplier;
+    public static ForgeConfigSpec.IntValue goldRevolverFireDelay;
+    public static ForgeConfigSpec.IntValue goldRevolverEnchantability;
+    public static ForgeConfigSpec.IntValue goldRevolverDurability;
+    public static ForgeConfigSpec.DoubleValue goldRevolverInaccuracy;
+    public static ForgeConfigSpec.DoubleValue goldRevolverProjectileSpeed;
+    public static ForgeConfigSpec.DoubleValue goldRevolverSpreadoutStrength;
+    public static ForgeConfigSpec.IntValue goldRevolverChamberSwitchSpeed;
+    public static ForgeConfigSpec.IntValue goldRevolverStabilityTime;
 
     public static ForgeConfigSpec.DoubleValue diamondShotgunDamageMultiplier;
     public static ForgeConfigSpec.IntValue diamondShotgunFireDelay;
@@ -29,6 +40,7 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue goldDoubleShotgunInaccuracy;
     public static ForgeConfigSpec.IntValue goldDoubleShotgunBulletCount;
     public static ForgeConfigSpec.DoubleValue goldDoubleShotgunProjectileSpeed;
+    public static ForgeConfigSpec.IntValue goldDoubleShotgunChamberSwitchSpeed;
 
     public static ForgeConfigSpec.DoubleValue diamondSniperDamageMultiplier;
     public static ForgeConfigSpec.IntValue diamondSniperFireDelay;
@@ -112,6 +124,34 @@ public class KGConfig {
         ironPistolProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Pistols")
                 .defineInRange("ironPistolProjectileSpeed", 8D, 0D, 64D);
+
+        goldRevolverDamageMultiplier = builder
+                .comment("Define the Damage multiplier for Pistols")
+                .defineInRange("goldRevolverDamageModifier", 1D, 0.1D, 5D);
+        goldRevolverFireDelay = builder
+                .comment("Configure the Fire delay for Pistols")
+                .defineInRange("goldRevolverFireDelay", 40, 0, 72000);
+        goldRevolverEnchantability = builder
+                .comment("Configure the Enchantability for Pistols")
+                .defineInRange("goldRevolverEnchantability", 14, 0, 30);
+        goldRevolverDurability = builder
+                .comment("Configure the Durability for Pistols")
+                .defineInRange("goldRevolverDurability", 4000, 0, 32767);
+        goldRevolverInaccuracy = builder
+                .comment("Configure the Inaccuracy for Pistols")
+                .defineInRange("goldRevolverInaccuracy", 2.5D, 0D, 90D);
+        goldRevolverProjectileSpeed = builder
+                .comment("Configure the Projectile Speed for Pistols")
+                .defineInRange("goldRevolverProjectileSpeed", 8D, 0D, 64D);
+        goldRevolverSpreadoutStrength = builder
+                .comment("Configure the strength a Revolver increases its spread cone every time it's used too fast")
+                .defineInRange("goldRevolverSpreadoutStrength", 1.5D, 0D, 64D);
+        goldRevolverChamberSwitchSpeed = builder
+                .comment("Configure how long switching chambers takes between shots on Revolvers")
+                .defineInRange("goldRevolverChamberSwitchSpeed", 4, 1, 72000);
+        goldRevolverStabilityTime = builder
+                .comment("Configure how long the gun must not be fired for spread cone to stabilize on Revolver")
+                .defineInRange("goldRevolverStabilityTime", 18, 1, 72000);
         builder.pop();
 
         builder.push("shotguns");
@@ -158,6 +198,9 @@ public class KGConfig {
         goldDoubleShotgunProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunProjectileSpeed", 8D, 0D, 64D);
+        goldDoubleShotgunChamberSwitchSpeed = builder
+                .comment("Configure how long switching chambers takes between shots on Double Barrel Shotguns")
+                .defineInRange("goldDoubleShotgunChamberSwitchSpeed", 15, 1, 72000);
         builder.pop();
 
         builder.push("rifles");

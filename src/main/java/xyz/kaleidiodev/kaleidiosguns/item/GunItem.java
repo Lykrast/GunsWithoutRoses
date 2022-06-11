@@ -49,6 +49,9 @@ public class GunItem extends ShootableItem {
 	protected int revolutions = 0;
 	protected int chamber;
 	protected boolean shouldCollateral = false;
+	protected int barrelSwitchSpeed;
+	protected double knockback = 0.6D;
+
 	protected SoundEvent fireSound = ModSounds.gun;
 	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
 	protected Supplier<Ingredient> repairMaterial;
@@ -124,8 +127,8 @@ public class GunItem extends ShootableItem {
 		shot.setShouldBreakBlock(hasBlockMineAbility);
 		shot.setShouldCollateral(shouldCollateral);
 		shot.setBulletSpeed(projectileSpeed);
-		if (shouldCollateral) shot.noPhysics = true;
-		if (gun.getItem() == ModItems.doubleBarrelShotgun) shot.setKnockbackStrength(1.2);
+		shot.setKnockbackStrength(knockback);
+		shot.noPhysics = shouldCollateral;
 		changeBullet(world, player, gun, shot, bulletFree);
 
 		world.addFreshEntity(shot);
@@ -170,7 +173,7 @@ public class GunItem extends ShootableItem {
 		int base = Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * KGConfig.sleightOfHandFireRateDecrease.get()));
 		//have instant tick time if barrel side has been switched
 		if (chamber == 0) {
-			return 0;
+			return fireDelay / barrelSwitchSpeed;
 		}
 		else
 		{
@@ -303,6 +306,21 @@ public class GunItem extends ShootableItem {
 
 	public GunItem collateral(boolean collateralSetting) {
 		this.shouldCollateral = collateralSetting;
+		return this;
+	}
+
+	public GunItem setKnockbackStrength(double newKnockback) {
+		this.knockback = newKnockback;
+		return this;
+	}
+
+	/**
+	 *
+	 * @param barrelSwitch set the divider that divides the fire rate to denote how many ticks it takes to switch barrels
+	 *
+	 */
+	public GunItem setBarrelSwitchSpeed(int barrelSwitch) {
+		this.barrelSwitchSpeed = barrelSwitch;
 		return this;
 	}
 
