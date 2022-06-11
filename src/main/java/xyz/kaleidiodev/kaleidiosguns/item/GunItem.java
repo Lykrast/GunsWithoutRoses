@@ -46,8 +46,8 @@ public class GunItem extends ShootableItem {
 	protected boolean ignoreInvulnerability = true;
 	protected double chanceFreeShot = 0;
 	protected boolean hasBlockMineAbility = false;
-	protected boolean isDoubleBarrel = false;
-	protected boolean barrelSide;
+	protected int revolutions = 0;
+	protected int chamber;
 	protected boolean shouldCollateral = false;
 	protected SoundEvent fireSound = ModSounds.gun;
 	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
@@ -75,8 +75,11 @@ public class GunItem extends ShootableItem {
 			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
 			if (!world.isClientSide) {
 				player.startUsingItem(hand);
-				//invert the barrel side.
-				if (isDoubleBarrel) barrelSide = !barrelSide;
+				//change chamber
+				if (revolutions > 0) {
+					chamber--;
+					if (chamber <= -1) chamber = revolutions;
+				}
 				boolean bulletFree = player.abilities.instabuild || !shouldConsumeAmmo(gun, player);
 
 				//Workaround for quivers not respecting getAmmoPredicate()
@@ -122,7 +125,7 @@ public class GunItem extends ShootableItem {
 		shot.setShouldCollateral(shouldCollateral);
 		shot.setBulletSpeed(projectileSpeed);
 		if (shouldCollateral) shot.noPhysics = true;
-		if (isDoubleBarrel) shot.setKnockbackStrength(1.2);
+		if (gun.getItem() == ModItems.doubleBarrelShotgun) shot.setKnockbackStrength(1.2);
 		changeBullet(world, player, gun, shot, bulletFree);
 
 		world.addFreshEntity(shot);
@@ -166,7 +169,13 @@ public class GunItem extends ShootableItem {
 	public int getFireDelay(ItemStack stack, @Nullable PlayerEntity player) {
 		int base = Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * KGConfig.sleightOfHandFireRateDecrease.get()));
 		//have instant tick time if barrel side has been switched
-		return barrelSide ? 1 : base;
+		if (chamber == 0) {
+			return 0;
+		}
+		else
+		{
+			return base;
+		}
 	}
 
 	/**
@@ -286,8 +295,9 @@ public class GunItem extends ShootableItem {
 		return this;
 	}
 
-	public GunItem doubleBarrel(boolean barrel) {
-		this.isDoubleBarrel = barrel;
+	public GunItem chambers(int revolverCount) {
+		this.revolutions = revolverCount - 1;
+		this.chamber = this.revolutions;
 		return this;
 	}
 
