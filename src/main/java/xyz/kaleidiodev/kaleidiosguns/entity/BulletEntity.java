@@ -91,7 +91,7 @@ public class BulletEntity extends AbstractFireballEntity {
 			//1. the rotation is correct on spawn before first tick
 			//2. the rotation is always correct at any rotation speed, like an arrow
 			this.checkInsideBlocks();
-			ProjectileHelper.rotateTowardsMovement(this, 1.0F);
+			ProjectileHelper.rotateTowardsMovement(this, 0.2F);
 
 			//add support for torpedo enchantment, make inertia falloff even more intense otherwise
 			float f = this.getInertia();
