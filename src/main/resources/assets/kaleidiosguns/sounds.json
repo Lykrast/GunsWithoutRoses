@@ -56,6 +56,11 @@
 		"subtitle": "subtitles.kaleidiosguns.item.revolver.shoot",
 		"sounds": [ "kaleidiosguns:revolver" ]
 	},
+	"item.skill_shot.shoot": {
+		"category": "item",
+		"subtitle": "subtitles.kaleidiosguns.item.skill_shot.shoot",
+		"sounds": [ "kaleidiosguns:skill_shot" ]
+	},
 	"entity.bullet.impact": {
 		"category": "entity",
 		"subtitle": "subtitles.kaleidiosguns.item.bullet.impact",

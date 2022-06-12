@@ -8,7 +8,7 @@
 	"item.kaleidiosguns.plasma_rifle": "Plasma Rifle",
 	"item.kaleidiosguns.assault_rifle": "Assault Rifle",
 	"item.kaleidiosguns.revolver": "Revolver",
-	"item.kaleidiosguns.skill_shot": "Skillshot Pistol",
+	"item.kaleidiosguns.skill_shot": "Skill Shot Pistol",
 
 	"item.kaleidiosguns.flint_bullet": "Flint Bullet",
 	"item.kaleidiosguns.iron_bullet": "Iron Bullet",
@@ -76,5 +76,6 @@
 	"subtitles.kaleidiosguns.item.assault_rifle.shoot": "Assault Rifle fired",
 	"subtitles.kaleidiosguns.item.plasma_rifle.shoot": "Plasma Rifle fired",
 	"subtitles.kaleidiosguns.item.revolver.shoot": "Revolver fired",
+	"subtitles.kaleidiosguns.item.skill_shot.shoot": "Skill Shot Pistol fired",
 	"subtitles.kaleidiosguns.item.bullet.impact": "Bullet landed"
 }
