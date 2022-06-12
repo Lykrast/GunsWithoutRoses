@@ -384,11 +384,19 @@ public class GunItem extends ShootableItem {
 
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-		//Disallow Bullseye if the gun has perfect accuracy
+		//Disallow these for specific gun types
 		GunItem me = (GunItem) stack.getItem();
-		if (enchantment == ModEnchantments.bullseye && hasPerfectAccuracy()) return false;
-		if (enchantment == ModEnchantments.division && !(me instanceof ShotgunItem)) return false;
-		if (enchantment == ModEnchantments.marker && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.getInaccuracy(stack) != 0))) return false;
+		if (enchantment == ModEnchantments.bullseye && hasPerfectAccuracy()) return false; //not for sniper
+
+		//only let these apply to certain gun types
+		if (enchantment == ModEnchantments.division && !(me instanceof ShotgunItem)) return false; //shotgun only
+		if (enchantment == ModEnchantments.marker && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.getInaccuracy(stack) != 0))) return false; //pistol only
+
+		//Disallow these if other enchantments are already applied.
+		//impact versus lucky shot
+		if ((enchantment == ModEnchantments.impact) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)) return false;
+		if ((enchantment == ModEnchantments.luckyShot) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)) return false;
+
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}
 
