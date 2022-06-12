@@ -8,6 +8,7 @@
 	"item.kaleidiosguns.plasma_rifle": "Plasma Rifle",
 	"item.kaleidiosguns.assault_rifle": "Assault Rifle",
 	"item.kaleidiosguns.revolver": "Revolver",
+	"item.kaleidiosguns.skill_shot": "Skillshot Pistol",
 
 	"item.kaleidiosguns.flint_bullet": "Flint Bullet",
 	"item.kaleidiosguns.iron_bullet": "Iron Bullet",
@@ -61,6 +62,8 @@
 	"enchantment.kaleidiosguns.puncturing.desc": "Some damage will pass through armor",
 	"enchantment.kaleidiosguns.marker": "Marker",
 	"enchantment.kaleidiosguns.marker.desc": "A hit target will begin to glow",
+	"enchantment.kaleidiosguns.lucky_shot": "Lucky Shot",
+	"enchantment.kaleidiosguns.lucky_shot.desc": "Provides a chance to give critical damage",
 
 	"entity.kaleidiosguns.bullet": "Bullet",
 

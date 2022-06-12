@@ -5,6 +5,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -31,6 +32,7 @@ import xyz.kaleidiodev.kaleidiosguns.registry.ModSounds;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -57,6 +59,9 @@ public class GunItem extends ShootableItem {
 	protected int stabilizerTimer; //internal timer.  falls to zero when gun is stable.
 	protected long ticksPassed;
 	protected double instabilitySpreadAdditional; //additional spread to add every time a shot recharges stabilizer timer.
+	protected boolean shouldCombo = false;
+	protected int comboCount = 0;
+	protected UUID comboVictim;
 
 	protected SoundEvent fireSound = ModSounds.gun;
 	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
@@ -121,8 +126,9 @@ public class GunItem extends ShootableItem {
 		Vector3d projectileMotion = player.getDeltaMovement();
 		shot.setDeltaMovement(shot.getDeltaMovement().subtract(projectileMotion.x, player.isOnGround() ? 0.0D : projectileMotion.y, projectileMotion.z));
 
+		shot.setShootingGun(this);
 		shot.setInaccuracy(getInaccuracy(gun));
-		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
+		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun));
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);
 		shot.setHealthRewardChance(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.passionForBlood, gun) * 0.1);
 		shot.setShouldBreakBlock(hasBlockMineAbility);
@@ -130,10 +136,14 @@ public class GunItem extends ShootableItem {
 		shot.setBulletSpeed(projectileSpeed);
 		shot.setKnockbackStrength(myKnockback);
 		shot.setPuncturingAmount(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.puncturing, gun) * KGConfig.puncturingMultiplier.get());
+
 		double luckyChance = KGConfig.luckyShotChance.get() * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, gun);
 		if (random.nextDouble() < luckyChance) shot.setIsCritical(true);
 		if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.marker, gun) == 1) shot.setShouldGlow(true);
-		shot.noPhysics = shouldCollateral;
+
+		shot.noPhysics = this.shouldCollateral;
+		shot.shouldCombo = this.shouldCombo;
+
 		changeBullet(world, player, gun, shot, bulletFree);
 
 		//change chamber if multiple revolutions
@@ -201,7 +211,7 @@ public class GunItem extends ShootableItem {
 		return bonusDamage + (impact >= 1 ? (impact * KGConfig.impactDamageIncrease.get()) : 0);
 	}
 
-	public double getDamageMultiplier(ItemStack stack, @Nullable PlayerEntity player) {
+	public double getDamageMultiplier(ItemStack stack) {
 		return damageMultiplier;
 	}
 
@@ -365,6 +375,11 @@ public class GunItem extends ShootableItem {
 		return this;
 	}
 
+	public GunItem setShouldCombo(boolean combo) {
+		this.shouldCombo = combo;
+		return this;
+	}
+
 	/**
 	 *
 	 * @param barrelSwitch set the divider that divides the fire rate to denote how many ticks it takes to switch barrels
@@ -373,6 +388,38 @@ public class GunItem extends ShootableItem {
 	public GunItem setBarrelSwitchSpeed(int barrelSwitch) {
 		this.barrelSwitchSpeed = barrelSwitch;
 		return this;
+	}
+
+	/**
+	 *
+	 * @param victim the victim entity to see if it has been comboed.  give it the shooter if no entity was hit.
+	 * @return returns a multiplier that should multiply the damage.
+	 */
+	public double tryComboCalculate(UUID victim, PlayerEntity shooter) {
+		if (victim == shooter.getUUID()){
+			comboVictim = null;
+			comboCount = 0;
+		}
+		else if (comboVictim == null) {
+			comboVictim = victim;
+			comboCount = 1;
+		}
+		else if (victim == comboVictim) {
+			comboCount++;
+		}
+		else
+		{
+			comboCount = 0;
+			comboVictim = null;
+		}
+
+		//cap combo
+		if (comboCount > KGConfig.diamondSkillshotMaxCombo.get()) comboCount = KGConfig.diamondSkillshotMaxCombo.get();
+
+		//calculate what the new multiplier would be.
+		double newDamageMultiplier = this.damageMultiplier + (KGConfig.diamondSkillshotComboMultiplierPer.get() * comboCount);
+
+		return newDamageMultiplier;
 	}
 
 	@Override
@@ -405,7 +452,7 @@ public class GunItem extends ShootableItem {
 	public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		if (Screen.hasShiftDown()) {
 			//Damage
-			double damageMultiplier = getDamageMultiplier(stack, null);
+			double damageMultiplier = getDamageMultiplier(stack);
 			double damageBonus = getBonusDamage(stack, null) * damageMultiplier;
 
 			if (damageMultiplier != 1) {

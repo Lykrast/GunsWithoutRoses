@@ -22,7 +22,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.event.world.NoteBlockEvent;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
+import xyz.kaleidiodev.kaleidiosguns.item.GunItem;
 import xyz.kaleidiodev.kaleidiosguns.item.IBullet;
 import xyz.kaleidiodev.kaleidiosguns.network.NetworkUtils;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEntities;
@@ -31,6 +33,7 @@ import xyz.kaleidiodev.kaleidiosguns.registry.ModSounds;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 public class BulletEntity extends AbstractFireballEntity {
 
@@ -48,6 +51,8 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected double puncturingAmount;
 	protected boolean shouldGlow;
 	protected boolean isCritical;
+	protected GunItem shootingGun;
+	public boolean shouldCombo;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);
@@ -163,6 +168,9 @@ public class BulletEntity extends AbstractFireballEntity {
 
 	@Override
 	protected void onHitBlock(BlockRayTraceResult raytrace) {
+		//reset combo by sending owner player's UUID, which can never get damaged
+		if (getOwner() instanceof PlayerEntity) this.shootingGun.tryComboCalculate(getOwner().getUUID(), (PlayerEntity) getOwner());
+
 		double d0 = raytrace.getLocation().x();
 		double d1 = raytrace.getLocation().y() + (this.getBoundingBox().getYsize() / 2);
 		double d2 = raytrace.getLocation().z();
@@ -359,6 +367,10 @@ public class BulletEntity extends AbstractFireballEntity {
 	public void setIsCritical(boolean critical) { this.isCritical = critical; }
 
 	public boolean isCritical() { return this.isCritical; }
+
+	public void setShootingGun(GunItem gun) { this.shootingGun = gun; }
+
+	public GunItem getShootingGun() { return this.shootingGun; }
 
 	/**
 	 * Knockback on impact, 0.6 is equivalent to Punch I.

@@ -7,6 +7,7 @@ import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IndirectEntityDamageSource;
 import net.minecraft.world.World;
+import net.minecraftforge.event.world.NoteBlockEvent;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.entity.BulletEntity;
 
@@ -67,7 +68,20 @@ public interface IBullet {
 			}
 		}
 
+		//apply chance based critical
 		if (projectile.isCritical()) newDamage *= KGConfig.criticalDamage.get();
+
+		//multiply all this by combo
+		if (projectile.shouldCombo) {
+			if ((target instanceof LivingEntity) && (shooter instanceof PlayerEntity)) {
+				LivingEntity victim = (LivingEntity)target;
+				PlayerEntity assailant = (PlayerEntity) shooter;
+				//first remove the old multiplier, then add the new one.
+				newDamage /= projectile.getShootingGun().getDamageMultiplier(new ItemStack(projectile.getShootingGun().getItem()));
+				newDamage *= projectile.getShootingGun().tryComboCalculate(victim.getUUID(), assailant);
+			}
+		}
+		System.out.println("Expected damage: " + newDamage);
 		return newDamage;
 	}
 

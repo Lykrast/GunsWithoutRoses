@@ -17,6 +17,7 @@ public class ModItems {
 	public static GunItem
 			ironGun,
 			goldGun,
+			diamondGun,
 			diamondShotgun,
 			doubleBarrelShotgun,
 			carbineSniper,
@@ -34,6 +35,7 @@ public class ModItems {
 		// Pistols
 		ironGun = initItem(reg, new GunItem(defP().durability(KGConfig.ironPistolDurability.get()), 0, KGConfig.ironPistolDamageMultiplier.get(), KGConfig.ironPistolFireDelay.get(), KGConfig.ironPistolInaccuracy.get(), KGConfig.ironPistolEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "pistol").projectileSpeed(KGConfig.ironPistolProjectileSpeed.get()).fireSound(ModSounds.pistol);
 		goldGun = initItem(reg, new GunItem(defP().durability(KGConfig.goldRevolverDurability.get()), 0, KGConfig.goldRevolverDamageMultiplier.get(), KGConfig.goldRevolverFireDelay.get(), KGConfig.goldRevolverInaccuracy.get(), KGConfig.goldRevolverEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)).chambers(6).setBarrelSwitchSpeed(KGConfig.goldRevolverChamberSwitchSpeed.get()).instabilityAdditionalSpread(KGConfig.goldRevolverSpreadoutStrength.get()).setStabilityTime(KGConfig.goldRevolverStabilityTime.get()), "revolver").projectileSpeed(KGConfig.goldRevolverProjectileSpeed.get()).fireSound(ModSounds.revolver);
+		diamondGun = initItem(reg, new GunItem(defP().durability(KGConfig.diamondSkillshotDurability.get()), 0, KGConfig.diamondSkillshotDamageMultiplier.get(), KGConfig.diamondSkillshotFireDelay.get(), KGConfig.diamondSkillshotInaccuracy.get(), KGConfig.diamondSkillshotEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)).setShouldCombo(true), "skill_shot").projectileSpeed(KGConfig.goldRevolverProjectileSpeed.get()).fireSound(ModSounds.revolver);
 
 		// Shotguns
 		diamondShotgun = initItem(reg, new ShotgunItem(defP().durability(KGConfig.diamondShotgunDurability.get()), 0, KGConfig.diamondShotgunDamageMultiplier.get(), KGConfig.diamondShotgunFireDelay.get(), KGConfig.diamondShotgunInaccuracy.get(), KGConfig.diamondShotgunEnchantability.get(), KGConfig.diamondShotgunBulletCount.get()).fireSound(ModSounds.shotgun).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "shotgun").projectileSpeed(KGConfig.diamondShotgunProjectileSpeed.get());
