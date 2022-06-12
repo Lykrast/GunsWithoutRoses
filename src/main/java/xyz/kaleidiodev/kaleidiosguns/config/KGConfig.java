@@ -179,7 +179,7 @@ public class KGConfig {
                 .defineInRange("diamondSkillshotDurability", 4000, 0, 32767);
         diamondSkillshotInaccuracy = builder
                 .comment("Configure the Inaccuracy for Skillshot Pistols")
-                .defineInRange("diamondSkillshotInaccuracy", 2.0D, 0D, 90D);
+                .defineInRange("diamondSkillshotInaccuracy", 4.0D, 0D, 90D);
         diamondSkillshotProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Skillshot Pistols")
                 .defineInRange("diamondSkillshotProjectileSpeed", 6D, 0D, 64D);
@@ -188,7 +188,7 @@ public class KGConfig {
                 .defineInRange("diamondSkillshotMaxCombo", 5, 2, 255);
         diamondSkillshotComboMultiplierPer = builder
                 .comment("Configure the addition to damage multiplier per combo for Skillshot Pistols")
-                .defineInRange("diamondSkillshotComboMultplierPer", 0.15D, 0D, 64D);
+                .defineInRange("diamondSkillshotComboMultplierPer", 0.2D, 0D, 64D);
         builder.pop();
 
         builder.push("shotguns");
