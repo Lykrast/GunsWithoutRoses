@@ -35,7 +35,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected double damage = 1;
 	protected double inaccuracy = 0.0;
 	protected boolean ignoreInvulnerability = false;
-	protected double knockbackStrength = 0;
+	protected double knockbackStrength = 0.6;
 	protected int ticksSinceFired;
 	protected double healthRewardChance = 0.0f;
 	protected float healthOfVictim;
