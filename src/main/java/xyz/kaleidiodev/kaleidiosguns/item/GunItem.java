@@ -115,13 +115,13 @@ public class GunItem extends ShootableItem {
 	 */
 	protected void fireWeapon(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
 		BulletEntity shot = bulletItem.createProjectile(world, ammo, player, gun.getItem() == ModItems.plasmaGatling);
-		shot.shootFromRotation(player, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), VivecraftForgeExtensionPresent ? 0.0F : (float)getInaccuracy(gun, player));
+		shot.shootFromRotation(player, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), VivecraftForgeExtensionPresent ? 0.0F : (float)getInaccuracy(gun));
 
 		//subtract player velocity to make the bullet independent
 		Vector3d projectileMotion = player.getDeltaMovement();
 		shot.setDeltaMovement(shot.getDeltaMovement().subtract(projectileMotion.x, player.isOnGround() ? 0.0D : projectileMotion.y, projectileMotion.z));
 
-		shot.setInaccuracy(getInaccuracy(gun, player));
+		shot.setInaccuracy(getInaccuracy(gun));
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);
 		shot.setHealthRewardChance(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.passionForBlood, gun) * 0.1);
@@ -130,6 +130,7 @@ public class GunItem extends ShootableItem {
 		shot.setBulletSpeed(projectileSpeed);
 		shot.setKnockbackStrength(myKnockback);
 		shot.setPuncturingAmount(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.puncturing, gun) * KGConfig.puncturingMultiplier.get());
+		if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.marker, gun) == 1) shot.setShouldGlow(true);
 		shot.noPhysics = shouldCollateral;
 		changeBullet(world, player, gun, shot, bulletFree);
 
@@ -230,7 +231,7 @@ public class GunItem extends ShootableItem {
 	 * Accuracy is actually inaccuracy internally, because it's easier to math.<br>
 	 * The formula is just accuracy = 1 / inaccuracy.
 	 */
-	public double getInaccuracy(ItemStack stack, @Nullable PlayerEntity player) {
+	public double getInaccuracy(ItemStack stack) {
 		double nextInaccuracy = Math.max(0, inaccuracy / ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) * KGConfig.bullseyeAccuracyIncrease.get()) + 1.0));
 		nextInaccuracy += shotsBeforeStability * Math.max(0, instabilitySpreadAdditional / ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) * KGConfig.bullseyeAccuracyIncrease.get()) + 1.0D));
 		return nextInaccuracy;
@@ -375,14 +376,18 @@ public class GunItem extends ShootableItem {
 	@Override
 	public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
 		if (EnchantmentHelper.getEnchantments(stack).size() + EnchantmentHelper.getEnchantments(book).size() > 3) return false;
+		//make sure enchantments get checked here too.
+
 		return super.isBookEnchantable(stack, book);
 	}
 
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
 		//Disallow Bullseye if the gun has perfect accuracy
+		GunItem me = (GunItem) stack.getItem();
 		if (enchantment == ModEnchantments.bullseye && hasPerfectAccuracy()) return false;
-		if (enchantment == ModEnchantments.division && !(stack.getItem() instanceof ShotgunItem)) return false;
+		if (enchantment == ModEnchantments.division && !(me instanceof ShotgunItem)) return false;
+		if (enchantment == ModEnchantments.marker && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.getInaccuracy(stack) != 0))) return false;
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}
 
@@ -405,7 +410,7 @@ public class GunItem extends ShootableItem {
 			tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.firerate" + (isFireDelayModified(stack) ? ".modified" : ""), fireDelay, (60*20) / fireDelay));
 
 			//Accuracy
-			double inaccuracy = getInaccuracy(stack, null);
+			double inaccuracy = getInaccuracy(stack);
 			if (inaccuracy <= 0) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.accuracy.perfect" + (isInaccuracyModified(stack) ? ".modified" : "")));
 			else tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(1.0 / inaccuracy)));
 

@@ -11,6 +11,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
@@ -44,6 +46,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected double bulletSpeed;
 	protected boolean isTorpedo;
 	protected double puncturingAmount;
+	protected boolean shouldGlow;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);
@@ -227,6 +230,9 @@ public class BulletEntity extends AbstractFireballEntity {
 		//get health of the victim before they get hit.
 		if (entity instanceof LivingEntity) {
 			LivingEntity victim = (LivingEntity) entity;
+			if (shouldGlow) {
+				victim.addEffect(new EffectInstance(Effects.GLOWING, 120, 1));
+			}
 			healthOfVictim = victim.getHealth();
 		}
 		else healthOfVictim = 0.0f;
@@ -234,6 +240,7 @@ public class BulletEntity extends AbstractFireballEntity {
 		if (isOnFire()) entity.setSecondsOnFire(5);
 		int lastHurtResistant = entity.invulnerableTime;
 		if (ignoreInvulnerability) entity.invulnerableTime = 0;
+
 		boolean damaged = entity.hurt((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) bullet.modifyDamage(damage, this, entity, shooter, level));
 
 		if (damaged && entity instanceof LivingEntity) {
@@ -345,6 +352,8 @@ public class BulletEntity extends AbstractFireballEntity {
 	public void setPuncturingAmount(double puncturing) { this.puncturingAmount = puncturing; }
 
 	public double getPuncturingAmount() { return this.puncturingAmount; }
+
+	public void setShouldGlow(boolean glow) { this.shouldGlow = glow; }
 
 	/**
 	 * Knockback on impact, 0.6 is equivalent to Punch I.

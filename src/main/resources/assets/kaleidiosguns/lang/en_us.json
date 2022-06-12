@@ -59,6 +59,8 @@
 	"enchantment.kaleidiosguns.passion_for_blood.desc": "A fraction of damage will be rewarded as health",
 	"enchantment.kaleidiosguns.puncturing": "Puncturing",
 	"enchantment.kaleidiosguns.puncturing.desc": "Some damage will pass through armor",
+	"enchantment.kaleidiosguns.marker": "Marker",
+	"enchantment.kaleidiosguns.marker.desc": "A hit target will begin to glow",
 
 	"entity.kaleidiosguns.bullet": "Bullet",
 
