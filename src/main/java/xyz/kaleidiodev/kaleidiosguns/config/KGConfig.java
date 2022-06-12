@@ -369,7 +369,7 @@ public class KGConfig {
                 .defineInRange("puncturingMultiplier", 0.1D, 0.01D, 5D);
         luckyShotChance = builder
                 .comment("Chance for critical hit per lucky shot level")
-                .defineInRange("luckyShotChance", 0.05D, 0.01D, 5D);
+                .defineInRange("luckyShotChance", 0.06D, 0.01D, 5D);
         criticalDamage = builder
                 .comment("Multiplier of a critical hit")
                 .defineInRange("criticalDamage", 3D, 0.1D, 20D);
