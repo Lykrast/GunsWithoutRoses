@@ -130,6 +130,8 @@ public class GunItem extends ShootableItem {
 		shot.setBulletSpeed(projectileSpeed);
 		shot.setKnockbackStrength(myKnockback);
 		shot.setPuncturingAmount(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.puncturing, gun) * KGConfig.puncturingMultiplier.get());
+		double luckyChance = KGConfig.luckyShotChance.get() * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, gun);
+		if (random.nextDouble() < luckyChance) shot.setIsCritical(true);
 		if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.marker, gun) == 1) shot.setShouldGlow(true);
 		shot.noPhysics = shouldCollateral;
 		changeBullet(world, player, gun, shot, bulletFree);

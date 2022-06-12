@@ -66,6 +66,8 @@ public interface IBullet {
 				}
 			}
 		}
+
+		if (projectile.isCritical()) newDamage *= KGConfig.criticalDamage.get();
 		return newDamage;
 	}
 

@@ -99,6 +99,8 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue passionForBloodHealIncrease;
     public static ForgeConfigSpec.IntValue divisionCountIncrease;
     public static ForgeConfigSpec.DoubleValue puncturingMultiplier;
+    public static ForgeConfigSpec.DoubleValue luckyShotChance;
+    public static ForgeConfigSpec.DoubleValue criticalDamage;
 
 
     static {
@@ -365,6 +367,12 @@ public class KGConfig {
         puncturingMultiplier = builder
                 .comment("Multiplier for how much percent extra damage per level of puncturing")
                 .defineInRange("puncturingMultiplier", 0.1D, 0.01D, 5D);
+        luckyShotChance = builder
+                .comment("Chance for critical hit per lucky shot level")
+                .defineInRange("luckyShotChance", 0.05D, 0.01D, 5D);
+        criticalDamage = builder
+                .comment("Multiplier of a critical hit")
+                .defineInRange("criticalDamage", 3D, 0.1D, 20D);
         builder.pop();
 
         spec = builder.build();
