@@ -129,6 +129,7 @@ public class GunItem extends ShootableItem {
 		shot.setShouldCollateral(shouldCollateral);
 		shot.setBulletSpeed(projectileSpeed);
 		shot.setKnockbackStrength(myKnockback);
+		shot.setPuncturingAmount(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.puncturing, gun) * KGConfig.puncturingMultiplier.get());
 		shot.noPhysics = shouldCollateral;
 		changeBullet(world, player, gun, shot, bulletFree);
 

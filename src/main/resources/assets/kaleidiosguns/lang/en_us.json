@@ -57,6 +57,8 @@
 	"enchantment.kaleidiosguns.division.desc": "Adds more divisions in a shotgun blast",
 	"enchantment.kaleidiosguns.passion_for_blood": "Passion for Blood",
 	"enchantment.kaleidiosguns.passion_for_blood.desc": "A fraction of damage will be rewarded as health",
+	"enchantment.kaleidiosguns.puncturing": "Puncturing",
+	"enchantment.kaleidiosguns.puncturing.desc": "Some damage will pass through armor",
 
 	"entity.kaleidiosguns.bullet": "Bullet",
 

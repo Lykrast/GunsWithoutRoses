@@ -43,6 +43,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected boolean shouldCollateral;
 	protected double bulletSpeed;
 	protected boolean isTorpedo;
+	protected double puncturingAmount;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);
@@ -340,6 +341,10 @@ public class BulletEntity extends AbstractFireballEntity {
 	public void setIsTorpedo(boolean torpedo) {
 		this.isTorpedo = torpedo;
 	}
+
+	public void setPuncturingAmount(double puncturing) { this.puncturingAmount = puncturing; }
+
+	public double getPuncturingAmount() { return this.puncturingAmount; }
 
 	/**
 	 * Knockback on impact, 0.6 is equivalent to Punch I.

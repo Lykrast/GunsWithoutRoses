@@ -98,6 +98,7 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue passionForBloodRateIncrease;
     public static ForgeConfigSpec.DoubleValue passionForBloodHealIncrease;
     public static ForgeConfigSpec.IntValue divisionCountIncrease;
+    public static ForgeConfigSpec.DoubleValue puncturingMultiplier;
 
 
     static {
@@ -361,6 +362,9 @@ public class KGConfig {
         divisionCountIncrease = builder
                 .comment("Multiplier for how many extra bullets per division level on shotguns")
                 .defineInRange("divisionCountIncrease", 1, 1, 5);
+        puncturingMultiplier = builder
+                .comment("Multiplier for how much percent extra damage per level of puncturing")
+                .defineInRange("puncturingMultiplier", 0.1D, 0.01D, 5D);
         builder.pop();
 
         spec = builder.build();

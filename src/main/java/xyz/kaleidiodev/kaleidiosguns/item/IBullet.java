@@ -3,7 +3,9 @@ package xyz.kaleidiodev.kaleidiosguns.item;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IndirectEntityDamageSource;
 import net.minecraft.world.World;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.entity.BulletEntity;
@@ -50,7 +52,21 @@ public interface IBullet {
 	 * <br/>May change that later.
 	 */
 	default double modifyDamage(double damage, BulletEntity projectile, Entity target, @Nullable Entity shooter, World world) {
-		return damage;
+		//if puncturing enchantment is present.
+		double newDamage = damage;
+		if (projectile.getPuncturingAmount() > 0D){
+			if (target instanceof LivingEntity) {
+				LivingEntity victim = (LivingEntity)target;
+				if (victim.getArmorValue() != 0) {
+					//how many armor bars are full?
+					double armorAssumption = (double) victim.getArmorValue() / 20;
+					//total up new damage.
+					double someDamage = damage * armorAssumption * projectile.getPuncturingAmount();
+					newDamage += someDamage;
+				}
+			}
+		}
+		return newDamage;
 	}
 
 }
