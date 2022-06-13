@@ -500,7 +500,7 @@ public class GunItem extends ShootableItem {
 
 			if (shouldCollateral) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.collateral"));
 
-			if (stack.getItem() == ModItems.doubleBarrelShotgun) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.double_barrel"));
+			if (revolutions > 1) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.double_barrel"));
 			if (stack.getItem() == ModItems.goldGun) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.revolver"));
 			if (shouldCombo) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.skill_shot"));
 
