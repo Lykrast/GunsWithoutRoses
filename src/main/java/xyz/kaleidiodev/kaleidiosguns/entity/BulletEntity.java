@@ -1,6 +1,7 @@
 package xyz.kaleidiodev.kaleidiosguns.entity;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.SoundType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -23,6 +24,7 @@ import net.minecraft.item.Items;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.world.NoteBlockEvent;
+import org.lwjgl.system.CallbackI;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.item.GunItem;
 import xyz.kaleidiodev.kaleidiosguns.item.IBullet;

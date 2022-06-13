@@ -59,8 +59,8 @@ public class GunItem extends ShootableItem {
 	protected int stabilizerTimer; //internal timer.  falls to zero when gun is stable.
 	protected long ticksPassed;
 	protected double instabilitySpreadAdditional; //additional spread to add every time a shot recharges stabilizer timer.
-	protected boolean shouldCombo = false;
-	protected int comboCount = 0;
+	protected boolean shouldCombo;
+	protected int comboCount;
 	protected UUID comboVictim;
 
 	protected SoundEvent fireSound = ModSounds.gun;
@@ -308,6 +308,8 @@ public class GunItem extends ShootableItem {
 		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.accelerator, stack) >= 1;
 	}
 
+	public int getComboCount() { return this.comboCount; }
+
 	/**
 	 * Sets whether the bullets ignore invulnerability frame (default no), used when making the item for registering.
 	 */
@@ -495,6 +497,12 @@ public class GunItem extends ShootableItem {
 			if (inverseChanceFree < 1) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.chance_free" + (isChanceFreeShotModified(stack) ? ".modified" : ""), (int)((1 - inverseChanceFree) * 100)));
 
 			if (hasBlockMineAbility) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.minegun"));
+
+			if (shouldCollateral) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.collateral"));
+
+			if (stack.getItem() == ModItems.doubleBarrelShotgun) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.double_barrel"));
+			if (stack.getItem() == ModItems.goldGun) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.revolver"));
+			if (shouldCombo) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.skill_shot"));
 
 			addExtraStatsTooltip(stack, world, tooltip);
 		}

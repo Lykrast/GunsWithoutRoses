@@ -37,6 +37,10 @@
 	"tooltip.kaleidiosguns.shotgun.shots.modified": "§dFires %s projectiles at once",
 	"tooltip.kaleidiosguns.gatling.hold": "Slows user while firing",
 	"tooltip.kaleidiosguns.minegun": "Can mine blocks tiered by bullet damage",
+	"tooltip.kaleidiosguns.skill_shot": "Combo the same target to increase damage",
+	"tooltip.kaleidiosguns.revolver": "Stabilizes spread with patience",
+	"tooltip.kaleidiosguns.double_barrel": "Shoot twice before reloading",
+	"tooltip.kaleidiosguns.collateral": "Bullets fly through enemies",
 
 	"tooltip.kaleidiosguns.blaze_bullet": "Sets entities on fire",
 
