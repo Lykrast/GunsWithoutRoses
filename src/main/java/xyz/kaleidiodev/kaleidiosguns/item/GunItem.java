@@ -106,7 +106,6 @@ public class GunItem extends ShootableItem {
 			//change chamber if multiple revolutions
 			//the method gets fired twice, once on server once on client.  let's only do it once
 			if (!world.isClientSide()) {
-				System.out.println(this.chamber);
 				if (this.revolutions > 1) {
 					this.chamber--;
 					if (this.chamber <= 0) {
