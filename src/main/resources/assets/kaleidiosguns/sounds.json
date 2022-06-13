@@ -27,6 +27,13 @@
 			"kaleidiosguns:double_shotgun"
 		]
 	},
+	"item.double_shotgun.reload": {
+		"category": "item",
+		"subtitle": "subtitles.kaleidiosguns.item.double_shotgun.reload",
+		"sounds": [
+			"kaleidiosguns:double_barrel_reload"
+		]
+	},
 	"item.plasma_rifle.shoot": {
 		"category": "item",
 		"subtitle": "subtitles.kaleidiosguns.item.plasma_rifle.shoot",
@@ -55,6 +62,11 @@
 		"category": "item",
 		"subtitle": "subtitles.kaleidiosguns.item.revolver.shoot",
 		"sounds": [ "kaleidiosguns:revolver" ]
+	},
+	"item.revolver.reload": {
+		"category": "item",
+		"subtitle": "subtitles.kaleidiosguns.item.revolver.reload",
+		"sounds": [ "kaleidiosguns:revolver_reload" ]
 	},
 	"item.skill_shot.shoot": {
 		"category": "item",

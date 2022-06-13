@@ -64,6 +64,7 @@ public class GunItem extends ShootableItem {
 	protected UUID comboVictim;
 
 	protected SoundEvent fireSound = ModSounds.gun;
+	protected SoundEvent reloadSound = ModSounds.double_shotgunReload;
 	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
 	protected Supplier<Ingredient> repairMaterial;
 
@@ -101,6 +102,16 @@ public class GunItem extends ShootableItem {
 
 			world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, 1.0F, 1.0F);
 			player.awardStat(Stats.ITEM_USED.get(this));
+
+			//change chamber if multiple revolutions
+			System.out.println(chamber);
+			if (revolutions > 1) {
+				chamber--;
+				if (chamber <= 0) {
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), reloadSound, SoundCategory.PLAYERS, 1.0F, 1.0F);
+					chamber = revolutions;
+				}
+			}
 
 			player.getCooldowns().addCooldown(this, getFireDelay(gun, player));
 			return ActionResult.consume(gun);
@@ -145,12 +156,6 @@ public class GunItem extends ShootableItem {
 		shot.shouldCombo = this.shouldCombo;
 
 		changeBullet(world, player, gun, shot, bulletFree);
-
-		//change chamber if multiple revolutions
-		if (revolutions > 1) {
-			chamber--;
-			if (chamber <= 0) chamber = revolutions;
-		}
 
 		//reset timer for stability
 		int base = Math.max(1, stabilityTime - (int)(stabilityTime * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, gun) * KGConfig.sleightOfHandFireRateDecrease.get()));
@@ -321,6 +326,14 @@ public class GunItem extends ShootableItem {
 	 */
 	public GunItem fireSound(SoundEvent fireSound) {
 		this.fireSound = fireSound;
+		return this;
+	}
+
+	/**
+	 * Sets the reload sound, used when making the item for registering.
+	 */
+	public GunItem reloadSound(SoundEvent newReloadSound) {
+		this.reloadSound = newReloadSound;
 		return this;
 	}
 

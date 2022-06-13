@@ -72,10 +72,12 @@
 	"subtitles.kaleidiosguns.item.sniper.shoot": "Sniper fired",
 	"subtitles.kaleidiosguns.item.smg.shoot": "Minegun fired",
 	"subtitles.kaleidiosguns.item.double_shotgun.shoot": "Double Barrel Shotgun fired",
+	"subtitles.kaleidiosguns.item.double_shotgun.reload": "Double Barrel Shotgun reloading",
 	"subtitles.kaleidiosguns.item.carbine.shoot": "Carbine fired",
 	"subtitles.kaleidiosguns.item.assault_rifle.shoot": "Assault Rifle fired",
 	"subtitles.kaleidiosguns.item.plasma_rifle.shoot": "Plasma Rifle fired",
 	"subtitles.kaleidiosguns.item.revolver.shoot": "Revolver fired",
+	"subtitles.kaleidiosguns.item.revolver.reload": "Revolver reloading",
 	"subtitles.kaleidiosguns.item.skill_shot.shoot": "Skill Shot Pistol fired",
 	"subtitles.kaleidiosguns.item.bullet.impact": "Bullet landed"
 }
