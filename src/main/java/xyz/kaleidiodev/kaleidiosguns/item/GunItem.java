@@ -104,12 +104,15 @@ public class GunItem extends ShootableItem {
 			player.awardStat(Stats.ITEM_USED.get(this));
 
 			//change chamber if multiple revolutions
-			System.out.println(chamber);
-			if (revolutions > 1) {
-				chamber--;
-				if (chamber <= 0) {
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), reloadSound, SoundCategory.PLAYERS, 1.0F, 1.0F);
-					chamber = revolutions;
+			//the method gets fired twice, once on server once on client.  let's only do it once
+			if (!world.isClientSide()) {
+				System.out.println(this.chamber);
+				if (this.revolutions > 1) {
+					this.chamber--;
+					if (this.chamber <= 0) {
+						world.playSound(null, player.getX(), player.getY(), player.getZ(), reloadSound, SoundCategory.PLAYERS, 1.0F, 1.0F);
+						this.chamber = this.revolutions;
+					}
 				}
 			}
 
