@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-public class BulletEntity extends AbstractFireballEntity {
+public class BulletEntity extends AbstractFireballEntity implements IEntityAdditionalSpawnData {
 	protected double damage = 1;
 	protected double inaccuracy = 0.0;
 	protected boolean ignoreInvulnerability = false;
@@ -76,10 +76,22 @@ public class BulletEntity extends AbstractFireballEntity {
 		this.setNoGravity(true);
 	}
 
+	@Override
+	public void writeSpawnData(PacketBuffer buffer) {
+		buffer.writeBoolean(isExplosive);
+	}
+
+	@Override
+	public void readSpawnData(PacketBuffer buffer) {
+		isExplosive = buffer.readBoolean();
+		if (level.isClientSide()) System.out.println("packet was read on client");
+	}
+
 	//change the particle type the projectile is going to emit
 	@Override
 	protected IParticleData getTrailParticle() {
 		//seems that this method fires once on server and once on client.  something needs to be done in order to support multiple particle types
+		if (isExplosive) return ParticleTypes.EXPLOSION;
 		return ParticleTypes.CRIT;
 	}
 
@@ -122,10 +134,11 @@ public class BulletEntity extends AbstractFireballEntity {
 				f = 0.8f;
 			}
 
-			this.setDeltaMovement(vector3d.add(this.xPower, this.yPower, this.zPower).scale((double)f));
+			this.setDeltaMovement(vector3d.add(this.xPower, this.yPower, this.zPower).scale((double) f));
 			//summon the particles in the center of the projectile instead of above it.
 			//disable emitters when underwater, as otherwise it looks messy to have two emitters (bubble emitter happens elsewhere)
-			if (!this.isInWater() && ticksSinceFired > 1 && this.level.isClientSide()) this.level.addParticle(this.getTrailParticle(), this.getBoundingBox().getCenter().x, this.getBoundingBox().getCenter().y, this.getBoundingBox().getCenter().z, 0.0D, 0.0D, 0.0D);
+			if (!this.isInWater() && ticksSinceFired > 1 && this.level.isClientSide())
+				this.level.addParticle(this.getTrailParticle(), this.getBoundingBox().getCenter().x, this.getBoundingBox().getCenter().y, this.getBoundingBox().getCenter().z, 0.0D, 0.0D, 0.0D);
 			this.setPos(this.getX() + vector3d.x, this.getY() + vector3d.y, this.getZ() + vector3d.z);
 		} else {
 			this.remove();
@@ -141,12 +154,12 @@ public class BulletEntity extends AbstractFireballEntity {
 			entityHitProcess(target);
 		}
 
-		if (shouldCollateral){
+		if (shouldCollateral) {
 			//put some code here for the manual raytrace
 			//the raytrace needs to be from current position to delta from last known position
 			List<Entity> entities = new ArrayList<Entity>();
 			AxisAlignedBB bb = this.getBoundingBox();
-			Vector3d incPosition = new Vector3d(this.getDeltaMovement().x / (bulletSpeed * 10),this.getDeltaMovement().y / (bulletSpeed * 10),this.getDeltaMovement().z / (bulletSpeed * 10));
+			Vector3d incPosition = new Vector3d(this.getDeltaMovement().x / (bulletSpeed * 10), this.getDeltaMovement().y / (bulletSpeed * 10), this.getDeltaMovement().z / (bulletSpeed * 10));
 
 			//the raytrace is really just a bunch of steps for boundary boxes.  this means accelerator makes sniper collateral further
 			for (double i = 0; i < this.bulletSpeed; i += 0.1) {
@@ -164,7 +177,8 @@ public class BulletEntity extends AbstractFireballEntity {
 				//kill trace early if we hit a tile doing this, so it doesn't trace through walls.
 				BlockPos someBlockPos = new BlockPos(bb.getCenter());
 				BlockState someBlockState = this.level.getBlockState(someBlockPos);
-				if ((someBlockState.getBlock() != Blocks.AIR) && !(someBlockState.getBlockState().is(BlockTags.FLOWERS)) && !(someBlockState.getBlockState().is(BlockTags.TALL_FLOWERS)) && !(someBlockState.getBlockState().is(BlockTags.SMALL_FLOWERS))) break;
+				if ((someBlockState.getBlock() != Blocks.AIR) && !(someBlockState.getBlockState().is(BlockTags.FLOWERS)) && !(someBlockState.getBlockState().is(BlockTags.TALL_FLOWERS)) && !(someBlockState.getBlockState().is(BlockTags.SMALL_FLOWERS)))
+					break;
 			}
 
 			//because the sniper cannot have a projectile ignore invulnerability anyway, this is safe to do.
@@ -178,7 +192,8 @@ public class BulletEntity extends AbstractFireballEntity {
 	@Override
 	protected void onHitBlock(BlockRayTraceResult raytrace) {
 		//reset combo by sending owner player's UUID, which can never get damaged
-		if (getOwner() instanceof PlayerEntity) this.shootingGun.tryComboCalculate(getOwner().getUUID(), (PlayerEntity) getOwner());
+		if (getOwner() instanceof PlayerEntity)
+			this.shootingGun.tryComboCalculate(getOwner().getUUID(), (PlayerEntity) getOwner());
 
 		//make a spherical poof and a sound
 		this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.impact, this.getSoundSource(), 0.25f, 1.0f);
@@ -222,7 +237,7 @@ public class BulletEntity extends AbstractFireballEntity {
 				newTool = new ItemStack(Items.STONE_SHOVEL);
 				tryBreakBlock(blockPositionToMine, newTool);
 				breakWeakBlocks(blockPositionToMine);
-			} else if (this.getDamage() > KGConfig.mineGunSecondLevel.get()){
+			} else if (this.getDamage() > KGConfig.mineGunSecondLevel.get()) {
 				newTool = new ItemStack(Items.WOODEN_PICKAXE);
 				tryBreakBlock(blockPositionToMine, newTool);
 				newTool = new ItemStack(Items.WOODEN_AXE);
@@ -239,7 +254,8 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected void breakWeakBlocks(BlockPos blockPosToTest) {
 		if (!level.getBlockState(blockPosToTest).requiresCorrectToolForDrops()) {
 			Random random = new Random();
-			if (KGConfig.diamondMinegunMineChance.get() - random.nextDouble() > 0) this.level.destroyBlock(blockPosToTest, true);
+			if (KGConfig.diamondMinegunMineChance.get() - random.nextDouble() > 0)
+				this.level.destroyBlock(blockPosToTest, true);
 		}
 	}
 
@@ -254,8 +270,7 @@ public class BulletEntity extends AbstractFireballEntity {
 				victim.addEffect(new EffectInstance(Effects.GLOWING, 120, 1));
 			}
 			healthOfVictim = victim.getHealth();
-		}
-		else healthOfVictim = 0.0f;
+		} else healthOfVictim = 0.0f;
 
 		if (isOnFire()) entity.setSecondsOnFire(5);
 		int lastHurtResistant = entity.invulnerableTime;
@@ -264,20 +279,20 @@ public class BulletEntity extends AbstractFireballEntity {
 		boolean damaged = entity.hurt((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) bullet.modifyDamage(damage, this, entity, shooter, level));
 
 		if (damaged && entity instanceof LivingEntity) {
-			LivingEntity livingTarget = (LivingEntity)entity;
+			LivingEntity livingTarget = (LivingEntity) entity;
 
 			if (knockbackStrength > 0) {
 				double actualKnockback = knockbackStrength;
-				if (this.shootingGun.getItem() == ModItems.doubleBarrelShotgun) actualKnockback = knockbackStrength / ticksSinceFired;
+				if (this.shootingGun.getItem() == ModItems.doubleBarrelShotgun)
+					actualKnockback = knockbackStrength / ticksSinceFired;
 				Vector3d vec = getDeltaMovement().multiply(1, 0, 1).normalize().scale(actualKnockback);
 				if (vec.lengthSqr() > 0) livingTarget.push(vec.x, 0.1, vec.z);
 			}
 
-			if (shooter instanceof LivingEntity) doEnchantDamageEffects((LivingEntity)shooter, entity);
+			if (shooter instanceof LivingEntity) doEnchantDamageEffects((LivingEntity) shooter, entity);
 
 			bullet.onLivingEntityHit(this, livingTarget, shooter, level);
-		}
-		else if (!damaged && ignoreInvulnerability) entity.invulnerableTime = lastHurtResistant;
+		} else if (!damaged && ignoreInvulnerability) entity.invulnerableTime = lastHurtResistant;
 	}
 
 	@Override
@@ -305,11 +320,11 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected void tryBreakBlock(BlockPos blockPosToTest, ItemStack stack) {
 		//test if the tool tier found works
 
-		if (ForgeHooks.isToolEffective(this.level, blockPosToTest, stack))
-		{
+		if (ForgeHooks.isToolEffective(this.level, blockPosToTest, stack)) {
 			//drop the block in a fixed chance
 			Random random = new Random();
-			if (KGConfig.diamondMinegunMineChance.get() - random.nextDouble() > 0) this.level.destroyBlock(blockPosToTest, true);
+			if (KGConfig.diamondMinegunMineChance.get() - random.nextDouble() > 0)
+				this.level.destroyBlock(blockPosToTest, true);
 		}
 	}
 
@@ -346,11 +361,23 @@ public class BulletEntity extends AbstractFireballEntity {
 		return inaccuracy;
 	}
 
-	public void setHealthRewardChance(double rewardChance) { this.healthRewardChance = rewardChance; };
+	public void setHealthRewardChance(double rewardChance) {
+		this.healthRewardChance = rewardChance;
+	}
 
-	public float getHealthOfVictim() { return healthOfVictim; };
+	;
 
-	public void setShouldBreakBlock(boolean breakBlock) { this.shouldBreakBlock = breakBlock; };
+	public float getHealthOfVictim() {
+		return healthOfVictim;
+	}
+
+	;
+
+	public void setShouldBreakBlock(boolean breakBlock) {
+		this.shouldBreakBlock = breakBlock;
+	}
+
+	;
 
 	public boolean rollRewardChance() {
 		Random random = new Random();
@@ -378,21 +405,37 @@ public class BulletEntity extends AbstractFireballEntity {
 		this.isTorpedo = torpedo;
 	}
 
-	public void setPuncturingAmount(double puncturing) { this.puncturingAmount = puncturing; }
+	public void setPuncturingAmount(double puncturing) {
+		this.puncturingAmount = puncturing;
+	}
 
-	public double getPuncturingAmount() { return this.puncturingAmount; }
+	public double getPuncturingAmount() {
+		return this.puncturingAmount;
+	}
 
-	public void setShouldGlow(boolean glow) { this.shouldGlow = glow; }
+	public void setShouldGlow(boolean glow) {
+		this.shouldGlow = glow;
+	}
 
-	public void setIsCritical(boolean critical) { this.isCritical = critical; }
+	public void setIsCritical(boolean critical) {
+		this.isCritical = critical;
+	}
 
-	public boolean isCritical() { return this.isCritical; }
+	public boolean isCritical() {
+		return this.isCritical;
+	}
 
-	public void setShootingGun(GunItem gun) { this.shootingGun = gun; }
+	public void setShootingGun(GunItem gun) {
+		this.shootingGun = gun;
+	}
 
-	public void setExplosive(boolean explosive) { this.isExplosive = explosive; }
+	public void setExplosive(boolean explosive) {
+		this.isExplosive = explosive;
+	}
 
-	public GunItem getShootingGun() { return this.shootingGun; }
+	public GunItem getShootingGun() {
+		return this.shootingGun;
+	}
 
 	/**
 	 * Knockback on impact, 0.6 is equivalent to Punch I.
@@ -425,5 +468,4 @@ public class BulletEntity extends AbstractFireballEntity {
 	public IPacket<?> getAddEntityPacket() {
 		return NetworkUtils.getProjectileSpawnPacket(this);
 	}
-
 }
