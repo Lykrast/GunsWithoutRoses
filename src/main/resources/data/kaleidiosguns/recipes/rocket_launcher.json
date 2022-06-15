@@ -8,7 +8,7 @@
 	"key": {
 		"D": { "tag": "forge:ingots/gold" },
 		"I": { "tag": "minecraft:fire_charge" },
-		"S": { "tag": "forge:rods/wooden" },
+		"S": { "tag": "forge:ingots/iron" },
 		"F": { "item": "minecraft:flint" }
 	},
 	"result": { "item": "kaleidiosguns:rocket_launcher" }
