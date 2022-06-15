@@ -371,7 +371,7 @@ public class KGConfig {
                 .defineInRange("goldLauncherInaccuracy", 0D, 0D, 90D);
         goldLauncherProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Rocket Launchers")
-                .defineInRange("goldLauncherProjectileSpeed", 3D, 0D, 64D);
+                .defineInRange("goldLauncherProjectileSpeed", 2D, 0D, 64D);
         builder.pop();
 
         builder.push("bullet_config");
