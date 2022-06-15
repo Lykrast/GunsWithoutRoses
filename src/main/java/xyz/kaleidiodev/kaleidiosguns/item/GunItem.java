@@ -53,7 +53,7 @@ public class GunItem extends ShootableItem {
 	protected int chamber = 1;
 	protected boolean shouldCollateral = false;
 	protected int barrelSwitchSpeed = -1;
-	protected double myKnockback = 0.6D;
+	protected double myKnockback = 0.1D;
 	protected int stabilityTime;
 	protected int shotsBeforeStability;
 	protected int stabilizerTimer; //internal timer.  falls to zero when gun is stable.
