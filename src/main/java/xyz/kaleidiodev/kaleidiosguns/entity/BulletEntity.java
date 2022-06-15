@@ -288,7 +288,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected void onHit(RayTraceResult result) {
 		//explode or damage?
 		if (isExplosive) {
-			float newRadius = (float) shootingGun.damageMultiplier;
+			float newRadius = (float)(double) KGConfig.goldLauncherDamageMultiplier.get();
 			boolean catchFire = false;
 
 			//get projectile material type, and explosion changes accordingly

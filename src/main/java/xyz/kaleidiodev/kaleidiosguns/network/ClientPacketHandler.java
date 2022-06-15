@@ -11,6 +11,7 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.network.NetworkEvent;
+import xyz.kaleidiodev.kaleidiosguns.entity.BulletEntity;
 
 import java.util.UUID;
 
@@ -66,7 +67,11 @@ public class ClientPacketHandler {
         entity.setYBodyRot((headYaw * 360) / 256.0F);
         entity.setId(entityID);
         entity.setUUID(uuid);
-        mc.level.putNonPlayerEntity(entityID, entity);
+
+        BulletEntity bullet = (BulletEntity) entity;
+        bullet.isExplosive = packet.readBoolean();
+
+        mc.level.putNonPlayerEntity(entityID, bullet);
         entity.lerpMotion(velocity.x, velocity.y, velocity.z);
     }
 
