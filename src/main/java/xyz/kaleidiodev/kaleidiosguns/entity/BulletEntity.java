@@ -30,6 +30,7 @@ import xyz.kaleidiodev.kaleidiosguns.item.GunItem;
 import xyz.kaleidiodev.kaleidiosguns.item.IBullet;
 import xyz.kaleidiodev.kaleidiosguns.network.NetworkUtils;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEntities;
+import xyz.kaleidiodev.kaleidiosguns.registry.ModItems;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModSounds;
 
 import java.util.ArrayList;
@@ -259,6 +260,7 @@ public class BulletEntity extends AbstractFireballEntity {
 
 			if (knockbackStrength > 0) {
 				double actualKnockback = knockbackStrength;
+				if (this.shootingGun.getItem() == ModItems.doubleBarrelShotgun) actualKnockback = knockbackStrength / ticksSinceFired;
 				Vector3d vec = getDeltaMovement().multiply(1, 0, 1).normalize().scale(actualKnockback);
 				if (vec.lengthSqr() > 0) livingTarget.push(vec.x, 0.1, vec.z);
 			}
