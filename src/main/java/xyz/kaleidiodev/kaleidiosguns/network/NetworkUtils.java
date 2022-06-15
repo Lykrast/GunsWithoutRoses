@@ -12,6 +12,7 @@ import net.minecraftforge.fml.network.NetworkDirection;
 import org.apache.commons.lang3.tuple.Pair;
 import xyz.kaleidiodev.kaleidiosguns.KaleidiosGuns;
 import xyz.kaleidiodev.kaleidiosguns.entity.BulletEntity;
+import xyz.kaleidiodev.kaleidiosguns.registry.ModItems;
 
 public class NetworkUtils {
 
@@ -34,6 +35,7 @@ public class NetworkUtils {
         if (entity instanceof BulletEntity) {
             BulletEntity bullet = (BulletEntity) entity;
             buffer.writeBoolean(bullet.isExplosive);
+            buffer.writeBoolean(bullet.isPlasma);
         }
 
         return NetworkDirection.PLAY_TO_CLIENT.buildPacket(Pair.of(buffer, 10), KaleidiosGuns.rl("custom_channel")).getThis();

@@ -61,6 +61,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected GunItem shootingGun;
 	public boolean shouldCombo;
 	public boolean isExplosive;
+	public boolean isPlasma;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);
@@ -81,6 +82,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected IParticleData getTrailParticle() {
 		//seems that this method fires once on server and once on client.  something needs to be done in order to support multiple particle types
 		if (isExplosive) return ParticleTypes.EXPLOSION;
+		if (isPlasma) return ParticleTypes.INSTANT_EFFECT;
 		return ParticleTypes.CRIT;
 	}
 
