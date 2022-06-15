@@ -10,6 +10,8 @@ import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
@@ -18,14 +20,17 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.world.NoteBlockEvent;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import org.lwjgl.system.CallbackI;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
+import xyz.kaleidiodev.kaleidiosguns.item.BulletItem;
 import xyz.kaleidiodev.kaleidiosguns.item.GunItem;
 import xyz.kaleidiodev.kaleidiosguns.item.IBullet;
 import xyz.kaleidiodev.kaleidiosguns.network.NetworkUtils;
@@ -39,7 +44,6 @@ import java.util.Random;
 import java.util.UUID;
 
 public class BulletEntity extends AbstractFireballEntity {
-
 	protected double damage = 1;
 	protected double inaccuracy = 0.0;
 	protected boolean ignoreInvulnerability = false;
@@ -56,6 +60,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected boolean isCritical;
 	protected GunItem shootingGun;
 	public boolean shouldCombo;
+	protected boolean isExplosive;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);
@@ -74,6 +79,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	//change the particle type the projectile is going to emit
 	@Override
 	protected IParticleData getTrailParticle() {
+		//seems that this method fires once on server and once on client.  something needs to be done in order to support multiple particle types
 		return ParticleTypes.CRIT;
 	}
 
@@ -104,7 +110,7 @@ public class BulletEntity extends AbstractFireballEntity {
 			//1. the rotation is correct on spawn before first tick
 			//2. the rotation is always correct at any rotation speed, like an arrow
 			this.checkInsideBlocks();
-			ProjectileHelper.rotateTowardsMovement(this, 0.2F);
+			ProjectileHelper.rotateTowardsMovement(this, 1.0F);
 
 			//add support for torpedo enchantment, make inertia falloff even more intense otherwise
 			float f = this.getInertia();
@@ -119,7 +125,7 @@ public class BulletEntity extends AbstractFireballEntity {
 			this.setDeltaMovement(vector3d.add(this.xPower, this.yPower, this.zPower).scale((double)f));
 			//summon the particles in the center of the projectile instead of above it.
 			//disable emitters when underwater, as otherwise it looks messy to have two emitters (bubble emitter happens elsewhere)
-			if (!this.isInWater() && ticksSinceFired > 1) this.level.addParticle(this.getTrailParticle(), this.getBoundingBox().getCenter().x, this.getBoundingBox().getCenter().y, this.getBoundingBox().getCenter().z, 0.0D, 0.0D, 0.0D);
+			if (!this.isInWater() && ticksSinceFired > 1 && this.level.isClientSide()) this.level.addParticle(this.getTrailParticle(), this.getBoundingBox().getCenter().x, this.getBoundingBox().getCenter().y, this.getBoundingBox().getCenter().z, 0.0D, 0.0D, 0.0D);
 			this.setPos(this.getX() + vector3d.x, this.getY() + vector3d.y, this.getZ() + vector3d.z);
 		} else {
 			this.remove();
@@ -174,6 +180,8 @@ public class BulletEntity extends AbstractFireballEntity {
 		//reset combo by sending owner player's UUID, which can never get damaged
 		if (getOwner() instanceof PlayerEntity) this.shootingGun.tryComboCalculate(getOwner().getUUID(), (PlayerEntity) getOwner());
 
+		//make a spherical poof and a sound
+		this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.impact, this.getSoundSource(), 0.25f, 1.0f);
 		double d0 = raytrace.getLocation().x();
 		double d1 = raytrace.getLocation().y() + (this.getBoundingBox().getYsize() / 2);
 		double d2 = raytrace.getLocation().z();
@@ -274,14 +282,22 @@ public class BulletEntity extends AbstractFireballEntity {
 
 	@Override
 	protected void onHit(RayTraceResult result) {
-		super.onHit(result);
-		if (!level.isClientSide) {
-			//play a sound when it lands on a block
-			if (result.getType() == RayTraceResult.Type.BLOCK) {
-				//make a spherical poof and a sound
+		//explode or damage?
+		if (isExplosive) {
+			float newRadius = (float) shootingGun.damageMultiplier;
+			boolean catchFire = false;
 
-				this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.impact, this.getSoundSource(), 0.25f, 1.0f);
-			}
+			//get projectile material type, and explosion changes accordingly
+			ItemStack bullet = this.getItem();
+			if (bullet.getItem() == ModItems.ironBullet) newRadius += 1;
+			if (bullet.getItem() == ModItems.blazeBullet) catchFire = true;
+
+			level.explode(null, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, catchFire, Explosion.Mode.NONE);
+		}
+		//damage should try to hurt tiles and entities without using an explosion, so it will need to fire this super.
+		else super.onHit(result);
+
+		if (!level.isClientSide) {
 			remove();
 		}
 	}
@@ -373,6 +389,8 @@ public class BulletEntity extends AbstractFireballEntity {
 	public boolean isCritical() { return this.isCritical; }
 
 	public void setShootingGun(GunItem gun) { this.shootingGun = gun; }
+
+	public void setExplosive(boolean explosive) { this.isExplosive = explosive; }
 
 	public GunItem getShootingGun() { return this.shootingGun; }
 

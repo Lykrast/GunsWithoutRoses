@@ -22,6 +22,7 @@ public class ModItems {
 			doubleBarrelShotgun,
 			carbineSniper,
 			diamondSniper,
+			goldLauncher,
 			minegunGatling,
 			plasmaGatling,
 			assaultGatling;
@@ -49,6 +50,9 @@ public class ModItems {
 		minegunGatling = initItem(reg, new GatlingItem(defP().durability(KGConfig.diamondMinegunDurability.get()), 0, KGConfig.diamondMinegunDamageMultiplier.get(), KGConfig.diamondMinegunFireDelay.get(), KGConfig.diamondMinegunInaccuracy.get(), KGConfig.diamondMinegunEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "minegun").projectileSpeed(KGConfig.diamondMinegunProjectileSpeed.get()).canMineBlocks(true);
 		plasmaGatling = initItem(reg, new GatlingItem(defP().durability(KGConfig.goldStreamDurability.get()), 0, KGConfig.goldStreamDamageMultiplier.get(), KGConfig.goldStreamFireDelay.get(), KGConfig.goldStreamInaccuracy.get(), KGConfig.goldStreamEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "plasma_rifle").projectileSpeed(KGConfig.goldStreamProjectileSpeed.get()).fireSound(ModSounds.plasma_rifle);
 		assaultGatling = initItem(reg, new GatlingItem(defP().durability(KGConfig.ironAssaultDurability.get()), 0, KGConfig.ironAssaultDamageMultiplier.get(), KGConfig.ironAssaultFireDelay.get(), KGConfig.ironAssaultInaccuracy.get(), KGConfig.ironAssaultEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "assault_rifle").projectileSpeed(KGConfig.ironAssaultProjectileSpeed.get()).fireSound(ModSounds.smg);
+
+		// Launchers
+		goldLauncher = initItem(reg, new GunItem(defP().durability(KGConfig.goldLauncherDurability.get()), 0, KGConfig.goldLauncherDamageMultiplier.get(), KGConfig.goldLauncherFireDelay.get(), KGConfig.goldLauncherInaccuracy.get(), KGConfig.goldLauncherEnchantability.get()).projectileSpeed(KGConfig.goldLauncherProjectileSpeed.get()).fireSound(ModSounds.sniper).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "rocket_launcher").setIsExplosive(true);
 
         // Bullets
 		flintBullet = initItem(reg, new BulletItem(defP(), KGConfig.flintBulletDamage.get()), "flint_bullet");

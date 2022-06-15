@@ -41,7 +41,7 @@ import static xyz.kaleidiodev.kaleidiosguns.KaleidiosGuns.VivecraftForgeExtensio
 public class GunItem extends ShootableItem {
 
 	protected int bonusDamage;
-	protected double damageMultiplier;
+	public double damageMultiplier;
 	protected int fireDelay;
 	protected double inaccuracy;
 	protected double projectileSpeed = 3;
@@ -62,6 +62,7 @@ public class GunItem extends ShootableItem {
 	protected boolean shouldCombo;
 	protected int comboCount;
 	protected UUID comboVictim;
+	protected boolean isExplosive;
 
 	protected SoundEvent fireSound = ModSounds.gun;
 	protected SoundEvent reloadSound = ModSounds.double_shotgunReload;
@@ -149,6 +150,7 @@ public class GunItem extends ShootableItem {
 		shot.setBulletSpeed(projectileSpeed);
 		shot.setKnockbackStrength(myKnockback);
 		shot.setPuncturingAmount(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.puncturing, gun) * KGConfig.puncturingMultiplier.get());
+		shot.setExplosive(isExplosive);
 
 		double luckyChance = KGConfig.luckyShotChance.get() * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, gun);
 		if (random.nextDouble() < luckyChance) shot.setIsCritical(true);
@@ -397,6 +399,11 @@ public class GunItem extends ShootableItem {
 		return this;
 	}
 
+	public GunItem setIsExplosive(boolean explosive) {
+		this.isExplosive = explosive;
+		return this;
+	}
+
 	/**
 	 *
 	 * @param barrelSwitch set the divider that divides the fire rate to denote how many ticks it takes to switch barrels
@@ -451,6 +458,8 @@ public class GunItem extends ShootableItem {
 		//Disallow these for specific gun types
 		GunItem me = (GunItem) stack.getItem();
 		if (enchantment == ModEnchantments.bullseye && hasPerfectAccuracy()) return false; //not for sniper
+		if (enchantment == ModEnchantments.impact && isExplosive) return false;
+		if (enchantment == ModEnchantments.sleightOfHand && isExplosive) return false;
 
 		//only let these apply to certain gun types
 		if (enchantment == ModEnchantments.division && !(me instanceof ShotgunItem)) return false; //shotgun only
