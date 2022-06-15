@@ -50,7 +50,7 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue goldDoubleShotgunBulletCount;
     public static ForgeConfigSpec.DoubleValue goldDoubleShotgunProjectileSpeed;
     public static ForgeConfigSpec.IntValue goldDoubleShotgunChamberSwitchSpeed;
-    public static ForgeConfigSpec.IntValue goldDoubleShotgunKnockback;
+    public static ForgeConfigSpec.DoubleValue goldDoubleShotgunKnockback;
 
     public static ForgeConfigSpec.DoubleValue diamondSniperDamageMultiplier;
     public static ForgeConfigSpec.IntValue diamondSniperFireDelay;
@@ -241,7 +241,7 @@ public class KGConfig {
                 .defineInRange("goldDoubleShotgunChamberSwitchSpeed", 15, 1, 72000);
         goldDoubleShotgunKnockback = builder
                 .comment("Configure how strong knockback is at closest range on Double Barrel Shotguns")
-                .defineInRange("goldDoubleShotgunKnockback", 1D, 0.01D, 5D);
+                .defineInRange("goldDoubleShotgunKnockback", 1.5D, 0.01D, 5D);
         builder.pop();
 
         builder.push("rifles");
