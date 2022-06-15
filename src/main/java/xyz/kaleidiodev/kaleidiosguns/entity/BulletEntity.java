@@ -322,6 +322,8 @@ public class BulletEntity extends AbstractFireballEntity {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("tsf", ticksSinceFired);
 		compound.putDouble("damage", damage);
+		compound.putBoolean("explosive", isExplosive);
+		compound.putBoolean("collateral", shouldCollateral);
 		//compound.putBoolean("isPlasma", isPlasma);
 		if (ignoreInvulnerability) compound.putBoolean("ignoreinv", ignoreInvulnerability);
 		if (knockbackStrength != 0) compound.putDouble("knockback", knockbackStrength);
@@ -332,6 +334,8 @@ public class BulletEntity extends AbstractFireballEntity {
 		super.readAdditionalSaveData(compound);
 		ticksSinceFired = compound.getInt("tsf");
 		damage = compound.getDouble("damage");
+		isExplosive = compound.getBoolean("explosive");
+		shouldCollateral = compound.getBoolean("collateral");
 		//isPlasma = compound.getBoolean("isPlasma");
 		//The docs says if it's not here it's gonna be false/0 so it should be good
 		ignoreInvulnerability = compound.getBoolean("ignoreinv");
