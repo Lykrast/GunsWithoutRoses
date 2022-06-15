@@ -305,7 +305,7 @@ public class KGConfig {
                 .defineInRange("diamondMinegunProjectileSpeed", 2.5D, 0D, 64D);
         diamondMinegunMineChance = builder
                 .comment("Configure the Break Block Chance for Mineguns")
-                .defineInRange("diamondMinegunMineChance", 0.33D, 0D, 1D);
+                .defineInRange("diamondMinegunMineChance", 0.5D, 0D, 1D);
 
         ironAssaultDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Assault Rifles")
