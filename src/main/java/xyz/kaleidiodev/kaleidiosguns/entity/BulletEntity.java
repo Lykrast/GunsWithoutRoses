@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-public class BulletEntity extends AbstractFireballEntity implements IEntityAdditionalSpawnData {
+public class BulletEntity extends AbstractFireballEntity {
 	protected double damage = 1;
 	protected double inaccuracy = 0.0;
 	protected boolean ignoreInvulnerability = false;
@@ -60,7 +60,7 @@ public class BulletEntity extends AbstractFireballEntity implements IEntityAddit
 	protected boolean isCritical;
 	protected GunItem shootingGun;
 	public boolean shouldCombo;
-	protected boolean isExplosive;
+	public boolean isExplosive;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);
@@ -74,17 +74,6 @@ public class BulletEntity extends AbstractFireballEntity implements IEntityAddit
 	public BulletEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
 		super(ModEntities.BULLET, shooter, accelX, accelY, accelZ, worldIn);
 		this.setNoGravity(true);
-	}
-
-	@Override
-	public void writeSpawnData(PacketBuffer buffer) {
-		buffer.writeBoolean(isExplosive);
-	}
-
-	@Override
-	public void readSpawnData(PacketBuffer buffer) {
-		isExplosive = buffer.readBoolean();
-		if (level.isClientSide()) System.out.println("packet was read on client");
 	}
 
 	//change the particle type the projectile is going to emit
