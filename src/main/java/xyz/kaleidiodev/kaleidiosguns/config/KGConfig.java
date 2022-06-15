@@ -356,22 +356,22 @@ public class KGConfig {
         builder.push("launchers");
         goldLauncherDamageMultiplier = builder
                 .comment("Define the base damage to multiply against for Rocket Launchers")
-                .defineInRange("diamondSniperDamageMultiplier", 3D, 0.1D, 5D);
+                .defineInRange("goldLauncherDamageMultiplier", 1D, 0.1D, 5D);
         goldLauncherFireDelay = builder
                 .comment("Configure the Fire delay for Rocket Launchers")
-                .defineInRange("diamondSniperFireDelay", 25, 0, 72000);
+                .defineInRange("goldLauncherFireDelay", 25, 0, 72000);
         goldLauncherEnchantability = builder
                 .comment("Configure the Enchantability for Rocket Launchers")
-                .defineInRange("diamondSniperEnchantability", 23, 0, 30);
+                .defineInRange("goldLauncherEnchantability", 23, 0, 30);
         goldLauncherDurability = builder
                 .comment("Configure the Durability for Rocket Launchers")
-                .defineInRange("diamondSniperDurability", 96, 0, 32767);
+                .defineInRange("goldLauncherDurability", 96, 0, 32767);
         goldLauncherInaccuracy = builder
                 .comment("Configure the Inaccuracy for Rocket Launchers")
-                .defineInRange("diamondSniperInaccuracy", 0D, 0D, 90D);
+                .defineInRange("goldLauncherInaccuracy", 0D, 0D, 90D);
         goldLauncherProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Rocket Launchers")
-                .defineInRange("diamondSniperProjectileSpeed", 3D, 0D, 64D);
+                .defineInRange("goldLauncherProjectileSpeed", 3D, 0D, 64D);
         builder.pop();
 
         builder.push("bullet_config");
