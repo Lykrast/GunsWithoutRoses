@@ -248,7 +248,7 @@ public class KGConfig {
                 .defineInRange("goldDoubleShotgunChamberSwitchSpeed", 15, 1, 72000);
         goldDoubleShotgunKnockback = builder
                 .comment("Configure how strong knockback is at closest range on Double Barrel Shotguns")
-                .defineInRange("goldDoubleShotgunKnockback", 1.5D, 0.01D, 5D);
+                .defineInRange("goldDoubleShotgunKnockback", 1.2D, 0.01D, 5D);
         builder.pop();
 
         builder.push("rifles");
