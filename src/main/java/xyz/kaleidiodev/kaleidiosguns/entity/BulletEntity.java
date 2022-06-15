@@ -81,7 +81,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	@Override
 	protected IParticleData getTrailParticle() {
 		//seems that this method fires once on server and once on client.  something needs to be done in order to support multiple particle types
-		if (isExplosive) return ParticleTypes.EXPLOSION;
+		if (isExplosive) return ParticleTypes.POOF;
 		if (isPlasma) return ParticleTypes.INSTANT_EFFECT;
 		return ParticleTypes.CRIT;
 	}
