@@ -24,11 +24,12 @@ public class ModSounds {
 			revolver = initSound("item.revolver.shoot"),
 			revolverReload = initSound("item.revolver.reload"),
 			skillShot = initSound("item.skill_shot.shoot"),
+			rocketLauncher = initSound("item.rocket_launcher.shoot"),
 			impact = initSound("entity.bullet.impact");
 
 	@SubscribeEvent
 	public static void registerSounds(final RegistryEvent.Register<SoundEvent> event) {
-		event.getRegistry().registerAll(gun, pistol, smg, double_shotgun, plasma_rifle, carbine, shotgun, sniper, impact, revolver, skillShot, revolverReload, double_shotgunReload);
+		event.getRegistry().registerAll(gun, pistol, smg, double_shotgun, plasma_rifle, carbine, shotgun, sniper, impact, revolver, skillShot, revolverReload, double_shotgunReload, rocketLauncher);
 	}
 
 	public static SoundEvent initSound(String name) {

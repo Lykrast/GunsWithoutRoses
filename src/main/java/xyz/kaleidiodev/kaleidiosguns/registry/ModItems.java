@@ -52,7 +52,7 @@ public class ModItems {
 		assaultGatling = initItem(reg, new GatlingItem(defP().durability(KGConfig.ironAssaultDurability.get()), 0, KGConfig.ironAssaultDamageMultiplier.get(), KGConfig.ironAssaultFireDelay.get(), KGConfig.ironAssaultInaccuracy.get(), KGConfig.ironAssaultEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "assault_rifle").projectileSpeed(KGConfig.ironAssaultProjectileSpeed.get()).fireSound(ModSounds.smg);
 
 		// Launchers
-		goldLauncher = initItem(reg, new GunItem(defP().durability(KGConfig.goldLauncherDurability.get()), 0, KGConfig.goldLauncherDamageMultiplier.get(), KGConfig.goldLauncherFireDelay.get(), KGConfig.goldLauncherInaccuracy.get(), KGConfig.goldLauncherEnchantability.get()).projectileSpeed(KGConfig.goldLauncherProjectileSpeed.get()).fireSound(ModSounds.sniper).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "rocket_launcher").setIsExplosive(true);
+		goldLauncher = initItem(reg, new GunItem(defP().durability(KGConfig.goldLauncherDurability.get()), 0, KGConfig.goldLauncherDamageMultiplier.get(), KGConfig.goldLauncherFireDelay.get(), KGConfig.goldLauncherInaccuracy.get(), KGConfig.goldLauncherEnchantability.get()).projectileSpeed(KGConfig.goldLauncherProjectileSpeed.get()).fireSound(ModSounds.rocketLauncher).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "rocket_launcher").setIsExplosive(true);
 
         // Bullets
 		flintBullet = initItem(reg, new BulletItem(defP(), KGConfig.flintBulletDamage.get()), "flint_bullet");

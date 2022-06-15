@@ -73,6 +73,11 @@
 		"subtitle": "subtitles.kaleidiosguns.item.skill_shot.shoot",
 		"sounds": [ "kaleidiosguns:skill_shot" ]
 	},
+	"item.rocket_launcher.shoot": {
+	"category": "item",
+	"subtitle": "subtitles.kaleidiosguns.item.rocket_launcher.shoot",
+	"sounds": [ "kaleidiosguns:rocket_launcher" ]
+},
 	"entity.bullet.impact": {
 		"category": "entity",
 		"subtitle": "subtitles.kaleidiosguns.item.bullet.impact",

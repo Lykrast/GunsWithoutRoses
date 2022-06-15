@@ -9,6 +9,7 @@
 	"item.kaleidiosguns.assault_rifle": "Assault Rifle",
 	"item.kaleidiosguns.revolver": "Revolver",
 	"item.kaleidiosguns.skill_shot": "Skill Shot Pistol",
+	"item.kaleidiosguns.rocket_launcher": "Rocket Launcher",
 
 	"item.kaleidiosguns.flint_bullet": "Flint Bullet",
 	"item.kaleidiosguns.iron_bullet": "Iron Bullet",
@@ -83,5 +84,6 @@
 	"subtitles.kaleidiosguns.item.revolver.shoot": "Revolver fired",
 	"subtitles.kaleidiosguns.item.revolver.reload": "Revolver reloading",
 	"subtitles.kaleidiosguns.item.skill_shot.shoot": "Skill Shot Pistol fired",
+	"subtitles.kaleidiosguns.item.rocket_launcher.shoot": "Rocket Launcher fired",
 	"subtitles.kaleidiosguns.item.bullet.impact": "Bullet landed"
 }
