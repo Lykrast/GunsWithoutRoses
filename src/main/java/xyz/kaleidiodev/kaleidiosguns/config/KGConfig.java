@@ -165,7 +165,7 @@ public class KGConfig {
                 .defineInRange("goldRevolverProjectileSpeed", 9D, 0D, 64D);
         goldRevolverSpreadoutStrength = builder
                 .comment("Configure the strength a Revolver increases its spread cone every time it's used too fast")
-                .defineInRange("goldRevolverSpreadoutStrength", 1.5D, 0D, 64D);
+                .defineInRange("goldRevolverSpreadoutStrength", 0.75D, 0D, 64D);
         goldRevolverChamberSwitchSpeed = builder
                 .comment("Configure how long switching chambers takes between shots on Revolvers")
                 .defineInRange("goldRevolverChamberSwitchSpeed", 3, 1, 72000);
