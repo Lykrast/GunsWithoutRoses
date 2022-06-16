@@ -150,7 +150,7 @@ public class KGConfig {
                 .defineInRange("goldRevolverDamageModifier", 1.75D, 0.1D, 5D);
         goldRevolverFireDelay = builder
                 .comment("Configure the Fire delay for Revolver")
-                .defineInRange("goldRevolverFireDelay", 60, 0, 72000);
+                .defineInRange("goldRevolverFireDelay", 54, 0, 72000);
         goldRevolverEnchantability = builder
                 .comment("Configure the Enchantability for Revolver")
                 .defineInRange("goldRevolverEnchantability", 23, 0, 30);
@@ -167,7 +167,7 @@ public class KGConfig {
                 .comment("Configure the strength a Revolver increases its spread cone every time it's used too fast")
                 .defineInRange("goldRevolverSpreadoutStrength", 0.75D, 0D, 64D);
         goldRevolverChamberSwitchSpeed = builder
-                .comment("Configure how long switching chambers takes between shots on Revolvers")
+                .comment("Configure a divider of base fire delay how long switching chambers takes between shots on Revolvers")
                 .defineInRange("goldRevolverChamberSwitchSpeed", 3, 1, 72000);
         goldRevolverStabilityTime = builder
                 .comment("Configure how long the gun must not be fired for spread cone to stabilize on Revolver")
