@@ -183,8 +183,8 @@ public class BulletEntity extends AbstractFireballEntity {
 	@Override
 	protected void onHitBlock(BlockRayTraceResult raytrace) {
 		//reset combo by sending owner player's UUID, which can never get damaged
-		if (getOwner() instanceof PlayerEntity)
-			this.shootingGun.tryComboCalculate(getOwner().getUUID(), (PlayerEntity) getOwner());
+		if ((getOwner() instanceof PlayerEntity) && !level.isClientSide())
+			if (shootingGun != null) this.shootingGun.tryComboCalculate(getOwner().getUUID(), (PlayerEntity) getOwner());
 
 		//make a spherical poof and a sound
 		this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.impact, this.getSoundSource(), 0.25f, 1.0f);
