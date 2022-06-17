@@ -289,7 +289,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	@Override
 	protected void onHit(RayTraceResult result) {
 		//explode or damage?
-		if (isExplosive) {
+		if (isExplosive && !checkPlayerHit(result)) {
 			float newRadius = (float)(double) KGConfig.goldLauncherDamageMultiplier.get();
 			boolean catchFire = false;
 
@@ -298,7 +298,7 @@ public class BulletEntity extends AbstractFireballEntity {
 			if (bullet.getItem() == ModItems.ironBullet) newRadius += 1;
 			if (bullet.getItem() == ModItems.blazeBullet) catchFire = true;
 
-			level.explode(null, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, catchFire, Explosion.Mode.NONE);
+			level.explode(null, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, catchFire, Explosion.Mode.DESTROY);
 		}
 		//damage should try to hurt tiles and entities without using an explosion, so it will need to fire this super.
 		else super.onHit(result);
@@ -306,6 +306,18 @@ public class BulletEntity extends AbstractFireballEntity {
 		if (!level.isClientSide) {
 			remove();
 		}
+	}
+
+	//returns false if the entity getting hit isn't the player.
+	protected boolean checkPlayerHit(RayTraceResult result) {
+		if (result.getType() == RayTraceResult.Type.ENTITY) {
+			EntityRayTraceResult victim = (EntityRayTraceResult) result;
+			if (victim.getEntity() == getOwner()) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	protected void tryBreakBlock(BlockPos blockPosToTest, ItemStack stack) {
