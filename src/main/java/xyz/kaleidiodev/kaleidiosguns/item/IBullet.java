@@ -81,7 +81,6 @@ public interface IBullet {
 				newDamage *= projectile.getShootingGun().tryComboCalculate(victim.getUUID(), assailant);
 			}
 		}
-		System.out.println("Expected damage: " + newDamage);
 		return newDamage;
 	}
 
