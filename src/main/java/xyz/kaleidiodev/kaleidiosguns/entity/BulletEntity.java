@@ -289,7 +289,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	@Override
 	protected void onHit(RayTraceResult result) {
 		//explode or damage?
-		if (isExplosive && !checkPlayerHit(result)) {
+		if (isExplosive) {
 			float newRadius = (float)(double) KGConfig.goldLauncherDamageMultiplier.get();
 			boolean catchFire = false;
 
@@ -306,18 +306,6 @@ public class BulletEntity extends AbstractFireballEntity {
 		if (!level.isClientSide) {
 			remove();
 		}
-	}
-
-	//returns false if the entity getting hit isn't the player.
-	protected boolean checkPlayerHit(RayTraceResult result) {
-		if (result.getType() == RayTraceResult.Type.ENTITY) {
-			EntityRayTraceResult victim = (EntityRayTraceResult) result;
-			if (victim.getEntity() == getOwner()) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	protected void tryBreakBlock(BlockPos blockPosToTest, ItemStack stack) {
