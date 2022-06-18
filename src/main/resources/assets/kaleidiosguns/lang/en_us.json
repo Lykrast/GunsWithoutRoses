@@ -69,6 +69,8 @@
 	"enchantment.kaleidiosguns.marker.desc": "A hit target will begin to glow",
 	"enchantment.kaleidiosguns.lucky_shot": "Lucky Shot",
 	"enchantment.kaleidiosguns.lucky_shot.desc": "Provides a chance to give critical damage",
+	"enchantment.kaleidiosguns.cowboy": "Cowboy",
+	"enchantment.kaleidiosguns.cowboy.desc": "One handed use has no accuracy punishment",
 
 	"entity.kaleidiosguns.bullet": "Bullet",
 

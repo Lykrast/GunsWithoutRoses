@@ -259,7 +259,7 @@ public class GunItem extends ShootableItem {
 		nextInaccuracy += shotsBeforeStability * Math.max(0, instabilitySpreadAdditional / ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) * KGConfig.bullseyeAccuracyIncrease.get()) + 1.0D));
 
 		//check player hands
-		if (player != null) {
+		if ((player != null) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.cowboy, stack) == 0)) {
 			//if both hands are full, because one is the gun and one is something else
 			if (!player.getMainHandItem().isEmpty() && !player.getOffhandItem().isEmpty()) {
 				//if sniper class, give a new inaccuracy
