@@ -124,6 +124,7 @@ public class BulletEntity extends Fireball {
 
 	@Override
 	//Same as normal but ignores player velocity
+	//Also I finally found why it takes floats, cause the trig functions take floats :(
 	public void shootFromRotation(Entity shooter, float xRot, float yRot, float p_37255_, float speed, float spread) {
 		float f = -Mth.sin(yRot * ((float) Math.PI / 180F)) * Mth.cos(xRot * ((float) Math.PI / 180F));
 		float f1 = -Mth.sin((xRot + p_37255_) * ((float) Math.PI / 180F));
