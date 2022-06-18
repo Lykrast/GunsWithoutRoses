@@ -108,6 +108,7 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue mineGunFourthLevel;
     public static ForgeConfigSpec.DoubleValue mineGunFifthLevel;
 
+    //enchantment related mechanics
     public static ForgeConfigSpec.DoubleValue impactDamageIncrease;
     public static ForgeConfigSpec.DoubleValue bullseyeAccuracyIncrease;
     public static ForgeConfigSpec.DoubleValue sleightOfHandFireRateDecrease;
@@ -119,6 +120,8 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue puncturingMultiplier;
     public static ForgeConfigSpec.DoubleValue luckyShotChance;
     public static ForgeConfigSpec.DoubleValue criticalDamage;
+    public static ForgeConfigSpec.DoubleValue oneHandInaccuracyMultiplier;
+    public static ForgeConfigSpec.DoubleValue oneHandInaccuracyReplacement;
 
 
     static {
@@ -443,6 +446,12 @@ public class KGConfig {
         criticalDamage = builder
                 .comment("Multiplier of a critical hit")
                 .defineInRange("criticalDamage", 3D, 0.1D, 20D);
+        oneHandInaccuracyMultiplier = builder
+                .comment("Inaccuracy multiplier for when the user has one hand filled")
+                .defineInRange("oneHandInaccuracyMultiplier", 2D, 0.1D, 5D);
+        oneHandInaccuracyReplacement = builder
+                .comment("Inaccuracy of any perfect accuracy weapons in the case of one hand being filled")
+                .defineInRange("oneHandInaccuracyReplacement", 5D, 0D, 90D);
         builder.pop();
 
         spec = builder.build();

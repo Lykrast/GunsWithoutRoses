@@ -134,14 +134,14 @@ public class GunItem extends ShootableItem {
 	 */
 	protected void fireWeapon(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
 		BulletEntity shot = bulletItem.createProjectile(world, ammo, player, gun.getItem() == ModItems.plasmaGatling);
-		shot.shootFromRotation(player, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), VivecraftForgeExtensionPresent ? 0.0F : (float)getInaccuracy(gun));
+		shot.shootFromRotation(player, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), VivecraftForgeExtensionPresent ? 0.0F : (float)getInaccuracy(gun, player));
 
 		//subtract player velocity to make the bullet independent
 		Vector3d projectileMotion = player.getDeltaMovement();
 		shot.setDeltaMovement(shot.getDeltaMovement().subtract(projectileMotion.x, player.isOnGround() ? 0.0D : projectileMotion.y, projectileMotion.z));
 
 		shot.setShootingGun(this);
-		shot.setInaccuracy(getInaccuracy(gun));
+		shot.setInaccuracy(getInaccuracy(gun, player));
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun));
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);
 		shot.setHealthRewardChance(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.passionForBlood, gun) * 0.1);
@@ -253,9 +253,22 @@ public class GunItem extends ShootableItem {
 	 * Accuracy is actually inaccuracy internally, because it's easier to math.<br>
 	 * The formula is just accuracy = 1 / inaccuracy.
 	 */
-	public double getInaccuracy(ItemStack stack) {
+	public double getInaccuracy(ItemStack stack, @Nullable PlayerEntity player) {
 		double nextInaccuracy = Math.max(0, inaccuracy / ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) * KGConfig.bullseyeAccuracyIncrease.get()) + 1.0));
+
 		nextInaccuracy += shotsBeforeStability * Math.max(0, instabilitySpreadAdditional / ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) * KGConfig.bullseyeAccuracyIncrease.get()) + 1.0D));
+
+		//check player hands
+		if (player != null) {
+			//if both hands are full, because one is the gun and one is something else
+			if (!player.getMainHandItem().isEmpty() && !player.getOffhandItem().isEmpty()) {
+				//if sniper class, give a new inaccuracy
+				if (nextInaccuracy == 0) nextInaccuracy = KGConfig.oneHandInaccuracyReplacement.get();
+				//else multiply
+				else nextInaccuracy *= KGConfig.oneHandInaccuracyMultiplier.get();
+			}
+		}
+
 		return nextInaccuracy;
 	}
 
@@ -466,7 +479,7 @@ public class GunItem extends ShootableItem {
 
 		//only let these apply to certain gun types
 		if (enchantment == ModEnchantments.division && !(me instanceof ShotgunItem)) return false; //shotgun only
-		if (enchantment == ModEnchantments.marker && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.getInaccuracy(stack) != 0))) return false; //pistol only
+		if (enchantment == ModEnchantments.marker && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.getInaccuracy(stack, null) != 0))) return false; //pistol only
 
 		//Disallow these if other enchantments are already applied.
 		//impact versus lucky shot
@@ -495,7 +508,7 @@ public class GunItem extends ShootableItem {
 			tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.firerate" + (isFireDelayModified(stack) ? ".modified" : ""), fireDelay, (60*20) / fireDelay));
 
 			//Accuracy
-			double inaccuracy = getInaccuracy(stack);
+			double inaccuracy = getInaccuracy(stack, null);
 			if (inaccuracy <= 0) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.accuracy.perfect" + (isInaccuracyModified(stack) ? ".modified" : "")));
 			else tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(1.0 / inaccuracy)));
 
