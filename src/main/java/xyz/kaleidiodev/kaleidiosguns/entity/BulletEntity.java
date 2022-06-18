@@ -59,6 +59,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected boolean shouldGlow;
 	protected boolean isCritical;
 	protected GunItem shootingGun;
+	public boolean shouldMakeFire;
 	public boolean shouldCombo;
 	public boolean isExplosive;
 	public boolean isPlasma;
@@ -294,12 +295,10 @@ public class BulletEntity extends AbstractFireballEntity {
 			float newRadius = (float) (double) KGConfig.goldLauncherDamageMultiplier.get();
 			boolean catchFire = false;
 
-				//get projectile material type, and explosion changes accordingly
-			ItemStack bullet = this.getItem();
-			if (bullet.getItem() == ModItems.ironBullet) newRadius += 1;
-			if (bullet.getItem() == ModItems.blazeBullet) catchFire = true;
+			//if projectile is stronger than flint damage assume a stronger material type
+			if (getDamage() > KGConfig.flintBulletDamage.get() * KGConfig.goldLauncherDamageMultiplier.get()) newRadius += 1;
 
-			level.explode(this, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, catchFire, Explosion.Mode.BREAK);
+			level.explode(this, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, this.shouldMakeFire, Explosion.Mode.BREAK);
 		}
 		//damage should try to hurt tiles and entities without using an explosion, so it will need to fire this super.
 		else super.onHit(result);

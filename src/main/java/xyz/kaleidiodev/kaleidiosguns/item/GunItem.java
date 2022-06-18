@@ -159,6 +159,7 @@ public class GunItem extends ShootableItem {
 		shot.noPhysics = this.shouldCollateral;
 		shot.shouldCombo = this.shouldCombo;
 		shot.isPlasma = (this.getItem() == ModItems.plasmaGatling);
+		shot.shouldMakeFire = (ammo.getItem() == ModItems.blazeBullet);
 
 		changeBullet(world, player, gun, shot, bulletFree);
 
