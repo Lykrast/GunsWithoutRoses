@@ -33,11 +33,11 @@ public class BulletEntity extends Fireball {
 	}
 
 	public BulletEntity(Level worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-		super(ModEntities.BULLET, shooter, accelX, accelY, accelZ, worldIn);
+		super(ModEntities.BULLET.get(), shooter, accelX, accelY, accelZ, worldIn);
 	}
 
 	public BulletEntity(Level worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
-		super(ModEntities.BULLET, x, y, z, accelX, accelY, accelZ, worldIn);
+		super(ModEntities.BULLET.get(), x, y, z, accelX, accelY, accelZ, worldIn);
 	}
 
 	private static final double STOP_TRESHOLD = 0.01;

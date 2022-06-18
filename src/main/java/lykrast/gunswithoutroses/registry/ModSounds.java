@@ -1,25 +1,18 @@
 package lykrast.gunswithoutroses.registry;
 
 import lykrast.gunswithoutroses.GunsWithoutRoses;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GunsWithoutRoses.MODID)
 public class ModSounds {
-	//Items need the soundevents, so we make them before
-	public static SoundEvent gun = initSound("item.gun.shoot"), shotgun = initSound("item.shotgun.shoot"), sniper = initSound("item.sniper.shoot");
+	//"Why is that one not formatted like the others?"
+	//because it wasn't on 1.18 so I just left it like that when deferredregstering it
+	public static final DeferredRegister<SoundEvent> REG = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, GunsWithoutRoses.MODID);
+	public static RegistryObject<SoundEvent> gun = initSound("item.gun.shoot"), shotgun = initSound("item.shotgun.shoot"), sniper = initSound("item.sniper.shoot");
 
-	@SubscribeEvent
-	public static void registerEnchantments(final RegistryEvent.Register<SoundEvent> event) {
-		event.getRegistry().registerAll(gun, shotgun, sniper);
-	}
-
-	public static SoundEvent initSound(String name) {
-		ResourceLocation loc = GunsWithoutRoses.rl(name);
-		SoundEvent se = new SoundEvent(loc).setRegistryName(loc);
-		return se;
+	public static RegistryObject<SoundEvent> initSound(String name) {
+		return REG.register(name, () -> new SoundEvent(GunsWithoutRoses.rl(name)));
 	}
 }

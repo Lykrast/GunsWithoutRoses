@@ -13,7 +13,6 @@ import lykrast.gunswithoutroses.registry.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -40,7 +39,7 @@ public class GunItem extends ProjectileWeaponItem {
 	private int enchantability;
 	protected boolean ignoreInvulnerability = false;
 	protected double chanceFreeShot = 0;
-	protected SoundEvent fireSound = ModSounds.gun;
+	protected Supplier<SoundEvent> fireSound = ModSounds.gun::get;
 	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
 	protected Supplier<Ingredient> repairMaterial;
 
@@ -61,21 +60,21 @@ public class GunItem extends ProjectileWeaponItem {
 		ItemStack ammo = player.getProjectile(gun);
 
 		if (!ammo.isEmpty() || player.getAbilities().instabuild) {
-			if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet);
+			if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet.get());
 
-			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
+			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet.get());
 			if (!world.isClientSide) {
 				boolean bulletFree = player.getAbilities().instabuild || !shouldConsumeAmmo(world, gun, player);
 				
 				//Workaround for quivers not respecting getAmmoPredicate()
-				ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet);
+				ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet.get());
 				shoot(world, player, gun, shotAmmo, bulletItem, bulletFree);
 				
 				gun.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
 				if (!bulletFree) bulletItem.consume(ammo, player);
 			}
 
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundSource.PLAYERS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound.get(), SoundSource.PLAYERS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
 			player.awardStat(Stats.ITEM_USED.get(this));
 
 			player.getCooldowns().addCooldown(this, getFireDelay(gun, player));
@@ -118,7 +117,7 @@ public class GunItem extends ProjectileWeaponItem {
 	public boolean shouldConsumeAmmo(Level world, ItemStack stack, Player player) {
 		if (chanceFreeShot > 0 && world.getRandom().nextDouble() < chanceFreeShot) return false;
 		
-		int preserving = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving, stack);
+		int preserving = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving.get(), stack);
 		//(level) in (level + 2) chance to not consume
 		if (preserving >= 1 && world.getRandom().nextInt(preserving + 2) >= 2) return false;
 		
@@ -129,7 +128,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Gets the flat bonus damage (applied BEFORE the multiplier). This takes into account Impact enchantment.
 	 */
 	public double getBonusDamage(ItemStack stack, @Nullable Player player) {
-		int impact = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack);
+		int impact = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact.get(), stack);
 		return bonusDamage + (impact >= 1 ? 0.5 * (impact + 1) : 0);
 	}
 	
@@ -141,7 +140,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Gets the min time in ticks between 2 shots. This takes into account Sleight of Hand enchantment.
 	 */
 	public int getFireDelay(ItemStack stack, @Nullable Player player) {
-		int sleight = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack);
+		int sleight = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand.get(), stack);
 		return Math.max(1, sleight > 0 ? (int)(fireDelay / (1 + 0.16*sleight)) : fireDelay);
 	}
 	
@@ -159,7 +158,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 * The formula is just accuracy = 1 / inaccuracy.
 	 */
 	public double getInaccuracy(ItemStack stack, @Nullable Player player) {
-		return Math.max(0, inaccuracy / (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) + 1.0));
+		return Math.max(0, inaccuracy / (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye.get(), stack) + 1.0));
 	}
 	
 	public double getProjectileSpeed(ItemStack stack, @Nullable Player player) {
@@ -174,7 +173,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 */
 	public double getInverseChanceFreeShot(ItemStack stack, @Nullable Player player) {
 		double chance = 1 - chanceFreeShot;
-		int preserving = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving, stack);
+		int preserving = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving.get(), stack);
 		if (preserving >= 1) chance *= 2.0/(preserving + 2);
 		return chance;
 	}
@@ -183,28 +182,28 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Says if the damage is changed from base value. Used for tooltip.
 	 */
 	protected boolean isDamageModified(ItemStack stack) {
-		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) >= 1;
+		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact.get(), stack) >= 1;
 	}
 	
 	/**
 	 * Says if the fire delay is changed from base value. Used for tooltip.
 	 */
 	protected boolean isFireDelayModified(ItemStack stack) {
-		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) >= 1;
+		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand.get(), stack) >= 1;
 	}
 	
 	/**
 	 * Says if the (in)accuracy is changed from base value. Used for tooltip.
 	 */
 	protected boolean isInaccuracyModified(ItemStack stack) {
-		return !hasPerfectAccuracy() && EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) >= 1;
+		return !hasPerfectAccuracy() && EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye.get(), stack) >= 1;
 	}
 	
 	/**
 	 * Says if the chance for free shots is changed from base value. Used for tooltip.
 	 */
 	protected boolean isChanceFreeShotModified(ItemStack stack) {
-		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving, stack) >= 1;
+		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving.get(), stack) >= 1;
 	}
 
 	/**
@@ -226,7 +225,7 @@ public class GunItem extends ProjectileWeaponItem {
 	/**
 	 * Sets the firing sound, used when making the item for registering.
 	 */
-	public GunItem fireSound(SoundEvent fireSound) {
+	public GunItem fireSound(Supplier<SoundEvent> fireSound) {
 		this.fireSound = fireSound;
 		return this;
 	}
@@ -251,7 +250,7 @@ public class GunItem extends ProjectileWeaponItem {
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
 		//Disallow Bullseye if the gun has perfect accuracy
-		if (enchantment == ModEnchantments.bullseye && hasPerfectAccuracy()) return false;
+		if (enchantment == ModEnchantments.bullseye.get() && hasPerfectAccuracy()) return false;
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}
 
@@ -264,30 +263,30 @@ public class GunItem extends ProjectileWeaponItem {
 			double damageBonus = getBonusDamage(stack, null) * damageMultiplier;
 			
 			if (damageMultiplier != 1) {
-				if (damageBonus != 0) tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.gun.damage.both" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageMultiplier), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageBonus)));
-				else tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.gun.damage.mult" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageMultiplier)));
+				if (damageBonus != 0) tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.damage.both" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageMultiplier), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageBonus)));
+				else tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.damage.mult" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageMultiplier)));
 			}
-			else if (damageBonus != 0) tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.gun.damage.flat" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageBonus)));
+			else if (damageBonus != 0) tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.damage.flat" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageBonus)));
 			
 			//Fire rate
 			int fireDelay = getFireDelay(stack, null);
-			tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.gun.firerate" + (isFireDelayModified(stack) ? ".modified" : ""), fireDelay, (60*20) / fireDelay));
+			tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.firerate" + (isFireDelayModified(stack) ? ".modified" : ""), fireDelay, (60*20) / fireDelay));
 			
 			//Accuracy
 			double inaccuracy = getInaccuracy(stack, null);
-			if (inaccuracy <= 0) tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.gun.accuracy.perfect" + (isInaccuracyModified(stack) ? ".modified" : "")));
-			else tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(1.0 / inaccuracy)));
+			if (inaccuracy <= 0) tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.accuracy.perfect" + (isInaccuracyModified(stack) ? ".modified" : "")));
+			else tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(1.0 / inaccuracy)));
 			
 			//Chance to not consume ammo
 			double inverseChanceFree = getInverseChanceFreeShot(stack, null);
-			if (inverseChanceFree < 1) tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.gun.chance_free" + (isChanceFreeShotModified(stack) ? ".modified" : ""), (int)((1 - inverseChanceFree) * 100)));
+			if (inverseChanceFree < 1) tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.chance_free" + (isChanceFreeShotModified(stack) ? ".modified" : ""), (int)((1 - inverseChanceFree) * 100)));
 			
 			//Other stats
-			if (ignoreInvulnerability) tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.gun.ignore_invulnerability").withStyle(ChatFormatting.GRAY));
+			if (ignoreInvulnerability) tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.ignore_invulnerability").withStyle(ChatFormatting.GRAY));
 			
 			addExtraStatsTooltip(stack, world, tooltip);
 		}
-		else tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.shift"));
+		else tooltip.add(Component.translatable("tooltip.gunswithoutroses.shift"));
 	}
 	
 	/**

@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 import lykrast.gunswithoutroses.entity.BulletEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -44,7 +43,7 @@ public class BulletItem extends Item implements IBullet {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-		tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.bullet.damage", damage).withStyle(ChatFormatting.DARK_GREEN));
+		tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet.damage", damage).withStyle(ChatFormatting.DARK_GREEN));
 	}
 
 }

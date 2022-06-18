@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 import lykrast.gunswithoutroses.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -47,21 +46,21 @@ public class GatlingItem extends GunItem {
 				ItemStack ammo = player.getProjectile(gun);
 
 				if (!ammo.isEmpty() || player.getAbilities().instabuild) {
-					if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet);
+					if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet.get());
 
-					IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
+					IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet.get());
 					if (!world.isClientSide) {
 						boolean bulletFree = player.getAbilities().instabuild || !shouldConsumeAmmo(world, gun, player);
 
 						//Workaround for quivers not respecting getAmmoPredicate()
-						ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet);
+						ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet.get());
 						shoot(world, player, gun, shotAmmo, bulletItem, bulletFree);
 
 						gun.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
 						if (!bulletFree) bulletItem.consume(ammo, player);
 					}
 
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundSource.PLAYERS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound.get(), SoundSource.PLAYERS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
 					player.awardStat(Stats.ITEM_USED.get(this));
 				}
 			}
@@ -75,7 +74,7 @@ public class GatlingItem extends GunItem {
 
 	@Override
 	protected void addExtraStatsTooltip(ItemStack stack, @Nullable Level world, List<Component> tooltip) {
-		tooltip.add(new TranslatableComponent("tooltip.gunswithoutroses.gatling.hold").withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable("tooltip.gunswithoutroses.gatling.hold").withStyle(ChatFormatting.GRAY));
 	}
 
 }

@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[38,)"
+loaderVersion="[41,)"
 issueTrackerURL="https://github.com/Lykrast/GunsWithoutRoses/issues"
 license="MIT License https://github.com/Lykrast/GunsWithoutRoses/blob/master/LICENSE"
 
@@ -17,12 +17,12 @@ Adds a few simple Terraria-like guns, and bullets and enchantments to go with th
 [[dependencies.gunswithoutroses]]
     modId="forge"
     mandatory=true
-    versionRange="[38,)"
+    versionRange="[41,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.gunswithoutroses]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18,]"
+    versionRange="[1.19,]"
     ordering="NONE"
     side="BOTH"

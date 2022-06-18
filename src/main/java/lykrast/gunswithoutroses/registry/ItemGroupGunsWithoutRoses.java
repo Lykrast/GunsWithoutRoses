@@ -12,7 +12,7 @@ public class ItemGroupGunsWithoutRoses extends CreativeModeTab {
 
 	@Override
 	public ItemStack makeIcon() {
-		return new ItemStack(ModItems.ironGun);
+		return new ItemStack(ModItems.ironGun.get());
 	}
 
 }
