@@ -94,6 +94,7 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue goldStreamDurability;
     public static ForgeConfigSpec.DoubleValue goldStreamInaccuracy;
     public static ForgeConfigSpec.DoubleValue goldStreamProjectileSpeed;
+    public static ForgeConfigSpec.DoubleValue goldStreamShieldAdditional;
 
     //Bullets
     public static ForgeConfigSpec.IntValue flintBulletDamage;
@@ -351,6 +352,9 @@ public class KGConfig {
         goldStreamProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Plasma Rifles")
                 .defineInRange("goldPlasmaProjectileSpeed", 2D, 0D, 64D);
+        goldStreamShieldAdditional = builder
+                .comment("Configure the additional damage to shields when they are in use against Plasma Rifles")
+                .defineInRange("goldPlasmaShieldAdditional", 20D, -2000D, 2000D);
         builder.pop();
 
         builder.push("launchers");

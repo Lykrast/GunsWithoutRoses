@@ -5,6 +5,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.HandSide;
 import net.minecraft.util.IndirectEntityDamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.NoteBlockEvent;
@@ -79,6 +81,15 @@ public interface IBullet {
 				//first remove the old multiplier, then add the new one.
 				newDamage /= projectile.getShootingGun().getDamageMultiplier(new ItemStack(projectile.getShootingGun().getItem()));
 				newDamage *= projectile.getShootingGun().tryComboCalculate(victim.getUUID(), assailant);
+			}
+		}
+
+		//if the bullet is a plasma type, deal very high damage to a shield if one is in use.
+		//this way we let the vanilla mechanic of a shield taking damage as durability into effect
+		if (projectile.isPlasma && target instanceof LivingEntity) {
+			LivingEntity victim = (LivingEntity) target;
+			if (victim.getUseItem().equals(new ItemStack(Items.SHIELD))) {
+				newDamage += KGConfig.goldStreamShieldAdditional.get();
 			}
 		}
 		return newDamage;
