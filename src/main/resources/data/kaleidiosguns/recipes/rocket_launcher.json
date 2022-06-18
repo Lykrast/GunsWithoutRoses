@@ -7,7 +7,7 @@
 	],
 	"key": {
 		"D": { "tag": "forge:ingots/gold" },
-		"I": { "tag": "minecraft:fire_charge" },
+		"I": { "item": "minecraft:fire_charge" },
 		"S": { "tag": "forge:ingots/iron" },
 		"F": { "item": "minecraft:flint" }
 	},

@@ -9,7 +9,7 @@
 		"B": { "tag": "forge:bones" },
 		"F": { "item": "minecraft:rotten_flesh" },
 		"D": { "tag": "forge:gems/diamond" },
-		"N": { "item": "minecraft:netherite_scrap" }
+		"N": { "item": "minecraft:netherite_ingot" }
 	},
 	"result": { "item": "kaleidiosguns:hunger_bullet" }
 }
