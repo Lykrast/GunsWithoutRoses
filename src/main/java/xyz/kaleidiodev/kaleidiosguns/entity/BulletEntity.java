@@ -289,16 +289,17 @@ public class BulletEntity extends AbstractFireballEntity {
 	@Override
 	protected void onHit(RayTraceResult result) {
 		//explode or damage?
-		if (isExplosive) {
-			float newRadius = (float)(double) KGConfig.goldLauncherDamageMultiplier.get();
+		if (isExplosive && !level.isClientSide) {
+			EntityRayTraceResult victim = (EntityRayTraceResult) result.hitInfo;
+			float newRadius = (float) (double) KGConfig.goldLauncherDamageMultiplier.get();
 			boolean catchFire = false;
 
-			//get projectile material type, and explosion changes accordingly
+				//get projectile material type, and explosion changes accordingly
 			ItemStack bullet = this.getItem();
 			if (bullet.getItem() == ModItems.ironBullet) newRadius += 1;
 			if (bullet.getItem() == ModItems.blazeBullet) catchFire = true;
 
-			level.explode(null, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, catchFire, Explosion.Mode.DESTROY);
+			level.explode(this, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, catchFire, Explosion.Mode.BREAK);
 		}
 		//damage should try to hurt tiles and entities without using an explosion, so it will need to fire this super.
 		else super.onHit(result);
