@@ -281,8 +281,6 @@ public class BulletEntity extends AbstractFireballEntity {
 				if (vec.lengthSqr() > 0) livingTarget.push(vec.x, 0.1, vec.z);
 			}
 
-			if (shooter instanceof LivingEntity) doEnchantDamageEffects((LivingEntity) shooter, entity);
-
 			bullet.onLivingEntityHit(this, livingTarget, shooter, level);
 		} else if (!damaged && ignoreInvulnerability) entity.invulnerableTime = lastHurtResistant;
 	}
