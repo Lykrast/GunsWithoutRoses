@@ -372,7 +372,7 @@ public class KGConfig {
                 .defineInRange("goldLauncherEnchantability", 23, 0, 30);
         goldLauncherDurability = builder
                 .comment("Configure the Durability for Rocket Launchers")
-                .defineInRange("goldLauncherDurability", 96, 0, 32767);
+                .defineInRange("goldLauncherDurability", 41, 0, 32767);
         goldLauncherInaccuracy = builder
                 .comment("Configure the Inaccuracy for Rocket Launchers")
                 .defineInRange("goldLauncherInaccuracy", 0D, 0D, 90D);
