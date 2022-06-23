@@ -451,7 +451,7 @@ public class KGConfig {
                 .defineInRange("oneHandInaccuracyMultiplier", 2D, 0.1D, 5D);
         oneHandInaccuracyReplacement = builder
                 .comment("Inaccuracy of any perfect accuracy weapons in the case of one hand being filled")
-                .defineInRange("oneHandInaccuracyReplacement", 1.25D, 0D, 90D);
+                .defineInRange("oneHandInaccuracyReplacement", 1.5D, 0D, 90D);
         builder.pop();
 
         spec = builder.build();
