@@ -277,8 +277,8 @@ public class BulletEntity extends AbstractFireballEntity {
 				double actualKnockback = knockbackStrength;
 				if (this.shootingGun.getItem() == ModItems.doubleBarrelShotgun)
 					actualKnockback = knockbackStrength / ticksSinceFired;
-				Vector3d vec = getDeltaMovement().multiply(1, 0, 1).normalize().scale(actualKnockback);
-				if (vec.lengthSqr() > 0) livingTarget.push(vec.x, 0.1, vec.z);
+				Vector3d vec = getDeltaMovement().multiply(1, 0.25, 1).normalize().scale(actualKnockback);
+				if (vec.lengthSqr() > 0) livingTarget.push(vec.x, vec.y, vec.z);
 			}
 
 			bullet.onLivingEntityHit(this, livingTarget, shooter, level);
