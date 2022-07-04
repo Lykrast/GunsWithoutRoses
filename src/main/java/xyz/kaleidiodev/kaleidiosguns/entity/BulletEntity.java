@@ -296,7 +296,8 @@ public class BulletEntity extends AbstractFireballEntity {
 			//if projectile is stronger than flint damage assume a stronger material type
 			if (getDamage() > KGConfig.flintBulletDamage.get() * KGConfig.goldLauncherDamageMultiplier.get()) newRadius += 1;
 
-			level.explode(this, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, this.shouldMakeFire, Explosion.Mode.BREAK);
+			if (KGConfig.goldLauncherDestroyBlocks.get()) level.explode(this, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, this.shouldMakeFire, Explosion.Mode.DESTROY);
+			else level.explode(this, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, this.shouldMakeFire, Explosion.Mode.NONE);
 		}
 		//damage should try to hurt tiles and entities without using an explosion, so it will need to fire this super.
 		else super.onHit(result);

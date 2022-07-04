@@ -72,6 +72,7 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue goldLauncherDurability;
     public static ForgeConfigSpec.DoubleValue goldLauncherInaccuracy;
     public static ForgeConfigSpec.DoubleValue goldLauncherProjectileSpeed;
+    public static ForgeConfigSpec.BooleanValue goldLauncherDestroyBlocks;
 
     public static ForgeConfigSpec.DoubleValue diamondMinegunDamageMultiplier;
     public static ForgeConfigSpec.IntValue diamondMinegunFireDelay;
@@ -379,6 +380,9 @@ public class KGConfig {
         goldLauncherProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Rocket Launchers")
                 .defineInRange("goldLauncherProjectileSpeed", 2D, 0D, 64D);
+        goldLauncherDestroyBlocks = builder
+                .comment("Should Rocket Launchers destroy blocks in their explosions?")
+                .define("goldLauncherProjectileSpeed", true);
         builder.pop();
 
         builder.push("bullet_config");
