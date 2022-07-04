@@ -277,7 +277,12 @@ public class BulletEntity extends AbstractFireballEntity {
 				double actualKnockback = knockbackStrength;
 				if (this.shootingGun.getItem() == ModItems.doubleBarrelShotgun)
 					actualKnockback = knockbackStrength / ticksSinceFired;
+
+				//bosses such as the wither and modded bosses that are huge should no longer have insane knockback.
+				boolean shouldKnockback = (livingTarget.getBoundingBox().getYsize() > 3);
+
 				Vector3d vec = getDeltaMovement().multiply(1, 0.25, 1).normalize().scale(actualKnockback);
+				if (shouldKnockback) vec = Vector3d.ZERO;
 				if (vec.lengthSqr() > 0) livingTarget.push(vec.x, vec.y, vec.z);
 			}
 
