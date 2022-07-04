@@ -63,6 +63,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	public boolean shouldCombo;
 	public boolean isExplosive;
 	public boolean isPlasma;
+	public boolean givesKnockback;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);
@@ -282,7 +283,8 @@ public class BulletEntity extends AbstractFireballEntity {
 				boolean shouldKnockback = (livingTarget.getBoundingBox().getYsize() > 3);
 
 				Vector3d vec = getDeltaMovement().multiply(1, 0.25, 1).normalize().scale(actualKnockback);
-				if (shouldKnockback) vec = Vector3d.ZERO;
+				if (shouldKnockback) vec = getDeltaMovement().multiply(0, 0, 0).normalize().scale(actualKnockback);
+				if (givesKnockback) vec = getDeltaMovement().multiply(0, 0, 0).normalize().scale(actualKnockback);
 				if (vec.lengthSqr() > 0) livingTarget.push(vec.x, vec.y, vec.z);
 			}
 

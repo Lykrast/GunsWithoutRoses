@@ -160,6 +160,7 @@ public class GunItem extends ShootableItem {
 		shot.shouldCombo = this.shouldCombo;
 		shot.isPlasma = (this.getItem() == ModItems.plasmaGatling);
 		shot.shouldMakeFire = (ammo.getItem() == ModItems.blazeBullet);
+		shot.givesKnockback = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.cleanShot, gun) > 0;
 
 		changeBullet(world, player, gun, shot, bulletFree);
 
@@ -481,6 +482,7 @@ public class GunItem extends ShootableItem {
 		//only let these apply to certain gun types
 		if (enchantment == ModEnchantments.division && !(me instanceof ShotgunItem)) return false; //shotgun only
 		if (enchantment == ModEnchantments.marker && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.getInaccuracy(stack, null) != 0))) return false; //pistol only
+		if (enchantment == ModEnchantments.cleanShot && (!hasPerfectAccuracy() || (me instanceof GatlingItem) || (me instanceof ShotgunItem))) return false;
 
 		//Disallow these if other enchantments are already applied.
 		//impact versus lucky shot
