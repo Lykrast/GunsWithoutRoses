@@ -88,7 +88,7 @@ public interface IBullet {
 		//this way we let the vanilla mechanic of a shield taking damage as durability into effect
 		if (projectile.isPlasma && target instanceof LivingEntity) {
 			LivingEntity victim = (LivingEntity) target;
-			if (victim.getUseItem().equals(new ItemStack(Items.SHIELD))) {
+			if (victim.getUseItem().isShield(victim)) {
 				newDamage += KGConfig.goldStreamShieldAdditional.get();
 			}
 		}
