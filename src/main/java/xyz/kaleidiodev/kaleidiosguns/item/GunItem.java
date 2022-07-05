@@ -532,6 +532,8 @@ public class GunItem extends ShootableItem {
 			if (stack.getItem() == ModItems.goldGun) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.revolver"));
 			if (shouldCombo) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.skill_shot"));
 
+			if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) > 0) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.frost_distance", EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) * KGConfig.frostyDistancePerLevel.get()));
+
 			addExtraStatsTooltip(stack, world, tooltip);
 		}
 		else tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.shift"));

@@ -42,9 +42,10 @@
 	"tooltip.kaleidiosguns.revolver": "Stabilizes spread with patience",
 	"tooltip.kaleidiosguns.double_barrel": "Shoot multiple times before reloading",
 	"tooltip.kaleidiosguns.collateral": "Bullets fly through enemies",
+	"tooltip.kaleidiosguns.frost_distance": "Damage is minimum at §f%s§r blocks away",
+
 
 	"tooltip.kaleidiosguns.blaze_bullet": "Sets entities on fire",
-
 	"tooltip.kaleidiosguns.hunger_bullet": "Uses hunger as ammo",
 
 	"itemGroup.kaleidiosguns": "Kaleidio's Guns",
