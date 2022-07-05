@@ -9,12 +9,11 @@ import net.minecraftforge.registries.IForgeRegistry;
 import xyz.kaleidiodev.kaleidiosguns.KaleidiosGuns;
 import xyz.kaleidiodev.kaleidiosguns.enchantment.GunEnchantment;
 import xyz.kaleidiodev.kaleidiosguns.item.GunItem;
-import xyz.kaleidiodev.kaleidiosguns.item.ShotgunItem;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = KaleidiosGuns.MODID)
 public class ModEnchantments {
 
-	public static Enchantment impact, bullseye, sleightOfHand, preserving, accelerator, division, passionForBlood, puncturing, marker, luckyShot, cowboy, maneuvering, magmatic;
+	public static Enchantment impact, bullseye, sleightOfHand, preserving, accelerator, division, passionForBlood, puncturing, marker, luckyShot, cowboy, maneuvering, frostShot;
 	public static final EnchantmentType TYPE_GUN = EnchantmentType.create("GWR_GUN", (item) -> item instanceof GunItem);
 
 	@SubscribeEvent
@@ -33,7 +32,7 @@ public class ModEnchantments {
 		luckyShot = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 3, 6, 12, 30, TYPE_GUN), "lucky_shot");
 		cowboy = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 1, 9, 18, 25, TYPE_GUN), "cowboy");
 		maneuvering = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 1, 10, 20, 30, TYPE_GUN), "maneuvering");
-		magmatic = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 3, 5, 10, 30, TYPE_GUN), "magmatic");
+		frostShot = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 3, 5, 10, 30, TYPE_GUN), "frost_shard");
 	}
 
 	public static Enchantment initEnchant(IForgeRegistry<Enchantment> reg, Enchantment enchantment, String name) {

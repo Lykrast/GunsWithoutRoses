@@ -5,7 +5,6 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -485,9 +484,9 @@ public class GunItem extends ShootableItem {
 
 		//Disallow these if other enchantments are already applied.
 		//impact versus lucky shot versus magmatic
-		if ((enchantment == ModEnchantments.impact) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.magmatic, stack) != 0)) return false;
-		if ((enchantment == ModEnchantments.luckyShot) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.magmatic, stack) != 0)) return false;
-		if ((enchantment == ModEnchantments.magmatic) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)) return false;
+		if ((enchantment == ModEnchantments.impact) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) != 0)) return false;
+		if ((enchantment == ModEnchantments.luckyShot) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) != 0)) return false;
+		if ((enchantment == ModEnchantments.frostShot) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)) return false;
 
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}
