@@ -71,6 +71,10 @@
 	"enchantment.kaleidiosguns.lucky_shot.desc": "Provides a chance to give critical damage",
 	"enchantment.kaleidiosguns.cowboy": "Cowboy",
 	"enchantment.kaleidiosguns.cowboy.desc": "One handed use has no accuracy punishment",
+	"enchantment.kaleidiosguns.maneuvering": "Maneuvering",
+	"enchantment.kaleidiosguns.maneuvering.desc": "Gain effect Speed 10 per tick using a gatling",
+	"enchantment.kaleidiosguns.magmatic": "Magmatic",
+	"enchantment.kaleidiosguns.magmatic.desc": "Bullets have damage curve based on distance",
 
 	"entity.kaleidiosguns.bullet": "Bullet",
 

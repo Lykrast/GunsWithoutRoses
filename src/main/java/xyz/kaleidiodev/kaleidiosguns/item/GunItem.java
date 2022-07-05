@@ -473,7 +473,7 @@ public class GunItem extends ShootableItem {
 		//Disallow these for specific gun types
 		GunItem me = (GunItem) stack.getItem();
 		if (enchantment == ModEnchantments.bullseye && hasPerfectAccuracy()) return false; //not for sniper
-		if (enchantment == ModEnchantments.impact && isExplosive) return false;
+		if (enchantment == ModEnchantments.impact && isExplosive) return false; //these are not for launcher
 		if (enchantment == ModEnchantments.sleightOfHand && isExplosive) return false;
 		if (enchantment == ModEnchantments.luckyShot && isExplosive) return false;
 		if (enchantment == ModEnchantments.puncturing && isExplosive) return false;
@@ -481,11 +481,13 @@ public class GunItem extends ShootableItem {
 		//only let these apply to certain gun types
 		if (enchantment == ModEnchantments.division && !(me instanceof ShotgunItem)) return false; //shotgun only
 		if (enchantment == ModEnchantments.marker && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.getInaccuracy(stack, null) != 0))) return false; //pistol only
+		if (enchantment == ModEnchantments.maneuvering && !(me instanceof GatlingItem)) return false; //gatling only
 
 		//Disallow these if other enchantments are already applied.
-		//impact versus lucky shot
-		if ((enchantment == ModEnchantments.impact) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)) return false;
-		if ((enchantment == ModEnchantments.luckyShot) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)) return false;
+		//impact versus lucky shot versus magmatic
+		if ((enchantment == ModEnchantments.impact) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.magmatic, stack) != 0)) return false;
+		if ((enchantment == ModEnchantments.luckyShot) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.magmatic, stack) != 0)) return false;
+		if ((enchantment == ModEnchantments.magmatic) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)) return false;
 
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}

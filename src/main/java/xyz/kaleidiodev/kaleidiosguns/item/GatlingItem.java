@@ -1,8 +1,14 @@
 package xyz.kaleidiodev.kaleidiosguns.item;
 
+import net.minecraft.client.ClientGameSession;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -11,6 +17,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import xyz.kaleidiodev.kaleidiosguns.registry.ModEnchantments;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModItems;
 
 import javax.annotation.Nullable;
@@ -52,6 +59,15 @@ public class GatlingItem extends GunItem {
 	public void onUseTick(World world, LivingEntity user, ItemStack gun, int ticks) {
 		if (user instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) user;
+
+			//give player speed effect if maneuvering is instated.
+			//currently this gives an exploit where spamming single shots can send the player further in the world.
+			//maybe keep it in considering the skill gap?...
+			int playerSpeed;
+			if (player.getEffect(Effects.MOVEMENT_SPEED) == null) playerSpeed = 0;
+			else playerSpeed = player.getEffect(Effects.MOVEMENT_SPEED).getAmplifier();
+			if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.maneuvering, gun) != 0) player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 1, playerSpeed + 10)); //apply speed for every tick so that the slow speed is nullified
+
 			int used = getUseDuration(gun) - ticks;
 			if ((used > 0 && used % getFireDelay(gun, player) == 0) || (this.isFirstShot && !world.isClientSide())) {
 				//"Oh yeah I will use the vanilla method so that quivers can do their thing"
