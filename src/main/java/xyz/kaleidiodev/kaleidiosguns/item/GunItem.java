@@ -150,6 +150,7 @@ public class GunItem extends ShootableItem {
 		shot.setKnockbackStrength(myKnockback);
 		shot.setPuncturingAmount(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.puncturing, gun) * KGConfig.puncturingMultiplier.get());
 		shot.setExplosive(isExplosive);
+		shot.setOrigin(player.position());
 
 		double luckyChance = KGConfig.luckyShotChance.get() * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, gun);
 		if (random.nextDouble() < luckyChance) shot.setIsCritical(true);
@@ -159,6 +160,7 @@ public class GunItem extends ShootableItem {
 		shot.shouldCombo = this.shouldCombo;
 		shot.isPlasma = (this.getItem() == ModItems.plasmaGatling);
 		shot.shouldMakeFire = (ammo.getItem() == ModItems.blazeBullet);
+		shot.frostyDistance = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, gun) * KGConfig.frostyDistancePerLevel.get();
 
 		changeBullet(world, player, gun, shot, bulletFree);
 

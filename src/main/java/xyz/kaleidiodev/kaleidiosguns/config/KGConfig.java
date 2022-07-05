@@ -123,6 +123,9 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue criticalDamage;
     public static ForgeConfigSpec.DoubleValue oneHandInaccuracyMultiplier;
     public static ForgeConfigSpec.DoubleValue oneHandInaccuracyReplacement;
+    public static ForgeConfigSpec.DoubleValue frostyDistancePerLevel;
+    public static ForgeConfigSpec.DoubleValue frostyMaxMultiplier;
+    public static ForgeConfigSpec.DoubleValue frostyMinMultiplier;
 
 
     static {
@@ -456,6 +459,15 @@ public class KGConfig {
         oneHandInaccuracyReplacement = builder
                 .comment("Inaccuracy of any perfect accuracy weapons in the case of one hand being filled")
                 .defineInRange("oneHandInaccuracyReplacement", 1.5D, 0D, 90D);
+        frostyMaxMultiplier = builder
+                .comment("Maximum damage of a frosty bullet")
+                .defineInRange("frostyMaxMultiplier", 2.0D, 0.1D, 20D);
+        frostyMinMultiplier = builder
+                .comment("Minimum damage of a frosty bullet")
+                .defineInRange("frostyMinMultiplier", 0.5D, 0.1D, 20D);
+        frostyDistancePerLevel = builder
+                .comment("Block distance from origin until a frosty bullet is at minimum multiplier")
+                .defineInRange("frostyDistancePerLevel", 30D, 0D, 128D);
         builder.pop();
 
         spec = builder.build();

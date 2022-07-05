@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.IndirectEntityDamageSource;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.NoteBlockEvent;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
@@ -92,6 +93,19 @@ public interface IBullet {
 				newDamage += KGConfig.goldStreamShieldAdditional.get();
 			}
 		}
+
+		//apply damage multipier based on distance from target to origin, using max and min
+		if (projectile.frostyDistance > 0) {
+			double distanceTravelledToTarget = target.position().distanceTo(projectile.getOrigin());
+			double multiplierPerBlock = (KGConfig.frostyMaxMultiplier.get() - KGConfig.frostyMinMultiplier.get()) / projectile.frostyDistance; //get a fraction that can be multiplied by the amount of blocks travelled
+			double newMultiplier = (projectile.frostyDistance - distanceTravelledToTarget) * multiplierPerBlock; //multiply by amount of blocks until we reach the maximum travel cap
+
+			if (newMultiplier < 0) newMultiplier = 0; //don't go below zero.
+			newMultiplier += KGConfig.frostyMinMultiplier.get(); //add minimum multiplier back, it was removed before so block multiplier would be correct.
+			newDamage *= newMultiplier;
+		}
+
+
 		return newDamage;
 	}
 

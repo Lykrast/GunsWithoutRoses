@@ -59,11 +59,13 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected boolean shouldGlow;
 	protected boolean isCritical;
 	protected GunItem shootingGun;
+	protected Vector3d origin;
 	public boolean shouldMakeFire;
 	public boolean shouldCombo;
 	public boolean isExplosive;
 	public boolean isPlasma;
 	public boolean givesKnockback;
+	public double frostyDistance;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);
@@ -442,6 +444,10 @@ public class BulletEntity extends AbstractFireballEntity {
 	public GunItem getShootingGun() {
 		return this.shootingGun;
 	}
+
+	public void setOrigin(Vector3d shooterOrigin) { this.origin = shooterOrigin; }
+
+	public Vector3d getOrigin() { return this.origin; }
 
 	/**
 	 * Knockback on impact, 0.6 is equivalent to Punch I.
