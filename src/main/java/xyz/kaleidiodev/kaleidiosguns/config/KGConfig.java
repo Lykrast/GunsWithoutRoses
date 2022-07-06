@@ -367,16 +367,16 @@ public class KGConfig {
         builder.push("launchers");
         goldLauncherDamageMultiplier = builder
                 .comment("Define the base damage to multiply against for Rocket Launchers")
-                .defineInRange("goldLauncherDamageMultiplier", 1.5D, 0.1D, 5D);
+                .defineInRange("goldLauncherDamageMultiplier", 1D, 0.1D, 5D);
         goldLauncherFireDelay = builder
                 .comment("Configure the Fire delay for Rocket Launchers")
-                .defineInRange("goldLauncherFireDelay", 40, 0, 72000);
+                .defineInRange("goldLauncherFireDelay", 32, 0, 72000);
         goldLauncherEnchantability = builder
                 .comment("Configure the Enchantability for Rocket Launchers")
                 .defineInRange("goldLauncherEnchantability", 23, 0, 30);
         goldLauncherDurability = builder
                 .comment("Configure the Durability for Rocket Launchers")
-                .defineInRange("goldLauncherDurability", 33, 0, 32767);
+                .defineInRange("goldLauncherDurability", 41, 0, 32767);
         goldLauncherInaccuracy = builder
                 .comment("Configure the Inaccuracy for Rocket Launchers")
                 .defineInRange("goldLauncherInaccuracy", 0D, 0D, 90D);
