@@ -51,7 +51,8 @@ public class ShotgunItem extends GunItem {
 				 if (mob instanceof LivingEntity) {
 					 LivingEntity creature = (LivingEntity) mob;
 					 //every passive creature in this 10 block box gets a heart sacrificed for a new bullet in the shotgun
-					 if (!(creature instanceof MonsterEntity) && !(creature instanceof PlayerEntity)) {
+					 //cap at a certain amount of entities
+					 if (!(creature instanceof MonsterEntity) && !(creature instanceof PlayerEntity) && (entityCount < 5)) {
 						 creature.hurt((new EntityDamageSource("magic", (Entity) player)), 2); //set value for vampire via config later
 						 entityCount++;
 					 }
@@ -62,7 +63,7 @@ public class ShotgunItem extends GunItem {
 		System.out.println(entityCount);
 
 		//add projectile cap from config later
-		return bulletCount + Math.min(25, entityCount * (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack) * KGConfig.divisionCountIncrease.get()));
+		return bulletCount + (entityCount * (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack) * KGConfig.divisionCountIncrease.get()));
 	}
 
 	protected boolean isProjectileCountModified(ItemStack stack) {
