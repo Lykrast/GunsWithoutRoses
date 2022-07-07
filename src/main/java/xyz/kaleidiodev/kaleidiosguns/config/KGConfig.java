@@ -475,10 +475,10 @@ public class KGConfig {
                 .defineInRange("acceleratorSpeedIncrease", 0.25D, 0.1D, 1D);
         passionForBloodRateIncrease = builder
                 .comment("How much percentage chance increase per passion for blood level, represented as floating point only")
-                .defineInRange("passionForBloodRateIncrease", 0.05D, 0.01D, 1.0D);
+                .defineInRange("passionForBloodRateIncrease", 0.08D, 0.01D, 1.0D);
         passionForBloodHealIncrease = builder
                 .comment("Multiplier for how much healing passion for blood should give in relation to damage delivered")
-                .defineInRange("passionForBloodHealIncrease", 0.3D, 0.1D, 5.0D);
+                .defineInRange("passionForBloodHealIncrease", 0.2D, 0.1D, 5.0D);
         divisionCountIncrease = builder
                 .comment("Multiplier for how many extra bullets per division level on shotguns")
                 .defineInRange("divisionCountIncrease", 1, 1, 5);
