@@ -36,6 +36,7 @@
 	"tooltip.kaleidiosguns.gun.chance_free.modified": "§dChance to not consume ammo: §f%s%%§r",
 	"tooltip.kaleidiosguns.shotgun.shots": "Fires %s projectiles at once",
 	"tooltip.kaleidiosguns.shotgun.shots.modified": "§dFires %s projectiles at once",
+	"tooltip.kaleidiosguns.vampire_shotgun": "Adds another projectile per entity close-by",
 	"tooltip.kaleidiosguns.gatling.hold": "Slows user while firing",
 	"tooltip.kaleidiosguns.minegun": "Can mine blocks tiered by bullet damage",
 	"tooltip.kaleidiosguns.skill_shot": "Combo the same target to increase damage",

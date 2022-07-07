@@ -488,6 +488,12 @@ public class GunItem extends ShootableItem {
 		if ((enchantment == ModEnchantments.luckyShot) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) != 0)) return false;
 		if ((enchantment == ModEnchantments.frostShot) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)) return false;
 
+		//disallow these for very specific guns
+		if ((enchantment == ModEnchantments.division) && (me instanceof ShotgunItem)) {
+			ShotgunItem shotgun = (ShotgunItem) me;
+			if (shotgun.isVampire) return false;
+		}
+
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}
 

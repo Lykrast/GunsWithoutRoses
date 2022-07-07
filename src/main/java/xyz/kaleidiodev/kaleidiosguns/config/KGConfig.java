@@ -52,6 +52,16 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue goldDoubleShotgunChamberSwitchSpeed;
     public static ForgeConfigSpec.DoubleValue goldDoubleShotgunKnockback;
 
+    public static ForgeConfigSpec.DoubleValue netheriteShotgunDamageMultiplier;
+    public static ForgeConfigSpec.IntValue netheriteShotgunFireDelay;
+    public static ForgeConfigSpec.IntValue netheriteShotgunEnchantability;
+    public static ForgeConfigSpec.IntValue netheriteShotgunDurability;
+    public static ForgeConfigSpec.DoubleValue netheriteShotgunInaccuracy;
+    public static ForgeConfigSpec.IntValue netheriteShotgunBulletCount;
+    public static ForgeConfigSpec.DoubleValue netheriteShotgunProjectileSpeed;
+    public static ForgeConfigSpec.IntValue netheriteShotgunEntityCap;
+    public static ForgeConfigSpec.DoubleValue netheriteShotgunEntityHurt;
+
     public static ForgeConfigSpec.DoubleValue diamondSniperDamageMultiplier;
     public static ForgeConfigSpec.IntValue diamondSniperFireDelay;
     public static ForgeConfigSpec.IntValue diamondSniperEnchantability;
@@ -256,6 +266,34 @@ public class KGConfig {
         goldDoubleShotgunKnockback = builder
                 .comment("Configure how strong knockback is at closest range on Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunKnockback", 1.2D, 0.01D, 5D);
+
+        netheriteShotgunDamageMultiplier = builder
+                .comment("Define the Damage multiplier for Vampire Shotguns")
+                .defineInRange("netheriteShotgunDamageMultiplier", 0.4D, 0.1D, 5D);
+        netheriteShotgunFireDelay = builder
+                .comment("Configure the Fire delay for Vampire Shotguns")
+                .defineInRange("netheriteShotgunFireDelay", 22, 0, 72000);
+        netheriteShotgunEnchantability = builder
+                .comment("Configure the Enchantability for Vampire Shotguns")
+                .defineInRange("netheriteShotgunEnchantability", 15, 0, 30);
+        netheriteShotgunDurability = builder
+                .comment("Configure the Durability for Vampire Shotguns")
+                .defineInRange("netheriteShotgunDurability", 780, 0, 32767);
+        netheriteShotgunInaccuracy = builder
+                .comment("Configure the Inaccuracy for Vampire Shotguns")
+                .defineInRange("netheriteShotgunInaccuracy", 8.0D, 0D, 90D);
+        netheriteShotgunBulletCount = builder
+                .comment("Configure the amount of Bullets at once for Vampire Shotguns")
+                .defineInRange("netheriteShotgunBulletCount", 5, 0, 50);
+        netheriteShotgunProjectileSpeed = builder
+                .comment("Configure the Projectile Speed for Vampire Shotguns")
+                .defineInRange("netheriteShotgunProjectileSpeed", 8D, 0D, 64D);
+        netheriteShotgunEntityCap = builder
+                .comment("Configure the amount of entities at once for Vampire Shotguns")
+                .defineInRange("netheriteShotgunEntityCap", 5, 1, 25);
+        netheriteShotgunEntityHurt = builder
+                .comment("Configure the amount of hearts stolen per entity for Vampire Shotguns")
+                .defineInRange("netheriteShotgunEntityHurt", 2D, 0D, 1000D);
         builder.pop();
 
         builder.push("rifles");

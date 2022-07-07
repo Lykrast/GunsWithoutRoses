@@ -40,10 +40,11 @@ public class ShotgunItem extends GunItem {
 	@Override
 	protected void addExtraStatsTooltip(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip) {
 		tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.shotgun.shots" + (isProjectileCountModified(stack) ? ".modified" : ""), getBulletCount(stack, null)));
+		if (isVampire) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.vampire_shotgun"));
 	}
 
 	protected int getBulletCount(ItemStack stack, @Nullable PlayerEntity player) {
-		int entityCount = 1;
+		int entityCount = 0;
 		if (isVampire && player != null) {
 			List<Entity> victims = player.level.getEntitiesOfClass(Entity.class, AxisAlignedBB.ofSize(10, 10, 10).move(player.position()));
 
@@ -52,15 +53,17 @@ public class ShotgunItem extends GunItem {
 					 LivingEntity creature = (LivingEntity) mob;
 					 //every creature in this 10 block box gets a heart sacrificed for a new bullet in the shotgun
 					 //cap at a certain amount of entities
-					 if (!(creature instanceof PlayerEntity) && (entityCount < 5)) {
-						 creature.hurt((new EntityDamageSource("magic", (Entity) player)), 2); //set value for vampire via config later
+					 if (!(creature instanceof PlayerEntity) && (entityCount < KGConfig.netheriteShotgunEntityCap.get())) {
+						 creature.hurt((new EntityDamageSource("magic", (Entity) player)), (float)(double)KGConfig.netheriteShotgunEntityHurt.get()); //set value for vampire via config later
 						 entityCount++;
 					 }
 				 }
 			}
 		}
 
-		return bulletCount + (entityCount * (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack) * KGConfig.divisionCountIncrease.get()));
+		int divisionFactor = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack) * KGConfig.divisionCountIncrease.get();
+
+		return bulletCount + entityCount + divisionFactor;
 	}
 
 	protected boolean isProjectileCountModified(ItemStack stack) {
