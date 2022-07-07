@@ -55,7 +55,6 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected boolean shouldCollateral;
 	protected double bulletSpeed;
 	protected boolean isTorpedo;
-	protected double puncturingAmount;
 	protected boolean shouldGlow;
 	protected boolean isCritical;
 	protected GunItem shootingGun;
@@ -273,6 +272,8 @@ public class BulletEntity extends AbstractFireballEntity {
 
 		boolean damaged = entity.hurt((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) bullet.modifyDamage(damage, this, entity, shooter, level));
 
+		if (entity instanceof LivingEntity) System.out.println(healthOfVictim - ((LivingEntity) entity).getHealth());
+
 		if (damaged && entity instanceof LivingEntity) {
 			LivingEntity livingTarget = (LivingEntity) entity;
 
@@ -410,14 +411,6 @@ public class BulletEntity extends AbstractFireballEntity {
 
 	public void setIsTorpedo(boolean torpedo) {
 		this.isTorpedo = torpedo;
-	}
-
-	public void setPuncturingAmount(double puncturing) {
-		this.puncturingAmount = puncturing;
-	}
-
-	public double getPuncturingAmount() {
-		return this.puncturingAmount;
 	}
 
 	public void setShouldGlow(boolean glow) {

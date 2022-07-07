@@ -58,18 +58,6 @@ public interface IBullet {
 	default double modifyDamage(double damage, BulletEntity projectile, Entity target, @Nullable Entity shooter, World world) {
 		//if puncturing enchantment is present.
 		double newDamage = damage;
-		if (projectile.getPuncturingAmount() > 0D){
-			if (target instanceof LivingEntity) {
-				LivingEntity victim = (LivingEntity)target;
-				if (victim.getArmorValue() != 0) {
-					//how many armor bars are full?
-					double armorAssumption = (double) victim.getArmorValue() / 20;
-					//total up new damage.
-					double someDamage = damage * armorAssumption * projectile.getPuncturingAmount();
-					newDamage += someDamage;
-				}
-			}
-		}
 
 		//apply chance based critical
 		if (projectile.isCritical()) newDamage *= KGConfig.criticalDamage.get();
@@ -105,7 +93,7 @@ public interface IBullet {
 			newDamage *= newMultiplier;
 		}
 
-
+		System.out.println(newDamage);
 		return newDamage;
 	}
 

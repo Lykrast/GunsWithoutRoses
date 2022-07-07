@@ -148,7 +148,6 @@ public class GunItem extends ShootableItem {
 		shot.setShouldCollateral(shouldCollateral);
 		shot.setBulletSpeed(projectileSpeed);
 		shot.setKnockbackStrength(myKnockback);
-		shot.setPuncturingAmount(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.puncturing, gun) * KGConfig.puncturingMultiplier.get());
 		shot.setExplosive(isExplosive);
 		shot.setOrigin(player.position());
 
@@ -477,7 +476,6 @@ public class GunItem extends ShootableItem {
 		if (enchantment == ModEnchantments.impact && isExplosive) return false; //these are not for launcher
 		if (enchantment == ModEnchantments.sleightOfHand && isExplosive) return false;
 		if (enchantment == ModEnchantments.luckyShot && isExplosive) return false;
-		if (enchantment == ModEnchantments.puncturing && isExplosive) return false;
 
 		//only let these apply to certain gun types
 		if (enchantment == ModEnchantments.division && !(me instanceof ShotgunItem)) return false; //shotgun only
