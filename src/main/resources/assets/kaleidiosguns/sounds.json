@@ -73,6 +73,11 @@
 		"subtitle": "subtitles.kaleidiosguns.item.skill_shot.shoot",
 		"sounds": [ "kaleidiosguns:skill_shot" ]
 	},
+	"item.vampire_shotgun.shoot": {
+		"category": "item",
+		"subtitle": "subtitles.kaleidiosguns.item.vampire_shotgun.shoot",
+		"sounds": [ "kaleidiosguns:vampire" ]
+	},
 	"item.rocket_launcher.shoot": {
 	"category": "item",
 	"subtitle": "subtitles.kaleidiosguns.item.rocket_launcher.shoot",
