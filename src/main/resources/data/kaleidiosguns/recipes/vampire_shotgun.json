@@ -1,15 +1,6 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		"D  ",
-		"SDF",
-		" SL"
-	],
-	"key": {
-		"D": { "tag": "forge:ingots/netherite" },
-		"S": { "tag": "forge:rods/wooden" },
-		"F": { "item": "minecraft:flint" },
-		"L": { "tag": "minecraft:logs" }
-	},
+	"type": "minecraft:smithing",
+	"base": { "item": "kaleidiosguns:shotgun" },
+	"addition": { "item": "minecraft:netherite_ingot" },
 	"result": { "item": "kaleidiosguns:vampire_shotgun" }
 }

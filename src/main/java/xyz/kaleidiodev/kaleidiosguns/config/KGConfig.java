@@ -254,7 +254,7 @@ public class KGConfig {
                 .defineInRange("goldDoubleShotgunDurability", 300, 0, 32767);
         goldDoubleShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Double Barrel Shotguns")
-                .defineInRange("goldDoubleShotgunInaccuracy", 8.5D, 0D, 90D);
+                .defineInRange("goldDoubleShotgunInaccuracy", 9.0D, 0D, 90D);
         goldDoubleShotgunBulletCount = builder
                 .comment("Configure the amount of Bullets at once for Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunBulletCount", 5, 0, 100);
@@ -282,7 +282,7 @@ public class KGConfig {
                 .defineInRange("netheriteShotgunDurability", 780, 0, 32767);
         netheriteShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Vampire Shotguns")
-                .defineInRange("netheriteShotgunInaccuracy", 8.0D, 0D, 90D);
+                .defineInRange("netheriteShotgunInaccuracy", 7.5D, 0D, 90D);
         netheriteShotgunBulletCount = builder
                 .comment("Configure the amount of Bullets at once for Vampire Shotguns")
                 .defineInRange("netheriteShotgunBulletCount", 5, 0, 50);
@@ -297,7 +297,7 @@ public class KGConfig {
                 .defineInRange("netheriteShotgunEntityHurt", 2D, 0D, 1000D);
         netheriteShotgunBulletsPerEntity = builder
                 .comment("Configure the amount of bullets per entity sacrifice for Vampire Shotguns")
-                .defineInRange("netheriteShotgunBulletsPerEntity", 2, 1, 5);
+                .defineInRange("netheriteShotgunBulletsPerEntity", 1, 1, 5);
         builder.pop();
 
         builder.push("rifles");
