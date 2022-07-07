@@ -50,7 +50,7 @@ public class ShotgunItem extends GunItem {
 			for (Entity mob : victims) {
 				 if (mob instanceof LivingEntity) {
 					 LivingEntity creature = (LivingEntity) mob;
-					 //every passive creature in this 10 block box gets a heart sacrificed for a new bullet in the shotgun
+					 //every creature in this 10 block box gets a heart sacrificed for a new bullet in the shotgun
 					 //cap at a certain amount of entities
 					 if (!(creature instanceof PlayerEntity) && (entityCount < 5)) {
 						 creature.hurt((new EntityDamageSource("magic", (Entity) player)), 2); //set value for vampire via config later
