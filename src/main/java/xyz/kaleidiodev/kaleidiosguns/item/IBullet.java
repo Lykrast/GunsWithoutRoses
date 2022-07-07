@@ -92,8 +92,7 @@ public interface IBullet {
 			newMultiplier += KGConfig.frostyMinMultiplier.get(); //add minimum multiplier back, it was removed before so block multiplier would be correct.
 			newDamage *= newMultiplier;
 		}
-
-		System.out.println(newDamage);
+		
 		return newDamage;
 	}
 

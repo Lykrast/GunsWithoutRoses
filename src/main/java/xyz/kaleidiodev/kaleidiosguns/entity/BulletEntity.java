@@ -272,8 +272,6 @@ public class BulletEntity extends AbstractFireballEntity {
 
 		boolean damaged = entity.hurt((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) bullet.modifyDamage(damage, this, entity, shooter, level));
 
-		if (entity instanceof LivingEntity) System.out.println(healthOfVictim - ((LivingEntity) entity).getHealth());
-
 		if (damaged && entity instanceof LivingEntity) {
 			LivingEntity livingTarget = (LivingEntity) entity;
 
