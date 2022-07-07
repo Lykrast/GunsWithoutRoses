@@ -61,6 +61,7 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue netheriteShotgunProjectileSpeed;
     public static ForgeConfigSpec.IntValue netheriteShotgunEntityCap;
     public static ForgeConfigSpec.DoubleValue netheriteShotgunEntityHurt;
+    public static ForgeConfigSpec.IntValue netheriteShotgunBulletsPerEntity;
 
     public static ForgeConfigSpec.DoubleValue diamondSniperDamageMultiplier;
     public static ForgeConfigSpec.IntValue diamondSniperFireDelay;
@@ -272,7 +273,7 @@ public class KGConfig {
                 .defineInRange("netheriteShotgunDamageMultiplier", 0.4D, 0.1D, 5D);
         netheriteShotgunFireDelay = builder
                 .comment("Configure the Fire delay for Vampire Shotguns")
-                .defineInRange("netheriteShotgunFireDelay", 22, 0, 72000);
+                .defineInRange("netheriteShotgunFireDelay", 40, 0, 72000);
         netheriteShotgunEnchantability = builder
                 .comment("Configure the Enchantability for Vampire Shotguns")
                 .defineInRange("netheriteShotgunEnchantability", 15, 0, 30);
@@ -294,6 +295,9 @@ public class KGConfig {
         netheriteShotgunEntityHurt = builder
                 .comment("Configure the amount of hearts stolen per entity for Vampire Shotguns")
                 .defineInRange("netheriteShotgunEntityHurt", 2D, 0D, 1000D);
+        netheriteShotgunBulletsPerEntity = builder
+                .comment("Configure the amount of bullets per entity sacrifice for Vampire Shotguns")
+                .defineInRange("netheriteShotgunBulletsPerEntity", 2, 1, 5);
         builder.pop();
 
         builder.push("rifles");

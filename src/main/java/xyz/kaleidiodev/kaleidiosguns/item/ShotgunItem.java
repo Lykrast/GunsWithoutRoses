@@ -55,7 +55,7 @@ public class ShotgunItem extends GunItem {
 					 //cap at a certain amount of entities
 					 if (!(creature instanceof PlayerEntity) && (entityCount < KGConfig.netheriteShotgunEntityCap.get())) {
 						 creature.hurt((new EntityDamageSource("magic", (Entity) player)), (float)(double)KGConfig.netheriteShotgunEntityHurt.get()); //set value for vampire via config later
-						 entityCount++;
+						 entityCount += KGConfig.netheriteShotgunBulletsPerEntity.get();
 					 }
 				 }
 			}
