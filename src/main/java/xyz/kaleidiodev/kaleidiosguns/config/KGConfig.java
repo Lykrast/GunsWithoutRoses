@@ -220,7 +220,7 @@ public class KGConfig {
         builder.push("shotguns");
         diamondShotgunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Shotguns")
-                .defineInRange("diamondShotgunDamageMultiplier", 0.4D, 0.1D, 5D);
+                .defineInRange("diamondShotgunDamageMultiplier", 0.6D, 0.1D, 5D);
         diamondShotgunFireDelay = builder
                 .comment("Configure the Fire delay for Shotguns")
                 .defineInRange("diamondShotgunFireDelay", 24, 0, 72000);
@@ -232,7 +232,7 @@ public class KGConfig {
                 .defineInRange("diamondShotgunDurability", 700, 0, 32767);
         diamondShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Shotguns")
-                .defineInRange("diamondShotgunInaccuracy", 5.0D, 0D, 90D);
+                .defineInRange("diamondShotgunInaccuracy", 7.5D, 0D, 90D);
         diamondShotgunBulletCount = builder
                 .comment("Configure the amount of Bullets at once for Shotguns")
                 .defineInRange("diamondShotgunBulletCount", 5, 0, 50);
@@ -242,7 +242,7 @@ public class KGConfig {
 
         goldDoubleShotgunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Double Barrel Shotguns")
-                .defineInRange("goldDoubleShotgunDamageMultiplier", 0.4D, 0.1D, 5D);
+                .defineInRange("goldDoubleShotgunDamageMultiplier", 0.6D, 0.1D, 5D);
         goldDoubleShotgunFireDelay = builder
                 .comment("Configure the Fire delay for Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunFireDelay", 60, 0, 72000);
@@ -254,7 +254,7 @@ public class KGConfig {
                 .defineInRange("goldDoubleShotgunDurability", 300, 0, 32767);
         goldDoubleShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Double Barrel Shotguns")
-                .defineInRange("goldDoubleShotgunInaccuracy", 9.0D, 0D, 90D);
+                .defineInRange("goldDoubleShotgunInaccuracy", 12.5D, 0D, 90D);
         goldDoubleShotgunBulletCount = builder
                 .comment("Configure the amount of Bullets at once for Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunBulletCount", 5, 0, 100);

@@ -484,9 +484,22 @@ public class GunItem extends ShootableItem {
 
 		//Disallow these if other enchantments are already applied.
 		//impact versus lucky shot versus magmatic
-		if ((enchantment == ModEnchantments.impact) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) != 0)) return false;
-		if ((enchantment == ModEnchantments.luckyShot) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) != 0)) return false;
-		if ((enchantment == ModEnchantments.frostShot) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)) return false;
+		if ((enchantment == ModEnchantments.impact)
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack) != 0)
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) != 0)) return false;
+		if ((enchantment == ModEnchantments.luckyShot)
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack) != 0)
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) != 0)) return false;
+		if ((enchantment == ModEnchantments.frostShot)
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack) != 0)
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)) return false;
+		if ((enchantment == ModEnchantments.division)
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) != 0)
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)) return false;
 
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}
