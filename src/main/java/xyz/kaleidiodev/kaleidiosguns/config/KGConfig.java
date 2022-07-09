@@ -270,10 +270,10 @@ public class KGConfig {
 
         netheriteShotgunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Vampire Shotguns")
-                .defineInRange("netheriteShotgunDamageMultiplier", 0.4D, 0.1D, 5D);
+                .defineInRange("netheriteShotgunDamageMultiplier", 0.5D, 0.1D, 5D);
         netheriteShotgunFireDelay = builder
                 .comment("Configure the Fire delay for Vampire Shotguns")
-                .defineInRange("netheriteShotgunFireDelay", 28, 0, 72000);
+                .defineInRange("netheriteShotgunFireDelay", 32, 0, 72000);
         netheriteShotgunEnchantability = builder
                 .comment("Configure the Enchantability for Vampire Shotguns")
                 .defineInRange("netheriteShotgunEnchantability", 15, 0, 30);
