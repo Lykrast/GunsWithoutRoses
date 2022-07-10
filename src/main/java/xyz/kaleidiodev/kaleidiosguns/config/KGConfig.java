@@ -411,7 +411,7 @@ public class KGConfig {
                 .defineInRange("goldLauncherDamageMultiplier", 1D, 0.1D, 5D);
         goldLauncherFireDelay = builder
                 .comment("Configure the Fire delay for Rocket Launchers")
-                .defineInRange("goldLauncherFireDelay", 32, 0, 72000);
+                .defineInRange("goldLauncherFireDelay", 64, 0, 72000);
         goldLauncherEnchantability = builder
                 .comment("Configure the Enchantability for Rocket Launchers")
                 .defineInRange("goldLauncherEnchantability", 23, 0, 30);

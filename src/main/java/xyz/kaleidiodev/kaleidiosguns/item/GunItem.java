@@ -474,8 +474,8 @@ public class GunItem extends ShootableItem {
 		GunItem me = (GunItem) stack.getItem();
 		if (enchantment == ModEnchantments.bullseye && hasPerfectAccuracy()) return false; //not for sniper
 		if (enchantment == ModEnchantments.impact && isExplosive) return false; //these are not for launcher
-		if (enchantment == ModEnchantments.sleightOfHand && isExplosive) return false;
 		if (enchantment == ModEnchantments.luckyShot && isExplosive) return false;
+		if (enchantment == ModEnchantments.frostShot && isExplosive) return false;
 
 		//only let these apply to certain gun types
 		if (enchantment == ModEnchantments.division && !(me instanceof ShotgunItem)) return false; //shotgun only
