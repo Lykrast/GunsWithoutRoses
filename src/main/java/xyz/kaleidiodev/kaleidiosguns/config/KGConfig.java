@@ -148,9 +148,15 @@ public class KGConfig {
         explosionsEnabled = builder
                 .comment("Should explosions destroy blocks or just damage entities?  True if they should destroy blocks.")
                 .define("explosionsEnabled", true);
+        oneHandInaccuracyMultiplier = builder
+                .comment("Inaccuracy multiplier for when the user has one hand filled")
+                .defineInRange("oneHandInaccuracyMultiplier", 2D, 0.1D, 5D);
+        oneHandInaccuracyReplacement = builder
+                .comment("Inaccuracy of any perfect accuracy weapons in the case of one hand being filled")
+                .defineInRange("oneHandInaccuracyReplacement", 1.5D, 0D, 90D);
         builder.pop();
 
-        builder.push("pistols");
+        builder.push("pistol");
         ironPistolDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Pistols")
                 .defineInRange("ironPistolDamageModifier", 1D, 0.1D, 5D);
@@ -169,7 +175,9 @@ public class KGConfig {
         ironPistolProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Pistols")
                 .defineInRange("ironPistolProjectileSpeed", 8D, 0D, 64D);
+        builder.pop();
 
+        builder.push("revolver");
         goldRevolverDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Revolver")
                 .defineInRange("goldRevolverDamageModifier", 1.75D, 0.1D, 5D);
@@ -197,7 +205,9 @@ public class KGConfig {
         goldRevolverStabilityTime = builder
                 .comment("Configure how long the gun must not be fired for spread cone to stabilize on Revolver")
                 .defineInRange("goldRevolverStabilityTime", 28, 1, 72000);
+        builder.pop();
 
+        builder.push("skillshot pistol");
         diamondSkillshotDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Skillshot Pistols")
                 .defineInRange("diamondSkillshotDamageModifier", 1.0D, 0.1D, 5D);
@@ -224,7 +234,7 @@ public class KGConfig {
                 .defineInRange("diamondSkillshotComboMultplierPer", 0.2D, 0D, 64D);
         builder.pop();
 
-        builder.push("shotguns");
+        builder.push("shotgun");
         diamondShotgunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Shotguns")
                 .defineInRange("diamondShotgunDamageMultiplier", 0.4D, 0.1D, 5D);
@@ -246,7 +256,9 @@ public class KGConfig {
         diamondShotgunProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Shotguns")
                 .defineInRange("diamondShotgunProjectileSpeed", 8D, 0D, 64D);
+        builder.pop();
 
+        builder.push("double barrel shotgun");
         goldDoubleShotgunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunDamageMultiplier", 0.4D, 0.1D, 5D);
@@ -274,7 +286,9 @@ public class KGConfig {
         goldDoubleShotgunKnockback = builder
                 .comment("Configure how strong knockback is at closest range on Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunKnockback", 1.2D, 0.01D, 5D);
+        builder.pop();
 
+        builder.push("vampire shotgun");
         netheriteShotgunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Vampire Shotguns")
                 .defineInRange("netheriteShotgunDamageMultiplier", 0.5D, 0.1D, 5D);
@@ -307,7 +321,7 @@ public class KGConfig {
                 .defineInRange("netheriteShotgunBulletsPerEntity", 1, 1, 5);
         builder.pop();
 
-        builder.push("rifles");
+        builder.push("sniper rifle");
         diamondSniperDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Snipers")
                 .defineInRange("diamondSniperDamageMultiplier", 2.5D, 0.1D, 5D);
@@ -326,7 +340,9 @@ public class KGConfig {
         diamondSniperProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Snipers")
                 .defineInRange("diamondSniperProjectileSpeed", 16D, 0D, 64D);
+        builder.pop();
 
+        builder.push("carbine");
         ironCarbineDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Carbines")
                 .defineInRange("ironCarbineDamageMultiplier", 1.75D, 0.5D, 5D);
@@ -347,7 +363,7 @@ public class KGConfig {
                 .defineInRange("ironCarbineProjectileSpeed", 12D, 0D, 64D);
         builder.pop();
 
-        builder.push("automatics");
+        builder.push("minegun");
         diamondMinegunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Mineguns")
                 .defineInRange("diamondMinegunDamageMultiplier", 0.5D, 0.1D, 5D);
@@ -369,7 +385,9 @@ public class KGConfig {
         diamondMinegunMineChance = builder
                 .comment("Configure the Break Block Chance for Mineguns")
                 .defineInRange("diamondMinegunMineChance", 0.5D, 0D, 1D);
+        builder.pop();
 
+        builder.push("assault rifle");
         ironAssaultDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Assault Rifles")
                 .defineInRange("ironAssaultDamageMultiplier", 0.5D, 0.1D, 5D);
@@ -388,7 +406,9 @@ public class KGConfig {
         ironAssaultProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Assault Rifles")
                 .defineInRange("ironAssaultProjectileSpeed", 10D, 0D, 64D);
+        builder.pop();
 
+        builder.push("plasma rifle");
         goldStreamDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Plasma Rifles")
                 .defineInRange("goldPlasmaDamageMultiplier", 0.75D, 0.1D, 5D);
@@ -412,7 +432,7 @@ public class KGConfig {
                 .defineInRange("goldPlasmaShieldAdditional", 30D, -2000D, 2000D);
         builder.pop();
 
-        builder.push("launchers");
+        builder.push("rocket launcher");
         goldLauncherDamageMultiplier = builder
                 .comment("Define the base damage to multiply against for Rocket Launchers")
                 .defineInRange("goldLauncherDamageMultiplier", 1.25D, 0.1D, 5D);
@@ -464,46 +484,61 @@ public class KGConfig {
                 .defineInRange("mineGunFifthLevel", 6D, 0.5D, 40D);
         builder.pop();
 
-        builder.push("enchantments_config");
+        builder.push("preserving enchantment");
         preservingRateIncrease = builder
                 .comment("How much percentage per preserving level, represented as floating point only")
                 .defineInRange("preservingRateIncrease", 0.1D, 0.1D, 1D);
+        builder.pop();
+
+        builder.push("impact enchantment");
         impactDamageIncrease = builder
                 .comment("How much damage increase per impact level")
                 .defineInRange("impactDamageIncrease", 1D, 0.1D, 20D);
+        builder.pop();
+
+        builder.push("bullseye enchantment");
         bullseyeAccuracyIncrease = builder
                 .comment("How much accuracy increase per bullseye level, represented as a division + 1 of base inaccuracy")
                 .defineInRange("bullseyeAccuracyIncrease", 0.5D, 0.1D, 5D);
+        builder.pop();
+
+        builder.push("sleight of hand enchantment");
         sleightOfHandFireRateDecrease = builder
                 .comment("How much percentage fire rate increase per sleight of hand level, represented as floating point only")
                 .defineInRange("sleightOfHandFireRateIncrease", 0.25D, 0.1D, 1D);
+        builder.pop();
+
+        builder.push("accelerator enchantment");
         acceleratorSpeedIncrease = builder
                 .comment("How much percentage speed increase per accelerator level, represented as multiplication + 1 of base speed")
                 .defineInRange("acceleratorSpeedIncrease", 0.25D, 0.1D, 1D);
+        builder.pop();
+
+        builder.push("passion for blood enchantment");
         passionForBloodRateIncrease = builder
                 .comment("How much percentage chance increase per passion for blood level, represented as floating point only")
                 .defineInRange("passionForBloodRateIncrease", 0.1D, 0.01D, 1.0D);
         passionForBloodHealIncrease = builder
                 .comment("Multiplier for how much healing passion for blood should give in relation to damage delivered")
                 .defineInRange("passionForBloodHealIncrease", 0.2D, 0.1D, 5.0D);
+        builder.pop();
+
+        builder.push("division enchantment");
         divisionCountIncrease = builder
                 .comment("Multiplier for how many extra bullets per division level on shotguns")
                 .defineInRange("divisionCountIncrease", 1, 1, 5);
-        puncturingMultiplier = builder
-                .comment("Multiplier for how much percent extra damage per level of puncturing")
-                .defineInRange("puncturingMultiplier", 0.1D, 0.01D, 5D);
+        builder.pop();
+
+        builder.push("lucky shot enchantment");
         luckyShotChance = builder
                 .comment("Chance for critical hit per lucky shot level")
                 .defineInRange("luckyShotChance", 0.06D, 0.01D, 5D);
         criticalDamage = builder
                 .comment("Multiplier of a critical hit")
                 .defineInRange("criticalDamage", 3D, 0.1D, 20D);
-        oneHandInaccuracyMultiplier = builder
-                .comment("Inaccuracy multiplier for when the user has one hand filled")
-                .defineInRange("oneHandInaccuracyMultiplier", 2D, 0.1D, 5D);
-        oneHandInaccuracyReplacement = builder
-                .comment("Inaccuracy of any perfect accuracy weapons in the case of one hand being filled")
-                .defineInRange("oneHandInaccuracyReplacement", 1.5D, 0D, 90D);
+        builder.pop();
+
+        builder.push("frost shard enchantment");
         frostyMaxMultiplier = builder
                 .comment("Maximum damage of a frosty bullet")
                 .defineInRange("frostyMaxMultiplier", 2.0D, 0.1D, 20D);
