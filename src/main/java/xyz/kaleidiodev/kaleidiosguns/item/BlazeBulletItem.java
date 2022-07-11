@@ -16,7 +16,7 @@ import java.util.List;
 
 public class BlazeBulletItem extends BulletItem {
 
-	public BlazeBulletItem(Properties properties, int damage) {
+	public BlazeBulletItem(Properties properties, double damage) {
 		super(properties, damage);
 	}
 

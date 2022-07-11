@@ -110,10 +110,10 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue goldStreamShieldAdditional;
 
     //Bullets
-    public static ForgeConfigSpec.IntValue flintBulletDamage;
-    public static ForgeConfigSpec.IntValue ironBulletDamage;
-    public static ForgeConfigSpec.IntValue blazeBulletDamage;
-    public static ForgeConfigSpec.IntValue hungerBulletDamage;
+    public static ForgeConfigSpec.DoubleValue flintBulletDamage;
+    public static ForgeConfigSpec.DoubleValue ironBulletDamage;
+    public static ForgeConfigSpec.DoubleValue blazeBulletDamage;
+    public static ForgeConfigSpec.DoubleValue hungerBulletDamage;
 
     //Minegun balance curve
     public static ForgeConfigSpec.DoubleValue mineGunSecondLevel;
@@ -460,16 +460,16 @@ public class KGConfig {
         builder.push("bullet_config");
         flintBulletDamage = builder
                 .comment("Configure the damage of Flint Bullets")
-                .defineInRange("flintBulletDamage", 5, 1, 20);
+                .defineInRange("flintBulletDamage", 5D, 1D, 20D);
         ironBulletDamage = builder
                 .comment("Configure the damage of Iron Bullets")
-                .defineInRange("ironBulletDamage", 7, 1, 20);
+                .defineInRange("ironBulletDamage", 7D, 1D, 20D);
         blazeBulletDamage = builder
                 .comment("Configure the damage of Blaze Bullets")
-                .defineInRange("blazeBulletDamage", 8, 1, 20);
+                .defineInRange("blazeBulletDamage", 8D, 1D, 20D);
         hungerBulletDamage = builder
                 .comment("Configure the damage of Hunger Bullets")
-                .defineInRange("hungerBulletDamage", 6, 1, 20);
+                .defineInRange("hungerBulletDamage", 6D, 1D, 20D);
         builder.pop();
 
         builder.push("minegun_config");
