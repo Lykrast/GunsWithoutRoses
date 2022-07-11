@@ -47,7 +47,7 @@ public class ShotgunItem extends GunItem {
 	protected int getBulletCount(ItemStack stack, @Nullable PlayerEntity player) {
 		int entityCount = 0;
 		if (isVampire && player != null) {
-			List<Entity> victims = player.level.getEntitiesOfClass(Entity.class, AxisAlignedBB.ofSize(10, 10, 10).move(player.position()));
+			List<Entity> victims = player.level.getEntitiesOfClass(Entity.class, AxisAlignedBB.ofSize(KGConfig.netheriteShotgunEntityRadius.get() * 2, KGConfig.netheriteShotgunEntityRadius.get() * 2, KGConfig.netheriteShotgunEntityRadius.get() * 2).move(player.position()));
 
 			for (Entity mob : victims) {
 				 if (mob instanceof LivingEntity) {
