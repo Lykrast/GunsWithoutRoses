@@ -53,7 +53,7 @@ public class ShotgunItem extends GunItem {
 					 LivingEntity creature = (LivingEntity) mob;
 					 //every creature in this 10 block box gets a heart sacrificed for a new bullet in the shotgun
 					 //cap at a certain amount of entities
-					 if (!(creature instanceof PlayerEntity) && (entityCount < KGConfig.netheriteShotgunEntityCap.get())) {
+					 if (entityCount < KGConfig.netheriteShotgunEntityCap.get()) {
 						 creature.hurt((new EntityDamageSource("magic", (Entity) player)), (float)(double)KGConfig.netheriteShotgunEntityHurt.get()); //set value for vampire via config later
 						 entityCount += KGConfig.netheriteShotgunBulletsPerEntity.get();
 					 }
