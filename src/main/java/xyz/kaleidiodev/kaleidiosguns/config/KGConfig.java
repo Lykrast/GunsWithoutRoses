@@ -8,6 +8,7 @@ public class KGConfig {
     public static ForgeConfigSpec spec;
 
     public static ForgeConfigSpec.BooleanValue explosionsEnabled;
+    public static ForgeConfigSpec.DoubleValue explosionIncreaseOnStrongerTier;
     //Guns
     public static ForgeConfigSpec.DoubleValue ironPistolDamageMultiplier;
     public static ForgeConfigSpec.IntValue ironPistolFireDelay;
@@ -154,6 +155,9 @@ public class KGConfig {
         oneHandInaccuracyReplacement = builder
                 .comment("Inaccuracy of any perfect accuracy weapons in the case of one hand being filled")
                 .defineInRange("oneHandInaccuracyReplacement", 1.5D, 0D, 90D);
+        explosionIncreaseOnStrongerTier = builder
+                .comment("How much larger the explosion radius would be assuming damage is stronger than a hunger bullet")
+                .defineInRange("explosionIncreaseOnStrongerTier", 1D, 0D, 90D);
         builder.pop();
 
         builder.push("pistol");
