@@ -7,6 +7,7 @@ public class KGConfig {
 
     public static ForgeConfigSpec spec;
 
+    public static ForgeConfigSpec.BooleanValue explosionsEnabled;
     //Guns
     public static ForgeConfigSpec.DoubleValue ironPistolDamageMultiplier;
     public static ForgeConfigSpec.IntValue ironPistolFireDelay;
@@ -142,6 +143,12 @@ public class KGConfig {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         builder.comment("Kaleidio's Guns Config");
         builder.comment("Please note that the below options may effect the balance, as usually values cap at 100%.  higher values may not work as expected, or the curve of balance may flatten at the top.");
+
+        builder.push("global");
+        explosionsEnabled = builder
+                .comment("Should explosions destroy blocks or just damage entities?  True if they should destroy blocks.")
+                .define("explosionsEnabled", true);
+        builder.pop();
 
         builder.push("pistols");
         ironPistolDamageMultiplier = builder
