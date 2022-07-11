@@ -6,7 +6,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -54,17 +53,9 @@ public class ShotgunItem extends GunItem {
 					 LivingEntity creature = (LivingEntity) mob;
 					 //every creature in this 10 block box gets a heart sacrificed for a new bullet in the shotgun
 					 //cap at a certain amount of entities
-					 if ((entityCount < KGConfig.netheriteShotgunEntityCap.get()) && (creature.getTeam() != player.getTeam())) {
-						 if (creature instanceof TameableEntity) {
-							 if (!((TameableEntity)creature).isTame()) {
-								 creature.hurt((new EntityDamageSource("magic", (Entity) player)), (float) (double) KGConfig.netheriteShotgunEntityHurt.get()); //set value for vampire via config later
-								 entityCount += KGConfig.netheriteShotgunBulletsPerEntity.get();
-							 }
-						 }
-						 else {
-							 creature.hurt((new EntityDamageSource("magic", (Entity) player)), (float)(double)KGConfig.netheriteShotgunEntityHurt.get()); //set value for vampire via config later
-							 entityCount += KGConfig.netheriteShotgunBulletsPerEntity.get();
-						 }
+					 if (!(creature instanceof PlayerEntity) && (entityCount < KGConfig.netheriteShotgunEntityCap.get())) {
+						 creature.hurt((new EntityDamageSource("magic", (Entity) player)), (float)(double)KGConfig.netheriteShotgunEntityHurt.get()); //set value for vampire via config later
+						 entityCount += KGConfig.netheriteShotgunBulletsPerEntity.get();
 					 }
 				 }
 			}
