@@ -1,14 +1,18 @@
 package xyz.kaleidiodev.kaleidiosguns.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
-import org.lwjgl.system.CallbackI;
 
 public class KGConfig {
 
     public static ForgeConfigSpec spec;
 
+    //mechanics
     public static ForgeConfigSpec.BooleanValue explosionsEnabled;
     public static ForgeConfigSpec.DoubleValue explosionIncreaseOnStrongerTier;
+    public static ForgeConfigSpec.DoubleValue oneHandInaccuracyMultiplier;
+    public static ForgeConfigSpec.DoubleValue oneHandInaccuracyReplacement;
+    public static ForgeConfigSpec.DoubleValue crouchAccuracyMultiplier;
+
     //Guns
     public static ForgeConfigSpec.DoubleValue ironPistolDamageMultiplier;
     public static ForgeConfigSpec.IntValue ironPistolFireDelay;
@@ -133,8 +137,6 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue divisionCountIncrease;
     public static ForgeConfigSpec.DoubleValue luckyShotChance;
     public static ForgeConfigSpec.DoubleValue criticalDamage;
-    public static ForgeConfigSpec.DoubleValue oneHandInaccuracyMultiplier;
-    public static ForgeConfigSpec.DoubleValue oneHandInaccuracyReplacement;
     public static ForgeConfigSpec.DoubleValue frostyDistancePerLevel;
     public static ForgeConfigSpec.DoubleValue frostyMaxMultiplier;
     public static ForgeConfigSpec.DoubleValue frostyMinMultiplier;
@@ -158,6 +160,9 @@ public class KGConfig {
         explosionIncreaseOnStrongerTier = builder
                 .comment("How much larger the explosion radius would be assuming damage is stronger than a hunger bullet")
                 .defineInRange("explosionIncreaseOnStrongerTier", 1D, 0D, 90D);
+        crouchAccuracyMultiplier = builder
+                .comment("Accuracy multiplier for when the user is crouching")
+                .defineInRange("crouchAccuracyMultiplier", 1.5D, 0.1D, 5D);
         builder.pop();
 
         builder.push("pistol");

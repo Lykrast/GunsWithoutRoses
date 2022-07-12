@@ -270,6 +270,13 @@ public class GunItem extends ShootableItem {
 			}
 		}
 
+		//check crouching
+		if ((player != null) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.counterStrike, stack) != 0)) {
+			if (player.isCrouching()) {
+				nextInaccuracy /= KGConfig.crouchAccuracyMultiplier.get();
+			}
+		}
+
 		return nextInaccuracy;
 	}
 
@@ -500,6 +507,12 @@ public class GunItem extends ShootableItem {
 				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)
 				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) != 0)
 				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)) return false;
+
+		//cowboy versus counterstrike
+		if ((enchantment == ModEnchantments.cowboy)
+				&& EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.counterStrike, stack) != 0) return false;
+		if ((enchantment == ModEnchantments.counterStrike)
+				&& EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.cowboy, stack) != 0) return false;
 
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}

@@ -76,6 +76,8 @@
 	"enchantment.kaleidiosguns.maneuvering.desc": "Gain effect Speed 10 per tick using a gatling",
 	"enchantment.kaleidiosguns.frost_shard": "Frost Shard",
 	"enchantment.kaleidiosguns.frost_shard.desc": "Projectiles have high damage due to sharp ice that melts over distance",
+	"enchantment.kaleidiosguns.counter_strike": "Counter Strike",
+	"enchantment.kaleidiosguns.counter_strike.desc": "Increase accuracy by crouching",
 
 	"entity.kaleidiosguns.bullet": "Bullet",
 
