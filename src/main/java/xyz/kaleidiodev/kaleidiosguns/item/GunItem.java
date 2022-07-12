@@ -490,7 +490,7 @@ public class GunItem extends ShootableItem {
 		if (enchantment == ModEnchantments.maneuvering && !(me instanceof GatlingItem)) return false; //gatling only
 
 		//Disallow these if other enchantments are already applied.
-		//impact versus lucky shot versus magmatic
+		//impact versus lucky shot versus frost shot versus division
 		if ((enchantment == ModEnchantments.impact)
 				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)
 				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack) != 0)
@@ -508,11 +508,11 @@ public class GunItem extends ShootableItem {
 				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) != 0)
 				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)) return false;
 
-		//cowboy versus counterstrike
-		if ((enchantment == ModEnchantments.cowboy)
+		//bullseye versus counterstrike
+		if ((enchantment == ModEnchantments.bullseye)
 				&& EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.counterStrike, stack) != 0) return false;
 		if ((enchantment == ModEnchantments.counterStrike)
-				&& EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.cowboy, stack) != 0) return false;
+				&& EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) != 0) return false;
 
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}

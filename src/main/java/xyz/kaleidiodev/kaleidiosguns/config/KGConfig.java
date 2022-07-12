@@ -162,7 +162,7 @@ public class KGConfig {
                 .defineInRange("explosionIncreaseOnStrongerTier", 1D, 0D, 90D);
         crouchAccuracyMultiplier = builder
                 .comment("Accuracy multiplier for when the user is crouching")
-                .defineInRange("crouchAccuracyMultiplier", 1.5D, 0.1D, 5D);
+                .defineInRange("crouchAccuracyMultiplier", 2.25D, 0.1D, 5D);
         builder.pop();
 
         builder.push("pistol");
