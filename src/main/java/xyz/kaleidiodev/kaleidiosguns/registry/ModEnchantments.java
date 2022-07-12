@@ -38,7 +38,7 @@ public class ModEnchantments {
 		cowboy = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 1, 9, 18, 25, TYPE_GUN), "cowboy"); //acc
 
 		//alternate upgrade
-		luckyShot = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 6, 12, 12, 30, TYPE_GUN), "lucky_shot"); //"all" except speed and rate
+		luckyShot = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 3, 6, 12, 30, TYPE_GUN), "lucky_shot"); //"all" except speed and rate
 		frostShot = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 3, 5, 10, 30, TYPE_GUN), "frost_shard"); //dmg
 		counterStrike = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 1, 8, 16, 30, TYPE_GUN), "counter_strike"); //acc
 	}

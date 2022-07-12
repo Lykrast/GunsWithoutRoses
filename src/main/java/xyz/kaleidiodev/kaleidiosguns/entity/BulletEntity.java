@@ -56,7 +56,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected double bulletSpeed;
 	protected boolean isTorpedo;
 	protected boolean shouldGlow;
-	protected boolean isCritical;
+	public boolean isCritical;
 	protected GunItem shootingGun;
 	protected Vector3d origin;
 	public boolean shouldMakeFire;
