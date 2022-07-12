@@ -470,7 +470,7 @@ public class GunItem extends ShootableItem {
 
 	@Override
 	public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
-		if (EnchantmentHelper.getEnchantments(stack).size() + EnchantmentHelper.getEnchantments(book).size() > 3) return false;
+		if (EnchantmentHelper.getEnchantments(stack).size() + EnchantmentHelper.getEnchantments(book).size() > 4) return false;
 
 		return super.isBookEnchantable(stack, book);
 	}
@@ -490,29 +490,24 @@ public class GunItem extends ShootableItem {
 		if (enchantment == ModEnchantments.maneuvering && !(me instanceof GatlingItem)) return false; //gatling only
 
 		//Disallow these if other enchantments are already applied.
-		//impact versus lucky shot versus frost shot versus division
+		//impact versus frost shot
 		if ((enchantment == ModEnchantments.impact)
 				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack) != 0)
 				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) != 0)) return false;
 		if ((enchantment == ModEnchantments.luckyShot)
 				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack) != 0)
 				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) != 0)) return false;
 		if ((enchantment == ModEnchantments.frostShot)
 				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack) != 0)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)) return false;
-		if ((enchantment == ModEnchantments.division)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) != 0)
 				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)) return false;
 
 		//bullseye versus counterstrike
 		if ((enchantment == ModEnchantments.bullseye)
-				&& EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.counterStrike, stack) != 0) return false;
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.counterStrike, stack) != 0)
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)) return false;
 		if ((enchantment == ModEnchantments.counterStrike)
-				&& EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) != 0) return false;
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) != 0)
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)) return false;
 
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}
