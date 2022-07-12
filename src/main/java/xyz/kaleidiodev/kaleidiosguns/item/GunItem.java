@@ -486,7 +486,7 @@ public class GunItem extends ShootableItem {
 
 		//only let these apply to certain gun types
 		if (enchantment == ModEnchantments.division && !(me instanceof ShotgunItem)) return false; //shotgun only
-		if (enchantment == ModEnchantments.marker && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.getInaccuracy(stack, null) != 0))) return false; //pistol only
+		if (enchantment == ModEnchantments.marker && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.isExplosive) || (me.getInaccuracy(stack, null) != 0))) return false; //pistol only
 		if (enchantment == ModEnchantments.maneuvering && !(me instanceof GatlingItem)) return false; //gatling only
 
 		//Disallow these if other enchantments are already applied.
