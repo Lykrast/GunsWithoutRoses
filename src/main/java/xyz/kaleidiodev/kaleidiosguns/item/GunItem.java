@@ -141,7 +141,6 @@ public class GunItem extends ShootableItem {
 
 		shot.setShootingGun(this);
 		shot.setInaccuracy(getInaccuracy(gun, player));
-		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun));
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);
 		shot.setHealthRewardChance(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.passionForBlood, gun) * 0.1);
 		shot.setShouldBreakBlock(hasBlockMineAbility);
@@ -150,6 +149,13 @@ public class GunItem extends ShootableItem {
 		shot.setKnockbackStrength(myKnockback);
 		shot.setExplosive(isExplosive);
 		shot.setOrigin(player.position());
+
+		double someDamage = (shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun);
+		if (gun.getItem() instanceof ShotgunItem) {
+			ShotgunItem thisGun = (ShotgunItem)gun.getItem();
+			shot.setDamage(someDamage * ((double)thisGun.getBaseBulletCount() / (double)thisGun.getBulletCount(gun, player)));
+		}
+		else shot.setDamage(someDamage);
 
 		double luckyChance = KGConfig.luckyShotChance.get() * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, gun);
 		if (random.nextDouble() < luckyChance) shot.setIsCritical(true);

@@ -34,6 +34,7 @@ public class ShotgunItem extends GunItem {
 
 	@Override
 	protected void fireWeapon(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
+
 		for (int i = 0; i < getBulletCount(gun, player); i++) super.fireWeapon(world, player, gun, ammo, bulletItem, bulletFree);
 	}
 
@@ -68,6 +69,10 @@ public class ShotgunItem extends GunItem {
 
 	protected boolean isProjectileCountModified(ItemStack stack) {
 		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack) >= 1;
+	}
+
+	public int getBaseBulletCount() {
+		return this.bulletCount;
 	}
 
 	public boolean getIsVampire() { return isVampire; }
