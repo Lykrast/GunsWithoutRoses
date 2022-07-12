@@ -62,6 +62,7 @@ public class GunItem extends ShootableItem {
 	protected int comboCount;
 	protected UUID comboVictim;
 	protected boolean isExplosive;
+	protected boolean lucky;
 
 	protected SoundEvent fireSound = ModSounds.gun;
 	protected SoundEvent reloadSound = ModSounds.double_shotgunReload;
@@ -139,13 +140,17 @@ public class GunItem extends ShootableItem {
 		Vector3d projectileMotion = player.getDeltaMovement();
 		shot.setDeltaMovement(shot.getDeltaMovement().subtract(projectileMotion.x, player.isOnGround() ? 0.0D : projectileMotion.y, projectileMotion.z));
 
+		//lucky shot should enable all lucky modifications simultaneously
+		double luckyChance = KGConfig.luckyShotChance.get() * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, gun);
+		this.lucky = random.nextDouble() < luckyChance;
+
 		shot.setShootingGun(this);
 		shot.setInaccuracy(getInaccuracy(gun, player));
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);
 		shot.setHealthRewardChance(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.passionForBlood, gun) * 0.1);
 		shot.setShouldBreakBlock(hasBlockMineAbility);
 		shot.setShouldCollateral(shouldCollateral);
-		shot.setBulletSpeed(projectileSpeed);
+		shot.setBulletSpeed(getProjectileSpeed(gun, player));
 		shot.setKnockbackStrength(myKnockback);
 		shot.setExplosive(isExplosive);
 		shot.setOrigin(player.position());
@@ -157,8 +162,7 @@ public class GunItem extends ShootableItem {
 		}
 		else shot.setDamage(someDamage);
 
-		double luckyChance = KGConfig.luckyShotChance.get() * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, gun);
-		if (random.nextDouble() < luckyChance) shot.setIsCritical(true);
+		shot.setIsCritical(this.lucky);
 		if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.marker, gun) == 1) shot.setShouldGlow(true);
 
 		shot.noPhysics = this.shouldCollateral;
@@ -282,6 +286,9 @@ public class GunItem extends ShootableItem {
 				nextInaccuracy /= KGConfig.crouchAccuracyMultiplier.get();
 			}
 		}
+
+		//check lucky shot
+		if (this.lucky) nextInaccuracy /= KGConfig.criticalAccuracy.get();
 
 		return nextInaccuracy;
 	}
