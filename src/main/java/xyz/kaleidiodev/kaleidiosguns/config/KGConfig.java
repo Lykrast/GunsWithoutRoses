@@ -557,7 +557,7 @@ public class KGConfig {
         builder.push("frost shard enchantment");
         frostyMaxMultiplier = builder
                 .comment("Maximum damage of a frosty bullet")
-                .defineInRange("frostyMaxMultiplier", 2.0D, 0.1D, 20D);
+                .defineInRange("frostyMaxMultiplier", 2.5D, 0.1D, 20D);
         frostyMinMultiplier = builder
                 .comment("Minimum damage of a frosty bullet")
                 .defineInRange("frostyMinMultiplier", 0.5D, 0.1D, 20D);
