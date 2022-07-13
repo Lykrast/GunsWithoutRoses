@@ -340,13 +340,13 @@ public class KGConfig {
                 .defineInRange("diamondSniperDamageMultiplier", 2D, 0.1D, 5D);
         diamondSniperFireDelay = builder
                 .comment("Configure the Fire delay for Snipers")
-                .defineInRange("diamondSniperFireDelay", 48, 0, 72000);
+                .defineInRange("diamondSniperFireDelay", 32, 0, 72000);
         diamondSniperEnchantability = builder
                 .comment("Configure the Enchantability for Snipers")
                 .defineInRange("diamondSniperEnchantability", 10, 0, 30);
         diamondSniperDurability = builder
                 .comment("Configure the Durability for Snipers")
-                .defineInRange("diamondSniperDurability", 500, 0, 32767);
+                .defineInRange("diamondSniperDurability", 750, 0, 32767);
         diamondSniperInaccuracy = builder
                 .comment("Configure the Inaccuracy for Snipers")
                 .defineInRange("diamondSniperInaccuracy", 0D, 0D, 90D);
