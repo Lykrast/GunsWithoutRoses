@@ -500,7 +500,7 @@ public class KGConfig {
         builder.push("preserving enchantment");
         preservingRateIncrease = builder
                 .comment("How much percentage per preserving level, represented as floating point only")
-                .defineInRange("preservingRateIncrease", 0.1D, 0.1D, 1D);
+                .defineInRange("preservingRateIncrease", 0.2D, 0.1D, 1D);
         builder.pop();
 
         builder.push("impact enchantment");
@@ -547,11 +547,11 @@ public class KGConfig {
                 .comment("Chance for critical hit per lucky shot level")
                 .defineInRange("luckyShotChance", 0.075D, 0.01D, 5D);
         criticalDamage = builder
-                .comment("Multiplier of a critical hit")
+                .comment("Multiplier of a critical hit's damage")
                 .defineInRange("criticalDamage", 3D, 0.1D, 20D);
         criticalAccuracy = builder
-                .comment("Divider of a critical hit")
-                .defineInRange("criticalDamage", 5D, 0.1D, 90D);
+                .comment("Divider of a critical hit's accuracy")
+                .defineInRange("criticalAccuracy", 5D, 0.1D, 90D);
         builder.pop();
 
         builder.push("frost shard enchantment");
@@ -563,7 +563,7 @@ public class KGConfig {
                 .defineInRange("frostyMinMultiplier", 0.5D, 0.1D, 20D);
         frostyDistancePerLevel = builder
                 .comment("Block distance from origin until a frosty bullet is at minimum multiplier")
-                .defineInRange("frostyDistancePerLevel", 30D, 0D, 128D);
+                .defineInRange("frostyDistancePerLevel", 20D, 0D, 128D);
         builder.pop();
 
         spec = builder.build();
