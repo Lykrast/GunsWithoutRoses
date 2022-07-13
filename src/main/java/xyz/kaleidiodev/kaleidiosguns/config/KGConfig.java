@@ -154,10 +154,10 @@ public class KGConfig {
                 .define("explosionsEnabled", true);
         oneHandInaccuracyMultiplier = builder
                 .comment("Inaccuracy multiplier for when the user has one hand filled")
-                .defineInRange("oneHandInaccuracyMultiplier", 1.5D, 0.1D, 5D);
+                .defineInRange("oneHandInaccuracyMultiplier", 2.0D, 0.1D, 5D);
         oneHandInaccuracyReplacement = builder
                 .comment("Inaccuracy of any perfect accuracy weapons in the case of one hand being filled")
-                .defineInRange("oneHandInaccuracyReplacement", 1.25D, 0D, 90D);
+                .defineInRange("oneHandInaccuracyReplacement", 2.0D, 0D, 90D);
         explosionIncreaseOnStrongerTier = builder
                 .comment("How much larger the explosion radius would be assuming damage is stronger than a hunger bullet")
                 .defineInRange("explosionIncreaseOnStrongerTier", 1D, 0D, 90D);
@@ -202,7 +202,7 @@ public class KGConfig {
                 .defineInRange("goldRevolverDurability", 900, 0, 32767);
         goldRevolverInaccuracy = builder
                 .comment("Configure the Inaccuracy for Revolver")
-                .defineInRange("goldRevolverInaccuracy", 2.5D, 0D, 90D);
+                .defineInRange("goldRevolverInaccuracy", 2.0D, 0D, 90D);
         goldRevolverProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Revolver")
                 .defineInRange("goldRevolverProjectileSpeed", 9D, 0D, 64D);
@@ -232,7 +232,7 @@ public class KGConfig {
                 .defineInRange("diamondSkillshotDurability", 4000, 0, 32767);
         diamondSkillshotInaccuracy = builder
                 .comment("Configure the Inaccuracy for Skillshot Pistols")
-                .defineInRange("diamondSkillshotInaccuracy", 4.0D, 0D, 90D);
+                .defineInRange("diamondSkillshotInaccuracy", 1.5D, 0D, 90D);
         diamondSkillshotProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Skillshot Pistols")
                 .defineInRange("diamondSkillshotProjectileSpeed", 6D, 0D, 64D);
@@ -259,7 +259,7 @@ public class KGConfig {
                 .defineInRange("diamondShotgunDurability", 700, 0, 32767);
         diamondShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Shotguns")
-                .defineInRange("diamondShotgunInaccuracy", 5D, 0D, 90D);
+                .defineInRange("diamondShotgunInaccuracy", 4D, 0D, 90D);
         diamondShotgunBulletCount = builder
                 .comment("Configure the amount of Bullets at once for Shotguns")
                 .defineInRange("diamondShotgunBulletCount", 5, 0, 50);
@@ -283,7 +283,7 @@ public class KGConfig {
                 .defineInRange("goldDoubleShotgunDurability", 300, 0, 32767);
         goldDoubleShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Double Barrel Shotguns")
-                .defineInRange("goldDoubleShotgunInaccuracy", 8.75D, 0D, 90D);
+                .defineInRange("goldDoubleShotgunInaccuracy", 5D, 0D, 90D);
         goldDoubleShotgunBulletCount = builder
                 .comment("Configure the amount of Bullets at once for Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunBulletCount", 5, 0, 100);
@@ -313,7 +313,7 @@ public class KGConfig {
                 .defineInRange("netheriteShotgunDurability", 780, 0, 32767);
         netheriteShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Vampire Shotguns")
-                .defineInRange("netheriteShotgunInaccuracy", 5D, 0D, 90D);
+                .defineInRange("netheriteShotgunInaccuracy", 4D, 0D, 90D);
         netheriteShotgunBulletCount = builder
                 .comment("Configure the amount of Bullets at once for Vampire Shotguns")
                 .defineInRange("netheriteShotgunBulletCount", 4, 0, 50);
