@@ -190,7 +190,7 @@ public class KGConfig {
         builder.push("revolver");
         goldRevolverDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Revolver")
-                .defineInRange("goldRevolverDamageModifier", 1.75D, 0.1D, 5D);
+                .defineInRange("goldRevolverDamageModifier", 1.5D, 0.1D, 5D);
         goldRevolverFireDelay = builder
                 .comment("Configure the Fire delay for Revolver")
                 .defineInRange("goldRevolverFireDelay", 54, 0, 72000);
@@ -358,10 +358,10 @@ public class KGConfig {
         builder.push("carbine");
         ironCarbineDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Carbines")
-                .defineInRange("ironCarbineDamageMultiplier", 1.5D, 0.5D, 5D);
+                .defineInRange("ironCarbineDamageMultiplier", 1.25D, 0.5D, 5D);
         ironCarbineFireDelay = builder
                 .comment("Configure the Fire delay for Carbines")
-                .defineInRange("ironCarbineFireDelay", 24, 0, 72000);
+                .defineInRange("ironCarbineFireDelay", 18, 0, 72000);
         ironCarbineEnchantability = builder
                 .comment("Configure the Enchantability for Carbines")
                 .defineInRange("ironCarbineEnchantability", 14, 0, 30);
