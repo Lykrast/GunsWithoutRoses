@@ -331,7 +331,7 @@ public class KGConfig {
                 .defineInRange("netheriteShotgunBulletsPerEntity", 1, 1, 5);
         netheriteShotgunEntityRadius = builder
                 .comment("Configure the radius for entities to steal hearts from for Vampire Shotguns")
-                .defineInRange("netheriteShotgunEntityRadius", 5D, 1D, 8D);
+                .defineInRange("netheriteShotgunEntityRadius", 8D, 1D, 8D);
         builder.pop();
 
         builder.push("sniper rifle");
