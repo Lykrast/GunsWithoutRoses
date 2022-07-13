@@ -154,16 +154,16 @@ public class KGConfig {
                 .define("explosionsEnabled", true);
         oneHandInaccuracyMultiplier = builder
                 .comment("Inaccuracy multiplier for when the user has one hand filled")
-                .defineInRange("oneHandInaccuracyMultiplier", 2D, 0.1D, 5D);
+                .defineInRange("oneHandInaccuracyMultiplier", 1.5D, 0.1D, 5D);
         oneHandInaccuracyReplacement = builder
                 .comment("Inaccuracy of any perfect accuracy weapons in the case of one hand being filled")
-                .defineInRange("oneHandInaccuracyReplacement", 1.5D, 0D, 90D);
+                .defineInRange("oneHandInaccuracyReplacement", 1.25D, 0D, 90D);
         explosionIncreaseOnStrongerTier = builder
                 .comment("How much larger the explosion radius would be assuming damage is stronger than a hunger bullet")
                 .defineInRange("explosionIncreaseOnStrongerTier", 1D, 0D, 90D);
         crouchAccuracyMultiplier = builder
                 .comment("Accuracy multiplier for when the user is crouching")
-                .defineInRange("crouchAccuracyMultiplier", 2.25D, 0.1D, 5D);
+                .defineInRange("crouchAccuracyMultiplier", 3.0D, 0.1D, 5D);
         builder.pop();
 
         builder.push("pistol");
