@@ -101,7 +101,7 @@ public class GunItem extends ShootableItem {
 				if (!bulletFree) bulletItem.consume(ammo, player);
 			}
 
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, 1.0F, 1.0F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, 4.0F, 1.0F);
 			player.awardStat(Stats.ITEM_USED.get(this));
 
 			//change chamber if multiple revolutions
