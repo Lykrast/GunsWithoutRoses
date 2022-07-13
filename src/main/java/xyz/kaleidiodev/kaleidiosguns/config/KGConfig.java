@@ -367,7 +367,7 @@ public class KGConfig {
                 .defineInRange("ironCarbineEnchantability", 14, 0, 30);
         ironCarbineDurability = builder
                 .comment("Configure the Durability for Carbines")
-                .defineInRange("ironCarbineDurability", 1333, 0, 32767);
+                .defineInRange("ironCarbineDurability", 1600, 0, 32767);
         ironCarbineInaccuracy = builder
                 .comment("Configure the Inaccuracy for Carbines")
                 .defineInRange("ironCarbineInaccuracy", 0D, 0D, 90D);
