@@ -296,6 +296,8 @@ public class BulletEntity extends AbstractFireballEntity {
 				livingTarget.push(vec.x, vec.y, vec.z);
 			}
 
+			if (shooter instanceof LivingEntity) doEnchantDamageEffects((LivingEntity) shooter, entity);
+
 			bullet.onLivingEntityHit(this, livingTarget, shooter, level);
 		} else if (!damaged && ignoreInvulnerability) entity.invulnerableTime = lastHurtResistant;
 	}
@@ -306,7 +308,6 @@ public class BulletEntity extends AbstractFireballEntity {
 		if (isExplosive && !level.isClientSide) {
 			EntityRayTraceResult victim = (EntityRayTraceResult) result.hitInfo;
 			float newRadius = (float) (double) KGConfig.goldLauncherDamageMultiplier.get();
-			boolean catchFire = false;
 
 			//if projectile is stronger than flint damage assume a stronger material type
 			if (getDamage() > KGConfig.hungerBulletDamage.get() * KGConfig.goldLauncherDamageMultiplier.get()) newRadius += KGConfig.explosionIncreaseOnStrongerTier.get();
