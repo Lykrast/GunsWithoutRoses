@@ -26,6 +26,7 @@ public class ShotgunItem extends GunItem {
 
 	private final int bulletCount;
 	protected boolean isVampire;
+	private int vampireCount;
 
 	public ShotgunItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, int enchantability, int bulletCount) {
 		super(properties, bonusDamage, damageMultiplier, fireDelay, inaccuracy, enchantability);
@@ -34,7 +35,9 @@ public class ShotgunItem extends GunItem {
 
 	@Override
 	protected void fireWeapon(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
-
+		//always fire vampire check first
+		vampireBulletCount(player);
+		//then fire bullet count check.  this will ensure that division only applies to bullets AFTER vampire check has added its own so damage scales accordingly
 		for (int i = 0; i < getBulletCount(gun, player); i++) super.fireWeapon(world, player, gun, ammo, bulletItem, bulletFree);
 	}
 
@@ -45,26 +48,30 @@ public class ShotgunItem extends GunItem {
 	}
 
 	protected int getBulletCount(ItemStack stack, @Nullable PlayerEntity player) {
+		int divisionFactor = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack) * KGConfig.divisionCountIncrease.get();
+
+		return getBaseBulletCount() + divisionFactor;
+	}
+
+	protected void vampireBulletCount(@Nullable PlayerEntity player) {
 		int entityCount = 0;
+		vampireCount = 0;
 		if (isVampire && player != null) {
 			List<Entity> victims = player.level.getEntitiesOfClass(Entity.class, AxisAlignedBB.ofSize(KGConfig.netheriteShotgunEntityRadius.get() * 2, KGConfig.netheriteShotgunEntityRadius.get() * 2, KGConfig.netheriteShotgunEntityRadius.get() * 2).move(player.position()));
 
 			for (Entity mob : victims) {
-				 if (mob instanceof LivingEntity) {
-					 LivingEntity creature = (LivingEntity) mob;
-					 //every creature in this 10 block box gets a heart sacrificed for a new bullet in the shotgun
-					 //cap at a certain amount of entities
-					 if ((creature.getUUID() != player.getUUID()) && (entityCount < KGConfig.netheriteShotgunEntityCap.get())) {
-						 creature.hurt((new EntityDamageSource("magic", (Entity) player)), (float)(double)KGConfig.netheriteShotgunEntityHurt.get()); //set value for vampire via config later
-						 entityCount += KGConfig.netheriteShotgunBulletsPerEntity.get();
-					 }
-				 }
+				if (mob instanceof LivingEntity) {
+					LivingEntity creature = (LivingEntity) mob;
+					//every creature in this 10 block box gets a heart sacrificed for a new bullet in the shotgun
+					//cap at a certain amount of entities
+					if ((creature.getUUID() != player.getUUID()) && (entityCount < KGConfig.netheriteShotgunEntityCap.get())) {
+						creature.hurt((new EntityDamageSource("magic", (Entity) player)), (float)(double)KGConfig.netheriteShotgunEntityHurt.get()); //set value for vampire via config later
+						vampireCount += KGConfig.netheriteShotgunBulletsPerEntity.get();
+						entityCount++;
+					}
+				}
 			}
 		}
-
-		int divisionFactor = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.division, stack) * KGConfig.divisionCountIncrease.get();
-
-		return bulletCount + entityCount + divisionFactor;
 	}
 
 	protected boolean isProjectileCountModified(ItemStack stack) {
@@ -72,7 +79,7 @@ public class ShotgunItem extends GunItem {
 	}
 
 	public int getBaseBulletCount() {
-		return this.bulletCount;
+		return this.bulletCount + this.vampireCount;
 	}
 
 	public boolean getIsVampire() { return isVampire; }
