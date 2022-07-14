@@ -244,6 +244,7 @@ public class BulletEntity extends AbstractFireballEntity {
 				breakWeakBlocks(blockPositionToMine);
 			}
 		}
+		if (!level.isClientSide && this.shouldCollateral) remove();
 	}
 
 	protected void breakWeakBlocks(BlockPos blockPosToTest) {
@@ -315,7 +316,8 @@ public class BulletEntity extends AbstractFireballEntity {
 		//damage should try to hurt tiles and entities without using an explosion, so it will need to fire this super.
 		else super.onHit(result);
 
-		if (!level.isClientSide) {
+		//remove will be present inside onHitBlock instead
+		if (!level.isClientSide && !shouldCollateral) {
 			remove();
 		}
 	}
