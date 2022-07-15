@@ -310,7 +310,7 @@ public class BulletEntity extends AbstractFireballEntity {
 			float newRadius = (float) (double) KGConfig.goldLauncherDamageMultiplier.get();
 
 			//if projectile is stronger than flint damage assume a stronger material type
-			if (getDamage() > KGConfig.hungerBulletDamage.get() * KGConfig.goldLauncherDamageMultiplier.get()) newRadius += KGConfig.explosionIncreaseOnStrongerTier.get();
+			if (getDamage() > KGConfig.flintBulletDamage.get() * KGConfig.goldLauncherDamageMultiplier.get()) newRadius += KGConfig.explosionIncreaseOnStrongerTier.get();
 
 			level.explode(this, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, this.shouldMakeFire, KGConfig.explosionsEnabled.get() ? Explosion.Mode.DESTROY : Explosion.Mode.NONE);
 		}
