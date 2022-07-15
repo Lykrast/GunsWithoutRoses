@@ -21,24 +21,24 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue ironPistolInaccuracy;
     public static ForgeConfigSpec.DoubleValue ironPistolProjectileSpeed;
 
-    public static ForgeConfigSpec.DoubleValue goldRevolverDamageMultiplier;
-    public static ForgeConfigSpec.IntValue goldRevolverFireDelay;
-    public static ForgeConfigSpec.IntValue goldRevolverEnchantability;
-    public static ForgeConfigSpec.IntValue goldRevolverDurability;
-    public static ForgeConfigSpec.DoubleValue goldRevolverInaccuracy;
-    public static ForgeConfigSpec.DoubleValue goldRevolverProjectileSpeed;
-    public static ForgeConfigSpec.DoubleValue goldRevolverSpreadoutStrength;
-    public static ForgeConfigSpec.IntValue goldRevolverChamberSwitchSpeed;
-    public static ForgeConfigSpec.IntValue goldRevolverStabilityTime;
+    public static ForgeConfigSpec.DoubleValue diamondRevolverDamageMultiplier;
+    public static ForgeConfigSpec.IntValue diamondRevolverFireDelay;
+    public static ForgeConfigSpec.IntValue diamondRevolverEnchantability;
+    public static ForgeConfigSpec.IntValue diamondRevolverDurability;
+    public static ForgeConfigSpec.DoubleValue diamondRevolverInaccuracy;
+    public static ForgeConfigSpec.DoubleValue diamondRevolverProjectileSpeed;
+    public static ForgeConfigSpec.DoubleValue diamondRevolverSpreadoutStrength;
+    public static ForgeConfigSpec.IntValue diamondRevolverChamberSwitchSpeed;
+    public static ForgeConfigSpec.IntValue diamondRevolverStabilityTime;
 
-    public static ForgeConfigSpec.DoubleValue diamondSkillshotDamageMultiplier;
-    public static ForgeConfigSpec.IntValue diamondSkillshotFireDelay;
-    public static ForgeConfigSpec.IntValue diamondSkillshotEnchantability;
-    public static ForgeConfigSpec.IntValue diamondSkillshotDurability;
-    public static ForgeConfigSpec.DoubleValue diamondSkillshotInaccuracy;
-    public static ForgeConfigSpec.DoubleValue diamondSkillshotProjectileSpeed;
-    public static ForgeConfigSpec.IntValue diamondSkillshotMaxCombo;
-    public static ForgeConfigSpec.DoubleValue diamondSkillshotComboMultiplierPer;
+    public static ForgeConfigSpec.DoubleValue goldSkillshotDamageMultiplier;
+    public static ForgeConfigSpec.IntValue goldSkillshotFireDelay;
+    public static ForgeConfigSpec.IntValue goldSkillshotEnchantability;
+    public static ForgeConfigSpec.IntValue goldSkillshotDurability;
+    public static ForgeConfigSpec.DoubleValue goldSkillshotInaccuracy;
+    public static ForgeConfigSpec.DoubleValue goldSkillshotProjectileSpeed;
+    public static ForgeConfigSpec.IntValue goldSkillshotMaxCombo;
+    public static ForgeConfigSpec.DoubleValue goldSkillshotComboMultiplierPer;
 
     public static ForgeConfigSpec.DoubleValue diamondShotgunDamageMultiplier;
     public static ForgeConfigSpec.IntValue diamondShotgunFireDelay;
@@ -188,60 +188,60 @@ public class KGConfig {
         builder.pop();
 
         builder.push("revolver");
-        goldRevolverDamageMultiplier = builder
+        diamondRevolverDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Revolver")
-                .defineInRange("goldRevolverDamageModifier", 1.5D, 0.1D, 5D);
-        goldRevolverFireDelay = builder
+                .defineInRange("diamondRevolverDamageModifier", 1.5D, 0.1D, 5D);
+        diamondRevolverFireDelay = builder
                 .comment("Configure the Fire delay for Revolver")
-                .defineInRange("goldRevolverFireDelay", 54, 0, 72000);
-        goldRevolverEnchantability = builder
+                .defineInRange("diamondRevolverFireDelay", 54, 0, 72000);
+        diamondRevolverEnchantability = builder
                 .comment("Configure the Enchantability for Revolver")
-                .defineInRange("goldRevolverEnchantability", 23, 0, 30);
-        goldRevolverDurability = builder
+                .defineInRange("diamondRevolverEnchantability", 23, 0, 30);
+        diamondRevolverDurability = builder
                 .comment("Configure the Durability for Revolver")
-                .defineInRange("goldRevolverDurability", 225, 0, 32767);
-        goldRevolverInaccuracy = builder
+                .defineInRange("diamondRevolverDurability", 225, 0, 32767);
+        diamondRevolverInaccuracy = builder
                 .comment("Configure the Inaccuracy for Revolver")
-                .defineInRange("goldRevolverInaccuracy", 2.0D, 0D, 90D);
-        goldRevolverProjectileSpeed = builder
+                .defineInRange("diamondRevolverInaccuracy", 2.0D, 0D, 90D);
+        diamondRevolverProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Revolver")
-                .defineInRange("goldRevolverProjectileSpeed", 9D, 0D, 64D);
-        goldRevolverSpreadoutStrength = builder
+                .defineInRange("diamondRevolverProjectileSpeed", 9D, 0D, 64D);
+        diamondRevolverSpreadoutStrength = builder
                 .comment("Configure the strength a Revolver increases its spread cone every time it's used too fast")
-                .defineInRange("goldRevolverSpreadoutStrength", 0.75D, 0D, 64D);
-        goldRevolverChamberSwitchSpeed = builder
+                .defineInRange("diamondRevolverSpreadoutStrength", 0.75D, 0D, 64D);
+        diamondRevolverChamberSwitchSpeed = builder
                 .comment("Configure a divider of base fire delay how long switching chambers takes between shots on Revolvers")
-                .defineInRange("goldRevolverChamberSwitchSpeed", 3, 1, 72000);
-        goldRevolverStabilityTime = builder
+                .defineInRange("diamondRevolverChamberSwitchSpeed", 3, 1, 72000);
+        diamondRevolverStabilityTime = builder
                 .comment("Configure how long the gun must not be fired for spread cone to stabilize on Revolver")
-                .defineInRange("goldRevolverStabilityTime", 28, 1, 72000);
+                .defineInRange("diamondRevolverStabilityTime", 28, 1, 72000);
         builder.pop();
 
         builder.push("skillshot pistol");
-        diamondSkillshotDamageMultiplier = builder
+        goldSkillshotDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Skillshot Pistols")
-                .defineInRange("diamondSkillshotDamageModifier", 1.0D, 0.1D, 5D);
-        diamondSkillshotFireDelay = builder
+                .defineInRange("goldSkillshotDamageModifier", 1.0D, 0.1D, 5D);
+        goldSkillshotFireDelay = builder
                 .comment("Configure the Fire delay for Skillshot Pistols")
-                .defineInRange("diamondSkillshotFireDelay", 20, 0, 72000);
-        diamondSkillshotEnchantability = builder
+                .defineInRange("goldSkillshotFireDelay", 20, 0, 72000);
+        goldSkillshotEnchantability = builder
                 .comment("Configure the Enchantability for Skillshot Pistols")
-                .defineInRange("diamondSkillshotEnchantability", 10, 0, 30);
-        diamondSkillshotDurability = builder
+                .defineInRange("goldSkillshotEnchantability", 10, 0, 30);
+        goldSkillshotDurability = builder
                 .comment("Configure the Durability for Skillshot Pistols")
-                .defineInRange("diamondSkillshotDurability", 1000, 0, 32767);
-        diamondSkillshotInaccuracy = builder
+                .defineInRange("goldSkillshotDurability", 1000, 0, 32767);
+        goldSkillshotInaccuracy = builder
                 .comment("Configure the Inaccuracy for Skillshot Pistols")
-                .defineInRange("diamondSkillshotInaccuracy", 1.5D, 0D, 90D);
-        diamondSkillshotProjectileSpeed = builder
+                .defineInRange("goldSkillshotInaccuracy", 1.5D, 0D, 90D);
+        goldSkillshotProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Skillshot Pistols")
-                .defineInRange("diamondSkillshotProjectileSpeed", 6D, 0D, 64D);
-        diamondSkillshotMaxCombo = builder
+                .defineInRange("goldSkillshotProjectileSpeed", 6D, 0D, 64D);
+        goldSkillshotMaxCombo = builder
                 .comment("Configure the maximum combo on Skillshot Pistols")
-                .defineInRange("diamondSkillshotMaxCombo", 5, 2, 255);
-        diamondSkillshotComboMultiplierPer = builder
+                .defineInRange("goldSkillshotMaxCombo", 5, 2, 255);
+        goldSkillshotComboMultiplierPer = builder
                 .comment("Configure the addition to damage multiplier per combo for Skillshot Pistols")
-                .defineInRange("diamondSkillshotComboMultplierPer", 0.2D, 0D, 64D);
+                .defineInRange("goldSkillshotComboMultplierPer", 0.2D, 0D, 64D);
         builder.pop();
 
         builder.push("shotgun");

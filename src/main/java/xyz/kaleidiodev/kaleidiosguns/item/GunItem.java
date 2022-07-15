@@ -472,10 +472,10 @@ public class GunItem extends ShootableItem {
 		}
 
 		//cap combo
-		if (comboCount > KGConfig.diamondSkillshotMaxCombo.get()) comboCount = KGConfig.diamondSkillshotMaxCombo.get();
+		if (comboCount > KGConfig.goldSkillshotMaxCombo.get()) comboCount = KGConfig.goldSkillshotMaxCombo.get();
 
 		//calculate what the new multiplier would be.
-		double newDamageMultiplier = this.damageMultiplier + (KGConfig.diamondSkillshotComboMultiplierPer.get() * comboCount);
+		double newDamageMultiplier = this.damageMultiplier + (KGConfig.goldSkillshotComboMultiplierPer.get() * comboCount);
 
 		return newDamageMultiplier;
 	}
