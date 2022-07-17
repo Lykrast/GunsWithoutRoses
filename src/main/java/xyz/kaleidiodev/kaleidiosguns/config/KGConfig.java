@@ -84,12 +84,12 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue ironCarbineInaccuracy;
     public static ForgeConfigSpec.DoubleValue ironCarbineProjectileSpeed;
 
-    public static ForgeConfigSpec.DoubleValue goldLauncherDamageMultiplier;
-    public static ForgeConfigSpec.IntValue goldLauncherFireDelay;
-    public static ForgeConfigSpec.IntValue goldLauncherEnchantability;
-    public static ForgeConfigSpec.IntValue goldLauncherDurability;
-    public static ForgeConfigSpec.DoubleValue goldLauncherInaccuracy;
-    public static ForgeConfigSpec.DoubleValue goldLauncherProjectileSpeed;
+    public static ForgeConfigSpec.DoubleValue diamondLauncherDamageMultiplier;
+    public static ForgeConfigSpec.IntValue diamondLauncherFireDelay;
+    public static ForgeConfigSpec.IntValue diamondLauncherEnchantability;
+    public static ForgeConfigSpec.IntValue diamondLauncherDurability;
+    public static ForgeConfigSpec.DoubleValue diamondLauncherInaccuracy;
+    public static ForgeConfigSpec.DoubleValue diamondLauncherProjectileSpeed;
 
     public static ForgeConfigSpec.DoubleValue diamondMinegunDamageMultiplier;
     public static ForgeConfigSpec.IntValue diamondMinegunFireDelay;
@@ -446,24 +446,24 @@ public class KGConfig {
         builder.pop();
 
         builder.push("rocket launcher");
-        goldLauncherDamageMultiplier = builder
+        diamondLauncherDamageMultiplier = builder
                 .comment("Define the base damage to multiply against for Rocket Launchers")
-                .defineInRange("goldLauncherDamageMultiplier", 1.25D, 0.1D, 5D);
-        goldLauncherFireDelay = builder
+                .defineInRange("diamondLauncherDamageMultiplier", 1.25D, 0.1D, 5D);
+        diamondLauncherFireDelay = builder
                 .comment("Configure the Fire delay for Rocket Launchers")
-                .defineInRange("goldLauncherFireDelay", 64, 0, 72000);
-        goldLauncherEnchantability = builder
+                .defineInRange("diamondLauncherFireDelay", 64, 0, 72000);
+        diamondLauncherEnchantability = builder
                 .comment("Configure the Enchantability for Rocket Launchers")
-                .defineInRange("goldLauncherEnchantability", 23, 0, 30);
-        goldLauncherDurability = builder
+                .defineInRange("diamondLauncherEnchantability", 23, 0, 30);
+        diamondLauncherDurability = builder
                 .comment("Configure the Durability for Rocket Launchers")
-                .defineInRange("goldLauncherDurability", 21, 0, 32767);
-        goldLauncherInaccuracy = builder
+                .defineInRange("diamondLauncherDurability", 30, 0, 32767);
+        diamondLauncherInaccuracy = builder
                 .comment("Configure the Inaccuracy for Rocket Launchers")
-                .defineInRange("goldLauncherInaccuracy", 0D, 0D, 90D);
-        goldLauncherProjectileSpeed = builder
+                .defineInRange("diamondLauncherInaccuracy", 0D, 0D, 90D);
+        diamondLauncherProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Rocket Launchers")
-                .defineInRange("goldLauncherProjectileSpeed", 2D, 0D, 64D);
+                .defineInRange("diamondLauncherProjectileSpeed", 2D, 0D, 64D);
         builder.pop();
 
         builder.push("bullet_config");

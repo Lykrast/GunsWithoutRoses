@@ -23,7 +23,7 @@ public class ModItems {
 			doubleBarrelShotgun,
 			carbineSniper,
 			diamondSniper,
-			goldLauncher,
+			diamondLauncher,
 			minegunGatling,
 			plasmaGatling,
 			assaultGatling;
@@ -54,7 +54,7 @@ public class ModItems {
 		assaultGatling = initItem(reg, new GatlingItem(defP().durability(KGConfig.ironAssaultDurability.get()), 0, KGConfig.ironAssaultDamageMultiplier.get(), KGConfig.ironAssaultFireDelay.get(), KGConfig.ironAssaultInaccuracy.get(), KGConfig.ironAssaultEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "assault_rifle").projectileSpeed(KGConfig.ironAssaultProjectileSpeed.get()).fireSound(ModSounds.smg);
 
 		// Launchers
-		goldLauncher = initItem(reg, new GunItem(defP().durability(KGConfig.goldLauncherDurability.get()), 0, KGConfig.goldLauncherDamageMultiplier.get(), KGConfig.goldLauncherFireDelay.get(), KGConfig.goldLauncherInaccuracy.get(), KGConfig.goldLauncherEnchantability.get()).projectileSpeed(KGConfig.goldLauncherProjectileSpeed.get()).fireSound(ModSounds.rocketLauncher), "rocket_launcher").setIsExplosive(true);
+		diamondLauncher = initItem(reg, new GunItem(defP().durability(KGConfig.diamondLauncherDurability.get()), 0, KGConfig.diamondLauncherDamageMultiplier.get(), KGConfig.diamondLauncherFireDelay.get(), KGConfig.diamondLauncherInaccuracy.get(), KGConfig.diamondLauncherEnchantability.get()).projectileSpeed(KGConfig.diamondLauncherProjectileSpeed.get()).fireSound(ModSounds.rocketLauncher).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "rocket_launcher").setIsExplosive(true);
 
         // Bullets
 		flintBullet = initItem(reg, new BulletItem(defP(), KGConfig.flintBulletDamage.get()), "flint_bullet");

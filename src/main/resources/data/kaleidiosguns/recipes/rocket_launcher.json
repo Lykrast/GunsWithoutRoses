@@ -6,7 +6,7 @@
 		" SI"
 	],
 	"key": {
-		"D": { "tag": "forge:ingots/gold" },
+		"D": { "tag": "forge:gems/diamond" },
 		"I": { "item": "minecraft:fire_charge" },
 		"S": { "tag": "forge:ingots/iron" },
 		"F": { "item": "minecraft:flint" }

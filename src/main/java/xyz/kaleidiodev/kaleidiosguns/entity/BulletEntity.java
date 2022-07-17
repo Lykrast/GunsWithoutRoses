@@ -1,7 +1,6 @@
 package xyz.kaleidiodev.kaleidiosguns.entity;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -10,8 +9,6 @@ import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
@@ -26,11 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.event.world.NoteBlockEvent;
-import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import org.lwjgl.system.CallbackI;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
-import xyz.kaleidiodev.kaleidiosguns.item.BulletItem;
 import xyz.kaleidiodev.kaleidiosguns.item.GunItem;
 import xyz.kaleidiodev.kaleidiosguns.item.IBullet;
 import xyz.kaleidiodev.kaleidiosguns.network.NetworkUtils;
@@ -41,7 +34,6 @@ import xyz.kaleidiodev.kaleidiosguns.registry.ModSounds;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 public class BulletEntity extends AbstractFireballEntity {
 	protected double damage = 1;
@@ -307,10 +299,10 @@ public class BulletEntity extends AbstractFireballEntity {
 		//explode or damage?
 		if (isExplosive && !level.isClientSide) {
 			EntityRayTraceResult victim = (EntityRayTraceResult) result.hitInfo;
-			float newRadius = (float) (double) KGConfig.goldLauncherDamageMultiplier.get();
+			float newRadius = (float) (double) KGConfig.diamondLauncherDamageMultiplier.get();
 
 			//if projectile is stronger than flint damage assume a stronger material type
-			if (getDamage() > KGConfig.flintBulletDamage.get() * KGConfig.goldLauncherDamageMultiplier.get()) newRadius += KGConfig.explosionIncreaseOnStrongerTier.get();
+			if (getDamage() > KGConfig.flintBulletDamage.get() * KGConfig.diamondLauncherDamageMultiplier.get()) newRadius += KGConfig.explosionIncreaseOnStrongerTier.get();
 
 			level.explode(this, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, this.shouldMakeFire, KGConfig.explosionsEnabled.get() ? Explosion.Mode.DESTROY : Explosion.Mode.NONE);
 		}
