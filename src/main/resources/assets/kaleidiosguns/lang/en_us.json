@@ -80,6 +80,8 @@
 	"enchantment.kaleidiosguns.frost_shard.desc": "Projectiles have high damage due to sharp ice that melts over distance",
 	"enchantment.kaleidiosguns.counter_strike": "Counter Strike",
 	"enchantment.kaleidiosguns.counter_strike.desc": "Increase accuracy massively by crouching",
+	"enchantment.kaleidiosguns.moving_shooter": "Moving Shooter",
+	"enchantment.kaleidiosguns.moving_shooter.desc": "Mid-air shots get no accuracy punishment",
 
 	"entity.kaleidiosguns.bullet": "Bullet",
 

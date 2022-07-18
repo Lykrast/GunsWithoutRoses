@@ -13,34 +13,34 @@ import xyz.kaleidiodev.kaleidiosguns.item.GunItem;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = KaleidiosGuns.MODID)
 public class ModEnchantments {
 
-	public static Enchantment impact, bullseye, sleightOfHand, preserving, accelerator, division, passionForBlood, marker, luckyShot, cowboy, maneuvering, frostShot, counterStrike;
+	public static Enchantment impact, bullseye, sleightOfHand, preserving, accelerator, division, passionForBlood, marker, luckyShot, cowboy, maneuvering, frostShot, counterStrike, movingShooter;
 	public static final EnchantmentType TYPE_GUN = EnchantmentType.create("GWR_GUN", (item) -> item instanceof GunItem);
 
 	@SubscribeEvent
 	public static void registerEnchantments(final RegistryEvent.Register<Enchantment> event) {
 		IForgeRegistry<Enchantment> reg = event.getRegistry();
 
-		//flat upgrade
+		//flat upgrade (unbreaking counts as an all)
 		impact = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 5, 4, 8, 20, TYPE_GUN), "impact"); //dmg
 		bullseye = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 3, 4, 8, 20, TYPE_GUN), "bullseye"); //acc
 		sleightOfHand = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 2, 6, 12, 30, TYPE_GUN), "sleight_of_hand"); //rt
 		accelerator = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 3, 3, 6, 20, TYPE_GUN), "accelerator"); //spd
-		//unbreaking counts as an all
 
-		//class specialized enhancement
+		//class specialized enhancement (should these get two at all?)
 		division = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 4, 4, 8, 20, TYPE_GUN), "division"); //shotgun
 		marker = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 1, 7, 14, 25, TYPE_GUN), "marker"); //pistol
 		maneuvering = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 1, 10, 20, 30, TYPE_GUN), "maneuvering"); //gatling
 
-		//enhancement
+		//enhancement (these get two because there is no "alls")
 		passionForBlood = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 2, 8, 16, 25, TYPE_GUN), "passion_for_blood"); //dmg
 		cowboy = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 1, 9, 18, 25, TYPE_GUN), "cowboy"); //acc
+		movingShooter = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 1, 9, 18, 25, TYPE_GUN), "moving_shooter"); //acc 2
 		preserving = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 3, 5, 10, 30, TYPE_GUN), "preserving"); //rt
 
 		//alternate upgrade
-		luckyShot = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 3, 6, 12, 30, TYPE_GUN), "lucky_shot"); //"all" except speed and rate
-		frostShot = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 3, 5, 10, 30, TYPE_GUN), "frost_shard"); //dmg
-		counterStrike = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 1, 8, 16, 30, TYPE_GUN), "counter_strike"); //acc
+		luckyShot = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 3, 6, 12, 30, TYPE_GUN), "lucky_shot"); //dmg + acc
+		frostShot = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 3, 5, 10, 30, TYPE_GUN), "frost_shard"); //dmg 2
+		counterStrike = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 1, 8, 16, 30, TYPE_GUN), "counter_strike"); //acc 2
 	}
 
 	public static Enchantment initEnchant(IForgeRegistry<Enchantment> reg, Enchantment enchantment, String name) {

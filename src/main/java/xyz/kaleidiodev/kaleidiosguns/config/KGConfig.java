@@ -13,6 +13,7 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue oneHandInaccuracyReplacement;
     public static ForgeConfigSpec.DoubleValue crouchAccuracyMultiplier;
     public static ForgeConfigSpec.DoubleValue midairInaccuracyMultiplier;
+    public static ForgeConfigSpec.DoubleValue midairInaccuracyReplacement;
 
     //Guns
     public static ForgeConfigSpec.DoubleValue ironPistolDamageMultiplier;
@@ -176,6 +177,9 @@ public class KGConfig {
         midairInaccuracyMultiplier = builder
                 .comment("Accuracy punishment for shooting whilst midair, balances elytra usage and punishes rapid jumpers")
                 .defineInRange("midairInaccuracyMultiplier", 2.0D, 0.1D, 5D);
+        midairInaccuracyReplacement = builder
+                .comment("Accuracy replacement for perfect accuracy weapon jump shot punishments")
+                .defineInRange("midairInaccuracyReplacement", 2.0D, 0.1D, 5D);
         builder.pop();
 
         builder.push("pistol");
