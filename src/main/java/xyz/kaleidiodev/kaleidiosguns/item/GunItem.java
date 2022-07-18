@@ -283,7 +283,7 @@ public class GunItem extends ShootableItem {
 
 		//check crouching
 		if ((player != null) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.counterStrike, stack) != 0)) {
-			if (player.isCrouching()) {
+			if (player.isCrouching() && player.isOnGround()) {
 				nextInaccuracy /= KGConfig.crouchAccuracyMultiplier.get();
 			}
 		}
