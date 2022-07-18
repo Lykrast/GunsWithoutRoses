@@ -12,6 +12,7 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue oneHandInaccuracyMultiplier;
     public static ForgeConfigSpec.DoubleValue oneHandInaccuracyReplacement;
     public static ForgeConfigSpec.DoubleValue crouchAccuracyMultiplier;
+    public static ForgeConfigSpec.DoubleValue midairInaccuracyMultiplier;
 
     //Guns
     public static ForgeConfigSpec.DoubleValue ironPistolDamageMultiplier;
@@ -172,6 +173,9 @@ public class KGConfig {
         crouchAccuracyMultiplier = builder
                 .comment("Accuracy multiplier for when the user is crouching")
                 .defineInRange("crouchAccuracyMultiplier", 3.0D, 0.1D, 5D);
+        midairInaccuracyMultiplier = builder
+                .comment("Accuracy punishment for shooting whilst midair, balances elytra usage and punishes rapid jumpers")
+                .defineInRange("midairInaccuracyMultiplier", 2.0D, 0.1D, 5D);
         builder.pop();
 
         builder.push("pistol");

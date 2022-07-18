@@ -291,6 +291,13 @@ public class GunItem extends ShootableItem {
 		//check lucky shot
 		if (this.lucky) nextInaccuracy /= KGConfig.criticalAccuracy.get();
 
+		//inaccurate jump shotting, balancing grappling hooks
+		if (player != null) {
+			if (!player.isOnGround()) {
+				nextInaccuracy *= KGConfig.midairInaccuracyMultiplier.get();
+			}
+		}
+
 		return nextInaccuracy;
 	}
 
