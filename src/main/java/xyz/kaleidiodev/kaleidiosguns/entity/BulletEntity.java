@@ -12,6 +12,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.EffectType;
 import net.minecraft.potion.Effects;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.*;
@@ -57,6 +58,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	public boolean isPlasma;
 	public boolean givesKnockback;
 	public double frostyDistance;
+	public boolean isWither;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);
@@ -305,6 +307,15 @@ public class BulletEntity extends AbstractFireballEntity {
 			if (getDamage() > KGConfig.flintBulletDamage.get() * KGConfig.diamondLauncherDamageMultiplier.get()) newRadius += KGConfig.explosionIncreaseOnStrongerTier.get();
 
 			level.explode(this, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, this.shouldMakeFire, KGConfig.explosionsEnabled.get() ? Explosion.Mode.DESTROY : Explosion.Mode.NONE);
+			if (isWither) {
+				newRadius *= KGConfig.netheriteLauncherEffectRadiusMultiplier.get();
+				AxisAlignedBB witherTrace = new AxisAlignedBB(result.getLocation().x - newRadius, result.getLocation().y - newRadius, result.getLocation().z - newRadius, result.getLocation().x + newRadius, result.getLocation().y + newRadius, result.getLocation().z + newRadius);
+				List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, witherTrace);
+
+				for (LivingEntity mob : entities) {
+					mob.addEffect(new EffectInstance(Effects.WITHER, 200, 1));
+				}
+			}
 		}
 		//damage should try to hurt tiles and entities without using an explosion, so it will need to fire this super.
 		else super.onHit(result);

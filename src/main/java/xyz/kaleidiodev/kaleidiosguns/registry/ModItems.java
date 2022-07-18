@@ -24,6 +24,7 @@ public class ModItems {
 			carbineSniper,
 			diamondSniper,
 			diamondLauncher,
+			witherLauncher,
 			minegunGatling,
 			plasmaGatling,
 			assaultGatling;
@@ -55,6 +56,7 @@ public class ModItems {
 
 		// Launchers
 		diamondLauncher = initItem(reg, new GunItem(defP().durability(KGConfig.diamondLauncherDurability.get()), 0, KGConfig.diamondLauncherDamageMultiplier.get(), KGConfig.diamondLauncherFireDelay.get(), KGConfig.diamondLauncherInaccuracy.get(), KGConfig.diamondLauncherEnchantability.get()).projectileSpeed(KGConfig.diamondLauncherProjectileSpeed.get()).fireSound(ModSounds.rocketLauncher).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "rocket_launcher").setIsExplosive(true);
+		witherLauncher = initItem(reg, new GunItem(defP().durability(KGConfig.netheriteLauncherDurability.get()), 0, KGConfig.netheriteLauncherDamageMultiplier.get(), KGConfig.netheriteLauncherFireDelay.get(), KGConfig.netheriteLauncherInaccuracy.get(), KGConfig.netheriteLauncherEnchantability.get()).projectileSpeed(KGConfig.netheriteLauncherProjectileSpeed.get()).fireSound(ModSounds.witherLauncher).repair(() -> Ingredient.of(Tags.Items.INGOTS_NETHERITE)), "wither_launcher").setIsExplosive(true).setIsWither(true);
 
         // Bullets
 		flintBullet = initItem(reg, new BulletItem(defP(), KGConfig.flintBulletDamage.get()), "flint_bullet");

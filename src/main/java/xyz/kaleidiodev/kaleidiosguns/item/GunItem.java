@@ -63,6 +63,7 @@ public class GunItem extends ShootableItem {
 	protected UUID comboVictim;
 	protected boolean isExplosive;
 	protected boolean lucky;
+	protected boolean isWither;
 
 	protected SoundEvent fireSound = ModSounds.gun;
 	protected SoundEvent reloadSound = ModSounds.double_shotgunReload;
@@ -169,6 +170,7 @@ public class GunItem extends ShootableItem {
 		shot.isPlasma = (this.getItem() == ModItems.plasmaGatling);
 		shot.shouldMakeFire = (ammo.getItem() == ModItems.blazeBullet);
 		shot.frostyDistance = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, gun) * KGConfig.frostyDistancePerLevel.get();
+		shot.isWither = this.isWither;
 
 		changeBullet(world, player, gun, shot, bulletFree);
 
@@ -438,6 +440,11 @@ public class GunItem extends ShootableItem {
 		return this;
 	}
 
+	public GunItem setIsWither(boolean wither) {
+		this.isWither = wither;
+		return this;
+	}
+
 	/**
 	 *
 	 * @param barrelSwitch set the divider that divides the fire rate to denote how many ticks it takes to switch barrels
@@ -562,6 +569,7 @@ public class GunItem extends ShootableItem {
 			if (revolutions > 1) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.double_barrel"));
 			if (stack.getItem() == ModItems.goldGun) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.revolver"));
 			if (shouldCombo) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.skill_shot"));
+			if (isWither) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.wither"));
 
 			if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) > 0) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.frost_distance", EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) * KGConfig.frostyDistancePerLevel.get()));
 

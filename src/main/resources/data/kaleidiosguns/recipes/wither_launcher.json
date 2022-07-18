@@ -1,0 +1,6 @@
+{
+	"type": "minecraft:smithing",
+	"base": { "item": "kaleidiosguns:rocket_launcher" },
+	"addition": { "item": "minecraft:netherite_ingot" },
+	"result": { "item": "kaleidiosguns:wither_launcher" }
+}

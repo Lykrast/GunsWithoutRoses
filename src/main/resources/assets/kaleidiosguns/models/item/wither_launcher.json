@@ -1,0 +1,6 @@
+{
+    "parent": "kaleidiosguns:item/base_gun",
+    "textures": {
+        "layer0": "kaleidiosguns:item/wither_launcher"
+    }
+}

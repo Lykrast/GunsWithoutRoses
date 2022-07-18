@@ -82,7 +82,12 @@
 	"category": "item",
 	"subtitle": "subtitles.kaleidiosguns.item.rocket_launcher.shoot",
 	"sounds": [ "kaleidiosguns:rocket_launcher" ]
-},
+	},
+	"item.wither_launcher.shoot": {
+		"category": "item",
+		"subtitle": "subtitles.kaleidiosguns.item.wither_launcher.shoot",
+		"sounds": [ "kaleidiosguns:wither" ]
+	},
 	"entity.bullet.impact": {
 		"category": "entity",
 		"subtitle": "subtitles.kaleidiosguns.item.bullet.impact",

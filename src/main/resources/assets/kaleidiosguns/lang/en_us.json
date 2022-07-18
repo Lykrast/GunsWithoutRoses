@@ -11,6 +11,7 @@
 	"item.kaleidiosguns.skill_shot": "Skill Shot Pistol",
 	"item.kaleidiosguns.rocket_launcher": "Rocket Launcher",
 	"item.kaleidiosguns.vampire_shotgun": "Vampire Shotgun",
+	"item.kaleidiosguns.wither_launcher": "Wither Launcher",
 
 	"item.kaleidiosguns.flint_bullet": "Flint Bullet",
 	"item.kaleidiosguns.iron_bullet": "Iron Bullet",
@@ -45,6 +46,7 @@
 	"tooltip.kaleidiosguns.double_barrel": "Shoot multiple times before reloading",
 	"tooltip.kaleidiosguns.collateral": "Bullets fly through enemies",
 	"tooltip.kaleidiosguns.frost_distance": "Damage is minimum at §f%s§r blocks away",
+	"tooltip.kaleidiosguns.wither": "Gives wither around the explosion's epicentre",
 
 
 	"tooltip.kaleidiosguns.blaze_bullet": "Sets entities on fire",
@@ -77,7 +79,7 @@
 	"enchantment.kaleidiosguns.frost_shard": "Frost Shard",
 	"enchantment.kaleidiosguns.frost_shard.desc": "Projectiles have high damage due to sharp ice that melts over distance",
 	"enchantment.kaleidiosguns.counter_strike": "Counter Strike",
-	"enchantment.kaleidiosguns.counter_strike.desc": "Increase accuracy by crouching",
+	"enchantment.kaleidiosguns.counter_strike.desc": "Increase accuracy massively by crouching",
 
 	"entity.kaleidiosguns.bullet": "Bullet",
 
@@ -95,5 +97,6 @@
 	"subtitles.kaleidiosguns.item.skill_shot.shoot": "Skill Shot Pistol fired",
 	"subtitles.kaleidiosguns.item.rocket_launcher.shoot": "Rocket Launcher fired",
 	"subtitles.kaleidiosguns.item.vampire_shotgun.shoot": "Vampire Shotgun fired",
+	"subtitles.kaleidiosguns.item.wither_launcher.shoot": "Wither Launcher fired",
 	"subtitles.kaleidiosguns.item.bullet.impact": "Bullet landed"
 }

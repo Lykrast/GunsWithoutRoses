@@ -91,6 +91,14 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue diamondLauncherInaccuracy;
     public static ForgeConfigSpec.DoubleValue diamondLauncherProjectileSpeed;
 
+    public static ForgeConfigSpec.DoubleValue netheriteLauncherDamageMultiplier;
+    public static ForgeConfigSpec.IntValue netheriteLauncherFireDelay;
+    public static ForgeConfigSpec.IntValue netheriteLauncherEnchantability;
+    public static ForgeConfigSpec.IntValue netheriteLauncherDurability;
+    public static ForgeConfigSpec.DoubleValue netheriteLauncherInaccuracy;
+    public static ForgeConfigSpec.DoubleValue netheriteLauncherProjectileSpeed;
+    public static ForgeConfigSpec.DoubleValue netheriteLauncherEffectRadiusMultiplier;
+
     public static ForgeConfigSpec.DoubleValue diamondMinegunDamageMultiplier;
     public static ForgeConfigSpec.IntValue diamondMinegunFireDelay;
     public static ForgeConfigSpec.IntValue diamondMinegunEnchantability;
@@ -196,7 +204,7 @@ public class KGConfig {
                 .defineInRange("diamondRevolverFireDelay", 54, 0, 72000);
         diamondRevolverEnchantability = builder
                 .comment("Configure the Enchantability for Revolver")
-                .defineInRange("diamondRevolverEnchantability", 23, 0, 30);
+                .defineInRange("diamondRevolverEnchantability", 10, 0, 30);
         diamondRevolverDurability = builder
                 .comment("Configure the Durability for Revolver")
                 .defineInRange("diamondRevolverDurability", 225, 0, 32767);
@@ -226,7 +234,7 @@ public class KGConfig {
                 .defineInRange("goldSkillshotFireDelay", 20, 0, 72000);
         goldSkillshotEnchantability = builder
                 .comment("Configure the Enchantability for Skillshot Pistols")
-                .defineInRange("goldSkillshotEnchantability", 10, 0, 30);
+                .defineInRange("goldSkillshotEnchantability", 23, 0, 30);
         goldSkillshotDurability = builder
                 .comment("Configure the Durability for Skillshot Pistols")
                 .defineInRange("goldSkillshotDurability", 1000, 0, 32767);
@@ -454,7 +462,7 @@ public class KGConfig {
                 .defineInRange("diamondLauncherFireDelay", 64, 0, 72000);
         diamondLauncherEnchantability = builder
                 .comment("Configure the Enchantability for Rocket Launchers")
-                .defineInRange("diamondLauncherEnchantability", 23, 0, 30);
+                .defineInRange("diamondLauncherEnchantability", 10, 0, 30);
         diamondLauncherDurability = builder
                 .comment("Configure the Durability for Rocket Launchers")
                 .defineInRange("diamondLauncherDurability", 30, 0, 32767);
@@ -464,6 +472,30 @@ public class KGConfig {
         diamondLauncherProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Rocket Launchers")
                 .defineInRange("diamondLauncherProjectileSpeed", 2D, 0D, 64D);
+        builder.pop();
+
+        builder.push("wither cannon");
+        netheriteLauncherDamageMultiplier = builder
+                .comment("Define the base damage to multiply against for Wither Launchers")
+                .defineInRange("witherLauncherDamageMultiplier", 1D, 0.1D, 5D);
+        netheriteLauncherFireDelay = builder
+                .comment("Configure the Fire delay for Wither Launchers")
+                .defineInRange("witherLauncherFireDelay", 60, 0, 72000);
+        netheriteLauncherEnchantability = builder
+                .comment("Configure the Enchantability for Wither Launchers")
+                .defineInRange("witherLauncherEnchantability", 15, 0, 30);
+        netheriteLauncherDurability = builder
+                .comment("Configure the Durability for Wither Launchers")
+                .defineInRange("witherLauncherDurability", 30, 0, 32767);
+        netheriteLauncherInaccuracy = builder
+                .comment("Configure the Inaccuracy for Wither Launchers")
+                .defineInRange("witherLauncherInaccuracy", 0D, 0D, 90D);
+        netheriteLauncherProjectileSpeed = builder
+                .comment("Configure the Projectile Speed for Wither Launchers")
+                .defineInRange("witherLauncherProjectileSpeed", 2D, 0D, 64D);
+        netheriteLauncherEffectRadiusMultiplier = builder
+                .comment("Multiplier of how much larger than the explosion radius does the wither effect apply")
+                .defineInRange("witherLauncherEffectRadiusMultiplier", 2D, 0D, 64D);
         builder.pop();
 
         builder.push("bullet_config");
