@@ -509,6 +509,7 @@ public class GunItem extends ShootableItem {
 		//Disallow these for specific gun types
 		GunItem me = (GunItem) stack.getItem();
 		if (enchantment == ModEnchantments.bullseye && hasPerfectAccuracy()) return false; //not for sniper
+		if (enchantment == ModEnchantments.counterStrike && hasPerfectAccuracy()) return false; //not for sniper
 		if (enchantment == ModEnchantments.impact && isExplosive) return false; //these are not for launcher
 		if (enchantment == ModEnchantments.luckyShot && isExplosive) return false;
 		if (enchantment == ModEnchantments.frostShot && isExplosive) return false;
