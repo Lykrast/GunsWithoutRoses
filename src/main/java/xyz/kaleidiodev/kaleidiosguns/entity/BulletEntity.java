@@ -313,7 +313,7 @@ public class BulletEntity extends AbstractFireballEntity {
 				List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, witherTrace);
 
 				for (LivingEntity mob : entities) {
-					mob.addEffect(new EffectInstance(Effects.WITHER, 200, 0));
+					mob.addEffect(new EffectInstance(Effects.WITHER, 200, 1));
 				}
 			}
 		}
