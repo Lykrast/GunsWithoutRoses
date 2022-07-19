@@ -93,6 +93,9 @@ public interface IBullet {
 			newDamage *= newMultiplier;
 		}
 
+		//revenge shots should multiply their damage.
+		if (projectile.wasRevenge) newDamage *= KGConfig.emeraldBlessedBlessingMultiplier.get();
+
 		return newDamage;
 	}
 

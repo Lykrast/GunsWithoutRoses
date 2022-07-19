@@ -42,6 +42,15 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue goldSkillshotMaxCombo;
     public static ForgeConfigSpec.DoubleValue goldSkillshotComboMultiplierPer;
 
+    public static ForgeConfigSpec.DoubleValue emeraldBlessedDamageMultiplier;
+    public static ForgeConfigSpec.IntValue emeraldBlessedFireDelay;
+    public static ForgeConfigSpec.IntValue emeraldBlessedEnchantability;
+    public static ForgeConfigSpec.IntValue emeraldBlessedDurability;
+    public static ForgeConfigSpec.DoubleValue emeraldBlessedInaccuracy;
+    public static ForgeConfigSpec.DoubleValue emeraldBlessedProjectileSpeed;
+    public static ForgeConfigSpec.DoubleValue emeraldBlessedHealthMinimumRatio;
+    public static ForgeConfigSpec.DoubleValue emeraldBlessedBlessingMultiplier;
+
     public static ForgeConfigSpec.DoubleValue diamondShotgunDamageMultiplier;
     public static ForgeConfigSpec.IntValue diamondShotgunFireDelay;
     public static ForgeConfigSpec.IntValue diamondShotgunEnchantability;
@@ -257,7 +266,34 @@ public class KGConfig {
                 .defineInRange("goldSkillshotMaxCombo", 5, 2, 255);
         goldSkillshotComboMultiplierPer = builder
                 .comment("Configure the addition to damage multiplier per combo for Skillshot Pistols")
-                .defineInRange("goldSkillshotComboMultplierPer", 0.2D, 0D, 64D);
+                .defineInRange("goldSkillshotComboMultplierPer", 0.2D, 0D, 20D);
+        builder.pop();
+
+        builder.push("blessed pistol");
+        emeraldBlessedDamageMultiplier = builder
+                .comment("Define the Damage multiplier for Blessed Pistols")
+                .defineInRange("emeraldBlessedDamageModifier", 1D, 0.1D, 5D);
+        emeraldBlessedFireDelay = builder
+                .comment("Configure the Fire delay for Blessed Pistols")
+                .defineInRange("emeraldBlessedFireDelay", 14, 0, 72000);
+        emeraldBlessedEnchantability = builder
+                .comment("Configure the Enchantability for Blessed Pistols")
+                .defineInRange("emeraldBlessedEnchantability", 18, 0, 30);
+        emeraldBlessedDurability = builder
+                .comment("Configure the Durability for Blessed Pistols")
+                .defineInRange("emeraldBlessedDurability", 857, 0, 32767);
+        emeraldBlessedInaccuracy = builder
+                .comment("Configure the Inaccuracy for Blessed Pistols")
+                .defineInRange("emeraldBlessedInaccuracy", 2.0D, 0D, 90D);
+        emeraldBlessedProjectileSpeed = builder
+                .comment("Configure the Projectile Speed for Blessed Pistols")
+                .defineInRange("emeraldBlessedProjectileSpeed", 8D, 0D, 64D);
+        emeraldBlessedHealthMinimumRatio = builder
+                .comment("Configure the Minimum Ratio before blessing takes effect for Blessed Pistols")
+                .defineInRange("emeraldBlessedHealthMinimumRatio", 0.3D, 0.05D, 1.0D);
+        emeraldBlessedBlessingMultiplier = builder
+                .comment("Configure the blessing's damage multiplier for Blessed Pistols")
+                .defineInRange("emeraldBlessedBlessingMultiplier", 1.5D, 0D, 20D);
         builder.pop();
 
         builder.push("shotgun");

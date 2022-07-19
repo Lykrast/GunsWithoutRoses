@@ -59,6 +59,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	public boolean givesKnockback;
 	public double frostyDistance;
 	public boolean isWither;
+	public boolean wasRevenge;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);

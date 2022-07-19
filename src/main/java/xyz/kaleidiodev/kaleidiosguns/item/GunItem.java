@@ -64,6 +64,7 @@ public class GunItem extends ShootableItem {
 	protected boolean isExplosive;
 	protected boolean lucky;
 	protected boolean isWither;
+	protected boolean shouldRevenge;
 
 	protected SoundEvent fireSound = ModSounds.gun;
 	protected SoundEvent reloadSound = ModSounds.double_shotgunReload;
@@ -161,6 +162,8 @@ public class GunItem extends ShootableItem {
 			shot.setDamage(someDamage * ((double)thisGun.getBaseBulletCount() / (double)thisGun.getBulletCount(gun, player)));
 		}
 		else shot.setDamage(someDamage);
+
+		shot.wasRevenge = (this.shouldRevenge && (player.getHealth() < (player.getMaxHealth() * KGConfig.emeraldBlessedHealthMinimumRatio.get())));
 
 		shot.setIsCritical(this.lucky);
 		if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.marker, gun) == 1) shot.setShouldGlow(true);
@@ -455,6 +458,11 @@ public class GunItem extends ShootableItem {
 		return this;
 	}
 
+	public GunItem setShouldRevenge(boolean revenge) {
+		this.shouldRevenge = revenge;
+		return this;
+	}
+
 	/**
 	 *
 	 * @param barrelSwitch set the divider that divides the fire rate to denote how many ticks it takes to switch barrels
@@ -578,7 +586,7 @@ public class GunItem extends ShootableItem {
 			if (shouldCollateral) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.collateral"));
 
 			if (revolutions > 1) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.double_barrel"));
-			if (stack.getItem() == ModItems.goldGun) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.revolver"));
+			if (stack.getItem() == ModItems.revolver) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.revolver"));
 			if (shouldCombo) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.skill_shot"));
 			if (isWither) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.wither"));
 

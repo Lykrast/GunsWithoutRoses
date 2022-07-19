@@ -12,6 +12,7 @@
 	"item.kaleidiosguns.rocket_launcher": "Rocket Launcher",
 	"item.kaleidiosguns.vampire_shotgun": "Vampire Shotgun",
 	"item.kaleidiosguns.wither_launcher": "Wither Launcher",
+	"item.kaleidiosguns.blessed_pistol": "Blessed Pistol",
 
 	"item.kaleidiosguns.flint_bullet": "Flint Bullet",
 	"item.kaleidiosguns.iron_bullet": "Iron Bullet",
@@ -47,6 +48,7 @@
 	"tooltip.kaleidiosguns.collateral": "Bullets fly through enemies",
 	"tooltip.kaleidiosguns.frost_distance": "Damage is minimum at §f%s§r blocks away",
 	"tooltip.kaleidiosguns.wither": "Gives wither around the explosion's epicentre",
+	"tooltip.kaleidiosguns.blessed": "Having low health multiplies damage",
 
 
 	"tooltip.kaleidiosguns.blaze_bullet": "Sets entities on fire",
