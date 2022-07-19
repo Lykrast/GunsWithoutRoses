@@ -82,6 +82,7 @@ public class BulletEntity extends AbstractFireballEntity {
 		if (isCritical) return ParticleTypes.ENCHANTED_HIT;
 		if (isExplosive) return ParticleTypes.POOF;
 		if (isPlasma) return ParticleTypes.INSTANT_EFFECT;
+		if (wasRevenge) return ParticleTypes.HAPPY_VILLAGER;
 		return ParticleTypes.CRIT;
 	}
 

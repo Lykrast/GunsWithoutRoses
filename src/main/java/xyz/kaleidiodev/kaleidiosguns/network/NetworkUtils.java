@@ -37,6 +37,7 @@ public class NetworkUtils {
             buffer.writeBoolean(bullet.isExplosive);
             buffer.writeBoolean(bullet.isPlasma);
             buffer.writeBoolean(bullet.isCritical);
+            buffer.writeBoolean(bullet.wasRevenge);
         }
 
         return NetworkDirection.PLAY_TO_CLIENT.buildPacket(Pair.of(buffer, 10), KaleidiosGuns.rl("custom_channel")).getThis();

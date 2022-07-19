@@ -78,6 +78,11 @@
 		"subtitle": "subtitles.kaleidiosguns.item.vampire_shotgun.shoot",
 		"sounds": [ "kaleidiosguns:vampire" ]
 	},
+	"item.blessed_pistol.shoot": {
+		"category": "item",
+		"subtitle": "subtitles.kaleidiosguns.item.blessed_pistol.shoot",
+		"sounds": [ "kaleidiosguns:blessed_pistol" ]
+	},
 	"item.rocket_launcher.shoot": {
 	"category": "item",
 	"subtitle": "subtitles.kaleidiosguns.item.rocket_launcher.shoot",
