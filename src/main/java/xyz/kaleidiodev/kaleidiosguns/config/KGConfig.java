@@ -224,7 +224,7 @@ public class KGConfig {
                 .defineInRange("diamondRevolverEnchantability", 10, 0, 30);
         diamondRevolverDurability = builder
                 .comment("Configure the Durability for Revolver")
-                .defineInRange("diamondRevolverDurability", 225, 0, 32767);
+                .defineInRange("diamondRevolverDurability", 347, 0, 32767);
         diamondRevolverInaccuracy = builder
                 .comment("Configure the Inaccuracy for Revolver")
                 .defineInRange("diamondRevolverInaccuracy", 2.0D, 0D, 90D);
@@ -254,7 +254,7 @@ public class KGConfig {
                 .defineInRange("goldSkillshotEnchantability", 23, 0, 30);
         goldSkillshotDurability = builder
                 .comment("Configure the Durability for Skillshot Pistols")
-                .defineInRange("goldSkillshotDurability", 1000, 0, 32767);
+                .defineInRange("goldSkillshotDurability", 500, 0, 32767);
         goldSkillshotInaccuracy = builder
                 .comment("Configure the Inaccuracy for Skillshot Pistols")
                 .defineInRange("goldSkillshotInaccuracy", 1.5D, 0D, 90D);
@@ -281,7 +281,7 @@ public class KGConfig {
                 .defineInRange("emeraldBlessedEnchantability", 18, 0, 30);
         emeraldBlessedDurability = builder
                 .comment("Configure the Durability for Blessed Pistols")
-                .defineInRange("emeraldBlessedDurability", 857, 0, 32767);
+                .defineInRange("emeraldBlessedDurability", 714, 0, 32767);
         emeraldBlessedInaccuracy = builder
                 .comment("Configure the Inaccuracy for Blessed Pistols")
                 .defineInRange("emeraldBlessedInaccuracy", 2.0D, 0D, 90D);
@@ -308,7 +308,7 @@ public class KGConfig {
                 .defineInRange("diamondShotgunEnchantability", 10, 0, 30);
         diamondShotgunDurability = builder
                 .comment("Configure the Durability for Shotguns")
-                .defineInRange("diamondShotgunDurability", 175, 0, 32767);
+                .defineInRange("diamondShotgunDurability", 250, 0, 32767);
         diamondShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Shotguns")
                 .defineInRange("diamondShotgunInaccuracy", 4D, 0D, 90D);
@@ -332,7 +332,7 @@ public class KGConfig {
                 .defineInRange("goldDoubleShotgunEnchantability", 23, 0, 30);
         goldDoubleShotgunDurability = builder
                 .comment("Configure the Durability for Double Barrel Shotguns")
-                .defineInRange("goldDoubleShotgunDurability", 75, 0, 32767);
+                .defineInRange("goldDoubleShotgunDurability", 100, 0, 32767);
         goldDoubleShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunInaccuracy", 5D, 0D, 90D);
@@ -356,13 +356,13 @@ public class KGConfig {
                 .defineInRange("netheriteShotgunDamageMultiplier", 0.5D, 0.1D, 5D);
         netheriteShotgunFireDelay = builder
                 .comment("Configure the Fire delay for Vampire Shotguns")
-                .defineInRange("netheriteShotgunFireDelay", 32, 0, 72000);
+                .defineInRange("netheriteShotgunFireDelay", 30, 0, 72000);
         netheriteShotgunEnchantability = builder
                 .comment("Configure the Enchantability for Vampire Shotguns")
                 .defineInRange("netheriteShotgunEnchantability", 15, 0, 30);
         netheriteShotgunDurability = builder
                 .comment("Configure the Durability for Vampire Shotguns")
-                .defineInRange("netheriteShotgunDurability", 195, 0, 32767);
+                .defineInRange("netheriteShotgunDurability", 160, 0, 32767);
         netheriteShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Vampire Shotguns")
                 .defineInRange("netheriteShotgunInaccuracy", 4D, 0D, 90D);
@@ -398,7 +398,7 @@ public class KGConfig {
                 .defineInRange("diamondSniperEnchantability", 10, 0, 30);
         diamondSniperDurability = builder
                 .comment("Configure the Durability for Snipers")
-                .defineInRange("diamondSniperDurability", 188, 0, 32767);
+                .defineInRange("diamondSniperDurability", 171, 0, 32767);
         diamondSniperInaccuracy = builder
                 .comment("Configure the Inaccuracy for Snipers")
                 .defineInRange("diamondSniperInaccuracy", 0D, 0D, 90D);
@@ -419,7 +419,7 @@ public class KGConfig {
                 .defineInRange("ironCarbineEnchantability", 14, 0, 30);
         ironCarbineDurability = builder
                 .comment("Configure the Durability for Carbines")
-                .defineInRange("ironCarbineDurability", 400, 0, 32767);
+                .defineInRange("ironCarbineDurability", 444, 0, 32767);
         ironCarbineInaccuracy = builder
                 .comment("Configure the Inaccuracy for Carbines")
                 .defineInRange("ironCarbineInaccuracy", 0D, 0D, 90D);
@@ -485,7 +485,7 @@ public class KGConfig {
                 .defineInRange("goldPlasmaEnchantability", 23, 0, 30);
         goldStreamDurability = builder
                 .comment("Configure the Durability for Plasma Rifles")
-                .defineInRange("goldPlasmaDurability", 2000, 0, 32767);
+                .defineInRange("goldPlasmaDurability", 3200, 0, 32767);
         goldStreamInaccuracy = builder
                 .comment("Configure the Inaccuracy for Plasma Rifles")
                 .defineInRange("goldPlasmaInaccuracy", 0D, 0D, 90D);
@@ -509,7 +509,7 @@ public class KGConfig {
                 .defineInRange("diamondLauncherEnchantability", 10, 0, 30);
         diamondLauncherDurability = builder
                 .comment("Configure the Durability for Rocket Launchers")
-                .defineInRange("diamondLauncherDurability", 30, 0, 32767);
+                .defineInRange("diamondLauncherDurability", 37, 0, 32767);
         diamondLauncherInaccuracy = builder
                 .comment("Configure the Inaccuracy for Rocket Launchers")
                 .defineInRange("diamondLauncherInaccuracy", 0D, 0D, 90D);
@@ -530,7 +530,7 @@ public class KGConfig {
                 .defineInRange("witherLauncherEnchantability", 15, 0, 30);
         netheriteLauncherDurability = builder
                 .comment("Configure the Durability for Wither Launchers")
-                .defineInRange("witherLauncherDurability", 30, 0, 32767);
+                .defineInRange("witherLauncherDurability", 37, 0, 32767);
         netheriteLauncherInaccuracy = builder
                 .comment("Configure the Inaccuracy for Wither Launchers")
                 .defineInRange("witherLauncherInaccuracy", 0D, 0D, 90D);
