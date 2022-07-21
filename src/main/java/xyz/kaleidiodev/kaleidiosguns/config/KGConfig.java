@@ -494,7 +494,7 @@ public class KGConfig {
                 .defineInRange("goldPlasmaProjectileSpeed", 2D, 0D, 64D);
         goldStreamShieldAdditional = builder
                 .comment("Configure the additional damage to shields when they are in use against Plasma Rifles")
-                .defineInRange("goldPlasmaShieldAdditional", 30D, -2000D, 2000D);
+                .defineInRange("goldPlasmaShieldAdditional", 30D, 0D, 2000D);
         builder.pop();
 
         builder.push("rocket launcher");
