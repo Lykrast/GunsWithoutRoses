@@ -49,7 +49,7 @@
 	"tooltip.kaleidiosguns.frost_distance": "Damage is minimum at §f%s§r blocks away",
 	"tooltip.kaleidiosguns.wither": "Gives wither around the explosion's epicentre",
 	"tooltip.kaleidiosguns.blessed": "Having low health multiplies damage",
-
+	"tooltip.kaleidiosguns.plasma": "Does extreme damage to blocking shields",
 
 	"tooltip.kaleidiosguns.blaze_bullet": "Sets entities on fire",
 	"tooltip.kaleidiosguns.hunger_bullet": "Uses hunger as ammo",
