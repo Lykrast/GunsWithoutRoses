@@ -268,9 +268,10 @@ public class BulletEntity extends AbstractFireballEntity {
 		int lastHurtResistant = entity.invulnerableTime;
 		if (ignoreInvulnerability) entity.invulnerableTime = 0;
 
-		boolean damaged = entity.hurt((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) bullet.modifyDamage(damage, this, entity, shooter, level));
+		boolean damaged = false;
+		if (entity instanceof LivingEntity) damaged = entity.hurt((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) bullet.modifyDamage(damage, this, entity, shooter, level));
 
-		if (damaged && entity instanceof LivingEntity) {
+		if (damaged) {
 			LivingEntity livingTarget = (LivingEntity) entity;
 
 			if (knockbackStrength > 0) {
@@ -295,7 +296,7 @@ public class BulletEntity extends AbstractFireballEntity {
 			if (shooter instanceof LivingEntity) doEnchantDamageEffects((LivingEntity) shooter, entity);
 
 			bullet.onLivingEntityHit(this, livingTarget, shooter, level);
-		} else if (!damaged && ignoreInvulnerability) entity.invulnerableTime = lastHurtResistant;
+		} else if (ignoreInvulnerability) entity.invulnerableTime = lastHurtResistant;
 	}
 
 	@Override
