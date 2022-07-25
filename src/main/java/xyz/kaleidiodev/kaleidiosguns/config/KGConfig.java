@@ -156,7 +156,6 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue divisionCountIncrease;
     public static ForgeConfigSpec.DoubleValue luckyShotChance;
     public static ForgeConfigSpec.DoubleValue criticalDamage;
-    public static ForgeConfigSpec.DoubleValue criticalAccuracy;
     public static ForgeConfigSpec.DoubleValue frostyDistancePerLevel;
     public static ForgeConfigSpec.DoubleValue frostyMaxMultiplier;
     public static ForgeConfigSpec.DoubleValue frostyMinMultiplier;
@@ -625,9 +624,6 @@ public class KGConfig {
         criticalDamage = builder
                 .comment("Multiplier of a critical hit's damage")
                 .defineInRange("criticalDamage", 3D, 0.1D, 20D);
-        criticalAccuracy = builder
-                .comment("Divider of a critical hit's accuracy")
-                .defineInRange("criticalAccuracy", 5D, 0.1D, 90D);
         builder.pop();
 
         builder.push("frost shard enchantment");

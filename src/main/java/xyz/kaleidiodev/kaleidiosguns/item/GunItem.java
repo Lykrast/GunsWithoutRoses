@@ -291,9 +291,6 @@ public class GunItem extends ShootableItem {
 			}
 		}
 
-		//check lucky shot
-		if (this.lucky) nextInaccuracy /= KGConfig.criticalAccuracy.get();
-
 		//inaccurate jump shotting, balancing grappling hooks
 		if (player != null) {
 			if (!player.isOnGround() && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.movingShooter, stack) == 0)) {
@@ -541,11 +538,9 @@ public class GunItem extends ShootableItem {
 
 		//bullseye versus counterstrike
 		if ((enchantment == ModEnchantments.bullseye)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.counterStrike, stack) != 0)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)) return false;
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.counterStrike, stack) != 0)) return false;
 		if ((enchantment == ModEnchantments.counterStrike)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) != 0)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)) return false;
+				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) != 0)) return false;
 
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}
