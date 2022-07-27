@@ -25,7 +25,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -117,7 +116,7 @@ public class GunItem extends ProjectileWeaponItem {
 	public boolean shouldConsumeAmmo(Level world, ItemStack stack, Player player) {
 		if (chanceFreeShot > 0 && world.getRandom().nextDouble() < chanceFreeShot) return false;
 		
-		int preserving = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving.get(), stack);
+		int preserving = stack.getEnchantmentLevel(ModEnchantments.preserving.get());
 		//(level) in (level + 2) chance to not consume
 		if (preserving >= 1 && world.getRandom().nextInt(preserving + 2) >= 2) return false;
 		
@@ -128,7 +127,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Gets the flat bonus damage (applied BEFORE the multiplier). This takes into account Impact enchantment.
 	 */
 	public double getBonusDamage(ItemStack stack, @Nullable Player player) {
-		int impact = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact.get(), stack);
+		int impact = stack.getEnchantmentLevel(ModEnchantments.impact.get());
 		return bonusDamage + (impact >= 1 ? 0.5 * (impact + 1) : 0);
 	}
 	
@@ -140,7 +139,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Gets the min time in ticks between 2 shots. This takes into account Sleight of Hand enchantment.
 	 */
 	public int getFireDelay(ItemStack stack, @Nullable Player player) {
-		int sleight = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand.get(), stack);
+		int sleight = stack.getEnchantmentLevel(ModEnchantments.sleightOfHand.get());
 		return Math.max(1, sleight > 0 ? (int)(fireDelay / (1 + 0.16*sleight)) : fireDelay);
 	}
 	
@@ -158,7 +157,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 * The formula is just accuracy = 1 / inaccuracy.
 	 */
 	public double getInaccuracy(ItemStack stack, @Nullable Player player) {
-		return Math.max(0, inaccuracy / (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye.get(), stack) + 1.0));
+		return Math.max(0, inaccuracy / (stack.getEnchantmentLevel(ModEnchantments.bullseye.get()) + 1.0));
 	}
 	
 	public double getProjectileSpeed(ItemStack stack, @Nullable Player player) {
@@ -173,7 +172,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 */
 	public double getInverseChanceFreeShot(ItemStack stack, @Nullable Player player) {
 		double chance = 1 - chanceFreeShot;
-		int preserving = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving.get(), stack);
+		int preserving = stack.getEnchantmentLevel(ModEnchantments.preserving.get());
 		if (preserving >= 1) chance *= 2.0/(preserving + 2);
 		return chance;
 	}
@@ -182,28 +181,28 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Says if the damage is changed from base value. Used for tooltip.
 	 */
 	protected boolean isDamageModified(ItemStack stack) {
-		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact.get(), stack) >= 1;
+		return stack.getEnchantmentLevel(ModEnchantments.impact.get()) >= 1;
 	}
 	
 	/**
 	 * Says if the fire delay is changed from base value. Used for tooltip.
 	 */
 	protected boolean isFireDelayModified(ItemStack stack) {
-		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand.get(), stack) >= 1;
+		return stack.getEnchantmentLevel(ModEnchantments.sleightOfHand.get()) >= 1;
 	}
 	
 	/**
 	 * Says if the (in)accuracy is changed from base value. Used for tooltip.
 	 */
 	protected boolean isInaccuracyModified(ItemStack stack) {
-		return !hasPerfectAccuracy() && EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye.get(), stack) >= 1;
+		return !hasPerfectAccuracy() && stack.getEnchantmentLevel(ModEnchantments.bullseye.get()) >= 1;
 	}
 	
 	/**
 	 * Says if the chance for free shots is changed from base value. Used for tooltip.
 	 */
 	protected boolean isChanceFreeShotModified(ItemStack stack) {
-		return EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving.get(), stack) >= 1;
+		return stack.getEnchantmentLevel(ModEnchantments.preserving.get()) >= 1;
 	}
 
 	/**

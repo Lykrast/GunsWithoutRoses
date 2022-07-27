@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModEntities {
 	public static RegistryObject<EntityType<BulletEntity>> BULLET;
-	public static final DeferredRegister<EntityType<?>> REG = DeferredRegister.create(ForgeRegistries.ENTITIES, GunsWithoutRoses.MODID);
+	public static final DeferredRegister<EntityType<?>> REG = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, GunsWithoutRoses.MODID);
 
 	static {
 		BULLET = REG.register("bullet", () -> EntityType.Builder
