@@ -12,8 +12,6 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue oneHandInaccuracyMultiplier;
     public static ForgeConfigSpec.DoubleValue oneHandInaccuracyReplacement;
     public static ForgeConfigSpec.DoubleValue crouchAccuracyMultiplier;
-    public static ForgeConfigSpec.DoubleValue midairInaccuracyMultiplier;
-    public static ForgeConfigSpec.DoubleValue midairInaccuracyReplacement;
 
     //Guns
     public static ForgeConfigSpec.DoubleValue ironPistolDamageMultiplier;
@@ -172,22 +170,16 @@ public class KGConfig {
                 .define("explosionsEnabled", true);
         oneHandInaccuracyMultiplier = builder
                 .comment("Inaccuracy multiplier for when the user has one hand filled")
-                .defineInRange("oneHandInaccuracyMultiplier", 1.5D, 0.1D, 5D);
+                .defineInRange("oneHandInaccuracyMultiplier", 2.0D, 0.1D, 5D);
         oneHandInaccuracyReplacement = builder
                 .comment("Inaccuracy of any perfect accuracy weapons in the case of one hand being filled")
-                .defineInRange("oneHandInaccuracyReplacement", 1.5D, 0D, 90D);
+                .defineInRange("oneHandInaccuracyReplacement", 2.0D, 0D, 90D);
         explosionIncreaseOnStrongerTier = builder
                 .comment("How much larger the explosion radius would be assuming damage is stronger than a hunger bullet")
                 .defineInRange("explosionIncreaseOnStrongerTier", 1D, 0D, 90D);
         crouchAccuracyMultiplier = builder
                 .comment("Accuracy multiplier for when the user is crouching")
                 .defineInRange("crouchAccuracyMultiplier", 3.0D, 0.1D, 5D);
-        midairInaccuracyMultiplier = builder
-                .comment("Accuracy punishment for shooting whilst midair, balances elytra usage and punishes rapid jumpers")
-                .defineInRange("midairInaccuracyMultiplier", 1.5D, 0.1D, 5D);
-        midairInaccuracyReplacement = builder
-                .comment("Accuracy replacement for perfect accuracy weapon jump shot punishments")
-                .defineInRange("midairInaccuracyReplacement", 1.5D, 0.1D, 5D);
         builder.pop();
 
         builder.push("pistol");

@@ -34,7 +34,6 @@ public class ModEnchantments {
 		//enhancement (these get two for each category because there is no "alls")
 		passionForBlood = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 2, 8, 16, 25, TYPE_GUN), "passion_for_blood"); //dmg
 		cowboy = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 1, 8, 16, 25, TYPE_GUN), "cowboy"); //acc
-		movingShooter = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 1, 9, 18, 25, TYPE_GUN), "moving_shooter"); //acc 2
 		preserving = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 3, 5, 10, 30, TYPE_GUN), "preserving"); //rt
 
 		//alternate upgrade (these get two for each category because there is no "alls")

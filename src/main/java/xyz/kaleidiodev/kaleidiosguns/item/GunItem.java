@@ -291,16 +291,6 @@ public class GunItem extends ShootableItem {
 			}
 		}
 
-		//inaccurate jump shotting, balancing grappling hooks
-		if (player != null) {
-			if (!player.isOnGround() && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.movingShooter, stack) == 0)) {
-				//if sniper class, give a new inaccuracy
-				if (nextInaccuracy == 0) nextInaccuracy = KGConfig.midairInaccuracyReplacement.get();
-				//else multiply
-				else nextInaccuracy *= KGConfig.midairInaccuracyMultiplier.get();
-			}
-		}
-
 		return nextInaccuracy;
 	}
 
