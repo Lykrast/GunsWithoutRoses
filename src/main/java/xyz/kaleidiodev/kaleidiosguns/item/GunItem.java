@@ -92,6 +92,7 @@ public class GunItem extends ShootableItem {
 
 			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
 			if (!world.isClientSide) {
+				player.startUsingItem(hand);
 				boolean bulletFree = player.abilities.instabuild || !shouldConsumeAmmo(gun, player);
 
 				//Workaround for quivers not respecting getAmmoPredicate()
