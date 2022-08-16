@@ -13,7 +13,7 @@ import xyz.kaleidiodev.kaleidiosguns.item.GunItem;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = KaleidiosGuns.MODID)
 public class ModEnchantments {
 
-	public static Enchantment impact, bullseye, sleightOfHand, preserving, accelerator, division, passionForBlood, marker, luckyShot, cowboy, maneuvering, frostShot, counterStrike, movingShooter;
+	public static Enchantment impact, bullseye, sleightOfHand, preserving, accelerator, division, passionForBlood, marker, luckyShot, cowboy, maneuvering, frostShot, counterStrike, silenced;
 	public static final EnchantmentType TYPE_GUN = EnchantmentType.create("GWR_GUN", (item) -> item instanceof GunItem);
 
 	@SubscribeEvent
@@ -27,6 +27,7 @@ public class ModEnchantments {
 		accelerator = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 3, 3, 6, 20, TYPE_GUN), "accelerator"); //spd
 
 		//class specialized enhancement
+		silenced = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 1, 3, 6, 20, TYPE_GUN), "silenced"); //all
 		division = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 4, 4, 8, 20, TYPE_GUN), "division"); //shotgun
 		marker = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 1, 7, 14, 25, TYPE_GUN), "marker"); //pistol
 		maneuvering = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 1, 10, 20, 30, TYPE_GUN), "maneuvering"); //gatling
