@@ -257,10 +257,10 @@ public class KGConfig {
                 .defineInRange("shadowRevolverEnchantability", 15, 0, 30);
         shadowRevolverDurability = builder
                 .comment("Configure the Durability for Shadow Magnums")
-                .defineInRange("shadowRevolverDurability", 347, 0, 32767);
+                .defineInRange("shadowRevolverDurability", 461, 0, 32767);
         shadowRevolverInaccuracy = builder
                 .comment("Configure the Inaccuracy for Shadow Magnums")
-                .defineInRange("shadowRevolverInaccuracy", 2.0D, 0D, 90D);
+                .defineInRange("shadowRevolverInaccuracy", 1.5D, 0D, 90D);
         shadowRevolverProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Shadow Magnums")
                 .defineInRange("shadowRevolverProjectileSpeed", 10D, 0D, 64D);
