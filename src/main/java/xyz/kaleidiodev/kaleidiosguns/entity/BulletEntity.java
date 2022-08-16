@@ -188,7 +188,7 @@ public class BulletEntity extends AbstractFireballEntity {
 			if (shootingGun != null) this.shootingGun.tryComboCalculate(getOwner().getUUID(), (PlayerEntity) getOwner());
 
 		//make a spherical poof and a sound
-		this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.impact, this.getSoundSource(), 0.25f, 1.0f);
+		this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.impact, this.getSoundSource(), 0.25f, (random.nextFloat() * 0.5f) + 0.75f);
 		double d0 = raytrace.getLocation().x();
 		double d1 = raytrace.getLocation().y() + (this.getBoundingBox().getYsize() / 2);
 		double d2 = raytrace.getLocation().z();
