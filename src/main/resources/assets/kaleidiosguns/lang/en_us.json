@@ -30,6 +30,8 @@
 	"tooltip.kaleidiosguns.gun.damage.both.modified": "§dDamage: §fx%s +%s§r",
 	"tooltip.kaleidiosguns.gun.firerate": "§2Fire delay: §f%d§7 (§f%d§7 RPM)§r",
 	"tooltip.kaleidiosguns.gun.firerate.modified": "§dFire delay: §f%d§7 (§f%d§7 RPM)§r",
+	"tooltip.kaleidiosguns.gun.reloadspeed": "§2Reload delay: §f%d§7",
+	"tooltip.kaleidiosguns.gun.reloadspeed.modified": "§dReload delay: §f%d§7",
 	"tooltip.kaleidiosguns.gun.accuracy": "§2Accuracy: §f%s§r",
 	"tooltip.kaleidiosguns.gun.accuracy.modified": "§dAccuracy: §f%s§r",
 	"tooltip.kaleidiosguns.gun.accuracy.perfect": "§2Accuracy: §fPerfect§r",
