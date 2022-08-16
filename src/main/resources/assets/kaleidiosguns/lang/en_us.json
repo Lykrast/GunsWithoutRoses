@@ -13,6 +13,7 @@
 	"item.kaleidiosguns.vampire_shotgun": "Vampire Shotgun",
 	"item.kaleidiosguns.wither_launcher": "Wither Launcher",
 	"item.kaleidiosguns.blessed_pistol": "Blessed Pistol",
+	"item.kaleidiosguns.shadow_magnum": "Shadow Magnum",
 
 	"item.kaleidiosguns.flint_bullet": "Flint Bullet",
 	"item.kaleidiosguns.iron_bullet": "Iron Bullet",
@@ -50,6 +51,7 @@
 	"tooltip.kaleidiosguns.wither": "Gives wither around the explosion's epicentre",
 	"tooltip.kaleidiosguns.blessed": "Having low health multiplies damage",
 	"tooltip.kaleidiosguns.plasma": "Does extreme damage to blocking shields",
+	"tooltip.kaleidiosguns.shadow": "Damage is higher when shot from the dark",
 
 	"tooltip.kaleidiosguns.blaze_bullet": "Sets entities on fire",
 	"tooltip.kaleidiosguns.hunger_bullet": "Uses hunger as ammo",
@@ -103,5 +105,6 @@
 	"subtitles.kaleidiosguns.item.vampire_shotgun.shoot": "Vampire Shotgun fired",
 	"subtitles.kaleidiosguns.item.wither_launcher.shoot": "Wither Launcher fired",
 	"subtitles.kaleidiosguns.item.blessed_pistol.shoot": "Blessed Pistol fired",
+	"subtitles.kaleidiosguns.item.shadow_magnum.shoot": "Shadow Magnum fired",
 	"subtitles.kaleidiosguns.item.bullet.impact": "Bullet landed"
 }

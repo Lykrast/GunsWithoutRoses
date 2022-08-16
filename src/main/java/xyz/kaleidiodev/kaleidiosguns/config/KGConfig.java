@@ -31,6 +31,18 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue diamondRevolverChamberSwitchSpeed;
     public static ForgeConfigSpec.IntValue diamondRevolverStabilityTime;
 
+    public static ForgeConfigSpec.DoubleValue shadowRevolverDamageMultiplier;
+    public static ForgeConfigSpec.IntValue shadowRevolverFireDelay;
+    public static ForgeConfigSpec.IntValue shadowRevolverEnchantability;
+    public static ForgeConfigSpec.IntValue shadowRevolverDurability;
+    public static ForgeConfigSpec.DoubleValue shadowRevolverInaccuracy;
+    public static ForgeConfigSpec.DoubleValue shadowRevolverProjectileSpeed;
+    public static ForgeConfigSpec.DoubleValue shadowRevolverSpreadoutStrength;
+    public static ForgeConfigSpec.IntValue shadowRevolverChamberSwitchSpeed;
+    public static ForgeConfigSpec.IntValue shadowRevolverStabilityTime;
+    public static ForgeConfigSpec.DoubleValue shadowRevolverShadowAdditionalMultiplier;
+    public static ForgeConfigSpec.IntValue shadowRevolverLightLevelRequired;
+
     public static ForgeConfigSpec.DoubleValue goldSkillshotDamageMultiplier;
     public static ForgeConfigSpec.IntValue goldSkillshotFireDelay;
     public static ForgeConfigSpec.IntValue goldSkillshotEnchantability;
@@ -205,22 +217,22 @@ public class KGConfig {
 
         builder.push("revolver");
         diamondRevolverDamageMultiplier = builder
-                .comment("Define the Damage multiplier for Revolver")
+                .comment("Define the Damage multiplier for Revolvers")
                 .defineInRange("diamondRevolverDamageModifier", 1.5D, 0.1D, 5D);
         diamondRevolverFireDelay = builder
-                .comment("Configure the Fire delay for Revolver")
+                .comment("Configure the Fire delay for Revolvers")
                 .defineInRange("diamondRevolverFireDelay", 54, 0, 72000);
         diamondRevolverEnchantability = builder
-                .comment("Configure the Enchantability for Revolver")
+                .comment("Configure the Enchantability for Revolvers")
                 .defineInRange("diamondRevolverEnchantability", 10, 0, 30);
         diamondRevolverDurability = builder
-                .comment("Configure the Durability for Revolver")
+                .comment("Configure the Durability for Revolvers")
                 .defineInRange("diamondRevolverDurability", 347, 0, 32767);
         diamondRevolverInaccuracy = builder
-                .comment("Configure the Inaccuracy for Revolver")
+                .comment("Configure the Inaccuracy for Revolvers")
                 .defineInRange("diamondRevolverInaccuracy", 2.0D, 0D, 90D);
         diamondRevolverProjectileSpeed = builder
-                .comment("Configure the Projectile Speed for Revolver")
+                .comment("Configure the Projectile Speed for Revolvers")
                 .defineInRange("diamondRevolverProjectileSpeed", 9D, 0D, 64D);
         diamondRevolverSpreadoutStrength = builder
                 .comment("Configure the strength a Revolver increases its spread cone every time it's used too fast")
@@ -229,8 +241,44 @@ public class KGConfig {
                 .comment("Configure a divider of base fire delay how long switching chambers takes between shots on Revolvers")
                 .defineInRange("diamondRevolverChamberSwitchSpeed", 3, 1, 72000);
         diamondRevolverStabilityTime = builder
-                .comment("Configure how long the gun must not be fired for spread cone to stabilize on Revolver")
+                .comment("Configure how long the gun must not be fired for spread cone to stabilize on Revolvers")
                 .defineInRange("diamondRevolverStabilityTime", 28, 1, 72000);
+        builder.pop();
+
+        builder.push("revolver");
+        shadowRevolverDamageMultiplier = builder
+                .comment("Define the Damage multiplier for Shadow Magnums")
+                .defineInRange("shadowRevolverDamageModifier", 1.3D, 0.1D, 5D);
+        shadowRevolverFireDelay = builder
+                .comment("Configure the Fire delay for Shadow Magnums")
+                .defineInRange("shadowRevolverFireDelay", 60, 0, 72000);
+        shadowRevolverEnchantability = builder
+                .comment("Configure the Enchantability for Shadow Magnums")
+                .defineInRange("shadowRevolverEnchantability", 15, 0, 30);
+        shadowRevolverDurability = builder
+                .comment("Configure the Durability for Shadow Magnums")
+                .defineInRange("shadowRevolverDurability", 347, 0, 32767);
+        shadowRevolverInaccuracy = builder
+                .comment("Configure the Inaccuracy for Shadow Magnums")
+                .defineInRange("shadowRevolverInaccuracy", 2.0D, 0D, 90D);
+        shadowRevolverProjectileSpeed = builder
+                .comment("Configure the Projectile Speed for Shadow Magnums")
+                .defineInRange("shadowRevolverProjectileSpeed", 10D, 0D, 64D);
+        shadowRevolverSpreadoutStrength = builder
+                .comment("Configure the strength a Shadow Magnums increases its spread cone every time it's used too fast")
+                .defineInRange("shadowRevolverSpreadoutStrength", 0.5D, 0D, 64D);
+        shadowRevolverChamberSwitchSpeed = builder
+                .comment("Configure a divider of base fire delay how long switching chambers takes between shots on Shadow Magnums")
+                .defineInRange("shadowRevolverChamberSwitchSpeed", 3, 1, 72000);
+        shadowRevolverStabilityTime = builder
+                .comment("Configure how long the gun must not be fired for spread cone to stabilize on Shadow Magnums")
+                .defineInRange("shadowRevolverStabilityTime", 30, 1, 72000);
+        shadowRevolverShadowAdditionalMultiplier = builder
+                .comment("Define the additional damage multiplier for Shadow Magnums when the player is standing in the dark.  Is additive to base multiplier.")
+                .defineInRange("shadowRevolverShadowAdditionalMultiplier", 0.7D, 0.1D, 5D);
+        shadowRevolverLightLevelRequired = builder
+                .comment("Configure what light level the block the player is standing in has to be or less to multiply damage on Shadow Magnums.")
+                .defineInRange("shadowRevolverLightLevelRequired", 3, 0, 15);
         builder.pop();
 
         builder.push("skillshot pistol");

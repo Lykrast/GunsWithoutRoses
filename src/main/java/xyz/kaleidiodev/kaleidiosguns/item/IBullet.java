@@ -3,14 +3,8 @@ package xyz.kaleidiodev.kaleidiosguns.item;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.HandSide;
-import net.minecraft.util.IndirectEntityDamageSource;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraftforge.event.world.NoteBlockEvent;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.entity.BulletEntity;
 
@@ -82,6 +76,15 @@ public interface IBullet {
 			}
 		}
 
+		//revenge shots should multiply their damage.
+		if (projectile.wasRevenge) newDamage *= KGConfig.emeraldBlessedBlessingMultiplier.get();
+
+		//shooting shadow in the dark multiplies damage.
+		if (projectile.wasDark) {
+			newDamage /= projectile.getShootingGun().getDamageMultiplier(new ItemStack(projectile.getShootingGun().getItem()));
+			newDamage *= (projectile.getShootingGun().getDamageMultiplier(new ItemStack(projectile.getShootingGun().getItem())) + KGConfig.shadowRevolverShadowAdditionalMultiplier.get());
+		}
+
 		//apply damage multipier based on distance from target to origin, using max and min
 		if (projectile.frostyDistance > 0) {
 			double distanceTravelledToTarget = target.position().distanceTo(projectile.getOrigin());
@@ -92,9 +95,6 @@ public interface IBullet {
 			newMultiplier += KGConfig.frostyMinMultiplier.get(); //add minimum multiplier back, it was removed before so block multiplier would be correct.
 			newDamage *= newMultiplier;
 		}
-
-		//revenge shots should multiply their damage.
-		if (projectile.wasRevenge) newDamage *= KGConfig.emeraldBlessedBlessingMultiplier.get();
 
 		return newDamage;
 	}

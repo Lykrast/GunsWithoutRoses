@@ -93,6 +93,11 @@
 		"subtitle": "subtitles.kaleidiosguns.item.wither_launcher.shoot",
 		"sounds": [ "kaleidiosguns:wither" ]
 	},
+	"item.shadow_magnum.shoot": {
+		"category": "item",
+		"subtitle": "subtitles.kaleidiosguns.item.shadow_magnum.shoot",
+		"sounds": [ "kaleidiosguns:shadow_shoot" ]
+	},
 	"entity.bullet.impact": {
 		"category": "entity",
 		"subtitle": "subtitles.kaleidiosguns.item.bullet.impact",

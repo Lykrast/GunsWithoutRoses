@@ -1,0 +1,6 @@
+{
+	"type": "minecraft:smithing",
+	"base": { "item": "kaleidiosguns:revolver" },
+	"addition": { "item": "minecraft:netherite_ingot" },
+	"result": { "item": "kaleidiosguns:shadow_magnum" }
+}
