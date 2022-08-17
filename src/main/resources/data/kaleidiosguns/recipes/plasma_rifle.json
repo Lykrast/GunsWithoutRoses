@@ -6,7 +6,7 @@
 		" SI"
 	],
 	"key": {
-		"D": { "tag": "forge:ingots/diamond" },
+		"D": { "tag": "forge:ingots/gold" },
 		"I": { "tag": "forge:ingots/iron" },
 		"S": { "tag": "forge:rods/wooden" },
 		"F": { "item": "minecraft:flint" }

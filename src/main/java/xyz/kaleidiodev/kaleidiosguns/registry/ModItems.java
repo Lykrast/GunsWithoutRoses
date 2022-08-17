@@ -54,7 +54,7 @@ public class ModItems {
 		carbineSniper = initItem(reg, new GunItem(defP().durability(KGConfig.ironCarbineDurability.get()), 0, KGConfig.ironCarbineDamageMultiplier.get(), KGConfig.ironCarbineFireDelay.get(), KGConfig.ironCarbineInaccuracy.get(), KGConfig.ironCarbineEnchantability.get()).projectileSpeed(KGConfig.ironCarbineProjectileSpeed.get()).fireSound(ModSounds.carbine).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "carbine");
 
 		// Gatlings
-		plasmaGatling = initItem(reg, new GatlingItem(defP().durability(KGConfig.goldStreamDurability.get()), 0, KGConfig.goldStreamDamageMultiplier.get(), KGConfig.goldStreamFireDelay.get(), KGConfig.goldStreamInaccuracy.get(), KGConfig.goldStreamEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "plasma_rifle").projectileSpeed(KGConfig.goldStreamProjectileSpeed.get()).fireSound(ModSounds.plasma_rifle);
+		plasmaGatling = initItem(reg, new GatlingItem(defP().durability(KGConfig.goldStreamDurability.get()), 0, KGConfig.goldStreamDamageMultiplier.get(), KGConfig.goldStreamFireDelay.get(), KGConfig.goldStreamInaccuracy.get(), KGConfig.goldStreamEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "plasma_rifle").projectileSpeed(KGConfig.goldStreamProjectileSpeed.get()).fireSound(ModSounds.plasma_rifle);
 		assaultGatling = initItem(reg, new GatlingItem(defP().durability(KGConfig.ironAssaultDurability.get()), 0, KGConfig.ironAssaultDamageMultiplier.get(), KGConfig.ironAssaultFireDelay.get(), KGConfig.ironAssaultInaccuracy.get(), KGConfig.ironAssaultEnchantability.get()).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "assault_rifle").projectileSpeed(KGConfig.ironAssaultProjectileSpeed.get()).fireSound(ModSounds.smg);
 
 		// Launchers
