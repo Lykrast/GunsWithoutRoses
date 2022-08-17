@@ -270,7 +270,9 @@ public class BulletEntity extends AbstractFireballEntity {
 		int lastHurtResistant = entity.invulnerableTime;
 		if (ignoreInvulnerability) entity.invulnerableTime = 0;
 
+		Vector3d previousDelta = entity.getDeltaMovement();
 		boolean damaged = entity.hurt((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) bullet.modifyDamage(damage, this, entity, shooter, level));
+		if (isClean) entity.setDeltaMovement(previousDelta);
 
 		if (damaged && entity instanceof LivingEntity) {
 			LivingEntity livingTarget = (LivingEntity) entity;
