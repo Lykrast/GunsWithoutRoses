@@ -13,6 +13,7 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
+import xyz.kaleidiodev.kaleidiosguns.event.ModTradesEvent;
 import xyz.kaleidiodev.kaleidiosguns.event.ShootEvent;
 import xyz.kaleidiodev.kaleidiosguns.item.GunItem;
 import xyz.kaleidiodev.kaleidiosguns.network.CustomNetworkHandler;

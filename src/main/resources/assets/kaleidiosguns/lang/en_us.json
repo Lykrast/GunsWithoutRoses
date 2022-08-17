@@ -71,11 +71,11 @@
 	"enchantment.kaleidiosguns.accelerator": "Accelerator",
 	"enchantment.kaleidiosguns.accelerator.desc": "Accelerates projectile flight speed",
 	"enchantment.kaleidiosguns.division": "Division",
-	"enchantment.kaleidiosguns.division.desc": "Adds more divisions in a shotgun blast",
+	"enchantment.kaleidiosguns.division.desc": "Adds more projectiles in a shotgun blast",
 	"enchantment.kaleidiosguns.passion_for_blood": "Passion for Blood",
 	"enchantment.kaleidiosguns.passion_for_blood.desc": "A fraction of damage will be rewarded as health",
 	"enchantment.kaleidiosguns.marker": "Marker",
-	"enchantment.kaleidiosguns.marker.desc": "A hit target will begin to glow",
+	"enchantment.kaleidiosguns.marker.desc": "Pistol's hit target will begin to glow",
 	"enchantment.kaleidiosguns.lucky_shot": "Lucky Shot",
 	"enchantment.kaleidiosguns.lucky_shot.desc": "Provides a chance to give critical damage",
 	"enchantment.kaleidiosguns.cowboy": "Cowboy",
@@ -88,7 +88,8 @@
 	"enchantment.kaleidiosguns.counter_strike.desc": "Increase accuracy massively by crouching",
 	"enchantment.kaleidiosguns.silenced": "Silenced",
 	"enchantment.kaleidiosguns.silenced.desc": "Shots emit sound at much less distance",
-
+	"enchantment.kaleidiosguns.clean_shot": "Clean Shot",
+	"enchantment.kaleidiosguns.clean_shot.desc": "Sniper class shot gives no knockback",
 	"entity.kaleidiosguns.bullet": "Bullet",
 
 	"subtitles.kaleidiosguns.item.pistol.shoot": "Pistol fired",

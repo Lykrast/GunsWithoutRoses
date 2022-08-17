@@ -180,6 +180,7 @@ public class GunItem extends ShootableItem {
 		shot.isPlasma = (this.getItem() == ModItems.plasmaGatling);
 		shot.shouldMakeFire = (ammo.getItem() == ModItems.blazeBullet);
 		shot.frostyDistance = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, gun) * KGConfig.frostyDistancePerLevel.get();
+		shot.isClean = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.cleanShot, gun) > 0;
 		shot.isWither = this.isWither;
 
 		changeBullet(world, player, gun, shot, bulletFree);
@@ -525,6 +526,7 @@ public class GunItem extends ShootableItem {
 		if (enchantment == ModEnchantments.division && !(me instanceof ShotgunItem)) return false; //shotgun only
 		if (enchantment == ModEnchantments.marker && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.isExplosive) || (me.getInaccuracy(stack, null) != 0))) return false; //pistol only
 		if (enchantment == ModEnchantments.maneuvering && !(me instanceof GatlingItem)) return false; //gatling only
+		if (enchantment == ModEnchantments.cleanShot && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.isExplosive) || (me.getInaccuracy(stack, null) != 0))) return false; //sniper only
 
 		//Disallow these if other enchantments are already applied.
 		//impact versus frost shot
