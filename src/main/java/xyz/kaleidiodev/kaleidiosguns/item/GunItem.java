@@ -1,5 +1,7 @@
 package xyz.kaleidiodev.kaleidiosguns.item;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
@@ -37,6 +39,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import static xyz.kaleidiodev.kaleidiosguns.KaleidiosGuns.VivecraftForgeExtensionPresent;
 
@@ -69,6 +72,7 @@ public class GunItem extends ShootableItem {
 	protected boolean isWither;
 	protected boolean shouldRevenge;
 	protected boolean isShadow;
+	protected boolean isRedstone;
 
 	protected SoundEvent fireSound = ModSounds.gun;
 	protected SoundEvent reloadSound = ModSounds.double_shotgunReload;
@@ -91,6 +95,55 @@ public class GunItem extends ShootableItem {
 		//guess what the quivers suck
 		ItemStack ammo = player.getProjectile(gun);
 
+		//don't fire if redstone block is not nearby
+		if (this.isRedstone) {
+			if (checkRedstoneLevel(world, player, gun) != -1) return handleWeapon(world, player, gun, hand, ammo);
+			else return ActionResult.fail(gun);
+		}
+		else return handleWeapon(world, player, gun, hand, ammo);
+	}
+
+	protected int checkRedstoneLevel(World world, PlayerEntity player, ItemStack gun) {
+		//check for redstone block in radius
+		int redstone = -1; //is -1 if there is no redstone block nearby
+		if (((GunItem)gun.getItem()).isRedstone) {
+			Block targetBlock = Blocks.REDSTONE_BLOCK;
+			BlockPos closestPos = null;
+			BlockPos checkPos;
+
+			//code provided and modified via forum post courtesy of @jabelar https://forums.minecraftforge.net/topic/63221-trying-to-get-closest-block/
+			for (int x = player.blockPosition().getX() - KGConfig.diamondMinegunRedstoneRadius.get(); x < player.blockPosition().getX() + KGConfig.diamondMinegunRedstoneRadius.get(); x++) {
+				for (int y = player.blockPosition().getY() - KGConfig.diamondMinegunRedstoneRadius.get(); y < player.blockPosition().getY() + KGConfig.diamondMinegunRedstoneRadius.get(); y++) {
+					for (int z = player.blockPosition().getZ() - KGConfig.diamondMinegunRedstoneRadius.get(); z < player.blockPosition().getZ() + KGConfig.diamondMinegunRedstoneRadius.get(); z++) {
+						checkPos = new BlockPos(x, y, z);
+						if (world.getBlockState(checkPos).getBlock() == targetBlock) {
+							// check if it is closer than any previously found position
+							if (closestPos == null ||
+									player.distanceToSqr(player.getX() - checkPos.getX(),
+											player.getY() - checkPos.getY(),
+											player.getZ() - checkPos.getZ())
+											< player.distanceToSqr(player.getX() - closestPos.getX(),
+											player.getY() - closestPos.getY(),
+											player.getZ() - closestPos.getZ())) {
+								closestPos = checkPos;
+							}
+						}
+					}
+				}
+			}
+
+			if (closestPos != null) redstone = closestPos.distManhattan(player.blockPosition());
+
+			//only allow a circular radius
+			if (redstone > KGConfig.diamondMinegunRedstoneRadius.get()) redstone = -1;
+
+			//summon a strand of redstone particles in the air between the player and the redstone block targeted.
+		}
+
+		return redstone;
+	}
+
+	protected ActionResult<ItemStack> handleWeapon(World world, PlayerEntity player, ItemStack gun, Hand hand, ItemStack ammo) {
 		if (!ammo.isEmpty() || player.abilities.instabuild) {
 			if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet);
 
@@ -460,6 +513,11 @@ public class GunItem extends ShootableItem {
 
 	public GunItem setIsShadow(boolean shadow) {
 		this.isShadow = shadow;
+		return this;
+	}
+
+	public GunItem setIsRedstone(boolean redstone) {
+		this.isRedstone = redstone;
 		return this;
 	}
 

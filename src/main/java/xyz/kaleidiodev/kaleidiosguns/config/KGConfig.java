@@ -127,6 +127,7 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue diamondMinegunInaccuracy;
     public static ForgeConfigSpec.DoubleValue diamondMinegunProjectileSpeed;
     public static ForgeConfigSpec.DoubleValue diamondMinegunMineChance;
+    public static ForgeConfigSpec.IntValue diamondMinegunRedstoneRadius;
 
     public static ForgeConfigSpec.DoubleValue ironAssaultDamageMultiplier;
     public static ForgeConfigSpec.IntValue ironAssaultFireDelay;
@@ -482,13 +483,16 @@ public class KGConfig {
                 .defineInRange("diamondMinegunDurability", 2000, 0, 32767);
         diamondMinegunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Mineguns")
-                .defineInRange("diamondMinegunInaccuracy", 2D, 0D, 90D);
+                .defineInRange("diamondMinegunInaccuracy", 3D, 0D, 90D);
         diamondMinegunProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Mineguns")
                 .defineInRange("diamondMinegunProjectileSpeed", 2.5D, 0D, 64D);
         diamondMinegunMineChance = builder
                 .comment("Configure the Break Block Chance for Mineguns")
                 .defineInRange("diamondMinegunMineChance", 0.5D, 0D, 1D);
+        diamondMinegunRedstoneRadius = builder
+                .comment("Configure the radius for a redstone block to activate Mineguns.  WARNING, PERFORMANCE BOTTLENECKS CAN OCCUR")
+                .defineInRange("diamondMinegunRedstoneRadius", 10, 0, 31);
         builder.pop();
 
         builder.push("assault rifle");

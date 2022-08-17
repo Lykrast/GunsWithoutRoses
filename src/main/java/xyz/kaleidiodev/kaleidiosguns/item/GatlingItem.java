@@ -33,15 +33,24 @@ public class GatlingItem extends GunItem {
 	@Override
 	public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
 		ItemStack itemstack = player.getItemInHand(hand);
-		if (!player.abilities.instabuild && player.getProjectile(itemstack).isEmpty()) {
-			return ActionResult.fail(itemstack);
+		//don't fire if redstone block is not nearby
+		if (this.isRedstone) {
+			if (checkRedstoneLevel(world, player, itemstack) != -1) return handleGatling(world, player, itemstack, hand);
+			else return ActionResult.fail(itemstack);
+		}
+		else return handleGatling(world, player, itemstack, hand);
+	}
+
+	protected ActionResult<ItemStack> handleGatling(World world, PlayerEntity player, ItemStack gun, Hand hand) {
+		if (!player.abilities.instabuild && player.getProjectile(gun).isEmpty()) {
+			return ActionResult.fail(gun);
 		}
 		else {
 			player.startUsingItem(hand);
 			if (this.isFirstShot && !world.isClientSide()){
-				onUseTick(world, player, itemstack, 1);
+				onUseTick(world, player, gun, 1);
 			}
-			return ActionResult.consume(itemstack);
+			return ActionResult.consume(gun);
 		}
 	}
 
@@ -57,6 +66,8 @@ public class GatlingItem extends GunItem {
 
 	@Override
 	public void onUseTick(World world, LivingEntity user, ItemStack gun, int ticks) {
+		//stop using immediately if out of range.
+		if ((this.isRedstone) && (checkRedstoneLevel(world, (PlayerEntity)user, gun) == -1)) user.stopUsingItem();
 		if (user instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) user;
 

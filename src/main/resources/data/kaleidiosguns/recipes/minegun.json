@@ -9,7 +9,7 @@
 		"D": { "tag": "forge:gems/diamond" },
 		"I": { "tag": "forge:ingots/iron" },
 		"S": { "tag": "forge:rods/wooden" },
-		"F": { "item": "minecraft:flint" }
+		"F": { "item": "minecraft:redstone" }
 	},
 	"result": { "item": "kaleidiosguns:minegun" }
 }
