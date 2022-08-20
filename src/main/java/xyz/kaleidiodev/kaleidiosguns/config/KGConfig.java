@@ -724,7 +724,7 @@ public class KGConfig {
         builder.push("signal boost enchantment");
         signalMultiplier = builder
                 .comment("Additive multiplier per level of signal boost")
-                .defineInRange("signalMultiplier", 0.25D, 0.1D, 20D);
+                .defineInRange("signalMultiplier", 0.5D, 0.1D, 20D);
         builder.pop();
 
         spec = builder.build();
