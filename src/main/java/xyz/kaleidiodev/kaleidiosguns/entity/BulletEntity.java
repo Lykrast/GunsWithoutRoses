@@ -62,6 +62,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	public boolean wasRevenge;
 	public boolean wasDark;
 	public boolean isClean;
+	public boolean isCorrupted;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);
@@ -240,6 +241,17 @@ public class BulletEntity extends AbstractFireballEntity {
 				breakWeakBlocks(blockPositionToMine);
 			} else {
 				breakWeakBlocks(blockPositionToMine);
+			}
+
+			//don't do corruption stuff if the block wasn't successfully mined
+			if ((isCorrupted) && (level.getBlockState(blockPositionToMine).getBlock() == Blocks.AIR)) {
+				level.setBlock(blockPositionToMine, Blocks.NETHERRACK.defaultBlockState(), 1);
+				//don't place fire if something is above current block
+				if ((this.getItemRaw().getItem() == ModItems.blazeBullet) &&
+						(random.nextDouble() < KGConfig.netheriteMinegunIgnitionChance.get()) &&
+						(level.getBlockState(blockPositionToMine.above(1)).getBlock() == Blocks.AIR)) {
+					level.setBlock(blockPositionToMine.above(1), Blocks.FIRE.defaultBlockState(), 3);
+				}
 			}
 		}
 		if (!level.isClientSide && this.shouldCollateral) remove();

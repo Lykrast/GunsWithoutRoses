@@ -2,6 +2,8 @@ package xyz.kaleidiodev.kaleidiosguns.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
+import javax.swing.text.StyledEditorKit;
+
 public class KGConfig {
 
     public static ForgeConfigSpec spec;
@@ -128,6 +130,16 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue diamondMinegunProjectileSpeed;
     public static ForgeConfigSpec.DoubleValue diamondMinegunMineChance;
     public static ForgeConfigSpec.IntValue diamondMinegunRedstoneRadius;
+
+    public static ForgeConfigSpec.DoubleValue netheriteMinegunDamageMultiplier;
+    public static ForgeConfigSpec.IntValue netheriteMinegunFireDelay;
+    public static ForgeConfigSpec.IntValue netheriteMinegunEnchantability;
+    public static ForgeConfigSpec.IntValue netheriteMinegunDurability;
+    public static ForgeConfigSpec.DoubleValue netheriteMinegunInaccuracy;
+    public static ForgeConfigSpec.DoubleValue netheriteMinegunProjectileSpeed;
+    public static ForgeConfigSpec.DoubleValue netheriteMinegunMineChance;
+    public static ForgeConfigSpec.IntValue netheriteMinegunRedstoneRadius;
+    public static ForgeConfigSpec.DoubleValue netheriteMinegunIgnitionChance;
 
     public static ForgeConfigSpec.DoubleValue ironAssaultDamageMultiplier;
     public static ForgeConfigSpec.IntValue ironAssaultFireDelay;
@@ -493,6 +505,36 @@ public class KGConfig {
         diamondMinegunRedstoneRadius = builder
                 .comment("Configure the radius for a redstone block to activate Mineguns.  WARNING, PERFORMANCE BOTTLENECKS CAN OCCUR")
                 .defineInRange("diamondMinegunRedstoneRadius", 10, 0, 31);
+        builder.pop();
+
+        builder.push("corruption gun");
+        netheriteMinegunDamageMultiplier = builder
+                .comment("Define the Damage multiplier for Corruption Gun")
+                .defineInRange("netheriteMinegunDamageMultiplier", 0.75D, 0.1D, 5D);
+        netheriteMinegunFireDelay = builder
+                .comment("Configure the Fire delay for Corruption Gun")
+                .defineInRange("netheriteMinegunFireDelay", 7, 0, 72000);
+        netheriteMinegunEnchantability = builder
+                .comment("Configure the Enchantability for Corruption Gun")
+                .defineInRange("netheriteMinegunEnchantability", 10, 0, 30);
+        netheriteMinegunDurability = builder
+                .comment("Configure the Durability for Corruption Gun")
+                .defineInRange("netheriteMinegunDurability",  2286, 0, 32767);
+        netheriteMinegunInaccuracy = builder
+                .comment("Configure the Inaccuracy for Corruption Gun")
+                .defineInRange("netheriteMinegunInaccuracy", 2D, 0D, 90D);
+        netheriteMinegunProjectileSpeed = builder
+                .comment("Configure the Projectile Speed for Corruption Gun")
+                .defineInRange("netheriteMinegunProjectileSpeed", 3D, 0D, 64D);
+        netheriteMinegunMineChance = builder
+                .comment("Configure the Break Block Chance for Corruption Gun")
+                .defineInRange("netheriteMinegunMineChance", 0.75D, 0D, 1D);
+        netheriteMinegunRedstoneRadius = builder
+                .comment("Configure the radius for a redstone block to activate Corruption Gun.  WARNING, PERFORMANCE BOTTLENECKS CAN OCCUR")
+                .defineInRange("netheriteMinegunRedstoneRadius", 10, 0, 31);
+        netheriteMinegunIgnitionChance = builder
+                .comment("Configure the Fire Set Chance for Corruption Guns when it is a blaze bullet in use")
+                .defineInRange("netheriteMinegunIgnitionChance", 0.25D, 0D, 1D);
         builder.pop();
 
         builder.push("assault rifle");

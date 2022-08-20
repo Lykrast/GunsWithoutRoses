@@ -98,6 +98,11 @@
 		"subtitle": "subtitles.kaleidiosguns.item.shadow_magnum.shoot",
 		"sounds": [ "kaleidiosguns:shadow_shoot" ]
 	},
+	"item.corruption_gun.shoot": {
+		"category": "item",
+		"subtitle": "subtitles.kaleidiosguns.item.corruption_gun.shoot",
+		"sounds": [ "kaleidiosguns:corruption_shoot" ]
+	},
 	"entity.bullet.impact": {
 		"category": "entity",
 		"subtitle": "subtitles.kaleidiosguns.item.bullet.impact",

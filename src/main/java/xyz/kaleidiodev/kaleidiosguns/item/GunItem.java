@@ -73,6 +73,7 @@ public class GunItem extends ShootableItem {
 	protected boolean shouldRevenge;
 	protected boolean isShadow;
 	protected boolean isRedstone;
+	protected boolean isCorruption;
 
 	protected SoundEvent fireSound = ModSounds.gun;
 	protected SoundEvent reloadSound = ModSounds.double_shotgunReload;
@@ -235,6 +236,7 @@ public class GunItem extends ShootableItem {
 		shot.frostyDistance = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, gun) * KGConfig.frostyDistancePerLevel.get();
 		shot.isClean = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.cleanShot, gun) > 0;
 		shot.isWither = this.isWither;
+		shot.isCorrupted = this.isCorruption;
 
 		changeBullet(world, player, gun, shot, bulletFree);
 
@@ -521,6 +523,11 @@ public class GunItem extends ShootableItem {
 		return this;
 	}
 
+	public GunItem setIsCorruption(boolean corruption) {
+		this.isCorruption = corruption;
+		return this;
+	}
+
 	/**
 	 *
 	 * @param barrelSwitch set the divider that divides the fire rate to denote how many ticks it takes to switch barrels
@@ -653,6 +660,7 @@ public class GunItem extends ShootableItem {
 			if (isWither) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.wither"));
 			if (shouldRevenge) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.blessed"));
 			if (isShadow) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.shadow"));
+			if (isCorruption) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.corruption"));
 			if (this.getItem() == ModItems.plasmaGatling) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.plasma"));
 
 			if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) > 0) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.frost_distance", EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) * KGConfig.frostyDistancePerLevel.get()));
