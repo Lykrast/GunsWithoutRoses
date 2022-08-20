@@ -92,6 +92,8 @@
 	"enchantment.kaleidiosguns.silenced.desc": "Shots emit sound at much less distance",
 	"enchantment.kaleidiosguns.clean_shot": "Clean Shot",
 	"enchantment.kaleidiosguns.clean_shot.desc": "Sniper class shot gives no knockback",
+	"enchantment.kaleidiosguns.signal_boost": "Signal Boost",
+	"enchantment.kaleidiosguns.signal_boost.desc": "Redstone blocks can be further away",
 	"entity.kaleidiosguns.bullet": "Bullet",
 
 	"subtitles.kaleidiosguns.item.pistol.shoot": "Pistol fired",

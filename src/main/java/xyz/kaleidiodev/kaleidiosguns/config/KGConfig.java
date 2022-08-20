@@ -14,6 +14,7 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue oneHandInaccuracyMultiplier;
     public static ForgeConfigSpec.DoubleValue oneHandInaccuracyReplacement;
     public static ForgeConfigSpec.DoubleValue crouchAccuracyMultiplier;
+    public static ForgeConfigSpec.IntValue redstoneRadius;
 
     //Guns
     public static ForgeConfigSpec.DoubleValue ironPistolDamageMultiplier;
@@ -129,7 +130,6 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue diamondMinegunInaccuracy;
     public static ForgeConfigSpec.DoubleValue diamondMinegunProjectileSpeed;
     public static ForgeConfigSpec.DoubleValue diamondMinegunMineChance;
-    public static ForgeConfigSpec.IntValue diamondMinegunRedstoneRadius;
 
     public static ForgeConfigSpec.DoubleValue netheriteMinegunDamageMultiplier;
     public static ForgeConfigSpec.IntValue netheriteMinegunFireDelay;
@@ -138,7 +138,6 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue netheriteMinegunInaccuracy;
     public static ForgeConfigSpec.DoubleValue netheriteMinegunProjectileSpeed;
     public static ForgeConfigSpec.DoubleValue netheriteMinegunMineChance;
-    public static ForgeConfigSpec.IntValue netheriteMinegunRedstoneRadius;
     public static ForgeConfigSpec.DoubleValue netheriteMinegunIgnitionChance;
 
     public static ForgeConfigSpec.DoubleValue ironAssaultDamageMultiplier;
@@ -182,6 +181,7 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue frostyDistancePerLevel;
     public static ForgeConfigSpec.DoubleValue frostyMaxMultiplier;
     public static ForgeConfigSpec.DoubleValue frostyMinMultiplier;
+    public static ForgeConfigSpec.DoubleValue signalMultiplier;
 
 
     static {
@@ -205,6 +205,9 @@ public class KGConfig {
         crouchAccuracyMultiplier = builder
                 .comment("Accuracy multiplier for when the user is crouching")
                 .defineInRange("crouchAccuracyMultiplier", 3.0D, 0.1D, 5D);
+        redstoneRadius = builder
+                .comment("Configure the radius for a redstone block to activate redstone class gun.  WARNING, PERFORMANCE BOTTLENECKS CAN OCCUR")
+                .defineInRange("redstoneRadius", 10, 0, 31);
         builder.pop();
 
         builder.push("pistol");
@@ -502,9 +505,6 @@ public class KGConfig {
         diamondMinegunMineChance = builder
                 .comment("Configure the Break Block Chance for Mineguns")
                 .defineInRange("diamondMinegunMineChance", 0.5D, 0D, 1D);
-        diamondMinegunRedstoneRadius = builder
-                .comment("Configure the radius for a redstone block to activate Mineguns.  WARNING, PERFORMANCE BOTTLENECKS CAN OCCUR")
-                .defineInRange("diamondMinegunRedstoneRadius", 10, 0, 31);
         builder.pop();
 
         builder.push("corruption gun");
@@ -529,9 +529,6 @@ public class KGConfig {
         netheriteMinegunMineChance = builder
                 .comment("Configure the Break Block Chance for Corruption Gun")
                 .defineInRange("netheriteMinegunMineChance", 0.75D, 0D, 1D);
-        netheriteMinegunRedstoneRadius = builder
-                .comment("Configure the radius for a redstone block to activate Corruption Gun.  WARNING, PERFORMANCE BOTTLENECKS CAN OCCUR")
-                .defineInRange("netheriteMinegunRedstoneRadius", 10, 0, 31);
         netheriteMinegunIgnitionChance = builder
                 .comment("Configure the Fire Set Chance for Corruption Guns when it is a blaze bullet in use")
                 .defineInRange("netheriteMinegunIgnitionChance", 0.25D, 0D, 1D);
@@ -722,6 +719,12 @@ public class KGConfig {
         frostyDistancePerLevel = builder
                 .comment("Block distance from origin until a frosty bullet is at minimum multiplier")
                 .defineInRange("frostyDistancePerLevel", 20D, 0D, 128D);
+        builder.pop();
+
+        builder.push("signal boost enchantment");
+        signalMultiplier = builder
+                .comment("Additive multiplier per level of signal boost")
+                .defineInRange("signalMultiplier", 0.25D, 0.1D, 20D);
         builder.pop();
 
         spec = builder.build();

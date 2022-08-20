@@ -2,7 +2,6 @@ package xyz.kaleidiodev.kaleidiosguns.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
@@ -39,7 +38,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 import static xyz.kaleidiodev.kaleidiosguns.KaleidiosGuns.VivecraftForgeExtensionPresent;
 
@@ -112,10 +110,12 @@ public class GunItem extends ShootableItem {
 			BlockPos closestPos = null;
 			BlockPos checkPos;
 
+			int checkRadius = (int)(KGConfig.redstoneRadius.get() * (1 + (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.signalBoost, gun) * KGConfig.signalMultiplier.get())));
+
 			//code provided and modified via forum post courtesy of @jabelar https://forums.minecraftforge.net/topic/63221-trying-to-get-closest-block/
-			for (int x = player.blockPosition().getX() - KGConfig.diamondMinegunRedstoneRadius.get(); x < player.blockPosition().getX() + KGConfig.diamondMinegunRedstoneRadius.get(); x++) {
-				for (int y = player.blockPosition().getY() - KGConfig.diamondMinegunRedstoneRadius.get(); y < player.blockPosition().getY() + KGConfig.diamondMinegunRedstoneRadius.get(); y++) {
-					for (int z = player.blockPosition().getZ() - KGConfig.diamondMinegunRedstoneRadius.get(); z < player.blockPosition().getZ() + KGConfig.diamondMinegunRedstoneRadius.get(); z++) {
+			for (int x = player.blockPosition().getX() - checkRadius; x < player.blockPosition().getX() + checkRadius; x++) {
+				for (int y = player.blockPosition().getY() - checkRadius; y < player.blockPosition().getY() + checkRadius; y++) {
+					for (int z = player.blockPosition().getZ() - checkRadius; z < player.blockPosition().getZ() + checkRadius; z++) {
 						checkPos = new BlockPos(x, y, z);
 						if (world.getBlockState(checkPos).getBlock() == targetBlock) {
 							// check if it is closer than any previously found position
@@ -136,7 +136,7 @@ public class GunItem extends ShootableItem {
 			if (closestPos != null) redstone = closestPos.distManhattan(player.blockPosition());
 
 			//only allow a circular radius
-			if (redstone > KGConfig.diamondMinegunRedstoneRadius.get()) redstone = -1;
+			if (redstone > checkRadius) redstone = -1;
 
 			//summon a strand of redstone particles in the air between the player and the redstone block targeted.
 		}
