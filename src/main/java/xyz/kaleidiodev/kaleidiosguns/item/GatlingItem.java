@@ -72,12 +72,7 @@ public class GatlingItem extends GunItem {
 			PlayerEntity player = (PlayerEntity) user;
 
 			//give player speed effect if maneuvering is instated.
-			//currently this gives an exploit where spamming single shots can send the player further in the world.
-			//maybe keep it in considering the skill gap?...
-			int playerSpeed;
-			if (player.getEffect(Effects.MOVEMENT_SPEED) == null) playerSpeed = 0;
-			else playerSpeed = player.getEffect(Effects.MOVEMENT_SPEED).getAmplifier();
-			if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.maneuvering, gun) != 0) player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 1, playerSpeed + 10)); //apply speed for every tick so that the slow speed is nullified
+			if ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.maneuvering, gun) != 0) && player.isOnGround()) player.setDeltaMovement(player.getDeltaMovement().multiply(0.7, 0, 0.7).add(player.getDeltaMovement())); //apply speed for every tick so that the slow speed is nullified
 
 			int used = getUseDuration(gun) - ticks;
 			if ((used > 0 && used % getFireDelay(gun, player) == 0) || (this.isFirstShot && !world.isClientSide())) {
