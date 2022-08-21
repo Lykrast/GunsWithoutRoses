@@ -632,6 +632,7 @@ public class GunItem extends ShootableItem {
 			int fireRate = Math.max(1, this.fireDelay - (int)(this.fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * KGConfig.sleightOfHandFireRateDecrease.get()));
 			if (revolutions > 1) {
 				tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.reloadspeed" + (isFireDelayModified(stack) ? ".modified" : ""), fireRate, (60*20) / fireRate));
+				tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.barrels_left", chamber, revolutions));
 				fireRate /= barrelSwitchSpeed;
 			}
 			tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.firerate" + (isFireDelayModified(stack) ? ".modified" : ""), fireRate, (60*20) / fireRate));

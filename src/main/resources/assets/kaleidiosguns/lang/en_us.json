@@ -41,6 +41,7 @@
 	"tooltip.kaleidiosguns.gun.speed.modified": "§dProjectile Speed: §f%s§r",
 	"tooltip.kaleidiosguns.gun.chance_free": "§2Chance to not consume ammo: §f%s%%§r",
 	"tooltip.kaleidiosguns.gun.chance_free.modified": "§dChance to not consume ammo: §f%s%%§r",
+	"tooltip.kaleidiosguns.gun.barrels_left": "§2Chambers remaining: §f%s§r / §f%s§r",
 	"tooltip.kaleidiosguns.shotgun.shots": "Fires %s projectiles at once",
 	"tooltip.kaleidiosguns.shotgun.shots.modified": "§dFires %s projectiles at once",
 	"tooltip.kaleidiosguns.vampire_shotgun": "Adds another projectile per entity close-by",
