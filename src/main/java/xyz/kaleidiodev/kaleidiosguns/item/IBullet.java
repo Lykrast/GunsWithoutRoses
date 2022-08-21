@@ -3,7 +3,10 @@ package xyz.kaleidiodev.kaleidiosguns.item;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.entity.BulletEntity;
@@ -69,10 +72,21 @@ public interface IBullet {
 
 		//if the bullet is a plasma type, deal very high damage to a shield if one is in use.
 		//this way we let the vanilla mechanic of a shield taking damage as durability into effect
-		if (projectile.isPlasma && target instanceof LivingEntity) {
-			LivingEntity victim = (LivingEntity) target;
-			if (victim.getUseItem().isShield(victim)) {
-				newDamage += KGConfig.goldStreamShieldAdditional.get();
+		if ((projectile.isPlasma) && (target instanceof LivingEntity)) {
+			LivingEntity livingTarget = (LivingEntity)target;
+			Iterable<ItemStack> armor = livingTarget.getArmorSlots();
+
+			for (ItemStack armorpiece : armor) {
+				armorpiece.setDamageValue(armorpiece.getDamageValue() + KGConfig.goldStreamArmorAdditional.get());
+			}
+
+			if (target instanceof PlayerEntity) {
+				PlayerEntity victim = (PlayerEntity) target;
+				if (victim.getUseItem().isShield(victim)) {
+					victim.stopUsingItem();
+					victim.getCooldowns().addCooldown(victim.getUseItem().getItem(), 100);
+					world.playSound(null, victim.getX(), victim.getY(), victim.getZ(), SoundEvents.SHIELD_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
+				}
 			}
 		}
 
