@@ -84,7 +84,7 @@
 	"enchantment.kaleidiosguns.cowboy": "Cowboy",
 	"enchantment.kaleidiosguns.cowboy.desc": "One handed use has no accuracy punishment",
 	"enchantment.kaleidiosguns.maneuvering": "Maneuvering",
-	"enchantment.kaleidiosguns.maneuvering.desc": "Gain effect Speed 10 per tick using a gatling",
+	"enchantment.kaleidiosguns.maneuvering.desc": "Better movement speed whilst using the gatling",
 	"enchantment.kaleidiosguns.frost_shard": "Frost Shard",
 	"enchantment.kaleidiosguns.frost_shard.desc": "Projectiles have high damage due to sharp ice that melts over distance",
 	"enchantment.kaleidiosguns.counter_strike": "Counter Strike",
@@ -95,6 +95,7 @@
 	"enchantment.kaleidiosguns.clean_shot.desc": "Sniper class shot gives no knockback",
 	"enchantment.kaleidiosguns.signal_boost": "Signal Boost",
 	"enchantment.kaleidiosguns.signal_boost.desc": "Redstone blocks can be further away",
+
 	"entity.kaleidiosguns.bullet": "Bullet",
 
 	"subtitles.kaleidiosguns.item.pistol.shoot": "Pistol fired",
