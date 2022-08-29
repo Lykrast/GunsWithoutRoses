@@ -52,11 +52,9 @@ public class BulletEntity extends AbstractFireballEntity {
 	public boolean isCritical;
 	protected GunItem shootingGun;
 	protected Vector3d origin;
-	public boolean shouldMakeFire;
 	public boolean shouldCombo;
 	public boolean isExplosive;
 	public boolean isPlasma;
-	public boolean givesKnockback;
 	public double frostyDistance;
 	public boolean isWither;
 	public boolean wasRevenge;
@@ -247,7 +245,7 @@ public class BulletEntity extends AbstractFireballEntity {
 			if ((isCorrupted) && (level.getBlockState(blockPositionToMine).getBlock() == Blocks.AIR)) {
 				level.setBlock(blockPositionToMine, Blocks.NETHERRACK.defaultBlockState(), 1);
 				//don't place fire if something is above current block
-				if ((this.getItemRaw().getItem() == ModItems.blazeBullet) &&
+				if (isOnFire() &&
 						(random.nextDouble() < KGConfig.netheriteMinegunIgnitionChance.get()) &&
 						(level.getBlockState(blockPositionToMine.above(1)).getBlock() == Blocks.AIR)) {
 					level.setBlock(blockPositionToMine.above(1), Blocks.FIRE.defaultBlockState(), 3);
@@ -312,7 +310,7 @@ public class BulletEntity extends AbstractFireballEntity {
 			//if projectile is stronger than flint damage assume a stronger material type
 			if (getDamage() > KGConfig.flintBulletDamage.get() * KGConfig.diamondLauncherDamageMultiplier.get()) newRadius += KGConfig.explosionIncreaseOnStrongerTier.get();
 
-			level.explode(this, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, this.shouldMakeFire, KGConfig.explosionsEnabled.get() ? Explosion.Mode.DESTROY : Explosion.Mode.NONE);
+			level.explode(this, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, isOnFire(), KGConfig.explosionsEnabled.get() ? Explosion.Mode.DESTROY : Explosion.Mode.NONE);
 			if (isWither) {
 				newRadius *= KGConfig.netheriteLauncherEffectRadiusMultiplier.get();
 				AxisAlignedBB witherTrace = new AxisAlignedBB(result.getLocation().x - newRadius, result.getLocation().y - newRadius, result.getLocation().z - newRadius, result.getLocation().x + newRadius, result.getLocation().y + newRadius, result.getLocation().z + newRadius);

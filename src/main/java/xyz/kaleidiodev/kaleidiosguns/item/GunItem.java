@@ -232,7 +232,6 @@ public class GunItem extends ShootableItem {
 		shot.noPhysics = this.shouldCollateral;
 		shot.shouldCombo = this.shouldCombo;
 		shot.isPlasma = (this.getItem() == ModItems.plasmaGatling);
-		shot.shouldMakeFire = (ammo.getItem() == ModItems.blazeBullet);
 		shot.frostyDistance = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, gun) * KGConfig.frostyDistancePerLevel.get();
 		shot.isClean = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.cleanShot, gun) > 0;
 		shot.isWither = this.isWither;
