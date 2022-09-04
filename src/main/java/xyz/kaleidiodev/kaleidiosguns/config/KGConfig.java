@@ -140,6 +140,15 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue netheriteMinegunMineChance;
     public static ForgeConfigSpec.DoubleValue netheriteMinegunIgnitionChance;
 
+    public static ForgeConfigSpec.DoubleValue ironVoltgunDamageMultiplier;
+    public static ForgeConfigSpec.IntValue ironVoltgunFireDelay;
+    public static ForgeConfigSpec.IntValue ironVoltgunEnchantability;
+    public static ForgeConfigSpec.IntValue ironVoltgunDurability;
+    public static ForgeConfigSpec.DoubleValue ironVoltgunInaccuracy;
+    public static ForgeConfigSpec.DoubleValue ironVoltgunProjectileSpeed;
+    public static ForgeConfigSpec.DoubleValue ironVoltgunMinimumDamage;
+    public static ForgeConfigSpec.DoubleValue ironVoltgunMaximumDamage;
+
     public static ForgeConfigSpec.DoubleValue ironAssaultDamageMultiplier;
     public static ForgeConfigSpec.IntValue ironAssaultFireDelay;
     public static ForgeConfigSpec.IntValue ironAssaultEnchantability;
@@ -533,6 +542,33 @@ public class KGConfig {
         netheriteMinegunIgnitionChance = builder
                 .comment("Configure the Fire Set Chance for Corruption Guns when it is a blaze bullet in use")
                 .defineInRange("netheriteMinegunIgnitionChance", 0.25D, 0D, 1D);
+        builder.pop();
+
+        builder.push("voltgun");
+        ironVoltgunDamageMultiplier = builder
+                .comment("Define the Damage multiplier for Voltguns")
+                .defineInRange("ironVoltgunDamageMultiplier", 1D, 0.1D, 5D);
+        ironVoltgunFireDelay = builder
+                .comment("Configure the Fire delay for Voltguns")
+                .defineInRange("ironVoltgunFireDelay", 15, 0, 72000);
+        ironVoltgunEnchantability = builder
+                .comment("Configure the Enchantability for Voltguns")
+                .defineInRange("ironVoltgunEnchantability", 14, 0, 30);
+        ironVoltgunDurability = builder
+                .comment("Configure the Durability for Voltguns")
+                .defineInRange("ironVoltgunDurability", 744, 0, 32767);
+        ironVoltgunInaccuracy = builder
+                .comment("Configure the Inaccuracy for Voltguns")
+                .defineInRange("ironVoltgunInaccuracy", 2.5D, 0D, 90D);
+        ironVoltgunProjectileSpeed = builder
+                .comment("Configure the Projectile Speed for Voltguns")
+                .defineInRange("ironVoltgunProjectileSpeed", 6D, 0D, 64D);
+        ironVoltgunMinimumDamage = builder
+                .comment("Configure the Minimum damage increase for Voltguns")
+                .defineInRange("ironVoltgunMinimumDamage", 0.75D, 0D, 5D);
+        ironVoltgunMaximumDamage = builder
+                .comment("Configure the Maximum damage increase for Voltguns")
+                .defineInRange("ironVoltgunMaximumDamage", 1.5D, 0D, 5D);
         builder.pop();
 
         builder.push("assault rifle");

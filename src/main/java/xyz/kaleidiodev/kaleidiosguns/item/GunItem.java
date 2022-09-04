@@ -72,6 +72,7 @@ public class GunItem extends ShootableItem {
 	protected boolean isShadow;
 	protected boolean isRedstone;
 	protected boolean isCorruption;
+	protected boolean hasVoltage;
 
 	protected SoundEvent fireSound = ModSounds.gun;
 	protected SoundEvent reloadSound = ModSounds.double_shotgunReload;
@@ -228,6 +229,8 @@ public class GunItem extends ShootableItem {
 
 		shot.setIsCritical(this.lucky);
 		if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.marker, gun) == 1) shot.setShouldGlow(true);
+
+		if (hasVoltage) shot.redstoneLevel = checkRedstoneLevel(world, player, gun);
 
 		shot.noPhysics = this.shouldCollateral;
 		shot.shouldCombo = this.shouldCombo;
@@ -524,6 +527,11 @@ public class GunItem extends ShootableItem {
 
 	public GunItem setIsCorruption(boolean corruption) {
 		this.isCorruption = corruption;
+		return this;
+	}
+
+	public GunItem setHasVoltage(boolean voltage) {
+		this.hasVoltage = voltage;
 		return this;
 	}
 

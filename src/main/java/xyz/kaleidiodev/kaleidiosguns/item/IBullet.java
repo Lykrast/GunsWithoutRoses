@@ -1,5 +1,6 @@
 package xyz.kaleidiodev.kaleidiosguns.item;
 
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,6 +11,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.entity.BulletEntity;
+import xyz.kaleidiodev.kaleidiosguns.registry.ModEnchantments;
 
 import javax.annotation.Nullable;
 
@@ -99,6 +101,19 @@ public interface IBullet {
 			newDamage *= (projectile.getShootingGun().getDamageMultiplier(new ItemStack(projectile.getShootingGun().getItem())) + KGConfig.shadowRevolverShadowAdditionalMultiplier.get());
 		}
 
+		//redstone distance multiplies damage.
+		if (projectile.redstoneLevel > 0) {
+			double multiplierDelta = KGConfig.ironVoltgunMaximumDamage.get() - KGConfig.ironVoltgunMinimumDamage.get();
+			int maximumBlocks = (int)(((EnchantmentHelper.getItemEnchantmentLevel( ModEnchantments.signalBoost, new ItemStack(projectile.getShootingGun().getItem())) * KGConfig.signalMultiplier.get()) + 1) * KGConfig.redstoneRadius.get());
+			double multiplierPerBlock = multiplierDelta / maximumBlocks;
+
+			System.out.println(multiplierDelta);
+			System.out.println(maximumBlocks);
+			System.out.println(multiplierPerBlock);
+
+			newDamage *= ((maximumBlocks - projectile.redstoneLevel) * (multiplierPerBlock)) + KGConfig.ironVoltgunMinimumDamage.get();
+		}
+
 		//apply damage multipier based on distance from target to origin, using max and min
 		if (projectile.frostyDistance > 0) {
 			double distanceTravelledToTarget = target.position().distanceTo(projectile.getOrigin());
@@ -109,6 +124,8 @@ public interface IBullet {
 			newMultiplier += KGConfig.frostyMinMultiplier.get(); //add minimum multiplier back, it was removed before so block multiplier would be correct.
 			newDamage *= newMultiplier;
 		}
+
+		System.out.println(newDamage);
 
 		return newDamage;
 	}

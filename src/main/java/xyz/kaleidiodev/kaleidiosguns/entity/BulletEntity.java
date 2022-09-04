@@ -61,6 +61,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	public boolean wasDark;
 	public boolean isClean;
 	public boolean isCorrupted;
+	public int redstoneLevel;
 
 	public BulletEntity(EntityType<? extends BulletEntity> entityType, World worldIn) {
 		super(entityType, worldIn);

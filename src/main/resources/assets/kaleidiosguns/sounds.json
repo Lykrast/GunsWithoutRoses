@@ -103,6 +103,11 @@
 		"subtitle": "subtitles.kaleidiosguns.item.corruption_gun.shoot",
 		"sounds": [ "kaleidiosguns:corruption_shoot" ]
 	},
+	"item.voltgun.shoot": {
+		"category": "item",
+		"subtitle": "subtitles.kaleidiosguns.item.voltgun.shoot",
+		"sounds": [ "kaleidiosguns:voltgun" ]
+	},
 	"entity.bullet.impact": {
 		"category": "entity",
 		"subtitle": "subtitles.kaleidiosguns.item.bullet.impact",
