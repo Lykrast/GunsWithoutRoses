@@ -21,7 +21,8 @@ public class ModTradesEvent {
         if (event.getType() == VillagerProfession.FLETCHER) {
             Int2ObjectMap<List<VillagerTrades.ITrade>> trades = event.getTrades();
 
-            trades.get(4).add((trader, rand) -> new MerchantOffer(new ItemStack(Items.EMERALD, 10), new ItemStack(ModItems.blessedPistol, 1), 10, 12, 0.08F));
+            trades.get(4).add((trader, rand) -> new MerchantOffer(new ItemStack(Items.EMERALD, 10), new ItemStack(ModItems.blessedPistol, 1), 1, 12, 0.08F));
+            trades.get(5).add((trader, rand) -> new MerchantOffer(new ItemStack(Items.EMERALD, 15), new ItemStack(ModItems.defenderRifle, 1), 1, 20, 2.0F));
         }
     }
 }

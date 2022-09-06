@@ -10,13 +10,16 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEnchantments;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModItems;
 
@@ -75,7 +78,8 @@ public class GatlingItem extends GunItem {
 			if ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.maneuvering, gun) != 0) && player.isOnGround()) player.setDeltaMovement(player.getDeltaMovement().multiply(0.7, 0, 0.7).add(player.getDeltaMovement())); //apply speed for every tick so that the slow speed is nullified
 
 			int used = getUseDuration(gun) - ticks;
-			if ((used > 0 && used % getFireDelay(gun, player) == 0) || (this.isFirstShot && !world.isClientSide())) {
+			int rateChange = (getFireDelay(gun, player) - ((isDefender && checkTileEntities(world, player)) ? KGConfig.defenderRifleDelayDelta.get() : 0));
+			if ((used > 0 && used % rateChange == 0) || (this.isFirstShot && !world.isClientSide())) {
 				//"Oh yeah I will use the vanilla method so that quivers can do their thing"
 				//guess what the quivers suck
 				this.isFirstShot = false;
@@ -111,5 +115,39 @@ public class GatlingItem extends GunItem {
 	@Override
 	protected void addExtraStatsTooltip(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip) {
 		tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gatling.hold"));
+	}
+
+	protected boolean checkTileEntities(World world, PlayerEntity player) {
+		BlockPos checkPos;
+		BlockPos closestPos = null;
+		int checkRadius = KGConfig.defenderRifleRange.get();
+		int distance = -1;
+
+		for (int x = player.blockPosition().getX() - checkRadius; x < player.blockPosition().getX() + checkRadius; x++) {
+			for (int y = player.blockPosition().getY() - checkRadius; y < player.blockPosition().getY() + checkRadius; y++) {
+				for (int z = player.blockPosition().getZ() - checkRadius; z < player.blockPosition().getZ() + checkRadius; z++) {
+					checkPos = new BlockPos(x, y, z);
+					if (world.getBlockEntity(checkPos) != null) {
+						// check if it is closer than any previously found position
+						if (closestPos == null ||
+								player.distanceToSqr(player.getX() - checkPos.getX(),
+										player.getY() - checkPos.getY(),
+										player.getZ() - checkPos.getZ())
+										< player.distanceToSqr(player.getX() - closestPos.getX(),
+										player.getY() - closestPos.getY(),
+										player.getZ() - closestPos.getZ())) {
+							closestPos = checkPos;
+						}
+					}
+				}
+			}
+		}
+
+		if (closestPos != null) distance = closestPos.distManhattan(player.blockPosition());
+
+		//only allow a circular radius
+		if (distance > checkRadius) distance = -1;
+
+		return distance != -1;
 	}
 }

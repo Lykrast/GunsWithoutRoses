@@ -31,6 +31,7 @@ public class ModSounds {
 			shadowMagnum = initSound("item.shadow_magnum.shoot"),
 			corruptionGun = initSound("item.corruption_gun.shoot"),
 			voltgun = initSound("item.voltgun.shoot"),
+			defenderRifle = initSound("item.defender_rifle.shoot"),
 			impact = initSound("entity.bullet.impact");
 
 

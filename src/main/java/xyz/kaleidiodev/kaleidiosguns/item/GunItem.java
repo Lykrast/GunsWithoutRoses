@@ -73,6 +73,7 @@ public class GunItem extends ShootableItem {
 	protected boolean isRedstone;
 	protected boolean isCorruption;
 	protected boolean hasVoltage;
+	protected boolean isDefender;
 
 	protected SoundEvent fireSound = ModSounds.gun;
 	protected SoundEvent reloadSound = ModSounds.double_shotgunReload;
@@ -310,6 +311,7 @@ public class GunItem extends ShootableItem {
 	 */
 	public int getFireDelay(ItemStack stack, @Nullable PlayerEntity player) {
 		int base = Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * KGConfig.sleightOfHandFireRateDecrease.get()));
+
 		//have instant tick time if barrel side has been switched
 		if (chamber == revolutions) {
 			return base;
@@ -535,6 +537,11 @@ public class GunItem extends ShootableItem {
 		return this;
 	}
 
+	public GunItem setIsDefender(boolean defender) {
+		this.isDefender = defender;
+		return this;
+	}
+
 	/**
 	 *
 	 * @param barrelSwitch set the divider that divides the fire rate to denote how many ticks it takes to switch barrels
@@ -671,6 +678,7 @@ public class GunItem extends ShootableItem {
 			if (shouldRevenge) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.blessed"));
 			if (isShadow) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.shadow"));
 			if (isCorruption) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.corruption"));
+			if (isDefender) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.defender"));
 			if (this.getItem() == ModItems.plasmaGatling) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.plasma"));
 
 			if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) > 0) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.frost_distance", EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) * KGConfig.frostyDistancePerLevel.get()));

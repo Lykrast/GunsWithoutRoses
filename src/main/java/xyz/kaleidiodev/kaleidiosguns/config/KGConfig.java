@@ -156,6 +156,16 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue ironAssaultInaccuracy;
     public static ForgeConfigSpec.DoubleValue ironAssaultProjectileSpeed;
 
+
+    public static ForgeConfigSpec.DoubleValue defenderRifleDamageMultiplier;
+    public static ForgeConfigSpec.IntValue defenderRifleFireDelay;
+    public static ForgeConfigSpec.IntValue defenderRifleEnchantability;
+    public static ForgeConfigSpec.IntValue defenderRifleDurability;
+    public static ForgeConfigSpec.DoubleValue defenderRifleInaccuracy;
+    public static ForgeConfigSpec.DoubleValue defenderRifleProjectileSpeed;
+    public static ForgeConfigSpec.IntValue defenderRifleRange;
+    public static ForgeConfigSpec.IntValue defenderRifleDelayDelta;
+
     public static ForgeConfigSpec.DoubleValue goldStreamDamageMultiplier;
     public static ForgeConfigSpec.IntValue goldStreamFireDelay;
     public static ForgeConfigSpec.IntValue goldStreamEnchantability;
@@ -617,6 +627,33 @@ public class KGConfig {
         goldStreamArmorAdditional = builder
                 .comment("Configure the damage to armor durability for Plasma Rifles")
                 .defineInRange("goldPlasmaArmorAdditional", 5, 1, 8000);
+        builder.pop();
+
+        builder.push("defenders carbine");
+        defenderRifleDamageMultiplier = builder
+                .comment("Define the Damage multiplier for Defender Rifles")
+                .defineInRange("defenderRifleDamageMultiplier", 0.6D, 0.1D, 5D);
+        defenderRifleFireDelay = builder
+                .comment("Configure the Fire delay for Defender Rifles")
+                .defineInRange("defenderRifleFireDelay", 5, 0, 72000);
+        defenderRifleEnchantability = builder
+                .comment("Configure the Enchantability for Defender Rifles")
+                .defineInRange("defenderRifleEnchantability", 18, 0, 30);
+        defenderRifleDurability = builder
+                .comment("Configure the Durability for Defender Rifles")
+                .defineInRange("defenderRifleDurability", 4500, 0, 32767);
+        defenderRifleInaccuracy = builder
+                .comment("Configure the Inaccuracy for Defender Rifles")
+                .defineInRange("defenderRifleInaccuracy", 2.0D, 0D, 90D);
+        defenderRifleProjectileSpeed = builder
+                .comment("Configure the Projectile Speed for Defender Rifles")
+                .defineInRange("defenderRifleProjectileSpeed", 8D, 0D, 64D);
+        defenderRifleRange = builder
+                .comment("Configure the range for a Tile Entity for Defender Rifles.  WARNING, PERFORMANCE BOTTLENECKS CAN OCCUR")
+                .defineInRange("defenderRifleRange", 7, 0, 32);
+        defenderRifleDelayDelta = builder
+                .comment("Configure the subtractor for Fire Rate when next to a Tile Entity for Defender Rifles")
+                .defineInRange("defenderRifleDelayDelta", 1, 0, 72000);
         builder.pop();
 
         builder.push("rocket launcher");

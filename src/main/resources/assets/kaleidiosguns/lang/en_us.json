@@ -15,6 +15,8 @@
 	"item.kaleidiosguns.blessed_pistol": "Blessed Pistol",
 	"item.kaleidiosguns.shadow_magnum": "Shadow Magnum",
 	"item.kaleidiosguns.corruption_gun": "Corruption Gun",
+	"item.kaleidiosguns.voltgun": "Voltgun",
+	"item.kaleidiosguns.defender_rifle": "Defender Rifle",
 
 	"item.kaleidiosguns.flint_bullet": "Flint Bullet",
 	"item.kaleidiosguns.iron_bullet": "Iron Bullet",
@@ -59,6 +61,7 @@
 	"tooltip.kaleidiosguns.corruption": "Can replace a mined block with netherrack blocks",
 	"tooltip.kaleidiosguns.redstone": "A Redstone Block must be close-by to use this weapon",
 	"tooltip.kaleidiosguns.voltgun": "Increases damage the closer you are to a Redstone Block",
+	"tooltip.kaleidiosguns.defender": "Increases fire rate if standing near any Tile Entity",
 
 	"tooltip.kaleidiosguns.blaze_bullet": "Sets entities on fire",
 	"tooltip.kaleidiosguns.hunger_bullet": "Uses hunger as ammo",
@@ -119,5 +122,6 @@
 	"subtitles.kaleidiosguns.item.shadow_magnum.shoot": "Shadow Magnum fired",
 	"subtitles.kaleidiosguns.item.corruption_gun.shoot": "Corruption Gun fired",
 	"subtitles.kaleidiosguns.item.voltgun.shoot": "Voltgun fired",
+	"subtitles.kaleidiosguns.item.defender.shoot": "Defender Rifle fired",
 	"subtitles.kaleidiosguns.item.bullet.impact": "Bullet landed"
 }

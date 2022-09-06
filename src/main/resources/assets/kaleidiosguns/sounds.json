@@ -108,6 +108,11 @@
 		"subtitle": "subtitles.kaleidiosguns.item.voltgun.shoot",
 		"sounds": [ "kaleidiosguns:voltgun" ]
 	},
+	"item.defender_rifle.shoot": {
+		"category": "item",
+		"subtitle": "subtitles.kaleidiosguns.item.defender_rifle.shoot",
+		"sounds": [ "kaleidiosguns:defender_rifle" ]
+	},
 	"entity.bullet.impact": {
 		"category": "entity",
 		"subtitle": "subtitles.kaleidiosguns.item.bullet.impact",
