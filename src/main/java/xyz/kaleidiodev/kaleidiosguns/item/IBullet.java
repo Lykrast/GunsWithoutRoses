@@ -76,17 +76,12 @@ public interface IBullet {
 		//this way we let the vanilla mechanic of a shield taking damage as durability into effect
 		if ((projectile.isPlasma) && (target instanceof LivingEntity)) {
 			LivingEntity livingTarget = (LivingEntity)target;
-			Iterable<ItemStack> armor = livingTarget.getArmorSlots();
-
-			for (ItemStack armorpiece : armor) {
-				armorpiece.setDamageValue(armorpiece.getDamageValue() + KGConfig.goldStreamArmorAdditional.get());
-			}
 
 			if (target instanceof PlayerEntity) {
 				PlayerEntity victim = (PlayerEntity) target;
-				if (victim.getUseItem().isShield(victim)) {
-					victim.stopUsingItem();
+				if (victim.getUseItem().isShield(victim) && (Math.random() < KGConfig.goldStreamShieldAdditional.get())) {
 					victim.getCooldowns().addCooldown(victim.getUseItem().getItem(), 100);
+					victim.stopUsingItem();
 					world.playSound(null, victim.getX(), victim.getY(), victim.getZ(), SoundEvents.SHIELD_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
 				}
 			}
@@ -124,8 +119,6 @@ public interface IBullet {
 			newMultiplier += KGConfig.frostyMinMultiplier.get(); //add minimum multiplier back, it was removed before so block multiplier would be correct.
 			newDamage *= newMultiplier;
 		}
-
-		System.out.println(newDamage);
 
 		return newDamage;
 	}
