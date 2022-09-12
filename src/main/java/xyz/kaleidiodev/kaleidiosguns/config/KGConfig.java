@@ -599,13 +599,13 @@ public class KGConfig {
                 .defineInRange("ironAssaultDurability", 6000, 0, 32767);
         ironAssaultInaccuracy = builder
                 .comment("Configure the Inaccuracy for Assault Rifles")
-                .defineInRange("ironAssaultInaccuracy", 4.0D, 0D, 90D);
+                .defineInRange("ironAssaultInaccuracy", 5.0D, 0D, 90D);
         ironAssaultProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Assault Rifles")
                 .defineInRange("ironAssaultProjectileSpeed", 10D, 0D, 64D);
         ironAssaultGroundedMultiplier = builder
                 .comment("Configure the Inaccuracy decrease when using Assault Rifles whilst grounded")
-                .defineInRange("ironAssaultGroundedMultiplier", 1.6D, 0D, 5D);
+                .defineInRange("ironAssaultGroundedMultiplier", 2.0D, 0D, 5D);
         builder.pop();
 
         builder.push("plasma rifle");
