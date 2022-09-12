@@ -75,6 +75,7 @@ public class GunItem extends ShootableItem {
 	protected boolean hasVoltage;
 	protected boolean isDefender;
 	protected boolean isAssault;
+	protected boolean isOneHanded;
 
 	protected SoundEvent fireSound = ModSounds.gun;
 	protected SoundEvent reloadSound = ModSounds.double_shotgunReload;
@@ -348,7 +349,7 @@ public class GunItem extends ShootableItem {
 		nextInaccuracy += shotsBeforeStability * Math.max(0, instabilitySpreadAdditional / ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) * KGConfig.bullseyeAccuracyIncrease.get()) + 1.0D));
 
 		//check player hands
-		if ((player != null) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.cowboy, stack) == 0) && !(stack.getItem() instanceof ShotgunItem)) {
+		if ((player != null) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.cowboy, stack) == 0) && !(stack.getItem() instanceof ShotgunItem) && !isOneHanded) {
 			//if both hands are full, because one is the gun and one is something else
 			if (!player.getMainHandItem().isEmpty() && !player.getOffhandItem().isEmpty()) {
 				//if sniper class, give a new inaccuracy
@@ -559,6 +560,11 @@ public class GunItem extends ShootableItem {
 		return this;
 	}
 
+	public GunItem setIsOneHanded(boolean oneHanded) {
+		this.isOneHanded = oneHanded;
+		return this;
+	}
+
 	/**
 	 *
 	 * @param barrelSwitch set the divider that divides the fire rate to denote how many ticks it takes to switch barrels
@@ -617,6 +623,7 @@ public class GunItem extends ShootableItem {
 		if (enchantment == ModEnchantments.impact && isExplosive) return false; //these are not for launcher
 		if (enchantment == ModEnchantments.luckyShot && isExplosive) return false;
 		if (enchantment == ModEnchantments.frostShot && isExplosive) return false;
+		if (enchantment == ModEnchantments.cowboy && isOneHanded) return false;
 
 		//only let these apply to certain gun types
 		if (enchantment == ModEnchantments.division && !(me instanceof ShotgunItem)) return false; //shotgun only
