@@ -227,7 +227,7 @@ public class KGConfig {
                 .defineInRange("explosionIncreaseOnStrongerTier", 1D, 0D, 90D);
         crouchAccuracyMultiplier = builder
                 .comment("Accuracy multiplier for when the user is crouching")
-                .defineInRange("crouchAccuracyMultiplier", 3.0D, 0.1D, 5D);
+                .defineInRange("crouchAccuracyMultiplier", 4.0D, 0.1D, 5D);
         redstoneRadius = builder
                 .comment("Configure the radius for a redstone block to activate redstone class gun.  WARNING, PERFORMANCE BOTTLENECKS CAN OCCUR")
                 .defineInRange("redstoneRadius", 10, 0, 31);
