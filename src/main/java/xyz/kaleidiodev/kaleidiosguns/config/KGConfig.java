@@ -13,6 +13,7 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue explosionIncreaseOnStrongerTier;
     public static ForgeConfigSpec.DoubleValue oneHandInaccuracyMultiplier;
     public static ForgeConfigSpec.DoubleValue oneHandInaccuracyReplacement;
+    public static ForgeConfigSpec.DoubleValue oneHandShotgunRateMultiplier;
     public static ForgeConfigSpec.DoubleValue crouchAccuracyMultiplier;
     public static ForgeConfigSpec.IntValue redstoneRadius;
 
@@ -218,6 +219,9 @@ public class KGConfig {
         oneHandInaccuracyReplacement = builder
                 .comment("Inaccuracy of any perfect accuracy weapons in the case of one hand being filled")
                 .defineInRange("oneHandInaccuracyReplacement", 2.0D, 0D, 90D);
+        oneHandShotgunRateMultiplier = builder
+                .comment("Fire rate multiplier for shotguns for when the user has one hand filled")
+                .defineInRange("oneHandShotgunRateMultiplier", 2.0D, 0.1D, 5D);
         explosionIncreaseOnStrongerTier = builder
                 .comment("How much larger the explosion radius would be assuming damage is stronger than a hunger bullet")
                 .defineInRange("explosionIncreaseOnStrongerTier", 1D, 0D, 90D);

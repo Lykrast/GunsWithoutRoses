@@ -289,9 +289,7 @@ public class GunItem extends ShootableItem {
 		if (chanceFreeShot > 0 && random.nextDouble() < chanceFreeShot) return false;
 
 		int preserving = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.preserving, stack);
-		if ((preserving * KGConfig.preservingRateIncrease.get())- random.nextDouble() > 0) return false;
-
-		return true;
+		return !((preserving * KGConfig.preservingRateIncrease.get()) - random.nextDouble() > 0);
 	}
 
 	/**
@@ -311,6 +309,14 @@ public class GunItem extends ShootableItem {
 	 */
 	public int getFireDelay(ItemStack stack, @Nullable PlayerEntity player) {
 		int base = Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * KGConfig.sleightOfHandFireRateDecrease.get()));
+
+		//increase time spend if two hands on a shotgun class
+		if ((player != null) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.cowboy, stack) == 0)) {
+			//if both hands are full, because one is the gun and one is something else
+			if (!player.getMainHandItem().isEmpty() && !player.getOffhandItem().isEmpty()) {
+				base *= KGConfig.oneHandShotgunRateMultiplier.get();
+			}
+		}
 
 		//have instant tick time if barrel side has been switched
 		if (chamber == revolutions) {
@@ -341,7 +347,7 @@ public class GunItem extends ShootableItem {
 		nextInaccuracy += shotsBeforeStability * Math.max(0, instabilitySpreadAdditional / ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) * KGConfig.bullseyeAccuracyIncrease.get()) + 1.0D));
 
 		//check player hands
-		if ((player != null) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.cowboy, stack) == 0)) {
+		if ((player != null) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.cowboy, stack) == 0) && !(stack.getItem() instanceof ShotgunItem)) {
 			//if both hands are full, because one is the gun and one is something else
 			if (!player.getMainHandItem().isEmpty() && !player.getOffhandItem().isEmpty()) {
 				//if sniper class, give a new inaccuracy
