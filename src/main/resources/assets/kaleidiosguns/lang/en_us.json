@@ -56,7 +56,7 @@
 	"tooltip.kaleidiosguns.frost_distance": "Damage is minimum at §f%s§r blocks away",
 	"tooltip.kaleidiosguns.wither": "Gives wither around the explosion's epicentre",
 	"tooltip.kaleidiosguns.blessed": "Having low health multiplies damage",
-	"tooltip.kaleidiosguns.plasma": "Does extreme damage to blocking shields",
+	"tooltip.kaleidiosguns.plasma": "Can disable a shield or drop a monster's held item",
 	"tooltip.kaleidiosguns.shadow": "Damage is higher when shot from the dark",
 	"tooltip.kaleidiosguns.corruption": "Can replace a mined block with netherrack blocks",
 	"tooltip.kaleidiosguns.redstone": "A Redstone Block must be close-by to use this weapon",

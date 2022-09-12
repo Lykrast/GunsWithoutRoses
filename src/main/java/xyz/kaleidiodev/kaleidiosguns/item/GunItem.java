@@ -74,6 +74,7 @@ public class GunItem extends ShootableItem {
 	protected boolean isCorruption;
 	protected boolean hasVoltage;
 	protected boolean isDefender;
+	protected boolean isAssault;
 
 	protected SoundEvent fireSound = ModSounds.gun;
 	protected SoundEvent reloadSound = ModSounds.double_shotgunReload;
@@ -311,7 +312,7 @@ public class GunItem extends ShootableItem {
 		int base = Math.max(1, fireDelay - (int)(fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * KGConfig.sleightOfHandFireRateDecrease.get()));
 
 		//increase time spend if two hands on a shotgun class
-		if ((player != null) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.cowboy, stack) == 0)) {
+		if ((player != null) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.cowboy, stack) == 0) && (stack.getItem() instanceof ShotgunItem)) {
 			//if both hands are full, because one is the gun and one is something else
 			if (!player.getMainHandItem().isEmpty() && !player.getOffhandItem().isEmpty()) {
 				base *= KGConfig.oneHandShotgunRateMultiplier.get();
@@ -362,6 +363,11 @@ public class GunItem extends ShootableItem {
 			if (player.isCrouching() && player.isOnGround()) {
 				nextInaccuracy /= KGConfig.crouchAccuracyMultiplier.get();
 			}
+		}
+
+		//if basic assault rifle
+		if ((this.isAssault) && (player != null)) {
+			if (player.isOnGround()) nextInaccuracy /= KGConfig.ironAssaultGroundedMultiplier.get();
 		}
 
 		return nextInaccuracy;
@@ -545,6 +551,11 @@ public class GunItem extends ShootableItem {
 
 	public GunItem setIsDefender(boolean defender) {
 		this.isDefender = defender;
+		return this;
+	}
+
+	public GunItem setIsAssault(boolean assault) {
+		this.isAssault = assault;
 		return this;
 	}
 
