@@ -73,6 +73,7 @@ public class ClientPacketHandler {
         bullet.isPlasma = packet.readBoolean();
         bullet.isCritical = packet.readBoolean();
         bullet.wasRevenge = packet.readBoolean();
+        bullet.wasDark = packet.readBoolean();
 
         mc.level.putNonPlayerEntity(entityID, bullet);
         entity.lerpMotion(velocity.x, velocity.y, velocity.z);
