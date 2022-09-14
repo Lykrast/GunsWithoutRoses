@@ -2,8 +2,6 @@ package xyz.kaleidiodev.kaleidiosguns.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
-import javax.swing.text.StyledEditorKit;
-
 public class KGConfig {
 
     public static ForgeConfigSpec spec;
@@ -156,7 +154,7 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue ironAssaultDurability;
     public static ForgeConfigSpec.DoubleValue ironAssaultInaccuracy;
     public static ForgeConfigSpec.DoubleValue ironAssaultProjectileSpeed;
-    public static ForgeConfigSpec.DoubleValue ironAssaultGroundedMultiplier;
+
 
     public static ForgeConfigSpec.DoubleValue defenderRifleDamageMultiplier;
     public static ForgeConfigSpec.IntValue defenderRifleFireDelay;
@@ -603,9 +601,9 @@ public class KGConfig {
         ironAssaultProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Assault Rifles")
                 .defineInRange("ironAssaultProjectileSpeed", 10D, 0D, 64D);
-        ironAssaultGroundedMultiplier = builder
-                .comment("Configure the Inaccuracy decrease when using Assault Rifles whilst grounded")
-                .defineInRange("ironAssaultGroundedMultiplier", 2.0D, 0D, 5D);
+        ironAssaultProjectileSpeed = builder
+                .comment("Configure the Projectile Speed for Assault Rifles")
+                .defineInRange("ironAssaultProjectileSpeed", 10D, 0D, 64D);
         builder.pop();
 
         builder.push("plasma rifle");
@@ -635,7 +633,7 @@ public class KGConfig {
         builder.push("defenders carbine");
         defenderRifleDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Defender Rifles")
-                .defineInRange("defenderRifleDamageMultiplier", 0.625D, 0.1D, 5D);
+                .defineInRange("defenderRifleDamageMultiplier", 0.6D, 0.1D, 5D);
         defenderRifleFireDelay = builder
                 .comment("Configure the Fire delay for Defender Rifles")
                 .defineInRange("defenderRifleFireDelay", 5, 0, 72000);
@@ -647,7 +645,7 @@ public class KGConfig {
                 .defineInRange("defenderRifleDurability", 4500, 0, 32767);
         defenderRifleInaccuracy = builder
                 .comment("Configure the Inaccuracy for Defender Rifles")
-                .defineInRange("defenderRifleInaccuracy", 3.0D, 0D, 90D);
+                .defineInRange("defenderRifleInaccuracy", 2.0D, 0D, 90D);
         defenderRifleProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Defender Rifles")
                 .defineInRange("defenderRifleProjectileSpeed", 8D, 0D, 64D);

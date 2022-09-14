@@ -74,7 +74,6 @@ public class GunItem extends ShootableItem {
 	protected boolean isCorruption;
 	protected boolean hasVoltage;
 	protected boolean isDefender;
-	protected boolean isAssault;
 	protected boolean isOneHanded;
 
 	protected SoundEvent fireSound = ModSounds.gun;
@@ -366,11 +365,6 @@ public class GunItem extends ShootableItem {
 			}
 		}
 
-		//if basic assault rifle
-		if ((this.isAssault) && (player != null)) {
-			if (player.isOnGround()) nextInaccuracy /= KGConfig.ironAssaultGroundedMultiplier.get();
-		}
-
 		return nextInaccuracy;
 	}
 
@@ -552,11 +546,6 @@ public class GunItem extends ShootableItem {
 
 	public GunItem setIsDefender(boolean defender) {
 		this.isDefender = defender;
-		return this;
-	}
-
-	public GunItem setIsAssault(boolean assault) {
-		this.isAssault = assault;
 		return this;
 	}
 
