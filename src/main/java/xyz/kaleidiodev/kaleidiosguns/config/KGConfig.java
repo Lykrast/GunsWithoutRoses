@@ -706,16 +706,16 @@ public class KGConfig {
                 .defineInRange("flintBulletDamage", 5D, 1D, 20D);
         ironBulletDamage = builder
                 .comment("Configure the damage of Iron Bullets")
-                .defineInRange("ironBulletDamage", 6D, 1D, 20D);
+                .defineInRange("ironBulletDamage", 7D, 1D, 20D);
         blazeBulletDamage = builder
                 .comment("Configure the damage of Blaze Bullets")
-                .defineInRange("blazeBulletDamage", 7D, 1D, 20D);
+                .defineInRange("blazeBulletDamage", 9D, 1D, 20D);
         hungerBulletDamage = builder
                 .comment("Configure the damage of Hunger Bullets")
-                .defineInRange("hungerBulletDamage", 8D, 1D, 20D);
+                .defineInRange("hungerBulletDamage", 10D, 1D, 20D);
         xpBulletDamage = builder
                 .comment("Configure the damage of XP Bullets")
-                .defineInRange("xpBulletDamage", 9D, 1D, 20D);
+                .defineInRange("xpBulletDamage", 14D, 1D, 20D);
         builder.pop();
 
         builder.push("minegun_config");
