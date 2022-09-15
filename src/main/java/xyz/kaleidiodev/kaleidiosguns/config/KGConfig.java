@@ -198,8 +198,8 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue luckyShotChance;
     public static ForgeConfigSpec.DoubleValue criticalDamage;
     public static ForgeConfigSpec.DoubleValue frostyDistancePerLevel;
-    public static ForgeConfigSpec.DoubleValue frostyMaxMultiplier;
-    public static ForgeConfigSpec.DoubleValue frostyMinMultiplier;
+    public static ForgeConfigSpec.DoubleValue frostyMaxAddition;
+    public static ForgeConfigSpec.DoubleValue frostyMinAddition;
     public static ForgeConfigSpec.DoubleValue signalMultiplier;
 
 
@@ -782,19 +782,19 @@ public class KGConfig {
         builder.push("lucky shot enchantment");
         luckyShotChance = builder
                 .comment("Chance for critical hit per lucky shot level")
-                .defineInRange("luckyShotChance", 0.075D, 0.01D, 5D);
+                .defineInRange("luckyShotChance", 0.1D, 0.01D, 5D);
         criticalDamage = builder
                 .comment("Multiplier of a critical hit's damage")
-                .defineInRange("criticalDamage", 3D, 0.1D, 20D);
+                .defineInRange("criticalDamage", 1.5D, 0.1D, 20D);
         builder.pop();
 
         builder.push("frost shard enchantment");
-        frostyMaxMultiplier = builder
+        frostyMaxAddition = builder
                 .comment("Maximum damage of a frosty bullet")
-                .defineInRange("frostyMaxMultiplier", 2.5D, 0.1D, 20D);
-        frostyMinMultiplier = builder
+                .defineInRange("frostyMaxAddition", 6D, -20D, 20D);
+        frostyMinAddition = builder
                 .comment("Minimum damage of a frosty bullet")
-                .defineInRange("frostyMinMultiplier", 0.5D, 0.1D, 20D);
+                .defineInRange("frostyMinAddition", -3D, -20D, 20D);
         frostyDistancePerLevel = builder
                 .comment("Block distance from origin until a frosty bullet is at minimum multiplier")
                 .defineInRange("frostyDistancePerLevel", 20D, 0D, 128D);
