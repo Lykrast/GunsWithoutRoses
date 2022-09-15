@@ -22,6 +22,7 @@
 	"item.kaleidiosguns.iron_bullet": "Iron Bullet",
 	"item.kaleidiosguns.blaze_bullet": "Blaze Bullet",
 	"item.kaleidiosguns.hunger_bullet": "Maws of Gluttony",
+	"item.kaleidiosguns.xp_bullet": "Cleric Cartridge",
 
 	"tooltip.kaleidiosguns.shift": "§7Hold §fSHIFT§7 for stats§r",
 	"tooltip.kaleidiosguns.bullet.damage": "%d damage",
@@ -65,6 +66,7 @@
 
 	"tooltip.kaleidiosguns.blaze_bullet": "Sets entities on fire",
 	"tooltip.kaleidiosguns.hunger_bullet": "Uses hunger as ammo",
+	"tooltip.kaleidiosguns.xp_bullet": "Uses xp levels as ammo, but can continue even when emptied",
 
 	"itemGroup.kaleidiosguns": "Kaleidio's Guns",
 

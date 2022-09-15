@@ -34,6 +34,7 @@ import xyz.kaleidiodev.kaleidiosguns.registry.ModItems;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModSounds;
 
 import javax.annotation.Nullable;
+import javax.swing.*;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -152,6 +153,8 @@ public class GunItem extends ShootableItem {
 			if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet);
 
 			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
+
+			if ((ammo.getItem() instanceof XPBulletItem) && (player.experienceLevel == 0)) return ActionResult.fail(gun);
 			if (!world.isClientSide) {
 				player.startUsingItem(hand);
 				boolean bulletFree = player.abilities.instabuild || !shouldConsumeAmmo(gun, player);

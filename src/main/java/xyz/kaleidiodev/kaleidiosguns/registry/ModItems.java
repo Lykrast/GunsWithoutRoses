@@ -34,7 +34,7 @@ public class ModItems {
 			assaultGatling,
 	        defenderRifle;
 
-	public static BulletItem flintBullet, ironBullet, blazeBullet, hungerBullet;
+	public static BulletItem flintBullet, ironBullet, blazeBullet, hungerBullet, xpBullet;
 
 	@SubscribeEvent
 	public static void registerItems(final RegistryEvent.Register<Item> event) {
@@ -75,7 +75,7 @@ public class ModItems {
 		ironBullet = initItem(reg, new BulletItem(defP(), KGConfig.ironBulletDamage.get()), "iron_bullet");
 		blazeBullet = initItem(reg, new BlazeBulletItem(defP(), KGConfig.blazeBulletDamage.get()), "blaze_bullet");
 		hungerBullet = initItem(reg, new HungerBulletItem(defP().stacksTo(1), KGConfig.hungerBulletDamage.get()), "hunger_bullet");
-
+		xpBullet = initItem(reg, new XPBulletItem(defP().stacksTo(1), KGConfig.xpBulletDamage.get()), "xp_bullet");
 
 	}
 

@@ -178,6 +178,7 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue ironBulletDamage;
     public static ForgeConfigSpec.DoubleValue blazeBulletDamage;
     public static ForgeConfigSpec.DoubleValue hungerBulletDamage;
+    public static ForgeConfigSpec.DoubleValue xpBulletDamage;
 
     //Minegun balance curve
     public static ForgeConfigSpec.DoubleValue mineGunSecondLevel;
@@ -712,6 +713,9 @@ public class KGConfig {
         hungerBulletDamage = builder
                 .comment("Configure the damage of Hunger Bullets")
                 .defineInRange("hungerBulletDamage", 8D, 1D, 20D);
+        xpBulletDamage = builder
+                .comment("Configure the damage of XP Bullets")
+                .defineInRange("xpBulletDamage", 9D, 1D, 20D);
         builder.pop();
 
         builder.push("minegun_config");

@@ -18,11 +18,22 @@ import java.util.List;
 public class ModTradesEvent {
     @SubscribeEvent
     public static void addCustomTrades(VillagerTradesEvent event) {
-        if (event.getType() == VillagerProfession.FLETCHER) {
+        if (event.getType() == VillagerProfession.WEAPONSMITH) {
             Int2ObjectMap<List<VillagerTrades.ITrade>> trades = event.getTrades();
 
-            trades.get(4).add((trader, rand) -> new MerchantOffer(new ItemStack(Items.EMERALD, 10), new ItemStack(ModItems.blessedPistol, 1), 1, 12, 0.08F));
-            trades.get(5).add((trader, rand) -> new MerchantOffer(new ItemStack(Items.EMERALD, 15), new ItemStack(ModItems.defenderRifle, 1), 1, 20, 2.0F));
+            trades.get(5).add((trader, rand) -> new MerchantOffer(new ItemStack(Items.EMERALD, 20), new ItemStack(ModItems.blessedPistol, 1), 1, 50, 0.3F));
+        }
+
+        if (event.getType() == VillagerProfession.ARMORER) {
+            Int2ObjectMap<List<VillagerTrades.ITrade>> trades = event.getTrades();
+
+            trades.get(5).add((trader, rand) -> new MerchantOffer(new ItemStack(Items.EMERALD, 50), new ItemStack(ModItems.defenderRifle, 1), 1, 80, 0.3F));
+        }
+
+        if (event.getType() == VillagerProfession.CLERIC) {
+            Int2ObjectMap<List<VillagerTrades.ITrade>> trades = event.getTrades();
+
+            trades.get(5).add((trader, rand) -> new MerchantOffer(new ItemStack(Items.EMERALD, 16), new ItemStack(ModItems.xpBullet, 1), 1, 32, 0.3F));
         }
     }
 }
