@@ -376,10 +376,10 @@ public class KGConfig {
         builder.push("shotgun");
         diamondShotgunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Shotguns")
-                .defineInRange("diamondShotgunDamageMultiplier", 0.4D, 0.1D, 5D);
+                .defineInRange("diamondShotgunDamageMultiplier", 0.5D, 0.1D, 5D);
         diamondShotgunFireDelay = builder
                 .comment("Configure the Fire delay for Shotguns")
-                .defineInRange("diamondShotgunFireDelay", 24, 0, 72000);
+                .defineInRange("diamondShotgunFireDelay", 20, 0, 72000);
         diamondShotgunEnchantability = builder
                 .comment("Configure the Enchantability for Shotguns")
                 .defineInRange("diamondShotgunEnchantability", 10, 0, 30);
@@ -400,10 +400,10 @@ public class KGConfig {
         builder.push("double barrel shotgun");
         goldDoubleShotgunDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Double Barrel Shotguns")
-                .defineInRange("goldDoubleShotgunDamageMultiplier", 0.4D, 0.1D, 5D);
+                .defineInRange("goldDoubleShotgunDamageMultiplier", 0.5D, 0.1D, 5D);
         goldDoubleShotgunFireDelay = builder
                 .comment("Configure the Fire delay for Double Barrel Shotguns")
-                .defineInRange("goldDoubleShotgunFireDelay", 60, 0, 72000);
+                .defineInRange("goldDoubleShotgunFireDelay", 40, 0, 72000);
         goldDoubleShotgunEnchantability = builder
                 .comment("Configure the Enchantability for Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunEnchantability", 23, 0, 30);
@@ -412,7 +412,7 @@ public class KGConfig {
                 .defineInRange("goldDoubleShotgunDurability", 100, 0, 32767);
         goldDoubleShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Double Barrel Shotguns")
-                .defineInRange("goldDoubleShotgunInaccuracy", 5D, 0D, 90D);
+                .defineInRange("goldDoubleShotgunInaccuracy", 6D, 0D, 90D);
         goldDoubleShotgunBulletCount = builder
                 .comment("Configure the amount of Bullets at once for Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunBulletCount", 5, 0, 100);
@@ -421,7 +421,7 @@ public class KGConfig {
                 .defineInRange("goldDoubleShotgunProjectileSpeed", 8D, 0D, 64D);
         goldDoubleShotgunChamberSwitchSpeed = builder
                 .comment("Configure how long switching chambers takes between shots on Double Barrel Shotguns")
-                .defineInRange("goldDoubleShotgunChamberSwitchSpeed", 15, 1, 72000);
+                .defineInRange("goldDoubleShotgunChamberSwitchSpeed", 10, 1, 72000);
         goldDoubleShotgunKnockback = builder
                 .comment("Configure how strong knockback is at closest range on Double Barrel Shotguns")
                 .defineInRange("goldDoubleShotgunKnockback", 1.2D, 0.01D, 5D);
@@ -433,7 +433,7 @@ public class KGConfig {
                 .defineInRange("netheriteShotgunDamageMultiplier", 0.5D, 0.1D, 5D);
         netheriteShotgunFireDelay = builder
                 .comment("Configure the Fire delay for Vampire Shotguns")
-                .defineInRange("netheriteShotgunFireDelay", 30, 0, 72000);
+                .defineInRange("netheriteShotgunFireDelay", 24, 0, 72000);
         netheriteShotgunEnchantability = builder
                 .comment("Configure the Enchantability for Vampire Shotguns")
                 .defineInRange("netheriteShotgunEnchantability", 15, 0, 30);
@@ -442,7 +442,7 @@ public class KGConfig {
                 .defineInRange("netheriteShotgunDurability", 160, 0, 32767);
         netheriteShotgunInaccuracy = builder
                 .comment("Configure the Inaccuracy for Vampire Shotguns")
-                .defineInRange("netheriteShotgunInaccuracy", 4D, 0D, 90D);
+                .defineInRange("netheriteShotgunInaccuracy", 3D, 0D, 90D);
         netheriteShotgunBulletCount = builder
                 .comment("Configure the amount of Bullets at once for Vampire Shotguns")
                 .defineInRange("netheriteShotgunBulletCount", 4, 0, 50);
@@ -469,7 +469,7 @@ public class KGConfig {
                 .defineInRange("diamondSniperDamageMultiplier", 2D, 0.1D, 5D);
         diamondSniperFireDelay = builder
                 .comment("Configure the Fire delay for Snipers")
-                .defineInRange("diamondSniperFireDelay", 32, 0, 72000);
+                .defineInRange("diamondSniperFireDelay", 24, 0, 72000);
         diamondSniperEnchantability = builder
                 .comment("Configure the Enchantability for Snipers")
                 .defineInRange("diamondSniperEnchantability", 10, 0, 30);
@@ -487,16 +487,16 @@ public class KGConfig {
         builder.push("carbine");
         ironCarbineDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Carbines")
-                .defineInRange("ironCarbineDamageMultiplier", 1.5D, 0.5D, 5D);
+                .defineInRange("ironCarbineDamageMultiplier", 1.75D, 0.5D, 5D);
         ironCarbineFireDelay = builder
                 .comment("Configure the Fire delay for Carbines")
-                .defineInRange("ironCarbineFireDelay", 13, 0, 72000);
+                .defineInRange("ironCarbineFireDelay", 18, 0, 72000);
         ironCarbineEnchantability = builder
                 .comment("Configure the Enchantability for Carbines")
                 .defineInRange("ironCarbineEnchantability", 14, 0, 30);
         ironCarbineDurability = builder
                 .comment("Configure the Durability for Carbines")
-                .defineInRange("ironCarbineDurability", 444, 0, 32767);
+                .defineInRange("ironCarbineDurability", 615, 0, 32767);
         ironCarbineInaccuracy = builder
                 .comment("Configure the Inaccuracy for Carbines")
                 .defineInRange("ironCarbineInaccuracy", 0D, 0D, 90D);
@@ -586,7 +586,7 @@ public class KGConfig {
         builder.push("assault rifle");
         ironAssaultDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Assault Rifles")
-                .defineInRange("ironAssaultDamageMultiplier", 0.75D, 0.1D, 5D);
+                .defineInRange("ironAssaultDamageMultiplier", 0.6D, 0.1D, 5D);
         ironAssaultFireDelay = builder
                 .comment("Configure the Fire delay for Assault Rifles")
                 .defineInRange("ironAssaultFireDelay", 5, 0, 72000);
@@ -607,7 +607,7 @@ public class KGConfig {
         builder.push("plasma rifle");
         goldPlasmaDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Plasma Rifles")
-                .defineInRange("goldPlasmaDamageMultiplier", 0.9D, 0.1D, 5D);
+                .defineInRange("goldPlasmaDamageMultiplier", 0.8D, 0.1D, 5D);
         goldPlasmaFireDelay = builder
                 .comment("Configure the Fire delay for Plasma Rifles")
                 .defineInRange("goldPlasmaFireDelay", 7, 0, 72000);
@@ -631,7 +631,7 @@ public class KGConfig {
         builder.push("defenders carbine");
         defenderRifleDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Defender Rifles")
-                .defineInRange("defenderRifleDamageMultiplier", 0.8D, 0.1D, 5D);
+                .defineInRange("defenderRifleDamageMultiplier", 0.7D, 0.1D, 5D);
         defenderRifleFireDelay = builder
                 .comment("Configure the Fire delay for Defender Rifles")
                 .defineInRange("defenderRifleFireDelay", 6, 0, 72000);
