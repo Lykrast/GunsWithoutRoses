@@ -238,7 +238,7 @@ public class KGConfig {
                 .defineInRange("ironPistolDamageModifier", 1D, 0.1D, 5D);
         ironPistolFireDelay = builder
                 .comment("Configure the Fire delay for Pistols")
-                .defineInRange("ironPistolFireDelay", 12, 0, 72000);
+                .defineInRange("ironPistolFireDelay", 10, 0, 72000);
         ironPistolEnchantability = builder
                 .comment("Configure the Enchantability for Pistols")
                 .defineInRange("ironPistolEnchantability", 14, 0, 30);
@@ -490,7 +490,7 @@ public class KGConfig {
                 .defineInRange("ironCarbineDamageMultiplier", 1.5D, 0.5D, 5D);
         ironCarbineFireDelay = builder
                 .comment("Configure the Fire delay for Carbines")
-                .defineInRange("ironCarbineFireDelay", 18, 0, 72000);
+                .defineInRange("ironCarbineFireDelay", 15, 0, 72000);
         ironCarbineEnchantability = builder
                 .comment("Configure the Enchantability for Carbines")
                 .defineInRange("ironCarbineEnchantability", 14, 0, 30);
@@ -791,10 +791,10 @@ public class KGConfig {
         builder.push("frost shard enchantment");
         frostyMaxAddition = builder
                 .comment("Maximum damage of a frosty bullet")
-                .defineInRange("frostyMaxAddition", 6D, -20D, 20D);
+                .defineInRange("frostyMaxAddition", 8D, -20D, 20D);
         frostyMinAddition = builder
                 .comment("Minimum damage of a frosty bullet")
-                .defineInRange("frostyMinAddition", -3D, -20D, 20D);
+                .defineInRange("frostyMinAddition", -2D, -20D, 20D);
         frostyDistancePerLevel = builder
                 .comment("Block distance from origin until a frosty bullet is at minimum multiplier")
                 .defineInRange("frostyDistancePerLevel", 20D, 0D, 128D);
