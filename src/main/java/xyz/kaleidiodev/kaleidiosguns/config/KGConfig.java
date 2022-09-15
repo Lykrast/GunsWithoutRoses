@@ -165,13 +165,13 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue defenderRifleRange;
     public static ForgeConfigSpec.IntValue defenderRifleDelayDelta;
 
-    public static ForgeConfigSpec.DoubleValue goldStreamDamageMultiplier;
-    public static ForgeConfigSpec.IntValue goldStreamFireDelay;
-    public static ForgeConfigSpec.IntValue goldStreamEnchantability;
-    public static ForgeConfigSpec.IntValue goldStreamDurability;
-    public static ForgeConfigSpec.DoubleValue goldStreamInaccuracy;
-    public static ForgeConfigSpec.DoubleValue goldStreamProjectileSpeed;
-    public static ForgeConfigSpec.DoubleValue goldStreamShieldAdditional;
+    public static ForgeConfigSpec.DoubleValue goldPlasmaDamageMultiplier;
+    public static ForgeConfigSpec.IntValue goldPlasmaFireDelay;
+    public static ForgeConfigSpec.IntValue goldPlasmaEnchantability;
+    public static ForgeConfigSpec.IntValue goldPlasmaDurability;
+    public static ForgeConfigSpec.DoubleValue goldPlasmaInaccuracy;
+    public static ForgeConfigSpec.DoubleValue goldPlasmaProjectileSpeed;
+    public static ForgeConfigSpec.DoubleValue golddPlasmaShieldAdditional;
 
     //Bullets
     public static ForgeConfigSpec.DoubleValue flintBulletDamage;
@@ -586,16 +586,16 @@ public class KGConfig {
         builder.push("assault rifle");
         ironAssaultDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Assault Rifles")
-                .defineInRange("ironAssaultDamageMultiplier", 0.5D, 0.1D, 5D);
+                .defineInRange("ironAssaultDamageMultiplier", 0.75D, 0.1D, 5D);
         ironAssaultFireDelay = builder
                 .comment("Configure the Fire delay for Assault Rifles")
-                .defineInRange("ironAssaultFireDelay", 4, 0, 72000);
+                .defineInRange("ironAssaultFireDelay", 5, 0, 72000);
         ironAssaultEnchantability = builder
                 .comment("Configure the Enchantability for Assault Rifles")
                 .defineInRange("ironAssaultEnchantability", 14, 0, 30);
         ironAssaultDurability = builder
                 .comment("Configure the Durability for Assault Rifles")
-                .defineInRange("ironAssaultDurability", 6000, 0, 32767);
+                .defineInRange("ironAssaultDurability", 3200, 0, 32767);
         ironAssaultInaccuracy = builder
                 .comment("Configure the Inaccuracy for Assault Rifles")
                 .defineInRange("ironAssaultInaccuracy", 3.0D, 0D, 90D);
@@ -605,25 +605,25 @@ public class KGConfig {
         builder.pop();
 
         builder.push("plasma rifle");
-        goldStreamDamageMultiplier = builder
+        goldPlasmaDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Plasma Rifles")
-                .defineInRange("goldPlasmaDamageMultiplier", 0.75D, 0.1D, 5D);
-        goldStreamFireDelay = builder
+                .defineInRange("goldPlasmaDamageMultiplier", 0.9D, 0.1D, 5D);
+        goldPlasmaFireDelay = builder
                 .comment("Configure the Fire delay for Plasma Rifles")
-                .defineInRange("goldPlasmaFireDelay", 5, 0, 72000);
-        goldStreamEnchantability = builder
+                .defineInRange("goldPlasmaFireDelay", 7, 0, 72000);
+        goldPlasmaEnchantability = builder
                 .comment("Configure the Enchantability for Plasma Rifles")
                 .defineInRange("goldPlasmaEnchantability", 23, 0, 30);
-        goldStreamDurability = builder
+        goldPlasmaDurability = builder
                 .comment("Configure the Durability for Plasma Rifles")
-                .defineInRange("goldPlasmaDurability", 3200, 0, 32767);
-        goldStreamInaccuracy = builder
+                .defineInRange("goldPlasmaDurability", 1904, 0, 32767);
+        goldPlasmaInaccuracy = builder
                 .comment("Configure the Inaccuracy for Plasma Rifles")
                 .defineInRange("goldPlasmaInaccuracy", 0D, 0D, 90D);
-        goldStreamProjectileSpeed = builder
+        goldPlasmaProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Plasma Rifles")
                 .defineInRange("goldPlasmaProjectileSpeed", 2D, 0D, 64D);
-        goldStreamShieldAdditional = builder
+        golddPlasmaShieldAdditional = builder
                 .comment("Configure the chance for shields to be disabled against Plasma Rifles")
                 .defineInRange("goldPlasmaShieldAdditional", 0.25D, 0.05D, 1D);
         builder.pop();
@@ -631,16 +631,16 @@ public class KGConfig {
         builder.push("defenders carbine");
         defenderRifleDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Defender Rifles")
-                .defineInRange("defenderRifleDamageMultiplier", 0.6D, 0.1D, 5D);
+                .defineInRange("defenderRifleDamageMultiplier", 0.8D, 0.1D, 5D);
         defenderRifleFireDelay = builder
                 .comment("Configure the Fire delay for Defender Rifles")
-                .defineInRange("defenderRifleFireDelay", 5, 0, 72000);
+                .defineInRange("defenderRifleFireDelay", 6, 0, 72000);
         defenderRifleEnchantability = builder
                 .comment("Configure the Enchantability for Defender Rifles")
                 .defineInRange("defenderRifleEnchantability", 18, 0, 30);
         defenderRifleDurability = builder
                 .comment("Configure the Durability for Defender Rifles")
-                .defineInRange("defenderRifleDurability", 4500, 0, 32767);
+                .defineInRange("defenderRifleDurability", 2500, 0, 32767);
         defenderRifleInaccuracy = builder
                 .comment("Configure the Inaccuracy for Defender Rifles")
                 .defineInRange("defenderRifleInaccuracy", 2.0D, 0D, 90D);
