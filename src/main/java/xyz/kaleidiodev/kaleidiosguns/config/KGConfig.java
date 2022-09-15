@@ -702,13 +702,13 @@ public class KGConfig {
 
         builder.push("bullet_config");
         flintBulletDamage = builder
-                .comment("Configure the damage of Flint Bullets")
+                .comment("Configure the damage of Flint Bullets.  This tier should always be minimal damage")
                 .defineInRange("flintBulletDamage", 5D, 1D, 20D);
         ironBulletDamage = builder
                 .comment("Configure the damage of Iron Bullets")
                 .defineInRange("ironBulletDamage", 7D, 1D, 20D);
         blazeBulletDamage = builder
-                .comment("Configure the damage of Blaze Bullets")
+                .comment("Configure the damage of Blaze Bullets.  This tier should always be the middle ground in damage total including flames for purpose of durability checks")
                 .defineInRange("blazeBulletDamage", 9D, 1D, 20D);
         hungerBulletDamage = builder
                 .comment("Configure the damage of Hunger Bullets")
