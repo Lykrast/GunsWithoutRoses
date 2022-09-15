@@ -42,7 +42,7 @@ public class ModEnchantments {
 		//alternate upgrade (these get two for each category because there is no "alls")
 		luckyShot = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 3, 6, 12, 30, TYPE_GUN), "lucky_shot"); //dmg
 		frostShot = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.VERY_RARE, 3, 5, 10, 30, TYPE_GUN), "frost_shard"); //dmg 2
-		counterStrike = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 1, 8, 16, 30, TYPE_GUN), "counter_strike"); //acc
+		counterStrike = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 1, 10, 20, 30, TYPE_GUN), "counter_strike"); //acc
 	}
 
 	public static Enchantment initEnchant(IForgeRegistry<Enchantment> reg, Enchantment enchantment, String name) {
