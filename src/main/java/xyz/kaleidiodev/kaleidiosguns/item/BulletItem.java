@@ -11,6 +11,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.entity.BulletEntity;
 
 import javax.annotation.Nullable;
@@ -37,7 +38,18 @@ public class BulletItem extends Item implements IBullet {
 
 	@Override
 	public void consume(ItemStack stack, PlayerEntity player) {
-		stack.shrink(1);
+		int cost = 1;
+
+		if (player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GatlingItem) cost = KGConfig.gatlingCost.get();
+		if (player.getItemInHand(player.getUsedItemHand()).getItem() instanceof ShotgunItem) cost = KGConfig.shotgunCost.get();
+		if (player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GunItem) {
+			if (((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).isExplosive) cost = KGConfig.launcherCost.get();
+			if (!(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).isExplosive) &&
+					(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).hasPerfectAccuracy())) cost = KGConfig.sniperCost.get();
+			if (!(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).hasPerfectAccuracy())) cost = KGConfig.pistolCost.get();
+		}
+
+		stack.shrink(cost);
 		if (stack.isEmpty()) {
 			player.inventory.removeItem(stack);
 		}
