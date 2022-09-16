@@ -171,8 +171,6 @@ public class GunItem extends ShootableItem {
 					durabilityDamage += 1;
 				}
 
-				System.out.println(durabilityDamage);
-
 				gun.hurtAndBreak(durabilityDamage, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
 				if (!bulletFree) bulletItem.consume(ammo, player);
 			}
