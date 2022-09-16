@@ -119,8 +119,6 @@ public interface IBullet {
 			newDamage *= ((maximumBlocks - projectile.redstoneLevel) * (multiplierPerBlock)) + KGConfig.ironVoltgunMinimumDamage.get();
 		}
 
-		System.out.println(newDamage);
-
 		return newDamage;
 	}
 

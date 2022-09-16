@@ -19,7 +19,7 @@ import java.util.List;
 
 public class BulletItem extends Item implements IBullet {
 
-	private final double damage;
+	public final double damage;
 
 	public BulletItem(Properties properties, double damage) {
 		super(properties);

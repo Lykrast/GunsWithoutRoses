@@ -163,7 +163,17 @@ public class GunItem extends ShootableItem {
 				ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet);
 				fireWeapon(world, player, gun, shotAmmo, bulletItem, bulletFree);
 
-				gun.hurtAndBreak(ammo.getDamageValue() >= KGConfig.blazeBulletDamage.get() ? 2 : 1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
+				int durabilityDamage = 1;
+				if (((BulletItem)ammo.getItem()).damage >= KGConfig.blazeBulletDamage.get()) {
+					durabilityDamage += 1;
+				}
+				if (((BulletItem)ammo.getItem()).damage >= KGConfig.xpBulletDamage.get()) {
+					durabilityDamage += 1;
+				}
+
+				System.out.println(durabilityDamage);
+
+				gun.hurtAndBreak(durabilityDamage, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
 				if (!bulletFree) bulletItem.consume(ammo, player);
 			}
 

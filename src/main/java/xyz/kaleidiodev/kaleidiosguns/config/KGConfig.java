@@ -231,7 +231,7 @@ public class KGConfig {
                 .defineInRange("oneHandShotgunRateMultiplier", 2.0D, 0.1D, 5D);
         explosionIncreaseOnStrongerTier = builder
                 .comment("How much larger the explosion radius would be assuming damage is stronger than a hunger bullet")
-                .defineInRange("explosionIncreaseOnStrongerTier", 1D, 0D, 90D);
+                .defineInRange("explosionIncreaseOnStrongerTier", 1.5D, 0D, 90D);
         crouchAccuracyMultiplier = builder
                 .comment("Accuracy multiplier for when the user is crouching")
                 .defineInRange("crouchAccuracyMultiplier", 5.0D, 0.1D, 5D);
@@ -734,14 +734,14 @@ public class KGConfig {
                 .comment("Configure the damage of Iron Bullets")
                 .defineInRange("ironBulletDamage", 7D, 1D, 20D);
         blazeBulletDamage = builder
-                .comment("Configure the damage of Blaze Bullets.  This tier should always be the middle ground in damage total including flames for purpose of durability checks")
+                .comment("Configure the damage of Blaze Bullets.  This tier should always be the middle ground in damage total including flames.")
                 .defineInRange("blazeBulletDamage", 9D, 1D, 20D);
         hungerBulletDamage = builder
                 .comment("Configure the damage of Hunger Bullets")
-                .defineInRange("hungerBulletDamage", 10D, 1D, 20D);
+                .defineInRange("hungerBulletDamage", 11D, 1D, 20D);
         xpBulletDamage = builder
-                .comment("Configure the damage of XP Bullets")
-                .defineInRange("xpBulletDamage", 14D, 1D, 20D);
+                .comment("Configure the damage of XP Bullets.  This tier should always be the highest tier of damage.")
+                .defineInRange("xpBulletDamage", 15D, 1D, 20D);
         builder.pop();
 
         builder.push("minegun_config");
