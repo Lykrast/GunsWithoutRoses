@@ -677,6 +677,22 @@ public class GunItem extends ShootableItem {
 			double projectileSpeed = getProjectileSpeed(stack, null);
 			tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.speed" + (isProjectileSpeedModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(projectileSpeed)));
 
+			//ammo Cost
+			int cost = 1;
+			if (stack.getItem() instanceof GatlingItem) cost = KGConfig.gatlingCost.get();
+			if (stack.getItem() instanceof ShotgunItem) cost = KGConfig.shotgunCost.get();
+			if (stack.getItem() instanceof GunItem) {
+				if (((GunItem)stack.getItem()).isExplosive) cost = KGConfig.launcherCost.get();
+				if (!(((GunItem)stack.getItem()).isExplosive) &&
+						(((GunItem)stack.getItem()).hasPerfectAccuracy()) &&
+						!(stack.getItem() instanceof GatlingItem)) cost = KGConfig.sniperCost.get();
+				if (!(((GunItem)stack.getItem()).isExplosive) &&
+						!(((GunItem)stack.getItem()).hasPerfectAccuracy()) &&
+						!(stack.getItem() instanceof GatlingItem) &&
+						!(stack.getItem() instanceof ShotgunItem)) cost = KGConfig.pistolCost.get();
+			}
+			if (cost != 1) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.cost", cost));
+
 			//Chance to not consume ammo
 			double inverseChanceFree = getInverseChanceFreeShot(stack, null);
 			if (inverseChanceFree < 1) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.chance_free" + (isChanceFreeShotModified(stack) ? ".modified" : ""), (int)((1 - inverseChanceFree) * 100)));

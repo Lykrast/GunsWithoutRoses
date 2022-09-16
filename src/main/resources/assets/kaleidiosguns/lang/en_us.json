@@ -42,6 +42,7 @@
 	"tooltip.kaleidiosguns.gun.accuracy.perfect.modified": "§dAccuracy: §fPerfect§r",
 	"tooltip.kaleidiosguns.gun.speed": "§2Projectile Speed: §f%s§r",
 	"tooltip.kaleidiosguns.gun.speed.modified": "§dProjectile Speed: §f%s§r",
+	"tooltip.kaleidiosguns.gun.cost": "§2Ammo Cost: §f%s§r",
 	"tooltip.kaleidiosguns.gun.chance_free": "§2Chance to not consume ammo: §f%s%%§r",
 	"tooltip.kaleidiosguns.gun.chance_free.modified": "§dChance to not consume ammo: §f%s%%§r",
 	"tooltip.kaleidiosguns.gun.barrels_left": "§2Chambers remaining: §f%s§r / §f%s§r",

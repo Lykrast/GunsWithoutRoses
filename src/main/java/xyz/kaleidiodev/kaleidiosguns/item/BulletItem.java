@@ -45,8 +45,12 @@ public class BulletItem extends Item implements IBullet {
 		if (player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GunItem) {
 			if (((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).isExplosive) cost = KGConfig.launcherCost.get();
 			if (!(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).isExplosive) &&
-					(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).hasPerfectAccuracy())) cost = KGConfig.sniperCost.get();
-			if (!(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).hasPerfectAccuracy())) cost = KGConfig.pistolCost.get();
+					(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).hasPerfectAccuracy()) &&
+					!(player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GatlingItem)) cost = KGConfig.sniperCost.get();
+			if (!(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).isExplosive) &&
+					!(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).hasPerfectAccuracy()) &&
+					!(player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GatlingItem) &&
+					!(player.getItemInHand(player.getUsedItemHand()).getItem() instanceof ShotgunItem)) cost = KGConfig.pistolCost.get();
 		}
 
 		stack.shrink(cost);
