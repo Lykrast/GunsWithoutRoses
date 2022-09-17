@@ -67,7 +67,7 @@
 
 	"tooltip.kaleidiosguns.blaze_bullet": "Sets entities on fire",
 	"tooltip.kaleidiosguns.hunger_bullet": "Uses hunger as ammo",
-	"tooltip.kaleidiosguns.xp_bullet": "Uses xp levels as ammo, but can continue even when emptied",
+	"tooltip.kaleidiosguns.xp_bullet": "Uses xp levels as ammo",
 
 	"itemGroup.kaleidiosguns": "Kaleidio's Guns",
 
