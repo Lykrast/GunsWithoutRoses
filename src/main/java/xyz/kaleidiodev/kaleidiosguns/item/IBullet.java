@@ -5,6 +5,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
@@ -89,11 +91,15 @@ public interface IBullet {
 
 			if (target instanceof PlayerEntity) {
 				PlayerEntity victim = (PlayerEntity) target;
-				if (victim.getUseItem().isShield(victim) && (Math.random() < KGConfig.golddPlasmaShieldAdditional.get())) {
+				if (victim.getUseItem().isShield(victim) && (Math.random() < KGConfig.goldPlasmaShieldAdditional.get())) {
 					victim.getCooldowns().addCooldown(victim.getUseItem().getItem(), 100);
 					victim.stopUsingItem();
 					world.playSound(null, victim.getX(), victim.getY(), victim.getZ(), SoundEvents.SHIELD_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
 				}
+			}
+
+			if (Math.random() < KGConfig.goldPlasmaSlowChance.get()) {
+				livingTarget.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, KGConfig.goldPlasmaSlowTicks.get(), 2));
 			}
 		}
 

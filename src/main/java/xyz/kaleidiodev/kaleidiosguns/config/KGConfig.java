@@ -1,7 +1,6 @@
 package xyz.kaleidiodev.kaleidiosguns.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
-import org.lwjgl.system.CallbackI;
 
 public class KGConfig {
 
@@ -179,7 +178,9 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue goldPlasmaDurability;
     public static ForgeConfigSpec.DoubleValue goldPlasmaInaccuracy;
     public static ForgeConfigSpec.DoubleValue goldPlasmaProjectileSpeed;
-    public static ForgeConfigSpec.DoubleValue golddPlasmaShieldAdditional;
+    public static ForgeConfigSpec.DoubleValue goldPlasmaShieldAdditional;
+    public static ForgeConfigSpec.DoubleValue goldPlasmaSlowChance;
+    public static ForgeConfigSpec.IntValue goldPlasmaSlowTicks;
 
     //Bullets
     public static ForgeConfigSpec.DoubleValue flintBulletDamage;
@@ -649,9 +650,15 @@ public class KGConfig {
         goldPlasmaProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Plasma Rifles")
                 .defineInRange("goldPlasmaProjectileSpeed", 2D, 0D, 64D);
-        golddPlasmaShieldAdditional = builder
+        goldPlasmaShieldAdditional = builder
                 .comment("Configure the chance for shields to be disabled against Plasma Rifles")
                 .defineInRange("goldPlasmaShieldAdditional", 0.25D, 0.05D, 1D);
+        goldPlasmaSlowChance = builder
+                .comment("Configure the chance for slowness effect against a target of Plasma Rifles")
+                .defineInRange("goldPlasmaSlowChance", 0.10D, 0.05D, 1D);
+        goldPlasmaSlowTicks = builder
+                .comment("Configure the length slowness effect lasts for from Plasma Rifles")
+                .defineInRange("goldPlasmaSlowTicks", 60, 10, 72000);
         builder.pop();
 
         builder.push("defenders carbine");
