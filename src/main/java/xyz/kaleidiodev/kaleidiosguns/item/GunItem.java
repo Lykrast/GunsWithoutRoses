@@ -35,7 +35,6 @@ import xyz.kaleidiodev.kaleidiosguns.registry.ModItems;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModSounds;
 
 import javax.annotation.Nullable;
-import javax.swing.*;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -77,6 +76,7 @@ public class GunItem extends ShootableItem {
 	protected boolean hasVoltage;
 	protected boolean isDefender;
 	protected boolean isOneHanded;
+	protected boolean isSensitive;
 
 	protected SoundEvent fireSound = ModSounds.gun;
 	protected SoundEvent reloadSound = ModSounds.double_shotgunReload;
@@ -374,7 +374,14 @@ public class GunItem extends ShootableItem {
 		//check crouching
 		if ((player != null) && (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.counterStrike, stack) != 0)) {
 			if (player.isCrouching() && player.isOnGround()) {
-				nextInaccuracy /= KGConfig.crouchAccuracyMultiplier.get();
+				nextInaccuracy /= KGConfig.crouchAccuracyDivider.get();
+			}
+		}
+
+		//check assault rifle
+		if (player != null) {
+			if ((this.isSensitive) && !player.isOnGround()) {
+				nextInaccuracy *= KGConfig.ironAssaultMidairMultiplier.get();
 			}
 		}
 
@@ -567,6 +574,11 @@ public class GunItem extends ShootableItem {
 		return this;
 	}
 
+	public GunItem setIsSensitive(boolean sensitive) {
+		this.isSensitive = sensitive;
+		return this;
+	}
+
 	/**
 	 *
 	 * @param barrelSwitch set the divider that divides the fire rate to denote how many ticks it takes to switch barrels
@@ -721,6 +733,7 @@ public class GunItem extends ShootableItem {
 			if (isShadow) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.shadow"));
 			if (isCorruption) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.corruption"));
 			if (isDefender) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.defender"));
+			if (isSensitive) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.sensitive"));
 			if (this.getItem() == ModItems.plasmaGatling) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.plasma"));
 
 			if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) > 0) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.frost_distance", EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) * KGConfig.frostyDistancePerLevel.get()));

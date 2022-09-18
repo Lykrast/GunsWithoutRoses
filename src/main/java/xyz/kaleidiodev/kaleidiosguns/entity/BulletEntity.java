@@ -12,7 +12,6 @@ import net.minecraft.network.IPacket;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.EffectType;
 import net.minecraft.potion.Effects;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.*;
@@ -314,7 +313,7 @@ public class BulletEntity extends AbstractFireballEntity {
 
 			level.explode(this, result.getLocation().x, result.getLocation().y, result.getLocation().z, newRadius, isOnFire(), KGConfig.explosionsEnabled.get() ? Explosion.Mode.DESTROY : Explosion.Mode.NONE);
 			if (isWither) {
-				newRadius *= KGConfig.netheriteLauncherEffectRadiusMultiplier.get();
+				newRadius *= KGConfig.witherLauncherEffectRadiusMultiplier.get();
 				AxisAlignedBB witherTrace = new AxisAlignedBB(result.getLocation().x - newRadius, result.getLocation().y - newRadius, result.getLocation().z - newRadius, result.getLocation().x + newRadius, result.getLocation().y + newRadius, result.getLocation().z + newRadius);
 				List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, witherTrace);
 

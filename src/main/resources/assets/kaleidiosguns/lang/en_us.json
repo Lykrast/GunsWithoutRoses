@@ -64,6 +64,7 @@
 	"tooltip.kaleidiosguns.redstone": "A Redstone Block must be close-by to use this weapon",
 	"tooltip.kaleidiosguns.voltgun": "Increases damage the closer you are to a Redstone Block",
 	"tooltip.kaleidiosguns.defender": "Increases fire rate if standing near any Tile Entity",
+	"tooltip.kaleidiosguns.sensitive": "Accuracy decreases if shot in midair",
 
 	"tooltip.kaleidiosguns.blaze_bullet": "Sets entities on fire",
 	"tooltip.kaleidiosguns.hunger_bullet": "Uses hunger as ammo",

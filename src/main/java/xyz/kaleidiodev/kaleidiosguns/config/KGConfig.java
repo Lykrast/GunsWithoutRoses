@@ -12,7 +12,7 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue oneHandInaccuracyMultiplier;
     public static ForgeConfigSpec.DoubleValue oneHandInaccuracyReplacement;
     public static ForgeConfigSpec.DoubleValue oneHandShotgunRateMultiplier;
-    public static ForgeConfigSpec.DoubleValue crouchAccuracyMultiplier;
+    public static ForgeConfigSpec.DoubleValue crouchAccuracyDivider;
     public static ForgeConfigSpec.IntValue redstoneRadius;
 
     //cost mechanic
@@ -121,13 +121,13 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue diamondLauncherInaccuracy;
     public static ForgeConfigSpec.DoubleValue diamondLauncherProjectileSpeed;
 
-    public static ForgeConfigSpec.DoubleValue netheriteLauncherDamageMultiplier;
-    public static ForgeConfigSpec.IntValue netheriteLauncherFireDelay;
-    public static ForgeConfigSpec.IntValue netheriteLauncherEnchantability;
-    public static ForgeConfigSpec.IntValue netheriteLauncherDurability;
-    public static ForgeConfigSpec.DoubleValue netheriteLauncherInaccuracy;
-    public static ForgeConfigSpec.DoubleValue netheriteLauncherProjectileSpeed;
-    public static ForgeConfigSpec.DoubleValue netheriteLauncherEffectRadiusMultiplier;
+    public static ForgeConfigSpec.DoubleValue witherLauncherDamageMultiplier;
+    public static ForgeConfigSpec.IntValue witherLauncherFireDelay;
+    public static ForgeConfigSpec.IntValue witherLauncherEnchantability;
+    public static ForgeConfigSpec.IntValue witherLauncherDurability;
+    public static ForgeConfigSpec.DoubleValue witherLauncherInaccuracy;
+    public static ForgeConfigSpec.DoubleValue witherLauncherProjectileSpeed;
+    public static ForgeConfigSpec.DoubleValue witherLauncherEffectRadiusMultiplier;
 
     public static ForgeConfigSpec.DoubleValue diamondMinegunDamageMultiplier;
     public static ForgeConfigSpec.IntValue diamondMinegunFireDelay;
@@ -161,7 +161,7 @@ public class KGConfig {
     public static ForgeConfigSpec.IntValue ironAssaultDurability;
     public static ForgeConfigSpec.DoubleValue ironAssaultInaccuracy;
     public static ForgeConfigSpec.DoubleValue ironAssaultProjectileSpeed;
-
+    public static ForgeConfigSpec.DoubleValue ironAssaultMidairMultiplier;
 
     public static ForgeConfigSpec.DoubleValue defenderRifleDamageMultiplier;
     public static ForgeConfigSpec.IntValue defenderRifleFireDelay;
@@ -233,7 +233,7 @@ public class KGConfig {
         explosionIncreaseOnStrongerTier = builder
                 .comment("How much larger the explosion radius would be assuming damage is stronger than a hunger bullet")
                 .defineInRange("explosionIncreaseOnStrongerTier", 1.5D, 0D, 90D);
-        crouchAccuracyMultiplier = builder
+        crouchAccuracyDivider = builder
                 .comment("Accuracy multiplier for when the user is crouching")
                 .defineInRange("crouchAccuracyMultiplier", 5.0D, 0.1D, 5D);
         redstoneRadius = builder
@@ -352,7 +352,7 @@ public class KGConfig {
                 .defineInRange("goldSkillshotDamageModifier", 1.0D, 0.1D, 5D);
         goldSkillshotFireDelay = builder
                 .comment("Configure the Fire delay for Skillshot Pistols")
-                .defineInRange("goldSkillshotFireDelay", 18, 0, 72000);
+                .defineInRange("goldSkillshotFireDelay", 15, 0, 72000);
         goldSkillshotEnchantability = builder
                 .comment("Configure the Enchantability for Skillshot Pistols")
                 .defineInRange("goldSkillshotEnchantability", 23, 0, 30);
@@ -367,7 +367,7 @@ public class KGConfig {
                 .defineInRange("goldSkillshotProjectileSpeed", 6D, 0D, 64D);
         goldSkillshotMaxCombo = builder
                 .comment("Configure the maximum combo on Skillshot Pistols")
-                .defineInRange("goldSkillshotMaxCombo", 5, 2, 255);
+                .defineInRange("goldSkillshotMaxCombo", 4, 2, 255);
         goldSkillshotComboMultiplierPer = builder
                 .comment("Configure the addition to damage multiplier per combo for Skillshot Pistols")
                 .defineInRange("goldSkillshotComboMultplierPer", 0.2D, 0D, 20D);
@@ -480,7 +480,7 @@ public class KGConfig {
                 .comment("Configure the amount of entities at once for Vampire Shotguns")
                 .defineInRange("netheriteShotgunEntityCap", 5, 1, 25);
         netheriteShotgunEntityHurt = builder
-                .comment("Configure the amount of hearts stolen per entity for Vampire Shotguns")
+                .comment("Configure the amount of damage stolen per entity for Vampire Shotguns")
                 .defineInRange("netheriteShotgunEntityHurt", 2D, 0D, 1000D);
         netheriteShotgunBulletsPerEntity = builder
                 .comment("Configure the amount of bullets per entity sacrifice for Vampire Shotguns")
@@ -613,7 +613,7 @@ public class KGConfig {
         builder.push("assault rifle");
         ironAssaultDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Assault Rifles")
-                .defineInRange("ironAssaultDamageMultiplier", 0.9D, 0.1D, 5D);
+                .defineInRange("ironAssaultDamageMultiplier", 0.8D, 0.1D, 5D);
         ironAssaultFireDelay = builder
                 .comment("Configure the Fire delay for Assault Rifles")
                 .defineInRange("ironAssaultFireDelay", 5, 0, 72000);
@@ -629,6 +629,9 @@ public class KGConfig {
         ironAssaultProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Assault Rifles")
                 .defineInRange("ironAssaultProjectileSpeed", 10D, 0D, 64D);
+        ironAssaultMidairMultiplier = builder
+                .comment("Configure the midair inaccuracy multiplier for Assault Rifles")
+                .defineInRange("ironAssaultMidairMultiplier", 2.0D, 0D, 5D);
         builder.pop();
 
         builder.push("plasma rifle");
@@ -664,7 +667,7 @@ public class KGConfig {
         builder.push("defenders carbine");
         defenderRifleDamageMultiplier = builder
                 .comment("Define the Damage multiplier for Defender Rifles")
-                .defineInRange("defenderRifleDamageMultiplier", 1D, 0.1D, 5D);
+                .defineInRange("defenderRifleDamageMultiplier", 0.9D, 0.1D, 5D);
         defenderRifleFireDelay = builder
                 .comment("Configure the Fire delay for Defender Rifles")
                 .defineInRange("defenderRifleFireDelay", 6, 0, 72000);
@@ -710,25 +713,25 @@ public class KGConfig {
         builder.pop();
 
         builder.push("wither cannon");
-        netheriteLauncherDamageMultiplier = builder
+        witherLauncherDamageMultiplier = builder
                 .comment("Define the base damage to multiply against for Wither Launchers")
                 .defineInRange("witherLauncherDamageMultiplier", 1.5D, 0.1D, 5D);
-        netheriteLauncherFireDelay = builder
+        witherLauncherFireDelay = builder
                 .comment("Configure the Fire delay for Wither Launchers")
                 .defineInRange("witherLauncherFireDelay", 48, 0, 72000);
-        netheriteLauncherEnchantability = builder
+        witherLauncherEnchantability = builder
                 .comment("Configure the Enchantability for Wither Launchers")
                 .defineInRange("witherLauncherEnchantability", 15, 0, 30);
-        netheriteLauncherDurability = builder
+        witherLauncherDurability = builder
                 .comment("Configure the Durability for Wither Launchers")
                 .defineInRange("witherLauncherDurability", 37, 0, 32767);
-        netheriteLauncherInaccuracy = builder
+        witherLauncherInaccuracy = builder
                 .comment("Configure the Inaccuracy for Wither Launchers")
                 .defineInRange("witherLauncherInaccuracy", 0D, 0D, 90D);
-        netheriteLauncherProjectileSpeed = builder
+        witherLauncherProjectileSpeed = builder
                 .comment("Configure the Projectile Speed for Wither Launchers")
                 .defineInRange("witherLauncherProjectileSpeed", 2D, 0D, 64D);
-        netheriteLauncherEffectRadiusMultiplier = builder
+        witherLauncherEffectRadiusMultiplier = builder
                 .comment("Multiplier of how much larger than the explosion radius does the wither effect apply")
                 .defineInRange("witherLauncherEffectRadiusMultiplier", 2D, 0D, 64D);
         builder.pop();
