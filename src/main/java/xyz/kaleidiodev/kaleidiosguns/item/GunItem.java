@@ -10,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.ShootableItem;
 import net.minecraft.item.UseAction;
 import net.minecraft.item.crafting.Ingredient;
@@ -151,6 +152,7 @@ public class GunItem extends ShootableItem {
 	protected ActionResult<ItemStack> handleWeapon(World world, PlayerEntity player, ItemStack gun, Hand hand, ItemStack ammo) {
 		if (!ammo.isEmpty() || player.abilities.instabuild) {
 			if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet);
+			if (ammo.getItem() == Items.ARROW) ammo = new ItemStack(ModItems.flintBullet); //fuck you minecraft
 
 			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
 
