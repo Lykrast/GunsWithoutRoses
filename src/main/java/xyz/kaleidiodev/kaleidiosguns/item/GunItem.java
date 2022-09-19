@@ -663,24 +663,7 @@ public class GunItem extends ShootableItem {
 		if (enchantment == ModEnchantments.marker && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.isExplosive) || (me.getInaccuracy(stack, null) == 0))) return false; //pistol only
 		if (enchantment == ModEnchantments.maneuvering && !(me instanceof GatlingItem)) return false; //gatling only
 		if (enchantment == ModEnchantments.cleanShot && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.isExplosive) || (me.getInaccuracy(stack, null) != 0))) return false; //sniper only
-
-		//Disallow these if other enchantments are already applied.
-		//impact versus frost shot
-		if ((enchantment == ModEnchantments.impact)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) != 0)) return false;
-		if ((enchantment == ModEnchantments.luckyShot)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) != 0)) return false;
-		if ((enchantment == ModEnchantments.frostShot)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.luckyShot, stack) != 0)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.impact, stack) != 0)) return false;
-
-		//bullseye versus counterstrike
-		if ((enchantment == ModEnchantments.bullseye)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.counterStrike, stack) != 0)) return false;
-		if ((enchantment == ModEnchantments.counterStrike)
-				&& (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.bullseye, stack) != 0)) return false;
+		if (enchantment == ModEnchantments.signalBoost && !isRedstone) return false; //redstone only
 
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}

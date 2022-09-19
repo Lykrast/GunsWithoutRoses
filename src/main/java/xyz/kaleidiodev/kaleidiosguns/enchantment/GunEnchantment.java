@@ -4,6 +4,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.fml.common.Mod;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEnchantments;
 
 public class GunEnchantment extends Enchantment {

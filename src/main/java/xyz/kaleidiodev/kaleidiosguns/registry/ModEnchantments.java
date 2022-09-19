@@ -7,6 +7,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import xyz.kaleidiodev.kaleidiosguns.KaleidiosGuns;
+import xyz.kaleidiodev.kaleidiosguns.enchantment.GunAccuracyEnchantment;
+import xyz.kaleidiodev.kaleidiosguns.enchantment.GunDamageEnchantment;
 import xyz.kaleidiodev.kaleidiosguns.enchantment.GunEnchantment;
 import xyz.kaleidiodev.kaleidiosguns.item.GunItem;
 
@@ -21,8 +23,8 @@ public class ModEnchantments {
 		IForgeRegistry<Enchantment> reg = event.getRegistry();
 
 		//flat upgrade (unbreaking counts as an all)
-		impact = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 5, 4, 8, 20, TYPE_GUN), "impact"); //dmg
-		bullseye = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 3, 4, 8, 20, TYPE_GUN), "bullseye"); //acc
+		impact = initEnchant(reg, new GunDamageEnchantment(Enchantment.Rarity.COMMON, 5, 4, 8, 20, TYPE_GUN), "impact"); //dmg
+		bullseye = initEnchant(reg, new GunAccuracyEnchantment(Enchantment.Rarity.COMMON, 3, 4, 8, 20, TYPE_GUN), "bullseye"); //acc
 		sleightOfHand = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 2, 6, 12, 30, TYPE_GUN), "sleight_of_hand"); //rt
 		accelerator = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.COMMON, 3, 3, 6, 20, TYPE_GUN), "accelerator"); //spd
 
@@ -41,9 +43,9 @@ public class ModEnchantments {
 		torpedo = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 1, 6, 12, 25, TYPE_GUN), "torpedo"); //spd
 
 		//alternate upgrade (these get two for each category because there is no "alls")
-		luckyShot = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.UNCOMMON, 3, 6, 12, 30, TYPE_GUN), "lucky_shot"); //dmg
-		frostShot = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 3, 5, 10, 30, TYPE_GUN), "frost_shard"); //dmg 2
-		counterStrike = initEnchant(reg, new GunEnchantment(Enchantment.Rarity.RARE, 1, 10, 20, 30, TYPE_GUN), "counter_strike"); //acc
+		luckyShot = initEnchant(reg, new GunDamageEnchantment(Enchantment.Rarity.UNCOMMON, 3, 6, 12, 30, TYPE_GUN), "lucky_shot"); //dmg
+		frostShot = initEnchant(reg, new GunDamageEnchantment(Enchantment.Rarity.RARE, 3, 5, 10, 30, TYPE_GUN), "frost_shard"); //dmg 2
+		counterStrike = initEnchant(reg, new GunAccuracyEnchantment(Enchantment.Rarity.RARE, 1, 10, 20, 30, TYPE_GUN), "counter_strike"); //acc
 	}
 
 	public static Enchantment initEnchant(IForgeRegistry<Enchantment> reg, Enchantment enchantment, String name) {
