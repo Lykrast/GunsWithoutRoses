@@ -96,6 +96,8 @@ public class BulletEntity extends AbstractFireballEntity {
 			remove();
 		}
 
+		this.setGlowing(shouldGlow);
+
 		//completely rewrite the entity code here
 		Entity entity = this.getOwner();
 		if (this.level.isClientSide || (entity == null || !entity.removed) && this.level.hasChunkAt(this.blockPosition())) {

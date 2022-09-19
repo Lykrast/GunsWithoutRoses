@@ -186,7 +186,7 @@ public class GunItem extends ShootableItem {
 			//the method gets fired twice, once on server once on client.  let's only do it once
 			if (!world.isClientSide()) {
 				if (this.revolutions > 1) {
-					int chambers = getChambers(gun);
+					int chambers = getChambers(gun); //note, happens first, so the tag will get created, even if tooltip wasn't inspected first.
 					chambers--;
 					if (chambers <= 0) {
 						world.playSound(null, player.getX(), player.getY(), player.getZ(), reloadSound, SoundCategory.PLAYERS, 1.0F, 1.0F);
