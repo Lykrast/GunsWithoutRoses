@@ -290,7 +290,7 @@ public class BulletEntity extends AbstractFireballEntity {
 		if (damaged && entity instanceof LivingEntity) {
 			LivingEntity livingTarget = (LivingEntity) entity;
 
-			double actualKnockback = knockbackStrength;
+			double actualKnockback;
 			if (this.shootingGun.getItem() == ModItems.doubleBarrelShotgun) {
 				actualKnockback = knockbackStrength / ticksSinceFired;
 
