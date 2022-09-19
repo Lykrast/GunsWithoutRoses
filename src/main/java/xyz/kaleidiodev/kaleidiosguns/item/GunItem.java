@@ -4,6 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.command.arguments.NBTCompoundTagArgument;
+import net.minecraft.command.arguments.NBTTagArgument;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -14,6 +16,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.ShootableItem;
 import net.minecraft.item.UseAction;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -54,7 +57,6 @@ public class GunItem extends ShootableItem {
 	protected double chanceFreeShot = 0;
 	protected boolean hasBlockMineAbility = false;
 	protected int revolutions = 1;
-	protected int chamber = 1;
 	protected boolean shouldCollateral = false;
 	protected int barrelSwitchSpeed = -1;
 	protected double myKnockback = 0.1D;
@@ -184,11 +186,13 @@ public class GunItem extends ShootableItem {
 			//the method gets fired twice, once on server once on client.  let's only do it once
 			if (!world.isClientSide()) {
 				if (this.revolutions > 1) {
-					this.chamber--;
-					if (this.chamber <= 0) {
+					int chambers = getChambers(gun);
+					chambers--;
+					if (chambers <= 0) {
 						world.playSound(null, player.getX(), player.getY(), player.getZ(), reloadSound, SoundCategory.PLAYERS, 1.0F, 1.0F);
-						this.chamber = this.revolutions;
+						chambers = this.revolutions;
 					}
+					setChambers(gun, chambers);
 				}
 			}
 
@@ -288,6 +292,27 @@ public class GunItem extends ShootableItem {
 		}
 	}
 
+	protected int getChambers(ItemStack stack) {
+		CompoundNBT nbt;
+
+		if (stack.hasTag()) nbt = stack.getTag();
+		else nbt = new CompoundNBT();
+
+		//reset to revolutions if the tag was empty
+		if (!nbt.contains("chambers")) nbt.putInt("chambers", revolutions);
+		return nbt.getInt("chambers");
+	}
+
+	protected void setChambers(ItemStack stack, int newValue) {
+		CompoundNBT nbt;
+
+		if (stack.hasTag()) nbt = stack.getTag();
+		else nbt = new CompoundNBT();
+
+		//generate a tag if it didn't exist before
+		nbt.putInt("chambers", newValue);
+	}
+
 	/**
 	 * Lets the gun do custom stuff to default bullets without redoing all the base stuff from shoot.
 	 */
@@ -333,7 +358,7 @@ public class GunItem extends ShootableItem {
 		}
 
 		//have instant tick time if barrel side has been switched
-		if (chamber == revolutions) {
+		if (getChambers(stack) == revolutions) {
 			return base;
 		}
 		else
@@ -500,7 +525,6 @@ public class GunItem extends ShootableItem {
 
 	public GunItem chambers(int revolverCount) {
 		this.revolutions = revolverCount;
-		this.chamber = this.revolutions;
 		return this;
 	}
 
@@ -684,7 +708,7 @@ public class GunItem extends ShootableItem {
 			int fireRate = Math.max(1, this.fireDelay - (int)(this.fireDelay * EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.sleightOfHand, stack) * KGConfig.sleightOfHandFireRateDecrease.get()));
 			if (revolutions > 1) {
 				tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.reloadspeed" + (isFireDelayModified(stack) ? ".modified" : ""), fireRate, (60*20) / fireRate));
-				tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.barrels_left", chamber, revolutions));
+				tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.barrels_left", getChambers(stack), revolutions));
 				fireRate /= barrelSwitchSpeed;
 			}
 			tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.gun.firerate" + (isFireDelayModified(stack) ? ".modified" : ""), fireRate, (60*20) / fireRate));
