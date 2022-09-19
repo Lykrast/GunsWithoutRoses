@@ -258,6 +258,7 @@ public class GunItem extends ShootableItem {
 		shot.isClean = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.cleanShot, gun) > 0;
 		shot.isWither = this.isWither;
 		shot.isCorrupted = this.isCorruption;
+		shot.isTorpedo = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.torpedo, gun) == 1;
 
 		changeBullet(world, player, gun, shot, bulletFree);
 

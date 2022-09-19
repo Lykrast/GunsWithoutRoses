@@ -104,6 +104,8 @@
 	"enchantment.kaleidiosguns.clean_shot.desc": "Sniper class shot gives no knockback",
 	"enchantment.kaleidiosguns.signal_boost": "Signal Boost",
 	"enchantment.kaleidiosguns.signal_boost.desc": "Redstone blocks can be further away",
+	"enchantment.kaleidiosguns.torpedo": "Torpedo",
+	"enchantment.kaleidiosguns.torpedo.desc": "Bullets don't decrease speed underwater",
 
 	"entity.kaleidiosguns.bullet": "Bullet",
 

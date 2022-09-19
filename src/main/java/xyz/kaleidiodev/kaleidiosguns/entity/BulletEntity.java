@@ -46,7 +46,7 @@ public class BulletEntity extends AbstractFireballEntity {
 	protected boolean shouldBreakBlock;
 	protected boolean shouldCollateral;
 	protected double bulletSpeed;
-	protected boolean isTorpedo;
+	public boolean isTorpedo;
 	protected boolean shouldGlow;
 	public boolean isCritical;
 	protected GunItem shootingGun;
@@ -122,11 +122,11 @@ public class BulletEntity extends AbstractFireballEntity {
 			//add support for torpedo enchantment, make inertia falloff even more intense otherwise
 			float f = this.getInertia();
 			Vector3d vector3d = this.getDeltaMovement();
-			//don't bother with the other messy calculations
+
 			if (this.isInWater()) {
 				this.level.addParticle(ParticleTypes.BUBBLE, this.getBoundingBox().getCenter().x, this.getBoundingBox().getCenter().y, this.getBoundingBox().getCenter().z, vector3d.x, vector3d.y, vector3d.z);
-				//on this, don't decrease inertia if the torpedo enchantment was on the gun
-				f = 0.8f;
+				//don't decrease inertia if the torpedo enchantment was on the gun
+				if (!this.isTorpedo) f = 0.8f;
 			}
 
 			this.setDeltaMovement(vector3d.add(this.xPower, this.yPower, this.zPower).scale((double) f));
@@ -419,10 +419,6 @@ public class BulletEntity extends AbstractFireballEntity {
 
 	public void setShouldCollateral(boolean collateral) {
 		this.shouldCollateral = collateral;
-	}
-
-	public void setIsTorpedo(boolean torpedo) {
-		this.isTorpedo = torpedo;
 	}
 
 	public void setShouldGlow(boolean glow) {
