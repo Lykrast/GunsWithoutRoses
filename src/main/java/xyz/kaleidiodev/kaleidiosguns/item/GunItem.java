@@ -293,10 +293,7 @@ public class GunItem extends ShootableItem {
 	}
 
 	protected int getChambers(ItemStack stack) {
-		CompoundNBT nbt;
-
-		if (stack.hasTag()) nbt = stack.getTag();
-		else nbt = new CompoundNBT();
+		CompoundNBT nbt = stack.getOrCreateTag();
 
 		//reset to revolutions if the tag was empty
 		if (!nbt.contains("chambers")) nbt.putInt("chambers", revolutions);
@@ -304,10 +301,7 @@ public class GunItem extends ShootableItem {
 	}
 
 	protected void setChambers(ItemStack stack, int newValue) {
-		CompoundNBT nbt;
-
-		if (stack.hasTag()) nbt = stack.getTag();
-		else nbt = new CompoundNBT();
+		CompoundNBT nbt = stack.getOrCreateTag();
 
 		//generate a tag if it didn't exist before
 		nbt.putInt("chambers", newValue);
