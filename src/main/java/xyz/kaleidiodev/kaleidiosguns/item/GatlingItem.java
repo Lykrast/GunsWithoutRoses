@@ -97,7 +97,7 @@ public class GatlingItem extends GunItem {
 						fireWeapon(world, player, gun, shotAmmo, bulletItem, bulletFree);
 
 						gun.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
-						if (!bulletFree) bulletItem.consume(ammo, player);
+						if (!bulletFree) bulletItem.consume(ammo, player, gun);
 					}
 
 					world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.silenced, gun) > 0 ? 2.0F : 10.0F), 1.0F);

@@ -24,24 +24,16 @@ public class HungerBulletItem extends BulletItem {
 	}
 
 	@Override
-	public void consume(ItemStack stack, PlayerEntity player) {
-		int cost = 1;
-
-		if (player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GatlingItem) cost = KGConfig.gatlingCost.get();
-		if (player.getItemInHand(player.getUsedItemHand()).getItem() instanceof ShotgunItem) cost = KGConfig.shotgunCost.get();
-		if (player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GunItem) {
-			if (((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).isExplosive) cost = KGConfig.launcherCost.get();
-			if (!(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).isExplosive) &&
-					(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).hasPerfectAccuracy()) &&
-					!(player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GatlingItem)) cost = KGConfig.sniperCost.get();
-			if (!(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).isExplosive) &&
-					!(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).hasPerfectAccuracy()) &&
-					!(player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GatlingItem) &&
-					!(player.getItemInHand(player.getUsedItemHand()).getItem() instanceof ShotgunItem)) cost = KGConfig.pistolCost.get();
-		}
-
+	public void consume(ItemStack stack, PlayerEntity player, ItemStack gunItem) {
+		int cost = costToUse(gunItem);
 		if (player.getFoodData().getFoodLevel() <= 0) player.hurt(DamageSource.STARVE, cost);
 		player.causeFoodExhaustion(cost * 3);
+	}
+
+	//this bullet type allows for suicide kills
+	@Override
+	public boolean hasAmmo(ItemStack stack, PlayerEntity player, ItemStack gunItem) {
+		return true;
 	}
 
 	@Override

@@ -37,26 +37,15 @@ public class BulletItem extends Item implements IBullet {
 	}
 
 	@Override
-	public void consume(ItemStack stack, PlayerEntity player) {
-		int cost = 1;
-
-		if (player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GatlingItem) cost = KGConfig.gatlingCost.get();
-		if (player.getItemInHand(player.getUsedItemHand()).getItem() instanceof ShotgunItem) cost = KGConfig.shotgunCost.get();
-		if (player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GunItem) {
-			if (((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).isExplosive) cost = KGConfig.launcherCost.get();
-			if (!(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).isExplosive) &&
-					(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).hasPerfectAccuracy()) &&
-					!(player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GatlingItem)) cost = KGConfig.sniperCost.get();
-			if (!(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).isExplosive) &&
-					!(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).hasPerfectAccuracy()) &&
-					!(player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GatlingItem) &&
-					!(player.getItemInHand(player.getUsedItemHand()).getItem() instanceof ShotgunItem)) cost = KGConfig.pistolCost.get();
-		}
-
-		stack.shrink(cost);
+	public void consume(ItemStack stack, PlayerEntity player, ItemStack gunItem) {
+		stack.shrink(costToUse(gunItem));
 		if (stack.isEmpty()) {
 			player.inventory.removeItem(stack);
 		}
+	}
+
+	public boolean hasAmmo(ItemStack stack, PlayerEntity player, ItemStack gunItem) {
+		return stack.getCount() >= costToUse(gunItem);
 	}
 
 	@Override

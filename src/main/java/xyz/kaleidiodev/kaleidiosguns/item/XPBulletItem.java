@@ -24,23 +24,13 @@ public class XPBulletItem extends BulletItem {
 	}
 
 	@Override
-	public void consume(ItemStack stack, PlayerEntity player) {
-		int cost = 1;
+	public void consume(ItemStack stack, PlayerEntity player, ItemStack gunItem) {
+		player.giveExperienceLevels(-costToUse(gunItem));
+	}
 
-		if (player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GatlingItem) cost = KGConfig.gatlingCost.get();
-		if (player.getItemInHand(player.getUsedItemHand()).getItem() instanceof ShotgunItem) cost = KGConfig.shotgunCost.get();
-		if (player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GunItem) {
-			if (((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).isExplosive) cost = KGConfig.launcherCost.get();
-			if (!(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).isExplosive) &&
-					(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).hasPerfectAccuracy()) &&
-					!(player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GatlingItem)) cost = KGConfig.sniperCost.get();
-			if (!(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).isExplosive) &&
-					!(((GunItem)player.getItemInHand(player.getUsedItemHand()).getItem()).hasPerfectAccuracy()) &&
-					!(player.getItemInHand(player.getUsedItemHand()).getItem() instanceof GatlingItem) &&
-					!(player.getItemInHand(player.getUsedItemHand()).getItem() instanceof ShotgunItem)) cost = KGConfig.pistolCost.get();
-		}
-
-		player.giveExperienceLevels(-cost);
+	@Override
+	public boolean hasAmmo(ItemStack stack, PlayerEntity player, ItemStack gunItem) {
+		return player.experienceLevel >= costToUse(gunItem);
 	}
 
 	@Override

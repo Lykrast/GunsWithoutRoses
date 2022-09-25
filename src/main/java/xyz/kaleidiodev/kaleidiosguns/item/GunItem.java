@@ -11,10 +11,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.ShootableItem;
-import net.minecraft.item.UseAction;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.stats.Stats;
@@ -45,7 +42,7 @@ import java.util.function.Supplier;
 
 import static xyz.kaleidiodev.kaleidiosguns.KaleidiosGuns.VivecraftForgeExtensionPresent;
 
-public class GunItem extends ShootableItem {
+public class GunItem extends Item {
 
 	protected int bonusDamage;
 	public double damageMultiplier;
@@ -99,7 +96,17 @@ public class GunItem extends ShootableItem {
 		ItemStack gun = player.getItemInHand(hand);
 		//"Oh yeah I will use the vanilla method so that quivers can do their thing"
 		//guess what the quivers suck
-		ItemStack ammo = player.getProjectile(gun);
+		ItemStack ammo = ItemStack.EMPTY;
+		for(int i = 0; i < player.inventory.getContainerSize(); i++) {
+			ItemStack itemstack1 = player.inventory.getItem(i);
+			if (itemstack1.getItem() instanceof BulletItem) {
+				if (((BulletItem)itemstack1.getItem()).hasAmmo(itemstack1, player, gun)) {
+					if (ammo.getItem() instanceof BulletItem) {
+						if ((((BulletItem)ammo.getItem()).damage) < (((BulletItem)itemstack1.getItem()).damage)) ammo = itemstack1;
+					} else ammo = itemstack1;
+				}
+			}
+		}
 
 		//don't fire if redstone block is not nearby
 		if (this.isRedstone) {
@@ -154,7 +161,7 @@ public class GunItem extends ShootableItem {
 	protected ActionResult<ItemStack> handleWeapon(World world, PlayerEntity player, ItemStack gun, Hand hand, ItemStack ammo) {
 		if (!ammo.isEmpty() || player.abilities.instabuild) {
 			if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet);
-			if (ammo.getItem() == Items.ARROW) ammo = new ItemStack(ModItems.flintBullet); //fuck you minecraft
+			if (ammo.getItem() == Items.ARROW) ammo = new ItemStack(ModItems.flintBullet); //sigh
 
 			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
 
@@ -176,7 +183,7 @@ public class GunItem extends ShootableItem {
 				}
 
 				gun.hurtAndBreak(durabilityDamage, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
-				if (!bulletFree) bulletItem.consume(ammo, player);
+				if (!bulletFree) bulletItem.consume(ammo, player, gun);
 			}
 
 			world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.silenced, gun) > 0 ? 2.0F : 10.0F), 1.0F);
@@ -760,19 +767,6 @@ public class GunItem extends ShootableItem {
 	@Override
 	public int getEnchantmentValue() {
 		return enchantability;
-	}
-
-	//TODO ammo types
-	private static final Predicate<ItemStack> BULLETS = (stack) -> stack.getItem() instanceof IBullet && ((IBullet)stack.getItem()).hasAmmo(stack);
-
-	@Override
-	public Predicate<ItemStack> getAllSupportedProjectiles() {
-		return BULLETS;
-	}
-
-	@Override
-	public int getDefaultProjectileRange() {
-		return 15;
 	}
 
 	@Override
