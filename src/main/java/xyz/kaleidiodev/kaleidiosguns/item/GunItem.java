@@ -29,6 +29,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
+import xyz.kaleidiodev.kaleidiosguns.enchantment.GunAccuracyEnchantment;
+import xyz.kaleidiodev.kaleidiosguns.enchantment.GunDamageEnchantment;
 import xyz.kaleidiodev.kaleidiosguns.entity.BulletEntity;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModEnchantments;
 import xyz.kaleidiodev.kaleidiosguns.registry.ModItems;
@@ -241,8 +243,9 @@ public class GunItem extends Item {
 	 * @param bulletFree true if no ammo was actually consumed (creative or Preserving enchant for example)
 	 */
 	protected void fireWeapon(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
+		double nextInaccuracy = ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.trickShot, gun) == 1) && (!player.isOnGround())) ? 0 : getInaccuracy(gun, player);
 		BulletEntity shot = bulletItem.createProjectile(world, ammo, player, gun.getItem() == ModItems.plasmaGatling);
-		shot.shootFromRotation(player, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), VivecraftForgeExtensionPresent ? 0.0F : (float)getInaccuracy(gun, player));
+		shot.shootFromRotation(player, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), VivecraftForgeExtensionPresent ? 0.0F : (float)nextInaccuracy);
 
 		//subtract player velocity to make the bullet independent
 		Vector3d projectileMotion = player.getDeltaMovement();
@@ -253,7 +256,7 @@ public class GunItem extends Item {
 		this.lucky = random.nextDouble() < luckyChance;
 
 		shot.setShootingGun(this);
-		shot.setInaccuracy(getInaccuracy(gun, player));
+		shot.setInaccuracy(nextInaccuracy);
 		shot.setIgnoreInvulnerability(ignoreInvulnerability);
 		shot.setHealthRewardChance(EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.passionForBlood, gun) * 0.1);
 		shot.setShouldBreakBlock(hasBlockMineAbility);
@@ -679,19 +682,16 @@ public class GunItem extends Item {
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
 		//Disallow these for specific gun types
 		GunItem me = (GunItem) stack.getItem();
-		if (enchantment == ModEnchantments.bullseye && hasPerfectAccuracy()) return false; //not for sniper
-		if (enchantment == ModEnchantments.counterStrike && hasPerfectAccuracy()) return false;
-		if (enchantment == ModEnchantments.impact && isExplosive) return false; //these are not for launcher
-		if (enchantment == ModEnchantments.luckyShot && isExplosive) return false;
-		if (enchantment == ModEnchantments.frostShot && isExplosive) return false;
-		if (enchantment == ModEnchantments.cowboy && isOneHanded) return false;
+		if ((enchantment instanceof GunAccuracyEnchantment) && hasPerfectAccuracy()) return false; //not for sniper
+		if ((enchantment instanceof GunDamageEnchantment) && isExplosive) return false; //not for launcher
+		if ((enchantment == ModEnchantments.cowboy) && isOneHanded) return false; //not for pistol
 
 		//only let these apply to certain gun types
-		if (enchantment == ModEnchantments.division && !(me instanceof ShotgunItem)) return false; //shotgun only
-		if (enchantment == ModEnchantments.marker && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.isExplosive) || (me.getInaccuracy(stack, null) == 0))) return false; //pistol only
-		if (enchantment == ModEnchantments.maneuvering && !(me instanceof GatlingItem)) return false; //gatling only
-		if (enchantment == ModEnchantments.cleanShot && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.isExplosive) || (me.getInaccuracy(stack, null) != 0))) return false; //sniper only
-		if (enchantment == ModEnchantments.signalBoost && !isRedstone) return false; //redstone only
+		if ((enchantment == ModEnchantments.division) && !(me instanceof ShotgunItem)) return false; //shotgun only
+		if ((enchantment == ModEnchantments.marker) && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.isExplosive) || (me.getInaccuracy(stack, null) == 0))) return false; //pistol only
+		if ((enchantment == ModEnchantments.maneuvering) && !(me instanceof GatlingItem)) return false; //gatling only
+		if ((enchantment == ModEnchantments.cleanShot) && ((me instanceof ShotgunItem) || (me instanceof GatlingItem) || (me.isExplosive) || (me.getInaccuracy(stack, null) != 0))) return false; //sniper only
+		if ((enchantment == ModEnchantments.signalBoost) && !isRedstone) return false; //redstone only
 
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}

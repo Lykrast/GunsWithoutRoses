@@ -106,6 +106,8 @@
 	"enchantment.kaleidiosguns.signal_boost.desc": "Redstone blocks can be further away",
 	"enchantment.kaleidiosguns.torpedo": "Torpedo",
 	"enchantment.kaleidiosguns.torpedo.desc": "Bullets don't decrease speed underwater",
+	"enchantment.kaleidiosguns.trick_shot": "Trick Shot",
+	"enchantment.kaleidiosguns.trick_shot.desc": "Shots fired whilst off the ground have perfect accuracy",
 
 	"entity.kaleidiosguns.bullet": "Bullet",
 

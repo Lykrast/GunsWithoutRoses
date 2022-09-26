@@ -15,7 +15,7 @@ import xyz.kaleidiodev.kaleidiosguns.item.GunItem;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = KaleidiosGuns.MODID)
 public class ModEnchantments {
 
-	public static Enchantment impact, bullseye, sleightOfHand, preserving, accelerator, division, passionForBlood, marker, luckyShot, cowboy, maneuvering, frostShot, counterStrike, silenced, cleanShot, signalBoost, torpedo;
+	public static Enchantment impact, bullseye, sleightOfHand, preserving, accelerator, division, passionForBlood, marker, luckyShot, cowboy, maneuvering, frostShot, counterStrike, silenced, cleanShot, signalBoost, torpedo, trickShot;
 	public static final EnchantmentType TYPE_GUN = EnchantmentType.create("GWR_GUN", (item) -> item instanceof GunItem);
 
 	@SubscribeEvent
@@ -46,6 +46,7 @@ public class ModEnchantments {
 		luckyShot = initEnchant(reg, new GunDamageEnchantment(Enchantment.Rarity.UNCOMMON, 3, 6, 12, 30, TYPE_GUN), "lucky_shot"); //dmg
 		frostShot = initEnchant(reg, new GunDamageEnchantment(Enchantment.Rarity.RARE, 3, 5, 10, 30, TYPE_GUN), "frost_shard"); //dmg 2
 		counterStrike = initEnchant(reg, new GunAccuracyEnchantment(Enchantment.Rarity.RARE, 1, 10, 20, 30, TYPE_GUN), "counter_strike"); //acc
+		trickShot = initEnchant(reg, new GunAccuracyEnchantment(Enchantment.Rarity.VERY_RARE, 1, 14, 28, 30, TYPE_GUN), "trick_shot"); //acc 2
 	}
 
 	public static Enchantment initEnchant(IForgeRegistry<Enchantment> reg, Enchantment enchantment, String name) {
