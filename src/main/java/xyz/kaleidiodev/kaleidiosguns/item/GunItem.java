@@ -243,8 +243,9 @@ public class GunItem extends Item {
 	 * @param bulletFree true if no ammo was actually consumed (creative or Preserving enchant for example)
 	 */
 	protected void fireWeapon(World world, PlayerEntity player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
+		boolean isPlasma = gun.getItem() == ModItems.plasmaGatling;
 		double nextInaccuracy = ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.trickShot, gun) == 1) && (!player.isOnGround())) ? 0 : getInaccuracy(gun, player);
-		BulletEntity shot = bulletItem.createProjectile(world, ammo, player, gun.getItem() == ModItems.plasmaGatling);
+		BulletEntity shot = bulletItem.createProjectile(world, ammo, player, isPlasma);
 		shot.shootFromRotation(player, player.xRot, player.yRot, 0, (float)getProjectileSpeed(gun, player), VivecraftForgeExtensionPresent ? 0.0F : (float)nextInaccuracy);
 
 		//subtract player velocity to make the bullet independent
