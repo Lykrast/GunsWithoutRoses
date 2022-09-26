@@ -100,10 +100,31 @@ public class GunItem extends Item {
 		for(int i = 0; i < player.inventory.getContainerSize(); i++) {
 			ItemStack itemstack1 = player.inventory.getItem(i);
 			if (itemstack1.getItem() instanceof BulletItem) {
-				if (((BulletItem)itemstack1.getItem()).hasAmmo(itemstack1, player, gun)) {
-					if (ammo.getItem() instanceof BulletItem) {
-						if ((((BulletItem)ammo.getItem()).damage) < (((BulletItem)itemstack1.getItem()).damage)) ammo = itemstack1;
-					} else ammo = itemstack1;
+				//first, automerge the stack, before judging the count
+				//automerge stacks to prevent a bunch of slots with unusable ammo
+				if (!itemstack1.isEmpty()) {
+					int mySlot = player.inventory.findSlotMatchingItem(itemstack1);
+					for(int j = 0; j < player.inventory.getContainerSize(); j++) {
+						if ((j != mySlot) && (player.inventory.getItem(j).getItem() == itemstack1.getItem())) {
+							while ((player.inventory.getItem(j).getCount() < 64) && (!itemstack1.isEmpty())) {
+								itemstack1.shrink(1);
+								player.inventory.getItem(j).grow(1);
+							}
+						}
+					}
+				}
+
+				//skip if we just merged, and check the next stack
+				if (itemstack1.isEmpty()) {
+					player.inventory.removeItem(itemstack1);
+				}
+				else {
+					if (((BulletItem) itemstack1.getItem()).hasAmmo(itemstack1, player, gun)) {
+						if (ammo.getItem() instanceof BulletItem) {
+							if ((((BulletItem) ammo.getItem()).damage) < (((BulletItem) itemstack1.getItem()).damage))
+								ammo = itemstack1;
+						} else ammo = itemstack1;
+					}
 				}
 			}
 		}

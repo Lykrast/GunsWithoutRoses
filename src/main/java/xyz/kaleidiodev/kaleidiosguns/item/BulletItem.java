@@ -11,6 +11,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.items.ItemStackHandler;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.entity.BulletEntity;
 
@@ -39,6 +40,7 @@ public class BulletItem extends Item implements IBullet {
 	@Override
 	public void consume(ItemStack stack, PlayerEntity player, ItemStack gunItem) {
 		stack.shrink(costToUse(gunItem));
+
 		if (stack.isEmpty()) {
 			player.inventory.removeItem(stack);
 		}
