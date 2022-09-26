@@ -685,6 +685,7 @@ public class GunItem extends Item {
 		if ((enchantment instanceof GunAccuracyEnchantment) && hasPerfectAccuracy()) return false; //not for sniper
 		if ((enchantment instanceof GunDamageEnchantment) && isExplosive) return false; //not for launcher
 		if ((enchantment == ModEnchantments.cowboy) && isOneHanded) return false; //not for pistol
+		if (((enchantment == ModEnchantments.counterStrike) || (enchantment == ModEnchantments.trickShot)) && (me instanceof ShotgunItem)) return false; //not for shotgun
 
 		//only let these apply to certain gun types
 		if ((enchantment == ModEnchantments.division) && !(me instanceof ShotgunItem)) return false; //shotgun only
