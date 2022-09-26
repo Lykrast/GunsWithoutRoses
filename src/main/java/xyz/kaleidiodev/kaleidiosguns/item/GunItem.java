@@ -105,9 +105,8 @@ public class GunItem extends Item {
 				//first, automerge the stack, before judging the count
 				//automerge stacks to prevent a bunch of slots with unusable ammo
 				if (!itemstack1.isEmpty()) {
-					int mySlot = player.inventory.findSlotMatchingItem(itemstack1);
-					for(int j = 0; j < player.inventory.getContainerSize(); j++) {
-						if ((j != mySlot) && (player.inventory.getItem(j).getItem() == itemstack1.getItem())) {
+					for (int j = 0; j < player.inventory.getContainerSize(); j++) {
+						if ((j != i) && (player.inventory.getItem(j).getItem() == itemstack1.getItem())) {
 							while ((player.inventory.getItem(j).getCount() < 64) && (!itemstack1.isEmpty())) {
 								itemstack1.shrink(1);
 								player.inventory.getItem(j).grow(1);
