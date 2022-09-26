@@ -7,7 +7,7 @@
 	],
 	"key": {
 		"#": { "tag": "forge:ingots/iron" },
-		"G": { "tag": "kaleidiosguns:flint_bullet" }
+		"G": { "item": "kaleidiosguns:flint_bullet" }
 	},
 	"result": { "item": "kaleidiosguns:iron_bullet", "count": 16 }
 }
