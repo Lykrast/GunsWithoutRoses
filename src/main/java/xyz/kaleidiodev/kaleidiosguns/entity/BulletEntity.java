@@ -98,7 +98,7 @@ public class BulletEntity extends AbstractFireballEntity {
 
 		if (shouldGlow) {
 			this.setGlowing(true);
-			((PlayerEntity)getOwner()).addEffect(new EffectInstance(Effects.GLOWING, 200));
+			((PlayerEntity)getOwner()).addEffect(new EffectInstance(Effects.GLOWING, KGConfig.shooterGlowTime.get()));
 		}
 
 		//completely rewrite the entity code here
@@ -277,7 +277,7 @@ public class BulletEntity extends AbstractFireballEntity {
 		if (entity instanceof LivingEntity) {
 			LivingEntity victim = (LivingEntity) entity;
 			if (shouldGlow) {
-				victim.addEffect(new EffectInstance(Effects.GLOWING, 200));
+				victim.addEffect(new EffectInstance(Effects.GLOWING, KGConfig.glowTime.get()));
 			}
 			healthOfVictim = victim.getHealth();
 		} else healthOfVictim = 0.0f;

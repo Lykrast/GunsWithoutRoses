@@ -210,6 +210,8 @@ public class KGConfig {
     public static ForgeConfigSpec.DoubleValue frostyMaxAddition;
     public static ForgeConfigSpec.DoubleValue frostyMinAddition;
     public static ForgeConfigSpec.DoubleValue signalMultiplier;
+    public static ForgeConfigSpec.IntValue glowTime;
+    public static ForgeConfigSpec.IntValue shooterGlowTime;
 
 
     static {
@@ -840,6 +842,15 @@ public class KGConfig {
         signalMultiplier = builder
                 .comment("Additive multiplier per level of signal boost")
                 .defineInRange("signalMultiplier", 0.5D, 0.1D, 20D);
+        builder.pop();
+
+        builder.push("marker enchantment");
+        glowTime = builder
+                .comment("Ticks glowing lasts for on the hit target")
+                .defineInRange("glowTime", 120, 5, 72000);
+        shooterGlowTime = builder
+                .comment("Ticks glowing lasts for on the shooter")
+                .defineInRange("shooterGlowTime", 60, 5, 72000);
         builder.pop();
 
         spec = builder.build();
