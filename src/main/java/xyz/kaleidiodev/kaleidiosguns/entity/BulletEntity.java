@@ -1,6 +1,6 @@
 package xyz.kaleidiodev.kaleidiosguns.entity;
 
-import net.minecraft.block.BlockState;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -21,8 +21,8 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.block.Blocks;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.data.ForgeBlockTagsProvider;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.item.GunItem;
 import xyz.kaleidiodev.kaleidiosguns.item.IBullet;
@@ -206,7 +206,7 @@ public class BulletEntity extends AbstractFireballEntity {
 			//test if the block is of the right tool type to mine with.
 			//we could not guarantee the projectile ended up inside the block on this tick, so let's add some mathematics to work around that
 
-			BlockPos blockPositionToMine = ((BlockRayTraceResult) raytrace).getBlockPos();
+			BlockPos blockPositionToMine = raytrace.getBlockPos();
 			ItemStack newTool;
 
 			if (this.getDamage() > KGConfig.mineGunFifthLevel.get()) {
@@ -260,6 +260,23 @@ public class BulletEntity extends AbstractFireballEntity {
 				}
 			}
 		}
+
+		if (shouldBreakGlass) {
+			Block blockToBreak = level.getBlockState(raytrace.getBlockPos()).getBlock();
+			if ((blockToBreak instanceof StainedGlassBlock) ||
+					(blockToBreak instanceof GlassBlock) ||
+					(blockToBreak instanceof PaneBlock) ||
+					(blockToBreak == Blocks.GLOWSTONE) ||
+					(blockToBreak instanceof RedstoneLampBlock) ||
+					(blockToBreak instanceof LanternBlock) ||
+					(blockToBreak instanceof CarvedPumpkinBlock) ||
+					(BlockTags.WOOL.getValues().contains(blockToBreak))) {
+				level.destroyBlock(raytrace.getBlockPos(), false);
+			}
+		}
+
+
+
 		if (!level.isClientSide && this.shouldCollateral) remove();
 	}
 

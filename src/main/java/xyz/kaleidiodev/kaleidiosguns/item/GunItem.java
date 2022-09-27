@@ -642,6 +642,11 @@ public class GunItem extends Item {
 		return this;
 	}
 
+	public GunItem setCanBreakGlass(boolean glass) {
+		this.canBreakGlass = glass;
+		return this;
+	}
+
 	/**
 	 *
 	 * @param barrelSwitch set the divider that divides the fire rate to denote how many ticks it takes to switch barrels
