@@ -78,6 +78,9 @@ public class GunItem extends Item {
 	protected boolean isDefender;
 	protected boolean isOneHanded;
 	protected boolean isSensitive;
+	protected boolean canBreakGlass;
+	protected boolean canBreakDoors;
+	protected boolean isQuiet;
 
 	protected SoundEvent fireSound = ModSounds.gun;
 	protected SoundEvent reloadSound = ModSounds.double_shotgunReload;
@@ -208,7 +211,10 @@ public class GunItem extends Item {
 				if (!bulletFree) bulletItem.consume(ammo, player, gun);
 			}
 
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.silenced, gun) > 0 ? 2.0F : 10.0F), 1.0F);
+			float volume = (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.silenced, gun) > 0 ? 2.0F : 10.0F);
+			if (this.isQuiet) volume /= 2;
+
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, volume, 1.0F);
 			player.awardStat(Stats.ITEM_USED.get(this));
 
 			//change chamber if multiple revolutions
@@ -290,6 +296,8 @@ public class GunItem extends Item {
 		shot.isWither = this.isWither;
 		shot.isCorrupted = this.isCorruption;
 		shot.isTorpedo = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.torpedo, gun) == 1;
+		shot.shouldBreakDoors = this.canBreakDoors;
+		shot.shouldBreakGlass = this.canBreakGlass;
 
 		changeBullet(world, player, gun, shot, bulletFree);
 
@@ -766,6 +774,9 @@ public class GunItem extends Item {
 			if (isDefender) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.defender"));
 			if (isSensitive) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.sensitive"));
 			if (this.getItem() == ModItems.plasmaGatling) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.plasma"));
+			if (isExplosive) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.explosive"));
+			if (canBreakDoors) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.doors"));
+			if (canBreakGlass) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.glass"));
 
 			if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) > 0) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.frost_distance", EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) * KGConfig.frostyDistancePerLevel.get()));
 
