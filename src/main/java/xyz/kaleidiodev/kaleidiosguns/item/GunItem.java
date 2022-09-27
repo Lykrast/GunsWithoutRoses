@@ -4,8 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.command.arguments.NBTCompoundTagArgument;
-import net.minecraft.command.arguments.NBTTagArgument;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -39,7 +37,6 @@ import xyz.kaleidiodev.kaleidiosguns.registry.ModSounds;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static xyz.kaleidiodev.kaleidiosguns.KaleidiosGuns.VivecraftForgeExtensionPresent;
@@ -101,7 +98,19 @@ public class GunItem extends Item {
 		ItemStack gun = player.getItemInHand(hand);
 		//"Oh yeah I will use the vanilla method so that quivers can do their thing"
 		//guess what the quivers suck
-		ItemStack ammo = ItemStack.EMPTY;
+		ItemStack ammo = mergeStacks(player, gun);
+
+
+		//don't fire if redstone block is not nearby
+		if (this.isRedstone) {
+			if (checkRedstoneLevel(world, player, gun) != -1) return handleWeapon(world, player, gun, hand, ammo);
+			else return ActionResult.fail(gun);
+		}
+		else return handleWeapon(world, player, gun, hand, ammo);
+	}
+
+	public ItemStack mergeStacks(PlayerEntity player, ItemStack gun) {
+		ItemStack newAmmo = ItemStack.EMPTY;
 		for(int i = 0; i < player.inventory.getContainerSize(); i++) {
 			ItemStack itemstack1 = player.inventory.getItem(i);
 			if (itemstack1.getItem() instanceof BulletItem) {
@@ -122,23 +131,24 @@ public class GunItem extends Item {
 				if (itemstack1.isEmpty()) {
 					player.inventory.removeItem(itemstack1);
 				}
-				else {
-					if (((BulletItem) itemstack1.getItem()).hasAmmo(itemstack1, player, gun)) {
-						if (ammo.getItem() instanceof BulletItem) {
-							if ((((BulletItem) ammo.getItem()).damage) < (((BulletItem) itemstack1.getItem()).damage))
-								ammo = itemstack1;
-						} else ammo = itemstack1;
-					}
+			}
+		}
+
+		for(int i = 0; i < player.inventory.getContainerSize(); i++) {
+			//now read in order, prioritizing leftmost, fixes issue with three stacks at a time
+			ItemStack itemstack1 = player.inventory.getItem(i);
+			if (itemstack1.getItem() instanceof BulletItem) {
+				if (((BulletItem) itemstack1.getItem()).hasAmmo(itemstack1, player, gun)) {
+					if (newAmmo.getItem() instanceof BulletItem) {
+						if (((((BulletItem) newAmmo.getItem()).damage) < (((BulletItem) itemstack1.getItem()).damage)) &&
+								(newAmmo.getCount() > itemstack1.getCount()))
+							newAmmo = itemstack1;
+					} else newAmmo = itemstack1;
 				}
 			}
 		}
 
-		//don't fire if redstone block is not nearby
-		if (this.isRedstone) {
-			if (checkRedstoneLevel(world, player, gun) != -1) return handleWeapon(world, player, gun, hand, ammo);
-			else return ActionResult.fail(gun);
-		}
-		else return handleWeapon(world, player, gun, hand, ammo);
+		return newAmmo;
 	}
 
 	protected int checkRedstoneLevel(World world, PlayerEntity player, ItemStack gun) {
