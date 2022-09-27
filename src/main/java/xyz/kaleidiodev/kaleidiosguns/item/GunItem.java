@@ -637,6 +637,11 @@ public class GunItem extends Item {
 		return this;
 	}
 
+	public GunItem setIsQuiet(boolean quiet) {
+		this.isQuiet = quiet;
+		return this;
+	}
+
 	/**
 	 *
 	 * @param barrelSwitch set the divider that divides the fire rate to denote how many ticks it takes to switch barrels
@@ -777,6 +782,7 @@ public class GunItem extends Item {
 			if (isExplosive) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.explosive"));
 			if (canBreakDoors) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.doors"));
 			if (canBreakGlass) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.glass"));
+			if (isQuiet) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.quiet"));
 
 			if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) > 0) tooltip.add(new TranslationTextComponent("tooltip.kaleidiosguns.frost_distance", EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.frostShot, stack) * KGConfig.frostyDistancePerLevel.get()));
 
