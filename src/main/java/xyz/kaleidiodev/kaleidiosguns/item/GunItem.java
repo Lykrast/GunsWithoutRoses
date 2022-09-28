@@ -96,10 +96,12 @@ public class GunItem extends Item {
 	@Override
 	public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
 		ItemStack gun = player.getItemInHand(hand);
+		ItemStack ammo = ItemStack.EMPTY;
 		//"Oh yeah I will use the vanilla method so that quivers can do their thing"
 		//guess what the quivers suck
-		ItemStack ammo = mergeStacks(player, gun);
-
+		if (!world.isClientSide) {
+			ammo = mergeStacks(player, gun);
+		}
 
 		//don't fire if redstone block is not nearby
 		if (this.isRedstone) {
