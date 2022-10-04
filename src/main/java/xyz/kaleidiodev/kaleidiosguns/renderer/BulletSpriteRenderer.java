@@ -43,7 +43,6 @@ public class BulletSpriteRenderer<T extends Entity & IRendersAsItem> extends Ent
             pMatrixStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
             pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
             ItemStack stack = pEntity.getItem();
-            System.out.println(stack.getOrCreateTag().contains("shot"));
             this.fullBright = stack.getOrCreateTag().getBoolean("isPlasma");
             this.itemRenderer.renderStatic(pEntity.getItem(), ItemCameraTransforms.TransformType.GROUND, pPackedLight, OverlayTexture.NO_OVERLAY, pMatrixStack, pBuffer);
             pMatrixStack.popPose();

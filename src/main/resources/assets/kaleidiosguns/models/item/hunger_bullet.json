@@ -5,7 +5,7 @@
     },
     "overrides": [
         {
-            "predicate": { "shot": 1 },
+            "predicate": { "kaleidiosguns:shot": 1 },
             "model": "kaleidiosguns:item/hunger_bullet_shot"
         }
 	]
