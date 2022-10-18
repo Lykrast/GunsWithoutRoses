@@ -99,9 +99,7 @@ public class GunItem extends Item {
 		ItemStack ammo = ItemStack.EMPTY;
 		//"Oh yeah I will use the vanilla method so that quivers can do their thing"
 		//guess what the quivers suck
-		if (!world.isClientSide) {
-			ammo = mergeStacks(player, gun);
-		}
+		ammo = mergeStacks(player, gun);
 
 		//don't fire if redstone block is not nearby
 		if (this.isRedstone) {
@@ -113,25 +111,27 @@ public class GunItem extends Item {
 
 	public ItemStack mergeStacks(PlayerEntity player, ItemStack gun) {
 		ItemStack newAmmo = ItemStack.EMPTY;
-		for(int i = 0; i < player.inventory.getContainerSize(); i++) {
-			ItemStack itemstack1 = player.inventory.getItem(i);
-			if (itemstack1.getItem() instanceof BulletItem) {
-				//first, automerge the stack, before judging the count
-				//automerge stacks to prevent a bunch of slots with unusable ammo
-				if (!itemstack1.isEmpty()) {
-					for (int j = 0; j < player.inventory.getContainerSize(); j++) {
-						if ((j != i) && (player.inventory.getItem(j).getItem() == itemstack1.getItem())) {
-							while ((player.inventory.getItem(j).getCount() < 64) && (!itemstack1.isEmpty())) {
-								itemstack1.shrink(1);
-								player.inventory.getItem(j).grow(1);
+		if (!player.level.isClientSide) {
+			for (int i = 0; i < player.inventory.getContainerSize(); i++) {
+				ItemStack itemstack1 = player.inventory.getItem(i);
+				if (itemstack1.getItem() instanceof BulletItem) {
+					//first, automerge the stack, before judging the count
+					//automerge stacks to prevent a bunch of slots with unusable ammo
+					if (!itemstack1.isEmpty()) {
+						for (int j = 0; j < player.inventory.getContainerSize(); j++) {
+							if ((j != i) && (player.inventory.getItem(j).getItem() == itemstack1.getItem())) {
+								while ((player.inventory.getItem(j).getCount() < 64) && (!itemstack1.isEmpty())) {
+									itemstack1.shrink(1);
+									player.inventory.getItem(j).grow(1);
+								}
 							}
 						}
 					}
-				}
 
-				//skip if we just merged, and check the next stack
-				if (itemstack1.isEmpty()) {
-					player.inventory.removeItem(itemstack1);
+					//skip if we just merged, and check the next stack
+					if (itemstack1.isEmpty()) {
+						player.inventory.removeItem(itemstack1);
+					}
 				}
 			}
 		}
