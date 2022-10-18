@@ -49,6 +49,6 @@ public class HungerBulletItem extends BulletItem {
 	}
 
 	public static boolean isShot(ItemStack stack) {
-		return !stack.isEmpty() && stack.getOrCreateTag().contains("shot");
+		return !stack.isEmpty() && stack.getOrCreateTag().contains("shot") && stack.getOrCreateTag().getBoolean("shot");
 	}
 }

@@ -6,7 +6,6 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -37,7 +36,6 @@ public class GatlingItem extends GunItem {
 	@Override
 	public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
 		ItemStack itemstack = player.getItemInHand(hand);
-
 		//don't fire if redstone block is not nearby
 		if (this.isRedstone) {
 			if (checkRedstoneLevel(world, player, itemstack) != -1) return handleGatling(world, player, itemstack, hand);
@@ -47,7 +45,7 @@ public class GatlingItem extends GunItem {
 	}
 
 	protected ActionResult<ItemStack> handleGatling(World world, PlayerEntity player, ItemStack gun, Hand hand) {
-		if (!player.abilities.instabuild && mergeStacks(player, gun).isEmpty()) {
+		if (!player.abilities.instabuild && player.getProjectile(gun).isEmpty()) {
 			return ActionResult.fail(gun);
 		}
 		else {
@@ -71,16 +69,10 @@ public class GatlingItem extends GunItem {
 
 	@Override
 	public void onUseTick(World world, LivingEntity user, ItemStack gun, int ticks) {
-
 		//stop using immediately if out of range.
 		if ((this.isRedstone) && (checkRedstoneLevel(world, (PlayerEntity)user, gun) == -1)) user.stopUsingItem();
 		if (user instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) user;
-			ItemStack ammo = ItemStack.EMPTY;
-
-			if (!world.isClientSide()) {
-				ammo = mergeStacks(player, gun);
-			}
 
 			//give player speed effect if maneuvering is instated.
 			if ((EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.maneuvering, gun) != 0) && player.isOnGround()) player.setDeltaMovement(player.getDeltaMovement().multiply(0.7, 0, 0.7).add(player.getDeltaMovement())); //apply speed for every tick so that the slow speed is nullified
@@ -91,16 +83,12 @@ public class GatlingItem extends GunItem {
 				//"Oh yeah I will use the vanilla method so that quivers can do their thing"
 				//guess what the quivers suck
 				this.isFirstShot = false;
-
-				//stop immediately if out of ammo
-				if (ammo.isEmpty() && !player.abilities.instabuild) player.stopUsingItem();
+				ItemStack ammo = player.getProjectile(gun);
 
 				if (!ammo.isEmpty() || player.abilities.instabuild) {
 					if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet);
-					if (ammo.getItem() == Items.ARROW) ammo = new ItemStack(ModItems.flintBullet); //sigh
 
 					IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet);
-
 					if (!world.isClientSide) {
 						boolean bulletFree = player.abilities.instabuild || !shouldConsumeAmmo(gun, player);
 
@@ -108,22 +96,11 @@ public class GatlingItem extends GunItem {
 						ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet);
 						fireWeapon(world, player, gun, shotAmmo, bulletItem, bulletFree);
 
-						int durabilityDamage = 1;
-						if (((BulletItem)ammo.getItem()).damage >= KGConfig.blazeBulletDamage.get()) {
-							durabilityDamage += 1;
-						}
-						if (((BulletItem)ammo.getItem()).damage >= KGConfig.xpBulletDamage.get()) {
-							durabilityDamage += 1;
-						}
-
-						gun.hurtAndBreak(durabilityDamage, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
+						gun.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
 						if (!bulletFree) bulletItem.consume(ammo, player, gun);
 					}
 
-					float volume = (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.silenced, gun) > 0 ? 2.0F : 10.0F);
-					if (this.isQuiet) volume /= 2;
-
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, volume, 1.0F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound, SoundCategory.PLAYERS, (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.silenced, gun) > 0 ? 2.0F : 10.0F), 1.0F);
 					player.awardStat(Stats.ITEM_USED.get(this));
 				}
 			}
