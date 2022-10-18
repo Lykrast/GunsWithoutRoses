@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.data.ForgeBlockTagsProvider;
+import xyz.kaleidiodev.kaleidiosguns.KaleidiosGuns;
 import xyz.kaleidiodev.kaleidiosguns.config.KGConfig;
 import xyz.kaleidiodev.kaleidiosguns.item.GunItem;
 import xyz.kaleidiodev.kaleidiosguns.item.IBullet;
@@ -70,7 +71,10 @@ public class BulletEntity extends AbstractFireballEntity {
 
 	public BulletEntity(World worldIn, LivingEntity shooter) {
 		this(worldIn, shooter, 0, 0, 0);
-		setPos(shooter.getX(), shooter.getEyeY() - 0.1, shooter.getZ());
+		//follow VR crosshair, rather than player's eyes
+		if (KaleidiosGuns.VivecraftForgeExtensionPresent) setPos(shooter.getX(), shooter.getY(), shooter.getZ());
+		else setPos(shooter.getX(), shooter.getEyeY() - 0.1, shooter.getZ());
+
 	}
 
 	public BulletEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {

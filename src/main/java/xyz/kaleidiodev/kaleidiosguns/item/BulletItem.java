@@ -5,6 +5,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -30,6 +31,13 @@ public class BulletItem extends Item implements IBullet {
 	@Override
 	public BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter, boolean isPlasma) {
 		ItemStack fake = new ItemStack(this);
+
+		//because for whatever reason inheritance and overriding won't pass the tag between methods...
+		if ((this instanceof XPBulletItem) ||
+				(this instanceof HungerBulletItem)) {
+			fake.getOrCreateTag().putInt("shot", 1);
+		}
+
 		fake.getOrCreateTag().putBoolean("isPlasma", isPlasma);
 		BulletEntity entity = new BulletEntity(world, shooter);
 		entity.setItem(fake);
