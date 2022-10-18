@@ -805,10 +805,10 @@ public class KGConfig {
         builder.push("passion for blood enchantment");
         passionForBloodRateIncrease = builder
                 .comment("How much percentage chance increase per passion for blood level, represented as floating point only")
-                .defineInRange("passionForBloodRateIncrease", 0.15D, 0.01D, 1.0D);
+                .defineInRange("passionForBloodRateIncrease", 0.2D, 0.01D, 1.0D);
         passionForBloodHealIncrease = builder
                 .comment("Multiplier for how much healing passion for blood should give in relation to damage delivered")
-                .defineInRange("passionForBloodHealIncrease", 0.5D, 0.1D, 5.0D);
+                .defineInRange("passionForBloodHealIncrease", 0.1D, 0.1D, 5.0D);
         builder.pop();
 
         builder.push("division enchantment");

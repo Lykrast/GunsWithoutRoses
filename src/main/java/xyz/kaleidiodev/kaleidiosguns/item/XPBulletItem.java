@@ -34,6 +34,13 @@ public class XPBulletItem extends BulletItem {
 	}
 
 	@Override
+	public BulletEntity createProjectile(World world, ItemStack stack, LivingEntity shooter, boolean isPlasma) {
+		ItemStack fake = new ItemStack(this);
+		fake.getOrCreateTag().putInt("shot", 1);
+		return super.createProjectile(world, fake, shooter, isPlasma);
+	}
+
+	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		super.appendHoverText(stack, worldIn, tooltip, flagIn);
