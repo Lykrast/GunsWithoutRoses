@@ -9,7 +9,7 @@ version="${file.jarVersion}"
 displayName="Guns Without Roses"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/guns-without-roses"
 credits="freesound.org for sounds, Rye for naming the Cherrounds"
-authors="Lykrast"
+authors="Lykrast, ViviSpook"
 description='''
 Adds a few simple Terraria-like guns, and bullets and enchantments to go with them. Does not add roses of any kind.
 '''
