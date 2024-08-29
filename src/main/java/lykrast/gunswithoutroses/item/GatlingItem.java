@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import lykrast.gunswithoutroses.registry.ModItems;
+import lykrast.gunswithoutroses.registry.GWRItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
@@ -46,14 +46,14 @@ public class GatlingItem extends GunItem {
 				ItemStack ammo = player.getProjectile(gun);
 
 				if (!ammo.isEmpty() || player.getAbilities().instabuild) {
-					if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet.get());
+					if (ammo.isEmpty()) ammo = new ItemStack(GWRItems.flintBullet.get());
 
-					IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet.get());
+					IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : GWRItems.flintBullet.get());
 					if (!world.isClientSide) {
 						boolean bulletFree = player.getAbilities().instabuild || !shouldConsumeAmmo(world, gun, player);
 
 						//Workaround for quivers not respecting getAmmoPredicate()
-						ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet.get());
+						ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(GWRItems.flintBullet.get());
 						shoot(world, player, gun, shotAmmo, bulletItem, bulletFree);
 
 						gun.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));

@@ -8,7 +8,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class ModEntities {
+public class GWREntities {
 	public static RegistryObject<EntityType<BulletEntity>> BULLET;
 	public static final DeferredRegister<EntityType<?>> REG = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, GunsWithoutRoses.MODID);
 

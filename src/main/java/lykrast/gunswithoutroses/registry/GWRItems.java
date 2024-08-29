@@ -24,7 +24,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
-public class ModItems {
+public class GWRItems {
 	public static RegistryObject<GunItem> ironGun, goldGun, diamondShotgun, diamondSniper, diamondGatling;
 	public static RegistryObject<BulletItem> flintBullet, ironBullet, blazeBullet, hungerBullet;
 	public static final DeferredRegister<Item> REG = DeferredRegister.create(ForgeRegistries.ITEMS, GunsWithoutRoses.MODID);
@@ -42,8 +42,8 @@ public class ModItems {
 	static {
 		ironGun = initItem(() -> new GunItem(defP().durability(513), 0, 1, 16, 1.5, 14).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "iron_gun");
 		goldGun = initItem(() -> new GunItem(defP().durability(104), 0, 1, 16, 1.5, 22).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "gold_gun");
-		diamondShotgun = initItem(() -> new ShotgunItem(defP().durability(2076), 0, 0.45, 16, 6, 10, 5).ignoreInvulnerability(true).fireSound(ModSounds.shotgun::get).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_shotgun");
-		diamondSniper = initItem(() -> new GunItem(defP().durability(2076), 0, 1.6, 22, 0, 10).projectileSpeed(4).fireSound(ModSounds.sniper::get).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_sniper");
+		diamondShotgun = initItem(() -> new ShotgunItem(defP().durability(2076), 0, 0.45, 16, 6, 10, 5).ignoreInvulnerability(true).fireSound(GWRSounds.shotgun::get).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_shotgun");
+		diamondSniper = initItem(() -> new GunItem(defP().durability(2076), 0, 1.6, 22, 0, 10).projectileSpeed(4).fireSound(GWRSounds.sniper::get).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_sniper");
 		diamondGatling = initItem(() -> new GatlingItem(defP().durability(2076), 0, 1, 4, 4, 10).ignoreInvulnerability(true).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_gatling");
 		
 		flintBullet = initItem(() -> new BulletItem(defP(), 5), "flint_bullet");

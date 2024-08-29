@@ -2,8 +2,8 @@ package lykrast.gunswithoutroses.entity;
 
 import lykrast.gunswithoutroses.item.IBullet;
 import lykrast.gunswithoutroses.registry.GWRDamage;
-import lykrast.gunswithoutroses.registry.ModEntities;
-import lykrast.gunswithoutroses.registry.ModItems;
+import lykrast.gunswithoutroses.registry.GWREntities;
+import lykrast.gunswithoutroses.registry.GWRItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -38,11 +38,11 @@ public class BulletEntity extends Fireball {
 	}
 
 	public BulletEntity(Level worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-		super(ModEntities.BULLET.get(), shooter, accelX, accelY, accelZ, worldIn);
+		super(GWREntities.BULLET.get(), shooter, accelX, accelY, accelZ, worldIn);
 	}
 
 	public BulletEntity(Level worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
-		super(ModEntities.BULLET.get(), x, y, z, accelX, accelY, accelZ, worldIn);
+		super(GWREntities.BULLET.get(), x, y, z, accelX, accelY, accelZ, worldIn);
 	}
 
 	private static final double STOP_TRESHOLD = 0.01;
@@ -68,7 +68,7 @@ public class BulletEntity extends Fireball {
 			Entity target = raytrace.getEntity();
 			Entity shooter = getOwner();
 			Item item = getItemRaw().getItem();
-			IBullet bullet = item instanceof IBullet ? (IBullet) item : ModItems.flintBullet.get();
+			IBullet bullet = item instanceof IBullet ? (IBullet) item : GWRItems.flintBullet.get();
 			
 			if (isOnFire()) target.setSecondsOnFire(5);
 			int lastHurtResistant = target.invulnerableTime;

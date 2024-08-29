@@ -6,7 +6,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class ModSounds {
+public class GWRSounds {
 	//"Why is that one not formatted like the others?"
 	//because it wasn't on 1.18 so I just left it like that when deferredregstering it
 	public static final DeferredRegister<SoundEvent> REG = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, GunsWithoutRoses.MODID);

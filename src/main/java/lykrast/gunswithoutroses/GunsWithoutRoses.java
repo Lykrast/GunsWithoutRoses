@@ -3,10 +3,10 @@ package lykrast.gunswithoutroses;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import lykrast.gunswithoutroses.registry.ModEnchantments;
-import lykrast.gunswithoutroses.registry.ModEntities;
-import lykrast.gunswithoutroses.registry.ModItems;
-import lykrast.gunswithoutroses.registry.ModSounds;
+import lykrast.gunswithoutroses.registry.GWREnchantments;
+import lykrast.gunswithoutroses.registry.GWREntities;
+import lykrast.gunswithoutroses.registry.GWRItems;
+import lykrast.gunswithoutroses.registry.GWRSounds;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -20,11 +20,11 @@ public class GunsWithoutRoses {
 
 	public GunsWithoutRoses() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-		ModItems.REG.register(bus);
-		bus.addListener(ModItems::makeCreativeTab);
-		ModEnchantments.REG.register(bus);
-		ModEntities.REG.register(bus);
-		ModSounds.REG.register(bus);
+		GWRItems.REG.register(bus);
+		bus.addListener(GWRItems::makeCreativeTab);
+		GWREnchantments.REG.register(bus);
+		GWREntities.REG.register(bus);
+		GWRSounds.REG.register(bus);
 	}
 	
 	public static ResourceLocation rl(String name) {

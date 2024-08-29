@@ -7,9 +7,9 @@ import java.util.function.Supplier;
 import javax.annotation.Nullable;
 
 import lykrast.gunswithoutroses.entity.BulletEntity;
-import lykrast.gunswithoutroses.registry.ModEnchantments;
-import lykrast.gunswithoutroses.registry.ModItems;
-import lykrast.gunswithoutroses.registry.ModSounds;
+import lykrast.gunswithoutroses.registry.GWREnchantments;
+import lykrast.gunswithoutroses.registry.GWRItems;
+import lykrast.gunswithoutroses.registry.GWRSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -38,7 +38,7 @@ public class GunItem extends ProjectileWeaponItem {
 	private int enchantability;
 	protected boolean ignoreInvulnerability = false;
 	protected double chanceFreeShot = 0;
-	protected Supplier<SoundEvent> fireSound = ModSounds.gun::get;
+	protected Supplier<SoundEvent> fireSound = GWRSounds.gun::get;
 	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
 	protected Supplier<Ingredient> repairMaterial;
 
@@ -59,14 +59,14 @@ public class GunItem extends ProjectileWeaponItem {
 		ItemStack ammo = player.getProjectile(gun);
 
 		if (!ammo.isEmpty() || player.getAbilities().instabuild) {
-			if (ammo.isEmpty()) ammo = new ItemStack(ModItems.flintBullet.get());
+			if (ammo.isEmpty()) ammo = new ItemStack(GWRItems.flintBullet.get());
 
-			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : ModItems.flintBullet.get());
+			IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : GWRItems.flintBullet.get());
 			if (!world.isClientSide) {
 				boolean bulletFree = player.getAbilities().instabuild || !shouldConsumeAmmo(world, gun, player);
 				
 				//Workaround for quivers not respecting getAmmoPredicate()
-				ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(ModItems.flintBullet.get());
+				ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(GWRItems.flintBullet.get());
 				shoot(world, player, gun, shotAmmo, bulletItem, bulletFree);
 				
 				gun.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
@@ -116,7 +116,7 @@ public class GunItem extends ProjectileWeaponItem {
 	public boolean shouldConsumeAmmo(Level world, ItemStack stack, Player player) {
 		if (chanceFreeShot > 0 && world.getRandom().nextDouble() < chanceFreeShot) return false;
 		
-		int preserving = stack.getEnchantmentLevel(ModEnchantments.preserving.get());
+		int preserving = stack.getEnchantmentLevel(GWREnchantments.preserving.get());
 		//(level) in (level + 2) chance to not consume
 		if (preserving >= 1 && world.getRandom().nextInt(preserving + 2) >= 2) return false;
 		
@@ -127,7 +127,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Gets the flat bonus damage (applied BEFORE the multiplier). This takes into account Impact enchantment.
 	 */
 	public double getBonusDamage(ItemStack stack, @Nullable Player player) {
-		int impact = stack.getEnchantmentLevel(ModEnchantments.impact.get());
+		int impact = stack.getEnchantmentLevel(GWREnchantments.impact.get());
 		return bonusDamage + (impact >= 1 ? 0.5 * (impact + 1) : 0);
 	}
 	
@@ -139,7 +139,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Gets the min time in ticks between 2 shots. This takes into account Sleight of Hand enchantment.
 	 */
 	public int getFireDelay(ItemStack stack, @Nullable Player player) {
-		int sleight = stack.getEnchantmentLevel(ModEnchantments.sleightOfHand.get());
+		int sleight = stack.getEnchantmentLevel(GWREnchantments.sleightOfHand.get());
 		return Math.max(1, sleight > 0 ? (int)(fireDelay / (1 + 0.16*sleight)) : fireDelay);
 	}
 	
@@ -157,7 +157,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 * The formula is just accuracy = 1 / inaccuracy.
 	 */
 	public double getInaccuracy(ItemStack stack, @Nullable Player player) {
-		return Math.max(0, inaccuracy / (stack.getEnchantmentLevel(ModEnchantments.bullseye.get()) + 1.0));
+		return Math.max(0, inaccuracy / (stack.getEnchantmentLevel(GWREnchantments.bullseye.get()) + 1.0));
 	}
 	
 	public double getProjectileSpeed(ItemStack stack, @Nullable Player player) {
@@ -172,7 +172,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 */
 	public double getInverseChanceFreeShot(ItemStack stack, @Nullable Player player) {
 		double chance = 1 - chanceFreeShot;
-		int preserving = stack.getEnchantmentLevel(ModEnchantments.preserving.get());
+		int preserving = stack.getEnchantmentLevel(GWREnchantments.preserving.get());
 		if (preserving >= 1) chance *= 2.0/(preserving + 2);
 		return chance;
 	}
@@ -181,28 +181,28 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Says if the damage is changed from base value. Used for tooltip.
 	 */
 	protected boolean isDamageModified(ItemStack stack) {
-		return stack.getEnchantmentLevel(ModEnchantments.impact.get()) >= 1;
+		return stack.getEnchantmentLevel(GWREnchantments.impact.get()) >= 1;
 	}
 	
 	/**
 	 * Says if the fire delay is changed from base value. Used for tooltip.
 	 */
 	protected boolean isFireDelayModified(ItemStack stack) {
-		return stack.getEnchantmentLevel(ModEnchantments.sleightOfHand.get()) >= 1;
+		return stack.getEnchantmentLevel(GWREnchantments.sleightOfHand.get()) >= 1;
 	}
 	
 	/**
 	 * Says if the (in)accuracy is changed from base value. Used for tooltip.
 	 */
 	protected boolean isInaccuracyModified(ItemStack stack) {
-		return !hasPerfectAccuracy() && stack.getEnchantmentLevel(ModEnchantments.bullseye.get()) >= 1;
+		return !hasPerfectAccuracy() && stack.getEnchantmentLevel(GWREnchantments.bullseye.get()) >= 1;
 	}
 	
 	/**
 	 * Says if the chance for free shots is changed from base value. Used for tooltip.
 	 */
 	protected boolean isChanceFreeShotModified(ItemStack stack) {
-		return stack.getEnchantmentLevel(ModEnchantments.preserving.get()) >= 1;
+		return stack.getEnchantmentLevel(GWREnchantments.preserving.get()) >= 1;
 	}
 
 	/**
@@ -249,7 +249,7 @@ public class GunItem extends ProjectileWeaponItem {
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
 		//Disallow Bullseye if the gun has perfect accuracy
-		if (enchantment == ModEnchantments.bullseye.get() && hasPerfectAccuracy()) return false;
+		if (enchantment == GWREnchantments.bullseye.get() && hasPerfectAccuracy()) return false;
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}
 

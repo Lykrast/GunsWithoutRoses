@@ -1,6 +1,6 @@
 package lykrast.gunswithoutroses.enchantment;
 
-import lykrast.gunswithoutroses.registry.ModEnchantments;
+import lykrast.gunswithoutroses.registry.GWREnchantments;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -9,7 +9,7 @@ public class GunEnchantment extends Enchantment {
 	private int maxLevel, minCost, levelCost, levelCostSpan;
 
 	public GunEnchantment(Rarity rarityIn, int maxLevel, int minCost, int levelCost, int levelCostSpan) {
-		super(rarityIn, ModEnchantments.TYPE_GUN, new EquipmentSlot[] { EquipmentSlot.MAINHAND });
+		super(rarityIn, GWREnchantments.TYPE_GUN, new EquipmentSlot[] { EquipmentSlot.MAINHAND });
 		this.maxLevel = maxLevel;
 		this.minCost = minCost;
 		this.levelCost = levelCost;
