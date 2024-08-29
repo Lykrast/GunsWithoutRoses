@@ -82,7 +82,7 @@ public class BulletEntity extends Fireball {
 				LivingEntity livingTarget = (LivingEntity)target;
 				if (knockbackStrength > 0) {
 					double actualKnockback = knockbackStrength;
-					//Knocback amplifying potion from Hanami TODO replace once it's in another mod
+					//Knocback amplifying potion from Hanami
 					//if (Holders.Hanami.INSTABILITY != null && livingTarget.isPotionActive(Holders.Hanami.INSTABILITY)) actualKnockback *= 2 + livingTarget.getActivePotionEffect(Holders.Hanami.INSTABILITY).getAmplifier();
 					
 					Vec3 vec = getDeltaMovement().multiply(1, 0, 1).normalize().scale(actualKnockback);
@@ -140,9 +140,9 @@ public class BulletEntity extends Fireball {
 	//Same as normal but ignores player velocity
 	//Also I finally found why it takes floats, cause the trig functions take floats :(
 	public void shootFromRotation(Entity shooter, float xRot, float yRot, float p_37255_, float speed, float spread) {
-		float f = -Mth.sin(yRot * ((float) Math.PI / 180F)) * Mth.cos(xRot * ((float) Math.PI / 180F));
-		float f1 = -Mth.sin((xRot + p_37255_) * ((float) Math.PI / 180F));
-		float f2 = Mth.cos(yRot * ((float) Math.PI / 180F)) * Mth.cos(xRot * ((float) Math.PI / 180F));
+		float f = -Mth.sin(yRot * Mth.DEG_TO_RAD) * Mth.cos(xRot * Mth.DEG_TO_RAD);
+		float f1 = -Mth.sin((xRot + p_37255_) * Mth.DEG_TO_RAD);
+		float f2 = Mth.cos(yRot * Mth.DEG_TO_RAD) * Mth.cos(xRot * Mth.DEG_TO_RAD);
 		shoot((double) f, (double) f1, (double) f2, speed, spread);
 		//Vec3 vec3 = shooter.getDeltaMovement();
 		//this.setDeltaMovement(this.getDeltaMovement().add(vec3.x, shooter.isOnGround() ? 0.0D : vec3.y, vec3.z));
