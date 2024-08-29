@@ -13,6 +13,6 @@ public class ModSounds {
 	public static RegistryObject<SoundEvent> gun = initSound("item.gun.shoot"), shotgun = initSound("item.shotgun.shoot"), sniper = initSound("item.sniper.shoot");
 
 	public static RegistryObject<SoundEvent> initSound(String name) {
-		return REG.register(name, () -> new SoundEvent(GunsWithoutRoses.rl(name)));
+		return REG.register(name, () -> SoundEvent.createVariableRangeEvent(GunsWithoutRoses.rl(name)));
 	}
 }

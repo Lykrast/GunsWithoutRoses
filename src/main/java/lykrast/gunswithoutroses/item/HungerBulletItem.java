@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 import lykrast.gunswithoutroses.entity.BulletEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -24,7 +23,7 @@ public class HungerBulletItem extends BulletItem {
 	
 	@Override
 	public void consume(ItemStack stack, Player player) {
-		if (player.getFoodData().getFoodLevel() <= 0) player.hurt(DamageSource.STARVE, 1);
+		if (player.getFoodData().getFoodLevel() <= 0) player.hurt(player.level().damageSources().starve(), 1);
 		player.causeFoodExhaustion(3);
 	}
 	

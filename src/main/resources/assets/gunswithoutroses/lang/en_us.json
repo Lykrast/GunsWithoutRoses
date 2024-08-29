@@ -46,6 +46,8 @@
 	"enchantment.gunswithoutroses.preserving.desc": "Gives a chance to not consume ammo when firing",
 	
 	"entity.gunswithoutroses.bullet": "Bullet",
+	"death.attack.gwrgun": "%1$s was gunned down by %2$s",
+	"death.attack.gwrgun.item": "%1$s was gunned down by %2$s with %3$s",
 
 	"subtitles.gunswithoutroses.item.gun.shoot": "Gun fired",
 	"subtitles.gunswithoutroses.item.shotgun.shoot": "Shotgun fired",

@@ -21,6 +21,7 @@ public class GunsWithoutRoses {
 	public GunsWithoutRoses() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		ModItems.REG.register(bus);
+		bus.addListener(ModItems::makeCreativeTab);
 		ModEnchantments.REG.register(bus);
 		ModEntities.REG.register(bus);
 		ModSounds.REG.register(bus);

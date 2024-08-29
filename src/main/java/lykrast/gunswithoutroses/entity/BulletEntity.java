@@ -1,21 +1,26 @@
 package lykrast.gunswithoutroses.entity;
 
 import lykrast.gunswithoutroses.item.IBullet;
+import lykrast.gunswithoutroses.registry.GWRDamage;
 import lykrast.gunswithoutroses.registry.ModEntities;
+import lykrast.gunswithoutroses.registry.ModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.IndirectEntityDamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Fireball;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.registries.ObjectHolder;
 
 public class BulletEntity extends Fireball {
 	protected double damage = 1;
@@ -51,19 +56,27 @@ public class BulletEntity extends Fireball {
 		}
 		super.tick();
 	}
+	
+	@ObjectHolder(registryName = "minecraft:damage_type", value = "minecraft:arrow")
+	public static DamageTypes ARROW = null;
 
+	@SuppressWarnings("resource")
 	@Override
 	protected void onHitEntity(EntityHitResult raytrace) {
 		super.onHitEntity(raytrace);
-		if (!level.isClientSide) {
+		if (!level().isClientSide) {
 			Entity target = raytrace.getEntity();
 			Entity shooter = getOwner();
-			IBullet bullet = (IBullet) getItemRaw().getItem();
+			Item item = getItemRaw().getItem();
+			IBullet bullet = item instanceof IBullet ? (IBullet) item : ModItems.flintBullet.get();
 			
 			if (isOnFire()) target.setSecondsOnFire(5);
 			int lastHurtResistant = target.invulnerableTime;
 			if (ignoreInvulnerability) target.invulnerableTime = 0;
-			boolean damaged = target.hurt((new IndirectEntityDamageSource("arrow", this, shooter)).setProjectile(), (float) bullet.modifyDamage(damage, this, target, shooter, level));
+			float hitdamage = (float)bullet.modifyDamage(damage, this, target, shooter, level());
+			boolean damaged = shooter == null
+					? target.hurt(GWRDamage.gunDamage(level().registryAccess(), this), hitdamage)
+					: target.hurt(GWRDamage.gunDamage(level().registryAccess(), this, shooter), hitdamage);
 			
 			if (damaged && target instanceof LivingEntity) {
 				LivingEntity livingTarget = (LivingEntity)target;
@@ -78,17 +91,18 @@ public class BulletEntity extends Fireball {
 
 				if (shooter instanceof LivingEntity) doEnchantDamageEffects((LivingEntity)shooter, target);
 				
-				bullet.onLivingEntityHit(this, livingTarget, shooter, level);
+				bullet.onLivingEntityHit(this, livingTarget, shooter, level());
 			}
 			else if (!damaged && ignoreInvulnerability) target.invulnerableTime = lastHurtResistant;
 		}
 	}
 
+	@SuppressWarnings("resource")
 	@Override
 	protected void onHit(HitResult result) {
 		super.onHit(result);
 		//Don't disappear on blocks if we're set to noclipping
-		if (!level.isClientSide && (!noPhysics || result.getType() != HitResult.Type.BLOCK)) remove(RemovalReason.KILLED);
+		if (!level().isClientSide && (!noPhysics || result.getType() != HitResult.Type.BLOCK)) remove(RemovalReason.KILLED);
 	}
 
 	@Override
@@ -162,7 +176,7 @@ public class BulletEntity extends Fireball {
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 

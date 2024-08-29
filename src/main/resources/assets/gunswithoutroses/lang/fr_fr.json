@@ -46,6 +46,8 @@
 	"enchantment.gunswithoutroses.preserving.desc": "Octroie une chance de ne pas utiliser de munition en tirant",
 	
 	"entity.gunswithoutroses.bullet": "Balle",
+	"death.attack.gwrgun": "%1$s a été fusillé par %2$s",
+	"death.attack.gwrgun.item": "%1$s a été fusillé par %2$s avec %3$s",
 
 	"subtitles.gunswithoutroses.item.gun.shoot": "Tir de fusil",
 	"subtitles.gunswithoutroses.item.shotgun.shoot": "Tir de fusil à pompe",

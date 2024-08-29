@@ -324,9 +324,9 @@ public class GunItem extends ProjectileWeaponItem {
 		return (repairMaterial != null && repairMaterial.get().test(repair)) || super.isValidRepairItem(toRepair, repair);
 	}
 	
-	@Override
-	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-		return !ItemStack.isSameIgnoreDurability(oldStack, newStack);
-	}
+//	@Override
+//	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+//		return !ItemStack.isSameIgnoreDurability(oldStack, newStack);
+//	}
 
 }
