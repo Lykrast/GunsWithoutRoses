@@ -324,10 +324,9 @@ public class GunItem extends ProjectileWeaponItem {
 		return (repairMaterial != null && repairMaterial.get().test(repair)) || super.isValidRepairItem(toRepair, repair);
 	}
 	
-	//The method I used is gone in 1.20.1, and eeeh let's worry about that later, it do be looking bad on the gatling tho
-//	@Override
-//	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-//		return !ItemStack.isSameIgnoreDurability(oldStack, newStack);
-//	}
+	@Override
+	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+		return slotChanged || !ItemStack.isSameItem(oldStack, newStack);
+	}
 
 }
