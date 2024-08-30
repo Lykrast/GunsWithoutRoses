@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import javax.annotation.Nullable;
 
 import lykrast.gunswithoutroses.entity.BulletEntity;
+import lykrast.gunswithoutroses.registry.GWRAttributes;
 import lykrast.gunswithoutroses.registry.GWREnchantments;
 import lykrast.gunswithoutroses.registry.GWRItems;
 import lykrast.gunswithoutroses.registry.GWRSounds;
@@ -95,6 +96,7 @@ public class GunItem extends ProjectileWeaponItem {
 		BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
 		shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
+		if (player.getAttribute(GWRAttributes.knockback.get()) != null) shot.setKnockbackStrength(shot.getKnockbackStrength() + player.getAttributeValue(GWRAttributes.knockback.get()));
 		changeBullet(world, player, gun, shot, bulletFree);
 
 		world.addFreshEntity(shot);
@@ -111,6 +113,7 @@ public class GunItem extends ProjectileWeaponItem {
 		double z = target.getZ() - shooter.getZ();
 		shot.shoot(x, y, z, (float)getProjectileSpeed(gun, shooter), (float)(getInaccuracy(gun, shooter)*spreadMult));
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, shooter)) * getDamageMultiplier(gun, shooter));
+		if (shooter.getAttribute(GWRAttributes.knockback.get()) != null) shot.setKnockbackStrength(shot.getKnockbackStrength() + shooter.getAttributeValue(GWRAttributes.knockback.get()));
 		changeBullet(shooter.level(), shooter, gun, shot, bulletFree);
 
 		shooter.level().addFreshEntity(shot);
@@ -132,10 +135,13 @@ public class GunItem extends ProjectileWeaponItem {
 	 * If you change this don't forget to tweak getInverseChanceFreeShot accordingly for the tooltip (and call super).
 	 */
 	public boolean shouldConsumeAmmo(Level world, ItemStack stack, LivingEntity shooter) {
-		if (chanceFreeShot > 0 && world.getRandom().nextDouble() < chanceFreeShot) return false;
+		if (chanceFreeShot > 0 && shooter.getRandom().nextDouble() < chanceFreeShot) return false;
+		if (shooter.getAttribute(GWRAttributes.chanceUseAmmo.get()) != null) {
+			double chance = shooter.getAttributeValue(GWRAttributes.chanceUseAmmo.get());
+			if (chance < 1 && shooter.getRandom().nextDouble() > chance) return false;
+		}
 		
 		int preserving = stack.getEnchantmentLevel(GWREnchantments.preserving.get());
-		//(level) in (level + 2) chance to not consume
 		if (preserving >= 1 && GWREnchantments.rollPreserving(preserving, shooter.getRandom())) return false;
 		
 		return true;
@@ -146,11 +152,14 @@ public class GunItem extends ProjectileWeaponItem {
 	 */
 	public double getBonusDamage(ItemStack stack, @Nullable LivingEntity shooter) {
 		int impact = stack.getEnchantmentLevel(GWREnchantments.impact.get());
-		return bonusDamage + (impact >= 1 ? GWREnchantments.impactBonus(impact) : 0);
+		double bonus = impact >= 1 ? GWREnchantments.impactBonus(impact) : 0;
+		if (shooter != null && shooter.getAttribute(GWRAttributes.dmgBase.get()) != null) bonus += shooter.getAttributeValue(GWRAttributes.dmgBase.get());
+		return bonusDamage + bonus;
 	}
 	
 	public double getDamageMultiplier(ItemStack stack, @Nullable LivingEntity shooter) {
-		return damageMultiplier;
+		if (shooter == null || shooter.getAttribute(GWRAttributes.dmgTotal.get()) == null) return damageMultiplier;
+		else return damageMultiplier * shooter.getAttributeValue(GWRAttributes.dmgTotal.get());
 	}
 	
 	/**
@@ -158,7 +167,10 @@ public class GunItem extends ProjectileWeaponItem {
 	 */
 	public int getFireDelay(ItemStack stack, @Nullable LivingEntity shooter) {
 		int sleight = stack.getEnchantmentLevel(GWREnchantments.sleightOfHand.get());
-		return Math.max(1, sleight > 0 ? GWREnchantments.sleightModify(sleight, fireDelay) : fireDelay);
+		//Let sleight of hand round the delay first, so that the attribute affects the amount shown in the tooltip
+		int delay = sleight > 0 ? GWREnchantments.sleightModify(sleight, fireDelay) : fireDelay;
+		if (shooter != null && shooter.getAttribute(GWRAttributes.fireDelay.get()) != null) delay = (int)(delay * shooter.getAttributeValue(GWRAttributes.fireDelay.get()));
+		return Math.max(1,delay);
 	}
 	
 	/**
@@ -173,8 +185,11 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Gets the spread, taking into account Bullseye enchantment.
 	 */
 	public double getInaccuracy(ItemStack stack, @Nullable LivingEntity shooter) {
+		//it's all doubles and multiplication here, so the order doesn't matter
+		double realSpread = inaccuracy;
+		if (shooter != null && shooter.getAttribute(GWRAttributes.spread.get()) != null) realSpread *= shooter.getAttributeValue(GWRAttributes.spread.get());
 		int bullseye = stack.getEnchantmentLevel(GWREnchantments.bullseye.get());
-		return Math.max(0, bullseye >= 1 ? GWREnchantments.bullseyeModify(bullseye, inaccuracy) : inaccuracy);
+		return Math.max(0, bullseye >= 1 ? GWREnchantments.bullseyeModify(bullseye, realSpread) : realSpread);
 	}
 	
 	public double getProjectileSpeed(ItemStack stack, @Nullable LivingEntity shooter) {
@@ -187,7 +202,8 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Chance to actually CONSUME ammo, to properly multiply probabilities together.<br>
 	 * Tooltip then does the math to display it nicely.
 	 */
-	public double getInverseChanceFreeShot(ItemStack stack, @Nullable LivingEntity shooter) {
+	public double getInverseChanceFreeShot(ItemStack stack) {
+		//No attribute checking cause this is only for the tooltip, which does not have player context
 		double chance = 1 - chanceFreeShot;
 		int preserving = stack.getEnchantmentLevel(GWREnchantments.preserving.get());
 		if (preserving >= 1) chance *= GWREnchantments.preservingInverse(preserving);
@@ -286,7 +302,7 @@ public class GunItem extends ProjectileWeaponItem {
 			else tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(inaccuracy)));
 			
 			//Chance to not consume ammo
-			double inverseChanceFree = getInverseChanceFreeShot(stack, null);
+			double inverseChanceFree = getInverseChanceFreeShot(stack);
 			if (inverseChanceFree < 1) tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.chance_free" + (isChanceFreeShotModified(stack) ? ".modified" : ""), (int)((1 - inverseChanceFree) * 100)));
 			
 			addExtraStatsTooltip(stack, world, tooltip);

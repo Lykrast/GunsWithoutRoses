@@ -3,6 +3,7 @@ package lykrast.gunswithoutroses;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import lykrast.gunswithoutroses.registry.GWRAttributes;
 import lykrast.gunswithoutroses.registry.GWREnchantments;
 import lykrast.gunswithoutroses.registry.GWREntities;
 import lykrast.gunswithoutroses.registry.GWRItems;
@@ -25,6 +26,8 @@ public class GunsWithoutRoses {
 		GWREnchantments.REG.register(bus);
 		GWREntities.REG.register(bus);
 		GWRSounds.REG.register(bus);
+		GWRAttributes.REG.register(bus);
+		bus.addListener(GWRAttributes::playerAttributes);
 	}
 	
 	public static ResourceLocation rl(String name) {

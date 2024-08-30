@@ -84,7 +84,8 @@ public class BulletEntity extends Fireball {
 					//Knocback amplifying potion from Hanami
 					//if (Holders.Hanami.INSTABILITY != null && livingTarget.isPotionActive(Holders.Hanami.INSTABILITY)) actualKnockback *= 2 + livingTarget.getActivePotionEffect(Holders.Hanami.INSTABILITY).getAmplifier();
 					
-					Vec3 vec = getDeltaMovement().multiply(1, 0, 1).normalize().scale(actualKnockback);
+					//Punch I is 0.6, Punch II is 1.2, so we do the adjusting here to match that scale
+					Vec3 vec = getDeltaMovement().multiply(1, 0, 1).normalize().scale(actualKnockback*0.6);
 					if (vec.lengthSqr() > 0) livingTarget.push(vec.x, 0.1, vec.z);
 				}
 
@@ -141,10 +142,17 @@ public class BulletEntity extends Fireball {
 	}
 
 	/**
-	 * Knockback on impact, 0.6 is equivalent to Punch I.
+	 * Knockback on impact, 1 is equivalent to Punch I.
 	 */
 	public void setKnockbackStrength(double knockbackStrength) {
 		this.knockbackStrength = knockbackStrength;
+	}
+
+	/**
+	 * Knockback on impact, 1 is equivalent to Punch I.
+	 */
+	public double getKnockbackStrength() {
+		return knockbackStrength;
 	}
 
 	@Override

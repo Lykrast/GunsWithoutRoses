@@ -47,6 +47,7 @@ public class GWREnchantments {
 	 * Roll the chance for Preserving to save ammo.
 	 */
 	public static final boolean rollPreserving(int level, RandomSource random) {
+		//(level) in (level + 2) chance to not consume
 		return random.nextInt(level + 2) >= 2;
 	}
 	
