@@ -115,7 +115,7 @@ public class GunItem extends ProjectileWeaponItem {
 		
 		int preserving = stack.getEnchantmentLevel(GWREnchantments.preserving.get());
 		//(level) in (level + 2) chance to not consume
-		if (preserving >= 1 && world.getRandom().nextInt(preserving + 2) >= 2) return false;
+		if (preserving >= 1 && GWREnchantments.rollPreserving(preserving, player.getRandom())) return false;
 		
 		return true;
 	}
@@ -125,7 +125,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 */
 	public double getBonusDamage(ItemStack stack, @Nullable Player player) {
 		int impact = stack.getEnchantmentLevel(GWREnchantments.impact.get());
-		return bonusDamage + (impact >= 1 ? 0.5 * (impact + 1) : 0);
+		return bonusDamage + (impact >= 1 ? GWREnchantments.impactBonus(impact) : 0);
 	}
 	
 	public double getDamageMultiplier(ItemStack stack, @Nullable Player player) {
@@ -137,7 +137,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 */
 	public int getFireDelay(ItemStack stack, @Nullable Player player) {
 		int sleight = stack.getEnchantmentLevel(GWREnchantments.sleightOfHand.get());
-		return Math.max(1, sleight > 0 ? (int)(fireDelay / (1 + 0.16*sleight)) : fireDelay);
+		return Math.max(1, sleight > 0 ? GWREnchantments.sleightModify(sleight, fireDelay) : fireDelay);
 	}
 	
 	/**
@@ -154,7 +154,8 @@ public class GunItem extends ProjectileWeaponItem {
 	 * The formula is just accuracy = 1 / inaccuracy.
 	 */
 	public double getInaccuracy(ItemStack stack, @Nullable Player player) {
-		return Math.max(0, inaccuracy / (stack.getEnchantmentLevel(GWREnchantments.bullseye.get()) + 1.0));
+		int bullseye = stack.getEnchantmentLevel(GWREnchantments.bullseye.get());
+		return Math.max(0, bullseye >= 1 ? GWREnchantments.bullseyeModify(bullseye, inaccuracy) : inaccuracy);
 	}
 	
 	public double getProjectileSpeed(ItemStack stack, @Nullable Player player) {
@@ -170,7 +171,7 @@ public class GunItem extends ProjectileWeaponItem {
 	public double getInverseChanceFreeShot(ItemStack stack, @Nullable Player player) {
 		double chance = 1 - chanceFreeShot;
 		int preserving = stack.getEnchantmentLevel(GWREnchantments.preserving.get());
-		if (preserving >= 1) chance *= 2.0/(preserving + 2);
+		if (preserving >= 1) chance *= GWREnchantments.preservingInverse(preserving);
 		return chance;
 	}
 	
