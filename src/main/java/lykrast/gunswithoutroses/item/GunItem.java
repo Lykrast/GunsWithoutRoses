@@ -10,7 +10,6 @@ import lykrast.gunswithoutroses.entity.BulletEntity;
 import lykrast.gunswithoutroses.registry.GWREnchantments;
 import lykrast.gunswithoutroses.registry.GWRItems;
 import lykrast.gunswithoutroses.registry.GWRSounds;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -36,7 +35,6 @@ public class GunItem extends ProjectileWeaponItem {
 	protected double inaccuracy;
 	protected double projectileSpeed = 3;
 	private int enchantability;
-	protected boolean ignoreInvulnerability = false;
 	protected double chanceFreeShot = 0;
 	protected Supplier<SoundEvent> fireSound = GWRSounds.gun::get;
 	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
@@ -96,7 +94,6 @@ public class GunItem extends ProjectileWeaponItem {
 		BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
 		shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
-		shot.setIgnoreInvulnerability(ignoreInvulnerability);
 		changeBullet(world, player, gun, shot, bulletFree);
 
 		world.addFreshEntity(shot);
@@ -206,14 +203,6 @@ public class GunItem extends ProjectileWeaponItem {
 	}
 
 	/**
-	 * Sets whether the bullets ignore invulnerability frame (default no), used when making the item for registering.
-	 */
-	public GunItem ignoreInvulnerability(boolean ignoreInvulnerability) {
-		this.ignoreInvulnerability = ignoreInvulnerability;
-		return this;
-	}
-
-	/**
 	 * Sets a chance to NOT consume ammo, used when making the item for registering.
 	 */
 	public GunItem chanceFreeShot(double chanceFreeShot) {
@@ -279,9 +268,6 @@ public class GunItem extends ProjectileWeaponItem {
 			//Chance to not consume ammo
 			double inverseChanceFree = getInverseChanceFreeShot(stack, null);
 			if (inverseChanceFree < 1) tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.chance_free" + (isChanceFreeShotModified(stack) ? ".modified" : ""), (int)((1 - inverseChanceFree) * 100)));
-			
-			//Other stats
-			if (ignoreInvulnerability) tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.ignore_invulnerability").withStyle(ChatFormatting.GRAY));
 			
 			addExtraStatsTooltip(stack, world, tooltip);
 		}

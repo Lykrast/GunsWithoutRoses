@@ -26,7 +26,6 @@
 	"tooltip.gunswithoutroses.gun.accuracy.perfect.modified": "§d准度: §f完美§r",
 	"tooltip.gunswithoutroses.gun.chance_free": "§2不消耗子弹的几率: §f%s%%§r",
 	"tooltip.gunswithoutroses.gun.chance_free.modified": "§d不消耗子弹的几率: §f%s%%§r",
-	"tooltip.gunswithoutroses.gun.ignore_invulnerability": "子弹忽略无敌时间",
 	"tooltip.gunswithoutroses.shotgun.shots": "一次射出 %s 颗子弹",
 	"tooltip.gunswithoutroses.gatling.hold": "开火时降低使用者速度",
 	

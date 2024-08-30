@@ -24,7 +24,6 @@ import net.minecraftforge.registries.ObjectHolder;
 
 public class BulletEntity extends Fireball {
 	protected double damage = 1;
-	protected boolean ignoreInvulnerability = false;
 	protected double knockbackStrength = 0;
 	protected int ticksSinceFired;
 
@@ -72,7 +71,7 @@ public class BulletEntity extends Fireball {
 			
 			if (isOnFire()) target.setSecondsOnFire(5);
 			int lastHurtResistant = target.invulnerableTime;
-			if (ignoreInvulnerability) target.invulnerableTime = 0;
+			target.invulnerableTime = 0;
 			float hitdamage = (float)bullet.modifyDamage(damage, this, target, shooter, level());
 			boolean damaged = shooter == null
 					? target.hurt(GWRDamage.gunDamage(level().registryAccess(), this), hitdamage)
@@ -93,7 +92,7 @@ public class BulletEntity extends Fireball {
 				
 				bullet.onLivingEntityHit(this, livingTarget, shooter, level());
 			}
-			else if (!damaged && ignoreInvulnerability) target.invulnerableTime = lastHurtResistant;
+			else if (!damaged) target.invulnerableTime = lastHurtResistant;
 		}
 	}
 
@@ -110,7 +109,6 @@ public class BulletEntity extends Fireball {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("tsf", ticksSinceFired);
 		compound.putDouble("damage", damage);
-		if (ignoreInvulnerability) compound.putBoolean("ignoreinv", ignoreInvulnerability);
 		if (knockbackStrength != 0) compound.putDouble("knockback", knockbackStrength);
 	}
 
@@ -119,8 +117,6 @@ public class BulletEntity extends Fireball {
 		super.readAdditionalSaveData(compound);
 		ticksSinceFired = compound.getInt("tsf");
 		damage = compound.getDouble("damage");
-		//The docs says if it's not here it's gonna be false/0 so it should be good
-		ignoreInvulnerability = compound.getBoolean("ignoreinv");
 		knockbackStrength = compound.getDouble("knockback");
 	}
 
@@ -130,10 +126,6 @@ public class BulletEntity extends Fireball {
 
 	public double getDamage() {
 		return damage;
-	}
-
-	public void setIgnoreInvulnerability(boolean ignoreInvulnerability) {
-		this.ignoreInvulnerability = ignoreInvulnerability;
 	}
 
 	@Override

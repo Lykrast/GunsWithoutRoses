@@ -26,7 +26,6 @@
 	"tooltip.gunswithoutroses.gun.accuracy.perfect.modified": "§dТочность: §fPerfect§r",
 	"tooltip.gunswithoutroses.gun.chance_free": "§2Шанс не израсходовать боеприпасы: §f%s%%§r",
 	"tooltip.gunswithoutroses.gun.chance_free.modified": "§dШанс не израсходовать боеприпасы: §f%s%%§r",
-	"tooltip.gunswithoutroses.gun.ignore_invulnerability": "Снаряды игнорируют время неуязвимости",
 	"tooltip.gunswithoutroses.shotgun.shots": "Выпускает одновременно %s снарядов",
 	"tooltip.gunswithoutroses.gatling.hold": "Замедляет пользователя при стрельбе",
 	

@@ -42,9 +42,9 @@ public class GWRItems {
 	static {
 		ironGun = initItem(() -> new GunItem(defP().durability(513), 0, 1, 16, 1.5, 14).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "iron_gun");
 		goldGun = initItem(() -> new GunItem(defP().durability(104), 0, 1, 16, 1.5, 22).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "gold_gun");
-		diamondShotgun = initItem(() -> new ShotgunItem(defP().durability(2076), 0, 0.45, 16, 6, 10, 5).ignoreInvulnerability(true).fireSound(GWRSounds.shotgun::get).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_shotgun");
+		diamondShotgun = initItem(() -> new ShotgunItem(defP().durability(2076), 0, 0.45, 16, 6, 10, 5).fireSound(GWRSounds.shotgun::get).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_shotgun");
 		diamondSniper = initItem(() -> new GunItem(defP().durability(2076), 0, 1.6, 22, 0, 10).projectileSpeed(4).fireSound(GWRSounds.sniper::get).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_sniper");
-		diamondGatling = initItem(() -> new GatlingItem(defP().durability(2076), 0, 1, 4, 4, 10).ignoreInvulnerability(true).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_gatling");
+		diamondGatling = initItem(() -> new GatlingItem(defP().durability(2076), 0, 1, 4, 4, 10).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_gatling");
 		
 		flintBullet = initItem(() -> new BulletItem(defP(), 5), "flint_bullet");
 		ironBullet = initItem(() -> new BulletItem(defP(), 6), "iron_bullet");

@@ -26,7 +26,6 @@
 	"tooltip.gunswithoutroses.gun.accuracy.perfect.modified": "§d정확도: §f완벽함§r",
 	"tooltip.gunswithoutroses.gun.chance_free": "§2탄약을 소모하지 않을 확률: §f%s%%§r",
 	"tooltip.gunswithoutroses.gun.chance_free.modified": "§d탄약을 소모하지 않을 확률: §f%s%%§r",
-	"tooltip.gunswithoutroses.gun.ignore_invulnerability": "총알이 무적시간을 무시함",
 	"tooltip.gunswithoutroses.shotgun.shots": "한번에 총알 %s개를 발사함",
 	"tooltip.gunswithoutroses.gatling.hold": "발사 중에 사용자가 느려짐",
 	

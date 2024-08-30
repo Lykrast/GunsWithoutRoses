@@ -26,7 +26,6 @@
 	"tooltip.gunswithoutroses.gun.accuracy.perfect.modified": "§dPrecisão: §fPerfeita§r",
 	"tooltip.gunswithoutroses.gun.chance_free": "§2Chance de não consumir munição: §f%s%%§r",
 	"tooltip.gunswithoutroses.gun.chance_free.modified": "§dChance de não consumir munição: §f%s%%§r",
-	"tooltip.gunswithoutroses.gun.ignore_invulnerability": "Projéteis ignoram o tempo de invulnerabilidade",
 	"tooltip.gunswithoutroses.shotgun.shots": "Dispara %s projéteis de uma vez",
 	"tooltip.gunswithoutroses.gatling.hold": "Retarda o usuário enquanto dispara",
 	
