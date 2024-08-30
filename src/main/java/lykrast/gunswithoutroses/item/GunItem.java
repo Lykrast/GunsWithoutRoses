@@ -274,7 +274,7 @@ public class GunItem extends ProjectileWeaponItem {
 			//Accuracy
 			double inaccuracy = getInaccuracy(stack, null);
 			if (inaccuracy <= 0) tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.accuracy.perfect" + (isInaccuracyModified(stack) ? ".modified" : "")));
-			else tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(1.0 / inaccuracy)));
+			else tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(inaccuracy)));
 			
 			//Chance to not consume ammo
 			double inverseChanceFree = getInverseChanceFreeShot(stack, null);

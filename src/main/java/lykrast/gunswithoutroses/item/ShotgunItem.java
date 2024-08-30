@@ -20,7 +20,7 @@ public class ShotgunItem extends GunItem {
 
 	@Override
 	protected void shoot(Level world, Player player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
-		for (int i = 0; i < bulletCount; i++) super.shoot(world, player, gun, ammo, bulletItem, bulletFree);
+		for (int i = 0; i < bulletCount; i++) super.shoot(world, player, gun, ammo, bulletItem, bulletFree || i > 0);
 	}
 	
 	@Override
