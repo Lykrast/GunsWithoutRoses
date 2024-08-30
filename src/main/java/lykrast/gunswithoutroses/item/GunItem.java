@@ -72,7 +72,7 @@ public class GunItem extends ProjectileWeaponItem {
 				if (!bulletFree) bulletItem.consume(ammo, player);
 			}
 
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound.get(), SoundSource.PLAYERS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), getFireSound(), SoundSource.PLAYERS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
 			player.awardStat(Stats.ITEM_USED.get(this));
 
 			player.getCooldowns().addCooldown(this, getFireDelay(gun, player));
@@ -92,13 +92,32 @@ public class GunItem extends ProjectileWeaponItem {
 	 * @param bulletFree true if no ammo was actually consumed (creative or Preserving enchant for example)
 	 */
 	protected void shoot(Level world, Player player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
-		//TODO angle for mobs
 		BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
 		shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 		changeBullet(world, player, gun, shot, bulletFree);
 
 		world.addFreshEntity(shot);
+	}
+	
+	/**
+	 * This one is meant for mobs.
+	 * @param spreadMult multiplier to spread, to adjust like difficulty (vanilla skeletons have x10/6/2 on easy/medium/hard)
+	 */
+	public void shootAt(LivingEntity shooter, LivingEntity target, ItemStack gun, ItemStack ammo, IBullet bulletItem, double spreadMult, boolean bulletFree) {
+		BulletEntity shot = bulletItem.createProjectile(shooter.level(), ammo, shooter);
+		double x = target.getX() - shooter.getX();
+		double y = target.getEyeY() - shot.getY();
+		double z = target.getZ() - shooter.getZ();
+		shot.shoot(x, y, z, (float)getProjectileSpeed(gun, shooter), (float)(getInaccuracy(gun, shooter)*spreadMult));
+		shot.setDamage((shot.getDamage() + getBonusDamage(gun, shooter)) * getDamageMultiplier(gun, shooter));
+		changeBullet(shooter.level(), shooter, gun, shot, bulletFree);
+
+		shooter.level().addFreshEntity(shot);
+	}
+	
+	public SoundEvent getFireSound() {
+		return fireSound.get();
 	}
 	
 	/**
