@@ -1,0 +1,9 @@
+{
+	"replace": false,
+	"values": [
+		"#gunswithoutroses:gun/pistol",
+		"#gunswithoutroses:gun/shotgun",
+		"#gunswithoutroses:gun/sniper",
+		"#gunswithoutroses:gun/gatling"
+	]
+}
