@@ -8,7 +8,6 @@
 	"item.gunswithoutroses.flint_bullet": "燧石子弹",
 	"item.gunswithoutroses.iron_bullet": "铁子弹",
 	"item.gunswithoutroses.blaze_bullet": "烈焰子弹",
-	"item.gunswithoutroses.hunger_bullet": "暴食之胃",
 	
 	"tooltip.gunswithoutroses.shift": "§7按住 §fSHIFT§7 查看数值§r",
 	"tooltip.gunswithoutroses.bullet.damage": "%d 伤害",
@@ -30,8 +29,6 @@
 	"tooltip.gunswithoutroses.gatling.hold": "开火时降低使用者速度",
 	
 	"tooltip.gunswithoutroses.blaze_bullet": "使实体着火",
-	
-	"tooltip.gunswithoutroses.hunger_bullet": "将饥饿作为子弹",
 	
 	"itemGroup.gunswithoutroses": "Guns Without Roses",
 	

@@ -8,7 +8,6 @@
 	"item.gunswithoutroses.flint_bullet": "Кремниевая пуля",
 	"item.gunswithoutroses.iron_bullet": "Железная пуля",
 	"item.gunswithoutroses.blaze_bullet": "Огненная пуля",
-	"item.gunswithoutroses.hunger_bullet": "Пасть чревоугодия",
 	
 	"tooltip.gunswithoutroses.shift": "§7Удерживайте §fSHIFT§7 чтобы увидеть характеристики§r",
 	"tooltip.gunswithoutroses.bullet.damage": "%d урона",
@@ -30,8 +29,6 @@
 	"tooltip.gunswithoutroses.gatling.hold": "Замедляет пользователя при стрельбе",
 	
 	"tooltip.gunswithoutroses.blaze_bullet": "Поджигает сущности",
-	
-	"tooltip.gunswithoutroses.hunger_bullet": "Использует голод вместо боеприпасов",
 	
 	"itemGroup.gunswithoutroses": "Guns Without Roses",
 	

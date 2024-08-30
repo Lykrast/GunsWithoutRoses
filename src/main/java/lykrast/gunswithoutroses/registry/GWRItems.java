@@ -5,12 +5,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import lykrast.gunswithoutroses.GunsWithoutRoses;
-import lykrast.gunswithoutroses.item.BlazeBulletItem;
-import lykrast.gunswithoutroses.item.BulletItem;
-import lykrast.gunswithoutroses.item.GatlingItem;
-import lykrast.gunswithoutroses.item.GunItem;
-import lykrast.gunswithoutroses.item.HungerBulletItem;
-import lykrast.gunswithoutroses.item.ShotgunItem;
+import lykrast.gunswithoutroses.item.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -26,7 +21,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class GWRItems {
 	public static RegistryObject<GunItem> ironGun, goldGun, diamondShotgun, diamondSniper, diamondGatling;
-	public static RegistryObject<BulletItem> flintBullet, ironBullet, blazeBullet, hungerBullet;
+	public static RegistryObject<BulletItem> flintBullet, ironBullet, blazeBullet;
 	public static final DeferredRegister<Item> REG = DeferredRegister.create(ForgeRegistries.ITEMS, GunsWithoutRoses.MODID);
 	
 	private static List<RegistryObject<? extends Item>> orderedItemsCreative = new ArrayList<>();
@@ -49,7 +44,6 @@ public class GWRItems {
 		flintBullet = initItem(() -> new BulletItem(defP(), 5), "flint_bullet");
 		ironBullet = initItem(() -> new BulletItem(defP(), 6), "iron_bullet");
 		blazeBullet = initItem(() -> new BlazeBulletItem(defP(), 8), "blaze_bullet");
-		hungerBullet = initItem(() -> new HungerBulletItem(defP().stacksTo(1), 5), "hunger_bullet");
 	}
 
 	public static Item.Properties defP() {

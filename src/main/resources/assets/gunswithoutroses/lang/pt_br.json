@@ -8,7 +8,6 @@
 	"item.gunswithoutroses.flint_bullet": "Projétil de Sílex",
 	"item.gunswithoutroses.iron_bullet": "Projétil de Ferro",
 	"item.gunswithoutroses.blaze_bullet": "Projétil Incêndiario",
-	"item.gunswithoutroses.hunger_bullet": "Mandíbulas da Gula (Projétil)",
 	
 	"tooltip.gunswithoutroses.shift": "§7Segure §fSHIFT§7 para estatísticas§r",
 	"tooltip.gunswithoutroses.bullet.damage": "%d dano",
@@ -30,8 +29,6 @@
 	"tooltip.gunswithoutroses.gatling.hold": "Retarda o usuário enquanto dispara",
 	
 	"tooltip.gunswithoutroses.blaze_bullet": "Incendeia entidades",
-	
-	"tooltip.gunswithoutroses.hunger_bullet": "Usa a fome como munição",
 	
 	"itemGroup.gunswithoutroses": "Guns Without Roses",
 	

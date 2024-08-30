@@ -8,7 +8,6 @@
 	"item.gunswithoutroses.flint_bullet": "Balle en silex",
 	"item.gunswithoutroses.iron_bullet": "Balle en fer",
 	"item.gunswithoutroses.blaze_bullet": "Balle de Blaze",
-	"item.gunswithoutroses.hunger_bullet": "Gueules de la gourmandise",
 	
 	"tooltip.gunswithoutroses.shift": "§7Maintenir §fMAJ§7 pour les stats§r",
 	"tooltip.gunswithoutroses.bullet.damage": "%d dégâts",
@@ -30,8 +29,6 @@
 	"tooltip.gunswithoutroses.gatling.hold": "Ralenti l'utilisateur pendant le tir",
 	
 	"tooltip.gunswithoutroses.blaze_bullet": "Enflamme les entités",
-	
-	"tooltip.gunswithoutroses.hunger_bullet": "Utilise la faim comme munitions",
 	
 	"itemGroup.gunswithoutroses": "Guns Without Roses",
 	
