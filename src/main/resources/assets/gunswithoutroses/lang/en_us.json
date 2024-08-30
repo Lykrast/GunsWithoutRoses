@@ -48,6 +48,15 @@
 	"attribute.name.gwr.chance_ammo": "Chance to not Consume Bullet",
 	"attribute.name.gwr.knockback": "Bullet Knockback",
 	
+	"effect.gunswithoutroses.gun_damage_up": "Gun Strength",
+	"effect.gunswithoutroses.gun_damage_down": "Gun Weakness",
+	"effect.gunswithoutroses.gun_fire_up": "Gun Haste",
+	"effect.gunswithoutroses.gun_fire_down": "Gun Slowness",
+	"effect.gunswithoutroses.gun_accuracy_up": "Gun Accuracy",
+	"effect.gunswithoutroses.gun_accuracy_down": "Gun Inaccuracy",
+	"effect.gunswithoutroses.gun_ammo_up": "Bullet Preservation",
+	"effect.gunswithoutroses.gun_knockback_up": "Gun Punch",
+	
 	"entity.gunswithoutroses.bullet": "Bullet",
 	"death.attack.gwrgun": "%1$s was gunned down by %2$s",
 	"death.attack.gwrgun.item": "%1$s was gunned down by %2$s with %3$s",

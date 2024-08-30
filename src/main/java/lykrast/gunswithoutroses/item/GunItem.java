@@ -95,7 +95,7 @@ public class GunItem extends ProjectileWeaponItem {
 	protected void shoot(Level world, Player player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
 		BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
 		shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
-		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
+		shot.setDamage(Math.max(0, shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 		if (player.getAttribute(GWRAttributes.knockback.get()) != null) shot.setKnockbackStrength(shot.getKnockbackStrength() + player.getAttributeValue(GWRAttributes.knockback.get()));
 		changeBullet(world, player, gun, shot, bulletFree);
 
@@ -112,7 +112,7 @@ public class GunItem extends ProjectileWeaponItem {
 		double y = target.getEyeY() - shot.getY();
 		double z = target.getZ() - shooter.getZ();
 		shot.shoot(x, y, z, (float)getProjectileSpeed(gun, shooter), (float)(getInaccuracy(gun, shooter)*spreadMult));
-		shot.setDamage((shot.getDamage() + getBonusDamage(gun, shooter)) * getDamageMultiplier(gun, shooter));
+		shot.setDamage(Math.max(0, shot.getDamage() + getBonusDamage(gun, shooter)) * getDamageMultiplier(gun, shooter));
 		if (shooter.getAttribute(GWRAttributes.knockback.get()) != null) shot.setKnockbackStrength(shot.getKnockbackStrength() + shooter.getAttributeValue(GWRAttributes.knockback.get()));
 		changeBullet(shooter.level(), shooter, gun, shot, bulletFree);
 

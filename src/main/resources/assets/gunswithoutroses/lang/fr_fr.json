@@ -48,6 +48,15 @@
 	"attribute.name.gwr.chance_ammo": "chance de consommer les balles",
 	"attribute.name.gwr.knockback": "recul par balle",
 	
+	"effect.gunswithoutroses.gun_damage_up": "Force de fusil",
+	"effect.gunswithoutroses.gun_damage_down": "Faiblesse de fusil",
+	"effect.gunswithoutroses.gun_fire_up": "Célérité de fusil",
+	"effect.gunswithoutroses.gun_fire_down": "Lenteur de fusil",
+	"effect.gunswithoutroses.gun_accuracy_up": "Précision de fusil",
+	"effect.gunswithoutroses.gun_accuracy_down": "Imprécision de fusil",
+	"effect.gunswithoutroses.gun_ammo_up": "Préservation de balles",
+	"effect.gunswithoutroses.gun_knockback_up": "Punch de fusil",
+	
 	"entity.gunswithoutroses.bullet": "Balle",
 	"death.attack.gwrgun": "%1$s a été fusillé par %2$s",
 	"death.attack.gwrgun.item": "%1$s a été fusillé par %2$s avec %3$s",
