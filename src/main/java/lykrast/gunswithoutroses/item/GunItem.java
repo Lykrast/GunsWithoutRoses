@@ -17,6 +17,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileWeaponItem;
@@ -91,6 +92,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 * @param bulletFree true if no ammo was actually consumed (creative or Preserving enchant for example)
 	 */
 	protected void shoot(Level world, Player player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
+		//TODO angle for mobs
 		BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
 		shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, (float)getProjectileSpeed(gun, player), (float)getInaccuracy(gun, player));
 		shot.setDamage((shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
@@ -102,7 +104,7 @@ public class GunItem extends ProjectileWeaponItem {
 	/**
 	 * Lets the gun do custom stuff to default bullets without redoing all the base stuff from shoot.
 	 */
-	protected void changeBullet(Level world, Player player, ItemStack gun, BulletEntity bullet, boolean bulletFree) {
+	protected void changeBullet(Level world, LivingEntity shooter, ItemStack gun, BulletEntity bullet, boolean bulletFree) {
 		
 	}
 	
@@ -110,12 +112,12 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Rolls chance to know if ammo should be consumed for the shot. Applies both the baseline chance and Preserving enchantment.<br>
 	 * If you change this don't forget to tweak getInverseChanceFreeShot accordingly for the tooltip (and call super).
 	 */
-	public boolean shouldConsumeAmmo(Level world, ItemStack stack, Player player) {
+	public boolean shouldConsumeAmmo(Level world, ItemStack stack, LivingEntity shooter) {
 		if (chanceFreeShot > 0 && world.getRandom().nextDouble() < chanceFreeShot) return false;
 		
 		int preserving = stack.getEnchantmentLevel(GWREnchantments.preserving.get());
 		//(level) in (level + 2) chance to not consume
-		if (preserving >= 1 && GWREnchantments.rollPreserving(preserving, player.getRandom())) return false;
+		if (preserving >= 1 && GWREnchantments.rollPreserving(preserving, shooter.getRandom())) return false;
 		
 		return true;
 	}
@@ -123,19 +125,19 @@ public class GunItem extends ProjectileWeaponItem {
 	/**
 	 * Gets the flat bonus damage (applied BEFORE the multiplier). This takes into account Impact enchantment.
 	 */
-	public double getBonusDamage(ItemStack stack, @Nullable Player player) {
+	public double getBonusDamage(ItemStack stack, @Nullable LivingEntity shooter) {
 		int impact = stack.getEnchantmentLevel(GWREnchantments.impact.get());
 		return bonusDamage + (impact >= 1 ? GWREnchantments.impactBonus(impact) : 0);
 	}
 	
-	public double getDamageMultiplier(ItemStack stack, @Nullable Player player) {
+	public double getDamageMultiplier(ItemStack stack, @Nullable LivingEntity shooter) {
 		return damageMultiplier;
 	}
 	
 	/**
 	 * Gets the min time in ticks between 2 shots. This takes into account Sleight of Hand enchantment.
 	 */
-	public int getFireDelay(ItemStack stack, @Nullable Player player) {
+	public int getFireDelay(ItemStack stack, @Nullable LivingEntity shooter) {
 		int sleight = stack.getEnchantmentLevel(GWREnchantments.sleightOfHand.get());
 		return Math.max(1, sleight > 0 ? GWREnchantments.sleightModify(sleight, fireDelay) : fireDelay);
 	}
@@ -149,16 +151,14 @@ public class GunItem extends ProjectileWeaponItem {
 	}
 	
 	/**
-	 * Gets the inaccuracy, taking into account Bullseye enchantment.<br>
-	 * Accuracy is actually inarccuracy internally, because it's easier to math.<br>
-	 * The formula is just accuracy = 1 / inaccuracy.
+	 * Gets the spread, taking into account Bullseye enchantment.
 	 */
-	public double getInaccuracy(ItemStack stack, @Nullable Player player) {
+	public double getInaccuracy(ItemStack stack, @Nullable LivingEntity shooter) {
 		int bullseye = stack.getEnchantmentLevel(GWREnchantments.bullseye.get());
 		return Math.max(0, bullseye >= 1 ? GWREnchantments.bullseyeModify(bullseye, inaccuracy) : inaccuracy);
 	}
 	
-	public double getProjectileSpeed(ItemStack stack, @Nullable Player player) {
+	public double getProjectileSpeed(ItemStack stack, @Nullable LivingEntity shooter) {
 		//I wanted to follow kat's suggestion and make bullseye for snipers increase projectile speed
 		//But high projectile speed cause weird "snapping" issues on bullets
 		return projectileSpeed;
@@ -168,7 +168,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Chance to actually CONSUME ammo, to properly multiply probabilities together.<br>
 	 * Tooltip then does the math to display it nicely.
 	 */
-	public double getInverseChanceFreeShot(ItemStack stack, @Nullable Player player) {
+	public double getInverseChanceFreeShot(ItemStack stack, @Nullable LivingEntity shooter) {
 		double chance = 1 - chanceFreeShot;
 		int preserving = stack.getEnchantmentLevel(GWREnchantments.preserving.get());
 		if (preserving >= 1) chance *= GWREnchantments.preservingInverse(preserving);
