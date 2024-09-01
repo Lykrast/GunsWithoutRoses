@@ -1,0 +1,14 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"LIL",
+		"LGL",
+		"LLL"
+	],
+	"key": {
+		"L": { "tag": "forge:leather" },
+		"I": { "tag": "forge:ingots/iron" },
+		"G": { "tag": "forge:gunpowder" }
+	},
+	"result": { "item": "gunswithoutroses:bullet_bag" }
+}
