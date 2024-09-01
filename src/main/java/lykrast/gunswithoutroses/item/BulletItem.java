@@ -35,9 +35,11 @@ public class BulletItem extends Item implements IBullet {
 	@Override
 	public void consume(ItemStack stack, Player player) {
 		stack.shrink(1);
-		if (stack.isEmpty()) {
-			player.getInventory().removeItem(stack);
-		}
+		//this is in the bow but I don't think we actually need it?
+		//pretty sure it's checked for empty in any thing to save
+//		if (stack.isEmpty()) {
+//			player.getInventory().removeItem(stack);
+//		}
 	}
 
 	@Override

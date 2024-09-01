@@ -1,0 +1,12 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "gunswithoutroses:item/bullet_bag"
+    },
+    "overrides": [
+        {
+            "predicate": { "gunswithoutroses:open": 1 },
+            "model": "gunswithoutroses:item/bullet_bag_open"
+        }
+    ]
+}

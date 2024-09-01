@@ -8,6 +8,7 @@ import lykrast.gunswithoutroses.registry.GWREffects;
 import lykrast.gunswithoutroses.registry.GWREnchantments;
 import lykrast.gunswithoutroses.registry.GWREntities;
 import lykrast.gunswithoutroses.registry.GWRItems;
+import lykrast.gunswithoutroses.registry.GWRMenu;
 import lykrast.gunswithoutroses.registry.GWRSounds;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -30,6 +31,7 @@ public class GunsWithoutRoses {
 		GWRAttributes.REG.register(bus);
 		bus.addListener(GWRAttributes::playerAttributes);
 		GWREffects.REG.register(bus);
+		GWRMenu.REG.register(bus);
 	}
 	
 	public static ResourceLocation rl(String name) {

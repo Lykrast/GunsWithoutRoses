@@ -9,6 +9,8 @@
 	"item.gunswithoutroses.iron_bullet": "Iron Bullet",
 	"item.gunswithoutroses.blaze_bullet": "Blaze Bullet",
 	
+	"item.gunswithoutroses.bullet_bag": "Bullet Bag",
+	
 	"tooltip.gunswithoutroses.shift": "§7Hold §fSHIFT§7 for stats§r",
 	"tooltip.gunswithoutroses.bullet.damage": "%d damage",
 	"tooltip.gunswithoutroses.gun.damage.flat": "§2Damage: §f+%s§r",
