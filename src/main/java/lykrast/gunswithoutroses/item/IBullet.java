@@ -17,6 +17,7 @@ public interface IBullet {
 
 	/**
 	 * Uses up 1 item worth of ammo. Can be used for RF or magic based bullet pouches or something.
+	 * <br/>If a delegate is involved, you have to fetch it back yourself (but the itemstack is not changed beyond the getDelegate call)
 	 */
 	void consume(ItemStack stack, Player player);
 	
@@ -40,5 +41,22 @@ public interface IBullet {
 	default double modifyDamage(double damage, BulletEntity projectile, Entity target, @Nullable Entity shooter, Level world) {
 		return damage;
 	}
+	
+	/**
+	 * For bullet bag: if true, the gun will fire a different bullet than the actual current IBullet.
+	 * <br/>Won't work recursively, no nesting bags here!
+	 */
+	default boolean hasDelegate(ItemStack stack, Player player) {
+		return false;
+	}
+	
+	/**
+	 * When delegate is involved, gives the ItemStack that will be fired.
+	 * <br/>The gun will fire that stack as if it were the original ammo, but it'll be consumed by the parent IBullet.
+	 */
+	default ItemStack getDelegate(ItemStack stack, Player player) {
+		return stack;
+	}
+	
 
 }

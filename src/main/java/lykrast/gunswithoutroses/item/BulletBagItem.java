@@ -55,7 +55,7 @@ public class BulletBagItem extends Item implements IBullet {
 		return stack.is(IS_BULLET);
 	}
 
-	//IBullet stuff
+	//Bullet stuff
 	@Override
 	public boolean hasAmmo(ItemStack stack) {
 		SimpleContainer content = getInventory(stack);
@@ -76,7 +76,32 @@ public class BulletBagItem extends Item implements IBullet {
 	}
 
 	@Override
+	public boolean hasDelegate(ItemStack stack, Player player) {
+		return true;
+	}
+
+	@Override
+	public ItemStack getDelegate(ItemStack stack, Player player) {
+		SimpleContainer content = getInventory(stack);
+		for (int i = 0; i < content.getContainerSize(); i++) {
+			ItemStack bul = content.getItem(i);
+			if (GunItem.BULLETS.test(bul)) return bul;
+		}
+		return ItemStack.EMPTY;
+	}
+
+	@Override
 	public void consume(ItemStack stack, Player player) {
+		//Get back the first bullet we would have chosen (which shouldn't have changed) to consume it
+		SimpleContainer content = getInventory(stack);
+		for (int i = 0; i < content.getContainerSize(); i++) {
+			ItemStack bul = content.getItem(i);
+			if (GunItem.BULLETS.test(bul)) {
+				((IBullet)bul.getItem()).consume(bul, player);
+				content.setChanged();
+				break;
+			}
+		}
 	}
 
 	//Botania stuff for the inventory

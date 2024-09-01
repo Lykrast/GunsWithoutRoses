@@ -46,18 +46,28 @@ public class GatlingItem extends GunItem {
 				ItemStack ammo = player.getProjectile(gun);
 
 				if (!ammo.isEmpty() || player.getAbilities().instabuild) {
-					if (ammo.isEmpty()) ammo = new ItemStack(GWRItems.flintBullet.get());
-
-					IBullet bulletItem = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : GWRItems.flintBullet.get());
 					if (!world.isClientSide) {
+						//this is for creative
+						if (ammo.isEmpty()) ammo = new ItemStack(GWRItems.flintBullet.get());
+						//There was at least one instance of quiver mod not respecting getAmmoPredicate()
+						//so I have to put wayyy more instanceof IBullet checks than I should need to >:(
+						IBullet parentBullet = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : GWRItems.flintBullet.get());
+						//For the bullet bag we doing the indirection here
+						ItemStack firedAmmo = ammo;
+						IBullet firedBullet = parentBullet;
+						if (parentBullet.hasDelegate(ammo, player)) {
+							firedAmmo = parentBullet.getDelegate(ammo, player);
+							firedBullet = (IBullet) (firedAmmo.getItem() instanceof IBullet ? firedAmmo.getItem() : GWRItems.flintBullet.get());
+						}
+
 						boolean bulletFree = player.getAbilities().instabuild || !shouldConsumeAmmo(world, gun, player);
 
 						//Workaround for quivers not respecting getAmmoPredicate()
-						ItemStack shotAmmo = ammo.getItem() instanceof IBullet ? ammo : new ItemStack(GWRItems.flintBullet.get());
-						shoot(world, player, gun, shotAmmo, bulletItem, bulletFree);
+						if (!(firedAmmo.getItem() instanceof IBullet)) firedAmmo = new ItemStack(GWRItems.flintBullet.get());
+						shoot(world, player, gun, firedAmmo, firedBullet, bulletFree);
 
 						gun.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
-						if (!bulletFree) bulletItem.consume(ammo, player);
+						if (!bulletFree) parentBullet.consume(ammo, player);
 					}
 
 					world.playSound(null, player.getX(), player.getY(), player.getZ(), getFireSound(), SoundSource.PLAYERS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
