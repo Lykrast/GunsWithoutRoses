@@ -8,6 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 public interface IBullet {
 	/**
@@ -29,16 +30,22 @@ public interface IBullet {
 	}
 	
 	/**
-	 * Called on server only when a default projectile (or one that extends it) sucessfully damages a LivingEntity (so after damage).
+	 * Called on server only when a default projectile (or one that extends it) successfully damages a LivingEntity (so after damage).
 	 * <br/>May change that later.
 	 */
-	default void onLivingEntityHit(BulletEntity projectile, LivingEntity target, @Nullable Entity shooter, Level world) {}
+	default void onLivingEntityHit(BulletEntity projectile, LivingEntity target, @Nullable Entity shooter, Level level) {}
+	
+	/**
+	 * Called on server when a default projectile (or one that extends it) hits a block, right before it's removed.
+	 * <br/>Noclipping bullets never call this.
+	 */
+	default void onBlockHit(BulletEntity projectile, BlockState block, @Nullable Entity shooter, Level level) {}
 	
 	/**
 	 * Called on server only as damage is being applied when a bullet carrying this item hits. The target may not be a LivingEntity.
 	 * <br/>May change that later.
 	 */
-	default double modifyDamage(double damage, BulletEntity projectile, Entity target, @Nullable Entity shooter, Level world) {
+	default double modifyDamage(double damage, BulletEntity projectile, Entity target, @Nullable Entity shooter, Level level) {
 		return damage;
 	}
 	

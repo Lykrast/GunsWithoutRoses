@@ -16,6 +16,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -96,13 +98,26 @@ public class BulletEntity extends Fireball {
 			else if (!damaged) target.invulnerableTime = lastHurtResistant;
 		}
 	}
-
+	
 	@SuppressWarnings("resource")
 	@Override
 	protected void onHit(HitResult result) {
 		super.onHit(result);
 		//Don't disappear on blocks if we're set to noclipping
 		if (!level().isClientSide && (!noPhysics || result.getType() != HitResult.Type.BLOCK)) remove(RemovalReason.KILLED);
+	}
+
+	@SuppressWarnings("resource")
+	@Override
+	protected void onHitBlock(BlockHitResult result) {
+		//noclipping bullets don't interact with blocks
+		if (noPhysics) return;
+		super.onHitBlock(result);		
+		if (!level().isClientSide) {
+			BlockState blockstate = level().getBlockState(result.getBlockPos());
+			IBullet bullet = getItemRaw().getItem() instanceof IBullet ? (IBullet) getItemRaw().getItem() : GWRItems.flintBullet.get();
+			bullet.onBlockHit(this, blockstate, getOwner(), level());
+		}
 	}
 
 	@Override
