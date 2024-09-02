@@ -11,6 +11,7 @@ public class GWRSounds {
 	//because it wasn't on 1.18 so I just left it like that when deferredregstering it
 	public static final DeferredRegister<SoundEvent> REG = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, GunsWithoutRoses.MODID);
 	public static RegistryObject<SoundEvent> gun = initSound("item.gun.shoot"), shotgun = initSound("item.shotgun.shoot"), sniper = initSound("item.sniper.shoot");
+	public static RegistryObject<SoundEvent> bagOpen = initSound("item.bullet_bag.open"), bagClose = initSound("item.bullet_bag.close");
 
 	public static RegistryObject<SoundEvent> initSound(String name) {
 		return REG.register(name, () -> SoundEvent.createVariableRangeEvent(GunsWithoutRoses.rl(name)));

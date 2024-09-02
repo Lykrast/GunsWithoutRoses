@@ -65,5 +65,8 @@
 
 	"subtitles.gunswithoutroses.item.gun.shoot": "Tir de fusil",
 	"subtitles.gunswithoutroses.item.shotgun.shoot": "Tir de fusil à pompe",
-	"subtitles.gunswithoutroses.item.sniper.shoot": "Tir de fusil de précision"
+	"subtitles.gunswithoutroses.item.sniper.shoot": "Tir de fusil de précision",
+	
+	"subtitles.gunswithoutroses.item.bullet_bag.open": "Sac à balles qui s'ouvre",
+	"subtitles.gunswithoutroses.item.bullet_bag.close": "Sac à balles qui se ferme"
 }

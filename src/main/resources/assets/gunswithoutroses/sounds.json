@@ -18,5 +18,15 @@
 		"category": "players",
 		"subtitle": "subtitles.gunswithoutroses.item.sniper.shoot",
 		"sounds": [ "gunswithoutroses:sniper" ]
+	},
+	"item.bullet_bag.open": {
+		"category": "players",
+		"subtitle": "subtitles.gunswithoutroses.item.bullet_bag.open",
+		"sounds": [ "gunswithoutroses:bag_open" ]
+	},
+	"item.bullet_bag.close": {
+		"category": "players",
+		"subtitle": "subtitles.gunswithoutroses.item.bullet_bag.close",
+		"sounds": [ "gunswithoutroses:bag_close" ]
 	}
 }

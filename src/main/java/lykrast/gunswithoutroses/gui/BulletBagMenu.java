@@ -2,8 +2,8 @@ package lykrast.gunswithoutroses.gui;
 
 import lykrast.gunswithoutroses.item.BulletBagItem;
 import lykrast.gunswithoutroses.registry.GWRMenu;
+import lykrast.gunswithoutroses.registry.GWRSounds;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.SimpleContainer;
@@ -30,7 +30,7 @@ public class BulletBagMenu extends AbstractContainerMenu {
 		this.bag = bag;
 		
 		//Chests also do their opening check in the constructor, which is the one that will play sound
-		playerInv.player.playSound(SoundEvents.CHEST_OPEN, 0.8F, 0.8F + playerInv.player.level().getRandom().nextFloat() * 0.4F);
+		playerInv.player.playSound(GWRSounds.bagOpen.get(), 0.8F, 0.9F + playerInv.player.level().getRandom().nextFloat() * 0.1F);
 
 		if (!playerInv.player.level().isClientSide) bagInv = BulletBagItem.getInventory(bag);
 		else bagInv = new SimpleContainer(BulletBagItem.SIZE);
@@ -99,7 +99,7 @@ public class BulletBagMenu extends AbstractContainerMenu {
 	@Override
 	public void removed(Player player) {
 		if (!player.level().isClientSide) bag.getOrCreateTag().putBoolean(BulletBagItem.OPEN, false);
-		player.playSound(SoundEvents.CHEST_CLOSE, 0.8F, 0.8F + player.level().getRandom().nextFloat() * 0.4F);
+		player.playSound(GWRSounds.bagClose.get(), 0.8F, 0.9F + player.level().getRandom().nextFloat() * 0.1F);
 		super.removed(player);
 	}
 
