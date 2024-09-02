@@ -11,6 +11,7 @@ import lykrast.gunswithoutroses.gui.BulletBagMenu;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
@@ -146,6 +147,7 @@ public class BulletBagItem extends Item implements IBullet {
 			if (simulateTransfer(inventory, toInsert, null).isEmpty()) {
 				ItemStack taken = slot.safeTake(toInsert.getCount(), Integer.MAX_VALUE, player);
 				HopperBlockEntity.addItem(null, inventory, taken, null);
+				playInsertSound(player);
 				return true;
 			}
 		}
@@ -159,10 +161,15 @@ public class BulletBagItem extends Item implements IBullet {
 			if (simulateTransfer(inventory, toInsert, null).isEmpty()) {
 				HopperBlockEntity.addItem(null, inventory, toInsert, null);
 				cursorAccess.set(ItemStack.EMPTY);
+				playInsertSound(player);
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	private void playInsertSound(Player player) {
+		player.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + player.level().getRandom().nextFloat() * 0.4F);
 	}
 
 	// [VanillaCopy] HopperBlockEntity#transfer but simulates instead of doing it
