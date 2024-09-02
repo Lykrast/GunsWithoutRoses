@@ -143,6 +143,7 @@ public class BulletBagItem extends Item implements IBullet {
 	public boolean overrideStackedOnOther(ItemStack bag, Slot slot, ClickAction clickAction, Player player) {
 		if (!(player.containerMenu instanceof BulletBagMenu) && clickAction == ClickAction.SECONDARY) {
 			ItemStack toInsert = slot.getItem();
+			if (toInsert.isEmpty()) return false;
 			SimpleContainer inventory = getInventory(bag);
 			if (simulateTransfer(inventory, toInsert, null).isEmpty()) {
 				ItemStack taken = slot.safeTake(toInsert.getCount(), Integer.MAX_VALUE, player);
@@ -156,7 +157,7 @@ public class BulletBagItem extends Item implements IBullet {
 
 	@Override
 	public boolean overrideOtherStackedOnMe(ItemStack bag, ItemStack toInsert, Slot slot, ClickAction clickAction, Player player, SlotAccess cursorAccess) {
-		if (!(player.containerMenu instanceof BulletBagMenu) && clickAction == ClickAction.SECONDARY) {
+		if (!(player.containerMenu instanceof BulletBagMenu) && clickAction == ClickAction.SECONDARY && !toInsert.isEmpty()) {
 			SimpleContainer inventory = getInventory(bag);
 			if (simulateTransfer(inventory, toInsert, null).isEmpty()) {
 				HopperBlockEntity.addItem(null, inventory, toInsert, null);

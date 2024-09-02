@@ -3,6 +3,7 @@ package lykrast.gunswithoutroses.gui;
 import lykrast.gunswithoutroses.item.BulletBagItem;
 import lykrast.gunswithoutroses.registry.GWRMenu;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.SimpleContainer;
@@ -27,6 +28,9 @@ public class BulletBagMenu extends AbstractContainerMenu {
 	public BulletBagMenu(int id, Inventory playerInv, ItemStack bag) {
 		super(GWRMenu.BAG_CONTAINER, id);
 		this.bag = bag;
+		
+		//Chests also do their opening check in the constructor, which is the one that will play sound
+		playerInv.player.playSound(SoundEvents.CHEST_OPEN, 0.8F, 0.8F + playerInv.player.level().getRandom().nextFloat() * 0.4F);
 
 		if (!playerInv.player.level().isClientSide) bagInv = BulletBagItem.getInventory(bag);
 		else bagInv = new SimpleContainer(BulletBagItem.SIZE);
@@ -95,6 +99,7 @@ public class BulletBagMenu extends AbstractContainerMenu {
 	@Override
 	public void removed(Player player) {
 		if (!player.level().isClientSide) bag.getOrCreateTag().putBoolean(BulletBagItem.OPEN, false);
+		player.playSound(SoundEvents.CHEST_CLOSE, 0.8F, 0.8F + player.level().getRandom().nextFloat() * 0.4F);
 		super.removed(player);
 	}
 
