@@ -60,7 +60,7 @@ public class GatlingItem extends GunItem {
 							firedBullet = (IBullet) (firedAmmo.getItem() instanceof IBullet ? firedAmmo.getItem() : GWRItems.flintBullet.get());
 						}
 
-						boolean bulletFree = player.getAbilities().instabuild || !shouldConsumeAmmo(world, gun, player);
+						boolean bulletFree = player.getAbilities().instabuild || !shouldConsumeAmmo(gun, player);
 
 						//Workaround for quivers not respecting getAmmoPredicate()
 						if (!(firedAmmo.getItem() instanceof IBullet)) firedAmmo = new ItemStack(GWRItems.flintBullet.get());

@@ -71,7 +71,7 @@ public class GunItem extends ProjectileWeaponItem {
 					firedBullet = (IBullet) (firedAmmo.getItem() instanceof IBullet ? firedAmmo.getItem() : GWRItems.flintBullet.get());
 				}
 
-				boolean bulletFree = player.getAbilities().instabuild || !shouldConsumeAmmo(world, gun, player);
+				boolean bulletFree = player.getAbilities().instabuild || !shouldConsumeAmmo(gun, player);
 
 				//Workaround for quivers not respecting getAmmoPredicate()
 				if (!(firedAmmo.getItem() instanceof IBullet)) firedAmmo = new ItemStack(GWRItems.flintBullet.get());
@@ -101,11 +101,16 @@ public class GunItem extends ProjectileWeaponItem {
 	 * @param bulletFree true if no ammo was actually consumed (creative or Preserving enchant for example)
 	 */
 	protected void shoot(Level world, Player player, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
+		ItemStack override = overrideFiredStack(player, gun, ammo, bulletItem, bulletFree);
+		if (override != ammo) {
+			ammo = override;
+			bulletItem = (IBullet) override.getItem();
+		}
 		BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
 		shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, (float) getProjectileSpeed(gun, player), (float) getInaccuracy(gun, player));
 		shot.setDamage(Math.max(0, shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 		if (player.getAttribute(GWRAttributes.knockback.get()) != null) shot.setKnockbackStrength(shot.getKnockbackStrength() + player.getAttributeValue(GWRAttributes.knockback.get()));
-		changeBullet(world, player, gun, shot, bulletFree);
+		affectBulletEntity(player, gun, shot, bulletFree);
 
 		world.addFreshEntity(shot);
 	}
@@ -115,6 +120,11 @@ public class GunItem extends ProjectileWeaponItem {
 	 * @param spreadMult multiplier to spread, to adjust like difficulty (vanilla skeletons have x10/6/2 on easy/medium/hard)
 	 */
 	public void shootAt(LivingEntity shooter, LivingEntity target, ItemStack gun, ItemStack ammo, IBullet bulletItem, double spreadMult, boolean bulletFree) {
+		ItemStack override = overrideFiredStack(shooter, gun, ammo, bulletItem, bulletFree);
+		if (override != ammo) {
+			ammo = override;
+			bulletItem = (IBullet) override.getItem();
+		}
 		BulletEntity shot = bulletItem.createProjectile(shooter.level(), ammo, shooter);
 		double x = target.getX() - shooter.getX();
 		double y = target.getEyeY() - shot.getY();
@@ -122,7 +132,7 @@ public class GunItem extends ProjectileWeaponItem {
 		shot.shoot(x, y, z, (float) getProjectileSpeed(gun, shooter), (float) (getInaccuracy(gun, shooter) * spreadMult));
 		shot.setDamage(Math.max(0, shot.getDamage() + getBonusDamage(gun, shooter)) * getDamageMultiplier(gun, shooter));
 		if (shooter.getAttribute(GWRAttributes.knockback.get()) != null) shot.setKnockbackStrength(shot.getKnockbackStrength() + shooter.getAttributeValue(GWRAttributes.knockback.get()));
-		changeBullet(shooter.level(), shooter, gun, shot, bulletFree);
+		affectBulletEntity(shooter, gun, shot, bulletFree);
 
 		shooter.level().addFreshEntity(shot);
 	}
@@ -130,11 +140,21 @@ public class GunItem extends ProjectileWeaponItem {
 	public SoundEvent getFireSound() {
 		return fireSound.get();
 	}
+	
+	/**
+	 * Lets you completely replace the actual bullet being fired, which will only affect the projectile (the original ammo is still consumed).
+	 * <br/>For example to do something like Terrarria's Venus Magnum that replaces Musket Balls/Tungsten Bullets with High Velocity Bullets.
+	 * <br/>If the fired stack differs from the original (by !=) then its item will be cast to an IBullet.
+	 * <br/>That's kind of a mess, but just doing a "if ammo.getItem.is(tag base bullet) return new ItemStack(blazing bullet)" works so is good for me.
+	 */
+	protected ItemStack overrideFiredStack(LivingEntity shooter, ItemStack gun, ItemStack ammo, IBullet bulletItem, boolean bulletFree) {
+		return ammo;
+	}
 
 	/**
 	 * Lets the gun do custom stuff to default bullets without redoing all the base stuff from shoot.
 	 */
-	protected void changeBullet(Level world, LivingEntity shooter, ItemStack gun, BulletEntity bullet, boolean bulletFree) {
+	protected void affectBulletEntity(LivingEntity shooter, ItemStack gun, BulletEntity bullet, boolean bulletFree) {
 
 	}
 
@@ -142,7 +162,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Rolls chance to know if ammo should be consumed for the shot. Applies both the baseline chance and Preserving enchantment.<br>
 	 * If you change this don't forget to tweak getInverseChanceFreeShot accordingly for the tooltip (and call super).
 	 */
-	public boolean shouldConsumeAmmo(Level world, ItemStack stack, LivingEntity shooter) {
+	public boolean shouldConsumeAmmo(ItemStack stack, LivingEntity shooter) {
 		if (chanceFreeShot > 0 && shooter.getRandom().nextDouble() < chanceFreeShot) return false;
 		if (shooter.getAttribute(GWRAttributes.chanceUseAmmo.get()) != null) {
 			double chance = shooter.getAttributeValue(GWRAttributes.chanceUseAmmo.get());
