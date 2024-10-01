@@ -16,6 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -27,6 +28,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -117,24 +119,30 @@ public class GunItem extends ProjectileWeaponItem {
 
 	/**
 	 * This one is meant for mobs.
-	 * @param spreadMult multiplier to spread, to adjust like difficulty (vanilla skeletons have x10/6/2 on easy/medium/hard)
+	 * @param mobSpread added spread to the shot that scales with difficulty (vanilla skeletons have x10/6/2 on easy/medium/hard), but will keep shotgun spreads the same
 	 */
-	public void shootAt(LivingEntity shooter, LivingEntity target, ItemStack gun, ItemStack ammo, IBullet bulletItem, double spreadMult, boolean bulletFree) {
+	public void shootAt(LivingEntity shooter, LivingEntity target, ItemStack gun, ItemStack ammo, IBullet bulletItem, double mobSpread, boolean bulletFree) {
 		ItemStack override = overrideFiredStack(shooter, gun, ammo, bulletItem, bulletFree);
 		if (override != ammo) {
 			ammo = override;
 			bulletItem = (IBullet) override.getItem();
 		}
 		BulletEntity shot = bulletItem.createProjectile(shooter.level(), ammo, shooter);
-		double x = target.getX() - shooter.getX();
-		double y = target.getEyeY() - shot.getY();
-		double z = target.getZ() - shooter.getZ();
-		shot.shoot(x, y, z, (float) getProjectileSpeed(gun, shooter), (float) (getInaccuracy(gun, shooter) * spreadMult));
+		Vec3 mobSpreaded = addSpread(target.getX() - shooter.getX(), target.getEyeY() - shot.getY(), target.getZ() - shooter.getZ(), mobSpread, shooter.getRandom());
+		shot.shoot(mobSpreaded.x, mobSpreaded.y, mobSpreaded.z, (float) getProjectileSpeed(gun, shooter), (float) getInaccuracy(gun, shooter));
 		shot.setDamage(Math.max(0, shot.getDamage() + getBonusDamage(gun, shooter)) * getDamageMultiplier(gun, shooter));
 		if (shooter.getAttribute(GWRAttributes.knockback.get()) != null) shot.setKnockbackStrength(shot.getKnockbackStrength() + shooter.getAttributeValue(GWRAttributes.knockback.get()));
 		affectBulletEntity(shooter, gun, shot, bulletFree);
 
 		shooter.level().addFreshEntity(shot);
+	}
+
+	/**
+	 * Adds spread like the vanilla projectile shoot method (but without scaling for speed).
+	 * So that shotgun spreads remain unaffected by mobs shooting inaccurately.
+	 */
+	public static Vec3 addSpread(double x, double y, double z, double spread, RandomSource random) {
+		return (new Vec3(x, y, z)).normalize().add(random.triangle(0, 0.0172275 * spread), random.triangle(0, 0.0172275 * spread), random.triangle(0, 0.0172275 * spread));
 	}
 
 	public SoundEvent getFireSound() {
