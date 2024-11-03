@@ -9,7 +9,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,11 +21,11 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.registries.ObjectHolder;
 
 public class BulletEntity extends Fireball {
 	protected double damage = 1;
 	protected double knockbackStrength = 0;
+	protected double headshotMult = 1;
 	protected int ticksSinceFired;
 
 	public BulletEntity(EntityType<? extends BulletEntity> p_i50160_1_, Level p_i50160_2_) {
@@ -58,12 +57,19 @@ public class BulletEntity extends Fireball {
 		super.tick();
 	}
 	
-	@ObjectHolder(registryName = "minecraft:damage_type", value = "minecraft:arrow")
-	public static DamageTypes ARROW = null;
+	protected boolean hasHeadshot(Entity target) {
+		if (headshotMult <= 1) return false;
+		Vec3 from = position();
+		Vec3 to = from.add(getDeltaMovement());
+		//get entity collision that's above the eyes and see if the movement hits it
+		//similar check as ProjectileUtil.getEntityHitResult (with the inflate 0.3)
+		return target.getBoundingBox().setMinY(target.getEyeY()).inflate(0.3).clip(from, to).isPresent();
+	}
 
 	@SuppressWarnings("resource")
 	@Override
 	protected void onHitEntity(EntityHitResult raytrace) {
+		//note: that super is currently empty
 		super.onHitEntity(raytrace);
 		if (!level().isClientSide) {
 			Entity target = raytrace.getEntity();
@@ -74,7 +80,8 @@ public class BulletEntity extends Fireball {
 			if (isOnFire()) target.setSecondsOnFire(5);
 			int lastHurtResistant = target.invulnerableTime;
 			target.invulnerableTime = 0;
-			float hitdamage = (float)bullet.modifyDamage(damage, this, target, shooter, level());
+			boolean headshot = hasHeadshot(target);
+			float hitdamage = (float)bullet.modifyDamage(damage * (headshot ? headshotMult : 1), this, target, shooter, level(), headshot);
 			boolean damaged = shooter == null
 					? target.hurt(GWRDamage.gunDamage(level().registryAccess(), this), hitdamage)
 					: target.hurt(GWRDamage.gunDamage(level().registryAccess(), this, shooter), hitdamage);
@@ -93,7 +100,7 @@ public class BulletEntity extends Fireball {
 
 				if (shooter instanceof LivingEntity) doEnchantDamageEffects((LivingEntity)shooter, target);
 				
-				bullet.onLivingEntityHit(this, livingTarget, shooter, level());
+				bullet.onLivingEntityHit(this, livingTarget, shooter, level(), headshot);
 			}
 			else if (!damaged) target.invulnerableTime = lastHurtResistant;
 		}
@@ -126,6 +133,7 @@ public class BulletEntity extends Fireball {
 		compound.putInt("tsf", ticksSinceFired);
 		compound.putDouble("damage", damage);
 		if (knockbackStrength != 0) compound.putDouble("knockback", knockbackStrength);
+		compound.putDouble("hsmult", headshotMult);
 	}
 
 	@Override
@@ -134,6 +142,7 @@ public class BulletEntity extends Fireball {
 		ticksSinceFired = compound.getInt("tsf");
 		damage = compound.getDouble("damage");
 		knockbackStrength = compound.getDouble("knockback");
+		headshotMult = Math.max(1, compound.getDouble("hsmult"));
 	}
 
 	public void setDamage(double damage) {
@@ -168,6 +177,14 @@ public class BulletEntity extends Fireball {
 	 */
 	public double getKnockbackStrength() {
 		return knockbackStrength;
+	}
+	
+	public void setHeadshotMultiplier(double headshotMult) {
+		this.headshotMult = headshotMult;
+	}
+	
+	public double getHeadshotMultiplier() {
+		return headshotMult;
 	}
 
 	@Override

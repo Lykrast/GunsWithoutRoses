@@ -3,6 +3,8 @@ package lykrast.gunswithoutroses.item;
 import javax.annotation.Nullable;
 
 import lykrast.gunswithoutroses.entity.BulletEntity;
+import lykrast.gunswithoutroses.registry.GWRSounds;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -28,13 +30,23 @@ public interface IBullet {
 	default boolean hasAmmo(ItemStack stack) {
 		return !stack.isEmpty();
 	}
+
+	/**
+	 * @deprecated {@link lykrast.gunswithoutroses.item.IBullet#onLivingEntityHit(BulletEntity, LivingEntity, Entity, Level, boolean) Use headshot sensitive version, will remove this in 1.21}
+	 */
+	@Deprecated
+	default void onLivingEntityHit(BulletEntity projectile, LivingEntity target, @Nullable Entity shooter, Level level) {}
 	
 	/**
 	 * Called on server only when a default projectile (or one that extends it) successfully damages a LivingEntity (so after damage).
-	 * <br/>May change that later.
+	 * <br/>This is where the default headshot sound effect happens, so call super if you don't want to redo them.
 	 */
-	default void onLivingEntityHit(BulletEntity projectile, LivingEntity target, @Nullable Entity shooter, Level level) {}
-	
+	default void onLivingEntityHit(BulletEntity projectile, LivingEntity target, @Nullable Entity shooter, Level level, boolean headshot) {
+		//TODO find a sound
+		if (headshot) level.playSound(null, projectile.getX(), projectile.getY(), projectile.getZ(), SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR, shooter != null ? shooter.getSoundSource() : projectile.getSoundSource(), 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
+		onLivingEntityHit(projectile, target, shooter, level);
+	}
+
 	/**
 	 * Called on server when a default projectile (or one that extends it) hits a block, right before it's removed.
 	 * <br/>Noclipping bullets never call this.
@@ -42,11 +54,19 @@ public interface IBullet {
 	default void onBlockHit(BulletEntity projectile, BlockState block, @Nullable Entity shooter, Level level) {}
 	
 	/**
-	 * Called on server only as damage is being applied when a bullet carrying this item hits. The target may not be a LivingEntity.
-	 * <br/>May change that later.
+	 * @deprecated {@link lykrast.gunswithoutroses.item.IBullet#modifyDamage(double, BulletEntity, Entity, Entity, boolean) Use headshot sensitive version, will remove this in 1.21}
 	 */
+	@Deprecated
 	default double modifyDamage(double damage, BulletEntity projectile, Entity target, @Nullable Entity shooter, Level level) {
 		return damage;
+	}
+	
+	/**
+	 * Called on server only as damage is being applied when a bullet carrying this item hits. The target may not be a LivingEntity.
+	 * <br/>Headshot multiplier has already been applied when this is called (if applicable).
+	 */
+	default double modifyDamage(double damage, BulletEntity projectile, Entity target, @Nullable Entity shooter, Level level, boolean headshot) {
+		return modifyDamage(damage, projectile, target, shooter, level);
 	}
 	
 	/**

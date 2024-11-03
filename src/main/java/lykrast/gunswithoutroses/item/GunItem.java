@@ -40,6 +40,7 @@ public class GunItem extends ProjectileWeaponItem {
 	protected double projectileSpeed = 3;
 	private int enchantability;
 	protected double chanceFreeShot = 0;
+	protected double headshotMult = 1;
 	protected Supplier<SoundEvent> fireSound = GWRSounds.gun::get;
 	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
 	protected Supplier<Ingredient> repairMaterial;
@@ -112,6 +113,7 @@ public class GunItem extends ProjectileWeaponItem {
 		shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, (float) getProjectileSpeed(gun, player), (float) getInaccuracy(gun, player));
 		shot.setDamage(Math.max(0, shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
 		if (player.getAttribute(GWRAttributes.knockback.get()) != null) shot.setKnockbackStrength(shot.getKnockbackStrength() + player.getAttributeValue(GWRAttributes.knockback.get()));
+		shot.setHeadshotMultiplier(getHeadshotMultiplier(gun, player));
 		affectBulletEntity(player, gun, shot, bulletFree);
 
 		world.addFreshEntity(shot);
@@ -132,6 +134,7 @@ public class GunItem extends ProjectileWeaponItem {
 		shot.shoot(mobSpreaded.x, mobSpreaded.y, mobSpreaded.z, (float) getProjectileSpeed(gun, shooter), (float) getInaccuracy(gun, shooter));
 		shot.setDamage(Math.max(0, shot.getDamage() + getBonusDamage(gun, shooter)) * getDamageMultiplier(gun, shooter));
 		if (shooter.getAttribute(GWRAttributes.knockback.get()) != null) shot.setKnockbackStrength(shot.getKnockbackStrength() + shooter.getAttributeValue(GWRAttributes.knockback.get()));
+		shot.setHeadshotMultiplier(getHeadshotMultiplier(gun, shooter));
 		affectBulletEntity(shooter, gun, shot, bulletFree);
 
 		shooter.level().addFreshEntity(shot);
@@ -245,6 +248,12 @@ public class GunItem extends ProjectileWeaponItem {
 		if (preserving >= 1) chance *= GWREnchantments.preservingInverse(preserving);
 		return chance;
 	}
+	
+	public double getHeadshotMultiplier(ItemStack stack, @Nullable LivingEntity shooter) {
+		if (headshotMult <= 1) return 1;
+		//TODO enchants
+		return headshotMult;
+	}
 
 	/**
 	 * Says if the damage is changed from base value. Used for tooltip.
@@ -279,6 +288,14 @@ public class GunItem extends ProjectileWeaponItem {
 	 */
 	public GunItem chanceFreeShot(double chanceFreeShot) {
 		this.chanceFreeShot = chanceFreeShot;
+		return this;
+	}
+
+	/**
+	 * Sets a headshot multiplier. Values 1 or below means no headshot. Used when making the item for registering.
+	 */
+	public GunItem headshotMult(double headshotMult) {
+		this.headshotMult = headshotMult;
 		return this;
 	}
 
