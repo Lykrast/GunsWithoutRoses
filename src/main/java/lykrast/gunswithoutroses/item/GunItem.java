@@ -11,8 +11,10 @@ import lykrast.gunswithoutroses.registry.GWRAttributes;
 import lykrast.gunswithoutroses.registry.GWREnchantments;
 import lykrast.gunswithoutroses.registry.GWRItems;
 import lykrast.gunswithoutroses.registry.GWRSounds;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -250,9 +252,13 @@ public class GunItem extends ProjectileWeaponItem {
 	}
 	
 	public double getHeadshotMultiplier(ItemStack stack, @Nullable LivingEntity shooter) {
-		if (headshotMult <= 1) return 1;
+		if (!canHeadshot()) return 1;
 		//TODO enchants
 		return headshotMult;
+	}
+	
+	public boolean canHeadshot() {
+		return headshotMult > 1;
 	}
 
 	/**
@@ -335,33 +341,59 @@ public class GunItem extends ProjectileWeaponItem {
 	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
 		if (Screen.hasShiftDown()) {
+			MutableComponent values;
 			//Damage
 			double damageMultiplier = getDamageMultiplier(stack, null);
 			double damageBonus = getBonusDamage(stack, null) * damageMultiplier;
 
-			if (damageMultiplier != 1) {
-				if (damageBonus != 0) tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.damage.both" + (isDamageModified(stack) ? ".modified" : ""),
-						ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageMultiplier), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageBonus)));
-				else tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.damage.mult" + (isDamageModified(stack) ? ".modified" : ""),
-						ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageMultiplier)));
+			if (damageMultiplier != 1 || damageBonus != 0) {
+				if (damageMultiplier == 1) values = Component.translatable("tooltip.gunswithoutroses.gun.damage.flat", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageBonus));
+				else if (damageBonus == 0) values = Component.translatable("tooltip.gunswithoutroses.gun.damage.mult", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageMultiplier));
+				else values = Component.translatable("tooltip.gunswithoutroses.gun.damage.both", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageMultiplier), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageBonus));
+				
+				tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.damage", values.withStyle(ChatFormatting.WHITE)).withStyle(isDamageModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
 			}
-			else if (damageBonus != 0)
-				tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.damage.flat" + (isDamageModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageBonus)));
+			if (canHeadshot()) {
+				double headshotMultiplier = getHeadshotMultiplier(stack, null);
+				//get the formatted total damage
+				damageMultiplier *= headshotMultiplier;
+				damageBonus *= headshotMultiplier;
+				if (damageBonus == 0) values = Component.translatable("tooltip.gunswithoutroses.gun.damage.mult", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageMultiplier));
+				else values = Component.translatable("tooltip.gunswithoutroses.gun.damage.both", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageMultiplier), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageBonus));
+				//get that on the values component
+				values = Component.translatable("tooltip.gunswithoutroses.sniper.headshot.values",
+						Component.literal(ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(headshotMultiplier)).withStyle(ChatFormatting.WHITE),
+						values.withStyle(ChatFormatting.WHITE))
+						.withStyle(ChatFormatting.GRAY);
+				
+				//TODO isheadshotmultipliermodified
+				tooltip.add(Component.translatable("tooltip.gunswithoutroses.sniper.headshot", values).withStyle(isDamageModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
+			}
+			
+			//TODO shotgun max damage
 
 			//Fire rate
 			int fireDelay = getFireDelay(stack, null);
-			tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.firerate" + (isFireDelayModified(stack) ? ".modified" : ""), fireDelay, (60 * 20) / fireDelay));
+			values = Component.translatable("tooltip.gunswithoutroses.gun.firerate.values", 
+					Component.literal(Integer.toString(fireDelay)).withStyle(ChatFormatting.WHITE),
+					Component.literal(Integer.toString((60 * 20) / fireDelay)).withStyle(ChatFormatting.WHITE))
+					.withStyle(ChatFormatting.GRAY);
+			tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.firerate", values).withStyle(isFireDelayModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
 
 			//Accuracy
-			double inaccuracy = getInaccuracy(stack, null);
-			if (inaccuracy <= 0) tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.accuracy.perfect" + (isInaccuracyModified(stack) ? ".modified" : "")));
-			else tooltip
-					.add(Component.translatable("tooltip.gunswithoutroses.gun.accuracy" + (isInaccuracyModified(stack) ? ".modified" : ""), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(inaccuracy)));
+			if (hasPerfectAccuracy()) values = Component.translatable("tooltip.gunswithoutroses.gun.accuracy.perfect").withStyle(ChatFormatting.WHITE);
+			else values = Component.literal(ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(getInaccuracy(stack, null))).withStyle(ChatFormatting.WHITE);
+			tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.accuracy", values).withStyle(isInaccuracyModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
 
 			//Chance to not consume ammo
 			double inverseChanceFree = getInverseChanceFreeShot(stack);
-			if (inverseChanceFree < 1)
-				tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.chance_free" + (isChanceFreeShotModified(stack) ? ".modified" : ""), (int) ((1 - inverseChanceFree) * 100)));
+			if (inverseChanceFree < 1) {
+				values = Component.translatable("tooltip.gunswithoutroses.gun.chance_free.values", (int) ((1 - inverseChanceFree) * 100)).withStyle(ChatFormatting.WHITE);
+				tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.chance_free", values).withStyle(isChanceFreeShotModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
+			}
+			
+			//Headshot notification
+			if (canHeadshot()) tooltip.add(Component.translatable("tooltip.gunswithoutroses.sniper.headshot.help").withStyle(ChatFormatting.GRAY));
 
 			addExtraStatsTooltip(stack, world, tooltip);
 		}
