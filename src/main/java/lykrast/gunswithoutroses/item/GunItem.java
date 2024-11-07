@@ -265,8 +265,10 @@ public class GunItem extends ProjectileWeaponItem {
 	
 	public double getHeadshotMultiplier(ItemStack stack, @Nullable LivingEntity shooter) {
 		if (!canHeadshot()) return 1;
-		//TODO enchants
-		return headshotMult;
+		//TODO attributes?
+		int deadeye = stack.getEnchantmentLevel(GWREnchantments.deadeye.get());
+		if (deadeye >= 1) return GWREnchantments.deadeyeModify(deadeye, headshotMult);
+		else return headshotMult;
 	}
 	
 	/**
@@ -308,6 +310,20 @@ public class GunItem extends ProjectileWeaponItem {
 	 */
 	protected boolean isChanceFreeShotModified(ItemStack stack) {
 		return stack.getEnchantmentLevel(GWREnchantments.preserving.get()) >= 1;
+	}
+
+	/**
+	 * Says if the crit multiplier is changed from base value. Used for tooltip.
+	 */
+	protected boolean isCritMultiplierModified(ItemStack stack) {
+		return stack.getEnchantmentLevel(GWREnchantments.deadeye.get()) >= 1;
+	}
+
+	/**
+	 * Says if the projectile count is changed from base value. Used for tooltip.
+	 */
+	protected boolean isProjectileCountModified(ItemStack stack) {
+		return false;
 	}
 
 	/**
@@ -363,6 +379,8 @@ public class GunItem extends ProjectileWeaponItem {
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
 		//Disallow Bullseye if the gun has perfect accuracy
 		if (enchantment == GWREnchantments.bullseye.get() && hasPerfectAccuracy()) return false;
+		//Disallow Deadeye if the gun can't headshot
+		if (enchantment == GWREnchantments.deadeye.get() && !canHeadshot()) return false;
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}
 
@@ -396,8 +414,7 @@ public class GunItem extends ProjectileWeaponItem {
 						values.withStyle(ChatFormatting.WHITE))
 						.withStyle(ChatFormatting.GRAY);
 				
-				//TODO isheadshotmultipliermodified
-				tooltip.add(Component.translatable("tooltip.gunswithoutroses.sniper.headshot", values).withStyle(isDamageModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
+				tooltip.add(Component.translatable("tooltip.gunswithoutroses.sniper.headshot", values).withStyle(isCritMultiplierModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
 			}
 			
 			if (hasMultipleProjectiles()) {
@@ -428,8 +445,7 @@ public class GunItem extends ProjectileWeaponItem {
 							.withStyle(ChatFormatting.GRAY);
 				}
 
-				//TODO isprojectilesmodified
-				tooltip.add(Component.translatable("tooltip.gunswithoutroses.shotgun.projectiles", values).withStyle(isDamageModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
+				tooltip.add(Component.translatable("tooltip.gunswithoutroses.shotgun.projectiles", values).withStyle(isProjectileCountModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
 			}
 
 			//Fire rate

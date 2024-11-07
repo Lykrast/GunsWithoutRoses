@@ -11,15 +11,16 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class GWREnchantments {
-	public static RegistryObject<Enchantment> impact, bullseye, sleightOfHand, preserving;
+	public static RegistryObject<Enchantment> impact, bullseye, sleightOfHand, preserving, deadeye;
 	public static final EnchantmentCategory TYPE_GUN = EnchantmentCategory.create("GWR_GUN", (item) -> item instanceof GunItem);
 	public static final DeferredRegister<Enchantment> REG = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, GunsWithoutRoses.MODID);
 
 	static {
-		impact = REG.register("impact", () -> new GunEnchantment(Enchantment.Rarity.COMMON, 5, 1, 11, 20));
-		bullseye = REG.register("bullseye", () -> new GunEnchantment(Enchantment.Rarity.COMMON, 3, 5, 9, 15));
+		impact = REG.register("impact", () -> new GunEnchantment(Enchantment.Rarity.COMMON, 5, 1, 11, 30));
+		bullseye = REG.register("bullseye", () -> new GunEnchantment(Enchantment.Rarity.COMMON, 3, 5, 9, 30));
 		sleightOfHand = REG.register("sleight_of_hand", () -> new GunEnchantment(Enchantment.Rarity.UNCOMMON, 3, 12, 20, 40));
 		preserving = REG.register("preserving", () -> new GunEnchantment(Enchantment.Rarity.RARE, 3, 15, 9, 50));
+		deadeye = REG.register("deadeye", () -> new GunEnchantment(Enchantment.Rarity.RARE, 2, 15, 18, 50));
 	}
 	
 	/**
@@ -56,5 +57,12 @@ public class GWREnchantments {
 	 */
 	public static final double preservingInverse(int level) {
 		return 2.0/(level + 2);
+	}
+	
+	/**
+	 * Modify crit multiplier given Deadeye.
+	 */
+	public static final double deadeyeModify(int level, double mult) {
+		return mult + 0.25*level;
 	}
 }
