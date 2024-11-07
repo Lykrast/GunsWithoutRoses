@@ -28,6 +28,7 @@
 	"tooltip.gunswithoutroses.sniper.headshot.help": "Hit above eye level for a crit",
 	"tooltip.gunswithoutroses.shotgun.projectiles": "Projectiles: %s",
 	"tooltip.gunswithoutroses.shotgun.projectiles.values": "%1$s (max dmg %2$s)",
+	"tooltip.gunswithoutroses.shotgun.projectiles.headshot": "%1$s (max dmg %2$s, crit %3$s)",
 	"tooltip.gunswithoutroses.gatling.hold": "Slows user while firing",
 	
 	"tooltip.gunswithoutroses.blaze_bullet": "Sets entities on fire",

@@ -388,7 +388,7 @@ public class GunItem extends ProjectileWeaponItem {
 				//get the formatted total damage
 				double hsDamageMultiplier = damageMultiplier*headshotMultiplier;
 				double hsDamageBonus = damageBonus*headshotMultiplier;
-				if (hsDamageBonus == 0) values = Component.translatable("tooltip.gunswithoutroses.gun.damage.mult", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(hsDamageMultiplier));
+				if (damageBonus == 0) values = Component.translatable("tooltip.gunswithoutroses.gun.damage.mult", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(hsDamageMultiplier));
 				else values = Component.translatable("tooltip.gunswithoutroses.gun.damage.both", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(hsDamageMultiplier), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(hsDamageBonus));
 				//get that on the values component
 				values = Component.translatable("tooltip.gunswithoutroses.sniper.headshot.values",
@@ -405,13 +405,28 @@ public class GunItem extends ProjectileWeaponItem {
 				//get the formatted total damage
 				double sgDamageMultiplier = damageMultiplier*projectiles;
 				double sgDamageBonus = damageBonus*projectiles;
-				if (sgDamageBonus == 0) values = Component.translatable("tooltip.gunswithoutroses.gun.damage.mult", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(sgDamageMultiplier));
+				if (damageBonus == 0) values = Component.translatable("tooltip.gunswithoutroses.gun.damage.mult", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(sgDamageMultiplier));
 				else values = Component.translatable("tooltip.gunswithoutroses.gun.damage.both", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(sgDamageMultiplier), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(sgDamageBonus));
 				//get that on the values component
-				values = Component.translatable("tooltip.gunswithoutroses.shotgun.projectiles.values",
-						Component.literal(Integer.toString(projectiles)).withStyle(ChatFormatting.WHITE),
-						values.withStyle(ChatFormatting.WHITE))
-						.withStyle(ChatFormatting.GRAY);
+				if (!canHeadshot()) {
+					values = Component.translatable("tooltip.gunswithoutroses.shotgun.projectiles.values",
+							Component.literal(Integer.toString(projectiles)).withStyle(ChatFormatting.WHITE),
+							values.withStyle(ChatFormatting.WHITE))
+							.withStyle(ChatFormatting.GRAY);
+				}
+				else {
+					//I'm not making shotguns that can headshot, but someone might
+					//so this is an ugly patch up to get that edge case to still display full damage
+					double headshotMultiplier = getHeadshotMultiplier(stack, null);
+					MutableComponent values2;
+					if (damageBonus == 0) values2 = Component.translatable("tooltip.gunswithoutroses.gun.damage.mult", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(sgDamageMultiplier*headshotMultiplier));
+					else values2 = Component.translatable("tooltip.gunswithoutroses.gun.damage.both", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(sgDamageMultiplier*headshotMultiplier), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(sgDamageBonus*headshotMultiplier));
+					values = Component.translatable("tooltip.gunswithoutroses.shotgun.projectiles.headshot",
+							Component.literal(Integer.toString(projectiles)).withStyle(ChatFormatting.WHITE),
+							values.withStyle(ChatFormatting.WHITE),
+							values2.withStyle(ChatFormatting.WHITE))
+							.withStyle(ChatFormatting.GRAY);
+				}
 
 				//TODO isprojectilesmodified
 				tooltip.add(Component.translatable("tooltip.gunswithoutroses.shotgun.projectiles", values).withStyle(isDamageModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
