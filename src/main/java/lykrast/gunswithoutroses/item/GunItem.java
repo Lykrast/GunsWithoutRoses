@@ -43,6 +43,7 @@ public class GunItem extends ProjectileWeaponItem {
 	private int enchantability;
 	protected double chanceFreeShot = 0;
 	protected double headshotMult = 1;
+	protected int projectiles = 1;
 	protected Supplier<SoundEvent> fireSound = GWRSounds.gun::get;
 	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
 	protected Supplier<Ingredient> repairMaterial;
@@ -111,14 +112,16 @@ public class GunItem extends ProjectileWeaponItem {
 			ammo = override;
 			bulletItem = (IBullet) override.getItem();
 		}
-		BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
-		shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, (float) getProjectileSpeed(gun, player), (float) getInaccuracy(gun, player));
-		shot.setDamage(Math.max(0, shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
-		if (player.getAttribute(GWRAttributes.knockback.get()) != null) shot.setKnockbackStrength(shot.getKnockbackStrength() + player.getAttributeValue(GWRAttributes.knockback.get()));
-		shot.setHeadshotMultiplier(getHeadshotMultiplier(gun, player));
-		affectBulletEntity(player, gun, shot, bulletFree);
+		for (int i = 0; i < projectiles; i++) {
+			BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
+			shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, (float) getProjectileSpeed(gun, player), (float) getInaccuracy(gun, player));
+			shot.setDamage(Math.max(0, shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
+			if (player.getAttribute(GWRAttributes.knockback.get()) != null) shot.setKnockbackStrength(shot.getKnockbackStrength() + player.getAttributeValue(GWRAttributes.knockback.get()));
+			shot.setHeadshotMultiplier(getHeadshotMultiplier(gun, player));
+			affectBulletEntity(player, gun, shot, bulletFree);
 
-		world.addFreshEntity(shot);
+			world.addFreshEntity(shot);
+		}
 	}
 
 	/**
@@ -131,15 +134,17 @@ public class GunItem extends ProjectileWeaponItem {
 			ammo = override;
 			bulletItem = (IBullet) override.getItem();
 		}
-		BulletEntity shot = bulletItem.createProjectile(shooter.level(), ammo, shooter);
-		Vec3 mobSpreaded = addSpread(target.getX() - shooter.getX(), target.getEyeY() - shot.getY(), target.getZ() - shooter.getZ(), mobSpread, shooter.getRandom());
-		shot.shoot(mobSpreaded.x, mobSpreaded.y, mobSpreaded.z, (float) getProjectileSpeed(gun, shooter), (float) getInaccuracy(gun, shooter));
-		shot.setDamage(Math.max(0, shot.getDamage() + getBonusDamage(gun, shooter)) * getDamageMultiplier(gun, shooter));
-		if (shooter.getAttribute(GWRAttributes.knockback.get()) != null) shot.setKnockbackStrength(shot.getKnockbackStrength() + shooter.getAttributeValue(GWRAttributes.knockback.get()));
-		shot.setHeadshotMultiplier(getHeadshotMultiplier(gun, shooter));
-		affectBulletEntity(shooter, gun, shot, bulletFree);
+		Vec3 mobSpreaded = addSpread(target.getX() - shooter.getX(), target.getEyeY() - shooter.getEyeY(), target.getZ() - shooter.getZ(), mobSpread, shooter.getRandom());
+		for (int i = 0; i < projectiles; i++) {
+			BulletEntity shot = bulletItem.createProjectile(shooter.level(), ammo, shooter);
+			shot.shoot(mobSpreaded.x, mobSpreaded.y, mobSpreaded.z, (float) getProjectileSpeed(gun, shooter), (float) getInaccuracy(gun, shooter));
+			shot.setDamage(Math.max(0, shot.getDamage() + getBonusDamage(gun, shooter)) * getDamageMultiplier(gun, shooter));
+			if (shooter.getAttribute(GWRAttributes.knockback.get()) != null) shot.setKnockbackStrength(shot.getKnockbackStrength() + shooter.getAttributeValue(GWRAttributes.knockback.get()));
+			shot.setHeadshotMultiplier(getHeadshotMultiplier(gun, shooter));
+			affectBulletEntity(shooter, gun, shot, bulletFree);
 
-		shooter.level().addFreshEntity(shot);
+			shooter.level().addFreshEntity(shot);
+		}
 	}
 
 	/**
@@ -251,14 +256,30 @@ public class GunItem extends ProjectileWeaponItem {
 		return chance;
 	}
 	
+	/**
+	 * Whether the gun can land sniper crits, which only happens if the base headshot mult is more than 1.
+	 */
+	public boolean canHeadshot() {
+		return headshotMult > 1;
+	}
+	
 	public double getHeadshotMultiplier(ItemStack stack, @Nullable LivingEntity shooter) {
 		if (!canHeadshot()) return 1;
 		//TODO enchants
 		return headshotMult;
 	}
 	
-	public boolean canHeadshot() {
-		return headshotMult > 1;
+	/**
+	 * Whether the gun has multiple projectiles per shot, which only happens if it's more than 1 on baseline.
+	 */
+	public boolean hasMultipleProjectiles() {
+		return projectiles > 1;
+	}
+	
+	public int getProjectilesPerShot(ItemStack stack, @Nullable LivingEntity shooter) {
+		if (!hasMultipleProjectiles()) return 1;
+		//TODO I'm not putting enchantments for this stats, but might add attributes
+		return projectiles;
 	}
 
 	/**
@@ -302,6 +323,14 @@ public class GunItem extends ProjectileWeaponItem {
 	 */
 	public GunItem headshotMult(double headshotMult) {
 		this.headshotMult = headshotMult;
+		return this;
+	}
+	
+	/**
+	 * Sets firing multiple projectiles per shot. Values 1 or below means no shotgunning. Used when making the item for registering.
+	 */
+	public GunItem projectiles(int projectiles) {
+		this.projectiles = projectiles;
 		return this;
 	}
 
@@ -353,13 +382,14 @@ public class GunItem extends ProjectileWeaponItem {
 				
 				tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.damage", values.withStyle(ChatFormatting.WHITE)).withStyle(isDamageModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
 			}
+			
 			if (canHeadshot()) {
 				double headshotMultiplier = getHeadshotMultiplier(stack, null);
 				//get the formatted total damage
-				damageMultiplier *= headshotMultiplier;
-				damageBonus *= headshotMultiplier;
-				if (damageBonus == 0) values = Component.translatable("tooltip.gunswithoutroses.gun.damage.mult", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageMultiplier));
-				else values = Component.translatable("tooltip.gunswithoutroses.gun.damage.both", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageMultiplier), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(damageBonus));
+				double hsDamageMultiplier = damageMultiplier*headshotMultiplier;
+				double hsDamageBonus = damageBonus*headshotMultiplier;
+				if (hsDamageBonus == 0) values = Component.translatable("tooltip.gunswithoutroses.gun.damage.mult", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(hsDamageMultiplier));
+				else values = Component.translatable("tooltip.gunswithoutroses.gun.damage.both", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(hsDamageMultiplier), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(hsDamageBonus));
 				//get that on the values component
 				values = Component.translatable("tooltip.gunswithoutroses.sniper.headshot.values",
 						Component.literal(ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(headshotMultiplier)).withStyle(ChatFormatting.WHITE),
@@ -370,7 +400,22 @@ public class GunItem extends ProjectileWeaponItem {
 				tooltip.add(Component.translatable("tooltip.gunswithoutroses.sniper.headshot", values).withStyle(isDamageModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
 			}
 			
-			//TODO shotgun max damage
+			if (hasMultipleProjectiles()) {
+				int projectiles = getProjectilesPerShot(stack, null);
+				//get the formatted total damage
+				double sgDamageMultiplier = damageMultiplier*projectiles;
+				double sgDamageBonus = damageBonus*projectiles;
+				if (sgDamageBonus == 0) values = Component.translatable("tooltip.gunswithoutroses.gun.damage.mult", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(sgDamageMultiplier));
+				else values = Component.translatable("tooltip.gunswithoutroses.gun.damage.both", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(sgDamageMultiplier), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(sgDamageBonus));
+				//get that on the values component
+				values = Component.translatable("tooltip.gunswithoutroses.shotgun.projectiles.values",
+						Component.literal(Integer.toString(projectiles)).withStyle(ChatFormatting.WHITE),
+						values.withStyle(ChatFormatting.WHITE))
+						.withStyle(ChatFormatting.GRAY);
+
+				//TODO isprojectilesmodified
+				tooltip.add(Component.translatable("tooltip.gunswithoutroses.shotgun.projectiles", values).withStyle(isDamageModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
+			}
 
 			//Fire rate
 			int fireDelay = getFireDelay(stack, null);

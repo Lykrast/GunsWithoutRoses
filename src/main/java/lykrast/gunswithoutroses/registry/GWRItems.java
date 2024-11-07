@@ -10,7 +10,6 @@ import lykrast.gunswithoutroses.item.BulletBagItem;
 import lykrast.gunswithoutroses.item.BulletItem;
 import lykrast.gunswithoutroses.item.GatlingItem;
 import lykrast.gunswithoutroses.item.GunItem;
-import lykrast.gunswithoutroses.item.ShotgunItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -43,7 +42,7 @@ public class GWRItems {
 	static {
 		ironGun = initItem(() -> new GunItem(defP().durability(513), 0, 1, 16, 2, 14).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "iron_gun");
 		goldGun = initItem(() -> new GunItem(defP().durability(104), 0, 1, 16, 2, 22).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "gold_gun");
-		diamondShotgun = initItem(() -> new ShotgunItem(defP().durability(2076), 0, 0.6, 20, 6, 10, 4).fireSound(GWRSounds.shotgun::get).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_shotgun");
+		diamondShotgun = initItem(() -> new GunItem(defP().durability(2076), 0, 0.6, 20, 6, 10).projectiles(4).fireSound(GWRSounds.shotgun::get).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_shotgun");
 		diamondSniper = initItem(() -> new GunItem(defP().durability(2076), 0, 1.6, 24, 0, 10).headshotMult(1.5).projectileSpeed(4).fireSound(GWRSounds.sniper::get).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_sniper");
 		diamondGatling = initItem(() -> new GatlingItem(defP().durability(2076), 0, 1, 4, 4, 10).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_gatling");
 		
