@@ -4,7 +4,8 @@ import javax.annotation.Nullable;
 
 import lykrast.gunswithoutroses.entity.BulletEntity;
 import lykrast.gunswithoutroses.registry.GWRSounds;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -39,11 +40,15 @@ public interface IBullet {
 	
 	/**
 	 * Called on server only when a default projectile (or one that extends it) successfully damages a LivingEntity (so after damage).
-	 * <br/>This is where the default headshot sound effect happens, so call super if you don't want to redo them.
+	 * <br/>This is where the default headshot sound and particles happens, so call super if you don't want to redo them.
 	 */
 	default void onLivingEntityHit(BulletEntity projectile, LivingEntity target, @Nullable Entity shooter, Level level, boolean headshot) {
-		//TODO find a sound
-		if (headshot) level.playSound(null, projectile.getX(), projectile.getY(), projectile.getZ(), SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR, shooter != null ? shooter.getSoundSource() : projectile.getSoundSource(), 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
+		if (headshot) {
+			//volume 5 should mean it's heard 80 blocks away
+			//ideally I'd just want it to be heard by the shooter and just what's nearby but like I dunno how to do that so that'll do
+			level.playSound(null, projectile.getX(), projectile.getY(), projectile.getZ(), GWRSounds.sniperCrit.get(), shooter != null ? shooter.getSoundSource() : projectile.getSoundSource(), 5, level.getRandom().nextFloat() * 0.4F + 0.8F);
+			((ServerLevel)level).sendParticles(ParticleTypes.CRIT, projectile.getX(), projectile.getY(), projectile.getZ(), 10, 0.2, 0.2, 0.2, 0.1);
+		}
 		onLivingEntityHit(projectile, target, shooter, level);
 	}
 

@@ -19,6 +19,11 @@
 		"subtitle": "subtitles.gunswithoutroses.item.sniper.shoot",
 		"sounds": [ "gunswithoutroses:sniper" ]
 	},
+	"item.sniper.crit": {
+		"category": "players",
+		"subtitle": "subtitles.gunswithoutroses.item.sniper.crit",
+		"sounds": [ "gunswithoutroses:sniper_crit" ]
+	},
 	"item.bullet_bag.open": {
 		"category": "players",
 		"subtitle": "subtitles.gunswithoutroses.item.bullet_bag.open",
