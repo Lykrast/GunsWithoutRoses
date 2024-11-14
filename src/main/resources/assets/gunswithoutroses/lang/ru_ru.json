@@ -11,21 +11,7 @@
 	
 	"tooltip.gunswithoutroses.shift": "§7Удерживайте §fSHIFT§7 чтобы увидеть характеристики§r",
 	"tooltip.gunswithoutroses.bullet.damage": "%d урона",
-	"tooltip.gunswithoutroses.gun.damage.flat": "§2Урон: §f+%s§r",
-	"tooltip.gunswithoutroses.gun.damage.mult": "§2Урон: §fx%s§r",
-	"tooltip.gunswithoutroses.gun.damage.both": "§2Урон: §fx%s +%s§r",
-	"tooltip.gunswithoutroses.gun.damage.flat.modified": "§dУрон: §f+%s§r",
-	"tooltip.gunswithoutroses.gun.damage.mult.modified": "§dУрон: §fx%s§r",
-	"tooltip.gunswithoutroses.gun.damage.both.modified": "§dУрон: §fx%s +%s§r",
-	"tooltip.gunswithoutroses.gun.firerate": "§2Задержка выстрела: §f%d§7 (§f%d§7 RPM)§r",
-	"tooltip.gunswithoutroses.gun.firerate.modified": "§dЗадержка выстрела: §f%d§7 (§f%d§7 RPM)§r",
-	"tooltip.gunswithoutroses.gun.accuracy": "§2Точность: §f%s§r",
-	"tooltip.gunswithoutroses.gun.accuracy.modified": "§dТочность: §f%s§r",
-	"tooltip.gunswithoutroses.gun.accuracy.perfect": "§2Точность: §fPerfect§r",
-	"tooltip.gunswithoutroses.gun.accuracy.perfect.modified": "§dТочность: §fPerfect§r",
-	"tooltip.gunswithoutroses.gun.chance_free": "§2Шанс не израсходовать боеприпасы: §f%s%%§r",
-	"tooltip.gunswithoutroses.gun.chance_free.modified": "§dШанс не израсходовать боеприпасы: §f%s%%§r",
-	"tooltip.gunswithoutroses.shotgun.shots": "Выпускает одновременно %s снарядов",
+	
 	"tooltip.gunswithoutroses.gatling.hold": "Замедляет пользователя при стрельбе",
 	
 	"tooltip.gunswithoutroses.blaze_bullet": "Поджигает сущности",

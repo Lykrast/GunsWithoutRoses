@@ -11,21 +11,7 @@
 	
 	"tooltip.gunswithoutroses.shift": "§7按住 §fSHIFT§7 查看数值§r",
 	"tooltip.gunswithoutroses.bullet.damage": "%d 伤害",
-	"tooltip.gunswithoutroses.gun.damage.flat": "§2伤害: §f+%s§r",
-	"tooltip.gunswithoutroses.gun.damage.mult": "§2伤害: §fx%s§r",
-	"tooltip.gunswithoutroses.gun.damage.both": "§2伤害: §fx%s +%s§r",
-	"tooltip.gunswithoutroses.gun.damage.flat.modified": "§d伤害: §f+%s§r",
-	"tooltip.gunswithoutroses.gun.damage.mult.modified": "§d伤害: §fx%s§r",
-	"tooltip.gunswithoutroses.gun.damage.both.modified": "§d伤害: §fx%s +%s§r",
-	"tooltip.gunswithoutroses.gun.firerate": "§2开火延迟: §f%d§7 (§f%d§7 RPM)§r",
-	"tooltip.gunswithoutroses.gun.firerate.modified": "§d开火延迟: §f%d§7 (§f%d§7 RPM)§r",
-	"tooltip.gunswithoutroses.gun.accuracy": "§2准度: §f%s§r",
-	"tooltip.gunswithoutroses.gun.accuracy.modified": "§d准度: §f%s§r",
-	"tooltip.gunswithoutroses.gun.accuracy.perfect": "§2准度: §f完美§r",
-	"tooltip.gunswithoutroses.gun.accuracy.perfect.modified": "§d准度: §f完美§r",
-	"tooltip.gunswithoutroses.gun.chance_free": "§2不消耗子弹的几率: §f%s%%§r",
-	"tooltip.gunswithoutroses.gun.chance_free.modified": "§d不消耗子弹的几率: §f%s%%§r",
-	"tooltip.gunswithoutroses.shotgun.shots": "一次射出 %s 颗子弹",
+	
 	"tooltip.gunswithoutroses.gatling.hold": "开火时降低使用者速度",
 	
 	"tooltip.gunswithoutroses.blaze_bullet": "使实体着火",

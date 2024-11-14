@@ -11,21 +11,7 @@
 	
 	"tooltip.gunswithoutroses.shift": "§7Segure §fSHIFT§7 para estatísticas§r",
 	"tooltip.gunswithoutroses.bullet.damage": "%d dano",
-	"tooltip.gunswithoutroses.gun.damage.flat": "§2Dano: §f+%s§r",
-	"tooltip.gunswithoutroses.gun.damage.mult": "§2Dano: §fx%s§r",
-	"tooltip.gunswithoutroses.gun.damage.both": "§2Dano: §fx%s +%s§r",
-	"tooltip.gunswithoutroses.gun.damage.flat.modified": "§dDano: §f+%s§r",
-	"tooltip.gunswithoutroses.gun.damage.mult.modified": "§dDano: §fx%s§r",
-	"tooltip.gunswithoutroses.gun.damage.both.modified": "§dDano: §fx%s +%s§r",
-	"tooltip.gunswithoutroses.gun.firerate": "§2Cadência de tiro: §f%d§7 (§f%d§7 RPM)§r",
-	"tooltip.gunswithoutroses.gun.firerate.modified": "§dCadência de tiro: §f%d§7 (§f%d§7 RPM)§r",
-	"tooltip.gunswithoutroses.gun.accuracy": "§2Precisão: §f%s§r",
-	"tooltip.gunswithoutroses.gun.accuracy.modified": "§dPrecisão: §f%s§r",
-	"tooltip.gunswithoutroses.gun.accuracy.perfect": "§2Precisão: §fPerfect§r",
-	"tooltip.gunswithoutroses.gun.accuracy.perfect.modified": "§dPrecisão: §fPerfeita§r",
-	"tooltip.gunswithoutroses.gun.chance_free": "§2Chance de não consumir munição: §f%s%%§r",
-	"tooltip.gunswithoutroses.gun.chance_free.modified": "§dChance de não consumir munição: §f%s%%§r",
-	"tooltip.gunswithoutroses.shotgun.shots": "Dispara %s projéteis de uma vez",
+	
 	"tooltip.gunswithoutroses.gatling.hold": "Retarda o usuário enquanto dispara",
 	
 	"tooltip.gunswithoutroses.blaze_bullet": "Incendeia entidades",
