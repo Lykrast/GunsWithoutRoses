@@ -13,23 +13,20 @@
 	
 	"tooltip.gunswithoutroses.shift": "§7Maintenir §fMAJ§7 pour les stats§r",
 	"tooltip.gunswithoutroses.bullet.damage": "%d dégâts",
-	"tooltip.gunswithoutroses.gun.damage.flat": "§2Dégâts: §f+%s§r",
-	"tooltip.gunswithoutroses.gun.damage.mult": "§2Dégâts: §fx%s§r",
-	"tooltip.gunswithoutroses.gun.damage.both": "§2Dégâts: §fx%s +%s§r",
-	"tooltip.gunswithoutroses.gun.damage.flat.modified": "§dDégâts: §f+%s§r",
-	"tooltip.gunswithoutroses.gun.damage.mult.modified": "§dDégâts: §fx%s§r",
-	"tooltip.gunswithoutroses.gun.damage.both.modified": "§dDégâts: §fx%s +%s§r",
-	"tooltip.gunswithoutroses.gun.firerate": "§2Interval de tir: §f%d§7 (§f%d§7 tr/min)§r",
-	"tooltip.gunswithoutroses.gun.firerate.modified": "§dInterval de tir: §f%d§7 (§f%d§7 tr/min)§r",
-	"tooltip.gunswithoutroses.gun.accuracy": "§2Dispersion: §f%s§r",
-	"tooltip.gunswithoutroses.gun.accuracy.modified": "§dDispersion: §f%s§r",
-	"tooltip.gunswithoutroses.gun.accuracy.perfect": "§2Dispersion: §fAucune§r",
-	"tooltip.gunswithoutroses.gun.accuracy.perfect.modified": "§dDispersion: §fAucune§r",
-	"tooltip.gunswithoutroses.gun.chance_free": "§2Chance de ne pas utiliser de munition: §f%s%%§r",
-	"tooltip.gunswithoutroses.gun.chance_free.modified": "§dChance de ne pas utiliser de munition: §f%s%%§r",
-	"tooltip.gunswithoutroses.shotgun.shots": "Tire %s projectiles en même temps",
+	"tooltip.gunswithoutroses.gun.damage": "Dégâts: %s",
+	"tooltip.gunswithoutroses.gun.firerate": "Interval de tir: %s",
+	"tooltip.gunswithoutroses.gun.firerate.values": "%1$s (%2$s tr/min)",
+	"tooltip.gunswithoutroses.gun.accuracy": "Dispersion: %s",
+	"tooltip.gunswithoutroses.gun.accuracy.perfect": "Aucune",
+	"tooltip.gunswithoutroses.gun.chance_free": "Chance de ne pas utiliser de munition: %s",
+	"tooltip.gunswithoutroses.sniper.headshot": "Multiplicateur critique: %s",
+	"tooltip.gunswithoutroses.sniper.headshot.values": "x%1$s (total %2$s)",
+	"tooltip.gunswithoutroses.sniper.headshot.help": "Touchez au dessus des yeux pour un critique",
+	"tooltip.gunswithoutroses.shotgun.projectiles": "Projectiles: %s",
+	"tooltip.gunswithoutroses.shotgun.projectiles.values": "%1$s (dég max %2$s)",
+	"tooltip.gunswithoutroses.shotgun.projectiles.headshot": "%1$s (dég max %2$s, crit %3$s)",
 	"tooltip.gunswithoutroses.gatling.hold": "Ralenti l'utilisateur pendant le tir",
-	
+
 	"tooltip.gunswithoutroses.blaze_bullet": "Enflamme les entités",
 	
 	"itemGroup.gunswithoutroses": "Guns Without Roses",
@@ -42,6 +39,8 @@
 	"enchantment.gunswithoutroses.sleight_of_hand.desc": "Réduit l'interval de tir",
 	"enchantment.gunswithoutroses.preserving": "Préservation",
 	"enchantment.gunswithoutroses.preserving.desc": "Octroie une chance de ne pas utiliser de munition en tirant",
+	"enchantment.gunswithoutroses.deadeye": "Oeil de lynx",
+	"enchantment.gunswithoutroses.deadeye.desc": "Augmente le multiplicateur critique des fusils de précision",
 	
 	"attribute.name.gwr.damage_base": "dégâts par balle de base",
 	"attribute.name.gwr.damage_total": "dégâts par balle totaux",
@@ -49,6 +48,8 @@
 	"attribute.name.gwr.spread": "dispersion des balles",
 	"attribute.name.gwr.chance_ammo": "chance de consommer les balles",
 	"attribute.name.gwr.knockback": "recul par balle",
+	"attribute.name.gwr.sniper_crit_mult": "multiplicateur critique de fusil de précision",
+	"attribute.name.gwr.shotgun_projectiles": "projectiles de fusil à pompe",
 	
 	"effect.gunswithoutroses.gun_damage_up": "Force de fusil",
 	"effect.gunswithoutroses.gun_damage_down": "Faiblesse de fusil",
@@ -66,6 +67,7 @@
 	"subtitles.gunswithoutroses.item.gun.shoot": "Tir de fusil",
 	"subtitles.gunswithoutroses.item.shotgun.shoot": "Tir de fusil à pompe",
 	"subtitles.gunswithoutroses.item.sniper.shoot": "Tir de fusil de précision",
+	"subtitles.gunswithoutroses.item.sniper.crit": "Coup critique de fusil de précision",
 	
 	"subtitles.gunswithoutroses.item.bullet_bag.open": "Sac à balles qui s'ouvre",
 	"subtitles.gunswithoutroses.item.bullet_bag.close": "Sac à balles qui se ferme"
