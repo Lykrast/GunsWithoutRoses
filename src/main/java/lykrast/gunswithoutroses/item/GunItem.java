@@ -112,7 +112,8 @@ public class GunItem extends ProjectileWeaponItem {
 			ammo = override;
 			bulletItem = (IBullet) override.getItem();
 		}
-		for (int i = 0; i < projectiles; i++) {
+		int shots = getProjectilesPerShot(gun, player);
+		for (int i = 0; i < shots; i++) {
 			BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
 			shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, (float) getProjectileSpeed(gun, player), (float) getInaccuracy(gun, player));
 			shot.setDamage(Math.max(0, shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
@@ -135,7 +136,8 @@ public class GunItem extends ProjectileWeaponItem {
 			bulletItem = (IBullet) override.getItem();
 		}
 		Vec3 mobSpreaded = addSpread(target.getX() - shooter.getX(), target.getEyeY() - shooter.getEyeY(), target.getZ() - shooter.getZ(), mobSpread, shooter.getRandom());
-		for (int i = 0; i < projectiles; i++) {
+		int shots = getProjectilesPerShot(gun, shooter);
+		for (int i = 0; i < shots; i++) {
 			BulletEntity shot = bulletItem.createProjectile(shooter.level(), ammo, shooter);
 			shot.shoot(mobSpreaded.x, mobSpreaded.y, mobSpreaded.z, (float) getProjectileSpeed(gun, shooter), (float) getInaccuracy(gun, shooter));
 			shot.setDamage(Math.max(0, shot.getDamage() + getBonusDamage(gun, shooter)) * getDamageMultiplier(gun, shooter));
@@ -265,10 +267,14 @@ public class GunItem extends ProjectileWeaponItem {
 	
 	public double getHeadshotMultiplier(ItemStack stack, @Nullable LivingEntity shooter) {
 		if (!canHeadshot()) return 1;
-		//TODO attributes?
+		double mult = headshotMult;
+		//Deadeye
 		int deadeye = stack.getEnchantmentLevel(GWREnchantments.deadeye.get());
-		if (deadeye >= 1) return GWREnchantments.deadeyeModify(deadeye, headshotMult);
-		else return headshotMult;
+		if (deadeye >= 1) mult = GWREnchantments.deadeyeModify(deadeye, mult);
+		//attribute
+		if (shooter != null && shooter.getAttribute(GWRAttributes.sniperMult.get()) != null) mult += shooter.getAttributeValue(GWRAttributes.sniperMult.get());
+		//attribute can lower it, so we cap it at 1 (where it disables headshots)
+		return Math.max(1, mult);
 	}
 	
 	/**
@@ -280,8 +286,12 @@ public class GunItem extends ProjectileWeaponItem {
 	
 	public int getProjectilesPerShot(ItemStack stack, @Nullable LivingEntity shooter) {
 		if (!hasMultipleProjectiles()) return 1;
-		//TODO I'm not putting enchantments for this stats, but might add attributes
-		return projectiles;
+		//no enchantments but we got attributes and it might lower the proj count
+		//still want to shoot at least 1 bullet tho
+		if (shooter != null && shooter.getAttribute(GWRAttributes.shotgunProjectiles.get()) != null) {
+			return Math.max(1,(int) (projectiles + shooter.getAttributeValue(GWRAttributes.shotgunProjectiles.get())));
+		}
+		else return projectiles;
 	}
 
 	/**
@@ -323,6 +333,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Says if the projectile count is changed from base value. Used for tooltip.
 	 */
 	protected boolean isProjectileCountModified(ItemStack stack) {
+		//no enchantments for it cause +1 projectiles is too much, but can't be fractional
 		return false;
 	}
 

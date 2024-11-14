@@ -52,6 +52,8 @@
 	"attribute.name.gwr.spread": "Bullet Spread",
 	"attribute.name.gwr.chance_ammo": "Chance to not Consume Bullet",
 	"attribute.name.gwr.knockback": "Bullet Knockback",
+	"attribute.name.gwr.sniper_crit_mult": "Sniper Crit Multiplier",
+	"attribute.name.gwr.shotgun_projectiles": "Shotgun Projectiles",
 	
 	"effect.gunswithoutroses.gun_damage_up": "Gun Strength",
 	"effect.gunswithoutroses.gun_damage_down": "Gun Weakness",

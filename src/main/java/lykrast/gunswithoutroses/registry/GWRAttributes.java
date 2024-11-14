@@ -10,7 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class GWRAttributes {
-	public static RegistryObject<Attribute> dmgBase, dmgTotal, fireDelay, spread, chanceUseAmmo, knockback;
+	public static RegistryObject<Attribute> dmgBase, dmgTotal, fireDelay, spread, chanceUseAmmo, knockback, sniperMult, shotgunProjectiles;
 	public static final DeferredRegister<Attribute> REG = DeferredRegister.create(ForgeRegistries.ATTRIBUTES, GunsWithoutRoses.MODID);
 	
 	static {
@@ -20,6 +20,8 @@ public class GWRAttributes {
 		spread = initAttribute("spread", 1, 0, 1024, false);
 		chanceUseAmmo = initAttribute("chance_ammo", 1, 0, 1, false);
 		knockback = initAttribute("knockback", 0, 0, 1024, false);
+		sniperMult = initAttribute("sniper_crit_mult", 0, -1024, 1024, false);
+		shotgunProjectiles = initAttribute("shotgun_projectiles", 0, -1024, 1024, false);
 	}
 	
 	private static RegistryObject<Attribute> initAttribute(String name, double base, double min, double max, boolean sync) {
@@ -33,5 +35,7 @@ public class GWRAttributes {
 		event.add(EntityType.PLAYER, spread.get());
 		event.add(EntityType.PLAYER, chanceUseAmmo.get());
 		event.add(EntityType.PLAYER, knockback.get());
+		event.add(EntityType.PLAYER, sniperMult.get());
+		event.add(EntityType.PLAYER, shotgunProjectiles.get());
 	}
 }
