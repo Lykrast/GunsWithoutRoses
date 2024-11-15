@@ -1,11 +1,11 @@
 {
-    "type": "minecraft:crafting_shapeless",
-    "ingredients": [
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
 		{ "tag": "forge:ingots/iron" },
 		{ "tag": "forge:ingots/iron" },
 		{ "tag": "forge:ingots/iron" },
 		{ "tag": "forge:ingots/iron" },
-        { "tag": "forge:gunpowder" }
-    ],
+		{ "tag": "forge:gunpowder" }
+	],
 	"result": { "item": "gunswithoutroses:iron_bullet", "count": 32 }
 }

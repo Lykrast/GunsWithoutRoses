@@ -1,13 +1,15 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		"BBB",
-		"BPB",
-		"BBB"
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "item": "minecraft:blaze_powder" }
 	],
-	"key": {
-		"B": { "tag": "gunswithoutroses:bullet_base" },
-		"P": { "item": "minecraft:blaze_powder" }
-	},
 	"result": { "item": "gunswithoutroses:blaze_bullet", "count": 8 }
 }
