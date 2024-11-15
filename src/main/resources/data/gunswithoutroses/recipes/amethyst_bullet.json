@@ -1,0 +1,11 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{ "tag": "forge:gems/amethyst" },
+		{ "tag": "forge:gems/amethyst" },
+		{ "tag": "forge:gems/amethyst" },
+		{ "tag": "forge:gems/amethyst" },
+		{ "tag": "forge:gunpowder" }
+	],
+	"result": { "item": "gunswithoutroses:amethyst_bullet", "count": 32 }
+}
