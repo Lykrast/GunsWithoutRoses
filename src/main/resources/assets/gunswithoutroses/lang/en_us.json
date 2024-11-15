@@ -38,6 +38,7 @@
 	"tooltip.gunswithoutroses.blaze_bullet": "Sets entities on fire",
 	"tooltip.gunswithoutroses.explosive_bullet": "Deals %1$s-%2$s%% damage in an area",
 	"tooltip.gunswithoutroses.explosive_bullet.crit": "Sniper crits have greater radius",
+	"tooltip.gunswithoutroses.bullet.piercing": "Pierces through %d entities",
 	
 	"itemGroup.gunswithoutroses": "Guns Without Roses",
 	
@@ -71,6 +72,7 @@
 	"effect.gunswithoutroses.gun_knockback_up": "Gun Punch",
 	
 	"entity.gunswithoutroses.bullet": "Bullet",
+	"entity.gunswithoutroses.bullet_piercing": "Piercing Bullet",
 	"death.attack.gwrgun": "%1$s was gunned down by %2$s",
 	"death.attack.gwrgun.item": "%1$s was gunned down by %2$s with %3$s",
 

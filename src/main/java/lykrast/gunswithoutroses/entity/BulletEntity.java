@@ -27,8 +27,8 @@ public class BulletEntity extends Fireball {
 	protected double headshotMult = 1;
 	protected int ticksSinceFired;
 
-	public BulletEntity(EntityType<? extends BulletEntity> p_i50160_1_, Level p_i50160_2_) {
-		super(p_i50160_1_, p_i50160_2_);
+	public BulletEntity(EntityType<? extends BulletEntity> type, Level level) {
+		super(type, level);
 	}
 
 	public BulletEntity(Level worldIn, LivingEntity shooter) {
@@ -36,12 +36,12 @@ public class BulletEntity extends Fireball {
 		setPos(shooter.getX(), shooter.getEyeY() - 0.1, shooter.getZ());
 	}
 
-	public BulletEntity(Level worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-		super(GWREntities.BULLET.get(), shooter, accelX, accelY, accelZ, worldIn);
+	public BulletEntity(Level level, LivingEntity shooter, double accelX, double accelY, double accelZ) {
+		super(GWREntities.BULLET.get(), shooter, accelX, accelY, accelZ, level);
 	}
 
-	public BulletEntity(Level worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
-		super(GWREntities.BULLET.get(), x, y, z, accelX, accelY, accelZ, worldIn);
+	public BulletEntity(Level level, double x, double y, double z, double accelX, double accelY, double accelZ) {
+		super(GWREntities.BULLET.get(), x, y, z, accelX, accelY, accelZ, level);
 	}
 
 	private static final double STOP_TRESHOLD = 0.01;
@@ -110,7 +110,16 @@ public class BulletEntity extends Fireball {
 	protected void onHit(HitResult result) {
 		super.onHit(result);
 		//Don't disappear on blocks if we're set to noclipping
-		if (!level().isClientSide && (!noPhysics || result.getType() != HitResult.Type.BLOCK)) remove(RemovalReason.KILLED);
+		if (!level().isClientSide && (!noPhysics || result.getType() != HitResult.Type.BLOCK) && shouldDespawnOnHit(result)) remove(RemovalReason.KILLED);
+	}
+	
+	/**
+	 * Called on server on an impact after the onhitentity/block to know if should be removed or not.
+	 * <br>Will not be called when a noclipping bullet hits a block.
+	 * <br>Intended to be overridden for like piercing or bouncy bullets.
+	 */
+	protected boolean shouldDespawnOnHit(HitResult result) {
+		return true;
 	}
 
 	@SuppressWarnings("resource")

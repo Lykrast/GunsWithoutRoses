@@ -23,7 +23,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class GWRItems {
 	public static RegistryObject<GunItem> ironGun, goldGun, blazeGun, diamondShotgun, diamondSniper, diamondGatling;
-	public static RegistryObject<BulletItem> flintBullet, ironBullet, blazeBullet, explosiveBullet;
+	public static RegistryObject<BulletItem> flintBullet, ironBullet, blazeBullet, explosiveBullet, amethystBullet;
 	public static RegistryObject<BulletBagItem> bulletBag;
 	public static TagKey<Item> tagBaseBullet = ItemTags.create(GunsWithoutRoses.rl("bullet_base"));
 	public static final DeferredRegister<Item> REG = DeferredRegister.create(ForgeRegistries.ITEMS, GunsWithoutRoses.MODID);
@@ -50,6 +50,7 @@ public class GWRItems {
 		ironBullet = initItem(() -> new BulletItem(defP(), 6), "iron_bullet");
 		blazeBullet = initItem(() -> new BlazeBulletItem(defP(), 8), "blaze_bullet");
 		explosiveBullet = initItem(() -> new ExplosiveBulletItem(defP(), 6), "explosive_bullet");
+		amethystBullet = initItem(() -> new PiercingBulletItem(defP(), 6, 2), "amethyst_bullet");
 		
 		bulletBag = initItem(() -> new BulletBagItem(defP().stacksTo(1)), "bullet_bag");
 	}
