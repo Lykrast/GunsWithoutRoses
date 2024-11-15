@@ -4,10 +4,13 @@
 	"item.gunswithoutroses.diamond_shotgun": "Fusil à pompe en diamant",
 	"item.gunswithoutroses.diamond_sniper": "Fusil de précision en diamant",
 	"item.gunswithoutroses.diamond_gatling": "Gatling en diamant",
+	"item.gunswithoutroses.blaze_gun": "Fusil de Blaze",
 	
 	"item.gunswithoutroses.flint_bullet": "Balle en silex",
 	"item.gunswithoutroses.iron_bullet": "Balle en fer",
 	"item.gunswithoutroses.blaze_bullet": "Balle de Blaze",
+	"item.gunswithoutroses.explosive_bullet": "Balle explosive",
+	"item.gunswithoutroses.amethyst_bullet": "Balle en améthyste",
 	
 	"item.gunswithoutroses.bullet_bag": "Sac à balles",
 	
@@ -27,7 +30,14 @@
 	"tooltip.gunswithoutroses.shotgun.projectiles.headshot": "%1$s (dég max %2$s, crit %3$s)",
 	"tooltip.gunswithoutroses.gatling.hold": "Ralenti l'utilisateur pendant le tir",
 
+	"tooltip.gunswithoutroses.blaze_gun": "Converti les balles en fer tirées en balles de Blaze",
+
 	"tooltip.gunswithoutroses.blaze_bullet": "Enflamme les entités",
+	"tooltip.gunswithoutroses.explosive_bullet": "Inflige %1$s-%2$s%% de dégâts de zone",
+	"tooltip.gunswithoutroses.explosive_bullet.crit": "Les critiques de fusil de précision ont un plus grand rayon",
+	"tooltip.gunswithoutroses.bullet.piercing": "Transperce %d entités",
+	"tooltip.gunswithoutroses.bullet.piercing.mult.gain": "Gagne %d%% de dégâts par perforation",
+	"tooltip.gunswithoutroses.bullet.piercing.mult.lose": "Perds %d%% de dégâts par perforation",
 	
 	"itemGroup.gunswithoutroses": "Guns Without Roses",
 	

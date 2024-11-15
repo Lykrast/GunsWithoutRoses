@@ -35,6 +35,7 @@
 	"tooltip.gunswithoutroses.gatling.hold": "Slows user while firing",
 	
 	"tooltip.gunswithoutroses.blaze_gun": "Converts fired Iron Bullets into Blaze Bullets",
+	
 	"tooltip.gunswithoutroses.blaze_bullet": "Sets entities on fire",
 	"tooltip.gunswithoutroses.explosive_bullet": "Deals %1$s-%2$s%% damage in an area",
 	"tooltip.gunswithoutroses.explosive_bullet.crit": "Sniper crits have greater radius",
