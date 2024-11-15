@@ -48,22 +48,22 @@ public class GatlingItem extends GunItem {
 				if (!ammo.isEmpty() || player.getAbilities().instabuild) {
 					if (!world.isClientSide) {
 						//this is for creative
-						if (ammo.isEmpty()) ammo = new ItemStack(GWRItems.flintBullet.get());
+						if (ammo.isEmpty()) ammo = new ItemStack(GWRItems.ironBullet.get());
 						//There was at least one instance of quiver mod not respecting getAmmoPredicate()
 						//so I have to put wayyy more instanceof IBullet checks than I should need to >:(
-						IBullet parentBullet = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : GWRItems.flintBullet.get());
+						IBullet parentBullet = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : GWRItems.ironBullet.get());
 						//For the bullet bag we doing the indirection here
 						ItemStack firedAmmo = ammo;
 						IBullet firedBullet = parentBullet;
 						if (parentBullet.hasDelegate(ammo, player)) {
 							firedAmmo = parentBullet.getDelegate(ammo, player);
-							firedBullet = (IBullet) (firedAmmo.getItem() instanceof IBullet ? firedAmmo.getItem() : GWRItems.flintBullet.get());
+							firedBullet = (IBullet) (firedAmmo.getItem() instanceof IBullet ? firedAmmo.getItem() : GWRItems.ironBullet.get());
 						}
 
 						boolean bulletFree = player.getAbilities().instabuild || !shouldConsumeAmmo(gun, player);
 
 						//Workaround for quivers not respecting getAmmoPredicate()
-						if (!(firedAmmo.getItem() instanceof IBullet)) firedAmmo = new ItemStack(GWRItems.flintBullet.get());
+						if (!(firedAmmo.getItem() instanceof IBullet)) firedAmmo = new ItemStack(GWRItems.ironBullet.get());
 						shoot(world, player, gun, firedAmmo, firedBullet, bulletFree);
 
 						gun.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));

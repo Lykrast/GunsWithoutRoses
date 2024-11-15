@@ -74,7 +74,7 @@ public class BulletEntity extends Fireball {
 			Entity target = raytrace.getEntity();
 			Entity shooter = getOwner();
 			Item item = getItemRaw().getItem();
-			IBullet bullet = item instanceof IBullet ? (IBullet) item : GWRItems.flintBullet.get();
+			IBullet bullet = item instanceof IBullet ? (IBullet) item : GWRItems.ironBullet.get();
 			
 			if (isOnFire()) target.setSecondsOnFire(5);
 			int lastHurtResistant = target.invulnerableTime;
@@ -120,7 +120,7 @@ public class BulletEntity extends Fireball {
 		if (noPhysics) return;
 		super.onHitBlock(result);		
 		if (!level().isClientSide) {
-			IBullet bullet = getItemRaw().getItem() instanceof IBullet ? (IBullet) getItemRaw().getItem() : GWRItems.flintBullet.get();
+			IBullet bullet = getItemRaw().getItem() instanceof IBullet ? (IBullet) getItemRaw().getItem() : GWRItems.ironBullet.get();
 			bullet.onBlockHit(this, result, getOwner(), level());
 		}
 	}
