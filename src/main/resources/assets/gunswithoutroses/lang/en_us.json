@@ -39,6 +39,8 @@
 	"tooltip.gunswithoutroses.explosive_bullet": "Deals %1$s-%2$s%% damage in an area",
 	"tooltip.gunswithoutroses.explosive_bullet.crit": "Sniper crits have greater radius",
 	"tooltip.gunswithoutroses.bullet.piercing": "Pierces through %d entities",
+	"tooltip.gunswithoutroses.bullet.piercing.mult.gain": "Gains %d%% damage per pierce",
+	"tooltip.gunswithoutroses.bullet.piercing.mult.lose": "Loses %d%% damage per pierce",
 	
 	"itemGroup.gunswithoutroses": "Guns Without Roses",
 	

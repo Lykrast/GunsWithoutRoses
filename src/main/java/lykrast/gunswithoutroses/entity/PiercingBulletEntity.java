@@ -15,6 +15,8 @@ import net.minecraft.world.phys.HitResult;
 public class PiercingBulletEntity extends BulletEntity {
 	//number of entities it can still go through
 	protected int pierce;
+	//how much damage is multiplied by after each pierce
+	protected double pierceMult;
 	//copied that stuff from arrows
 	@Nullable
 	private IntOpenHashSet piercingIgnoreEntityIds;
@@ -50,6 +52,7 @@ public class PiercingBulletEntity extends BulletEntity {
 		super.onHitEntity(raytrace);
 		if (piercingIgnoreEntityIds == null) piercingIgnoreEntityIds = new IntOpenHashSet(5);
 		piercingIgnoreEntityIds.add(raytrace.getEntity().getId());
+		damage *= pierceMult;
 		//pierce of 1 means pierce the first and disappear on second, and since this is after adding the target to the hash that should be good
 		if (piercingIgnoreEntityIds.size() > pierce) remove(RemovalReason.KILLED);
 	}
@@ -69,16 +72,26 @@ public class PiercingBulletEntity extends BulletEntity {
 		return pierce;
 	}
 
+	public void setPierceMultiplier(double pierceMult) {
+		this.pierceMult = pierceMult;
+	}
+
+	public double getPierceMultiplier() {
+		return pierceMult;
+	}
+
 	@Override
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("pierce", pierce);
+		compound.putFloat("pierceMult", (float)pierceMult);
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		pierce = compound.getInt("pierce");
+		pierceMult = compound.getFloat("pierceMult");
 	}
 
 }

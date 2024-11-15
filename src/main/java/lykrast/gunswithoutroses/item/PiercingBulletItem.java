@@ -17,10 +17,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class PiercingBulletItem extends BulletItem {
 	protected int pierce;
+	protected double pierceMult;
 
 	public PiercingBulletItem(Properties properties, int damage, int pierce) {
+		this(properties, damage, pierce, 1);
+	}
+
+	public PiercingBulletItem(Properties properties, int damage, int pierce, double pierceMult) {
 		super(properties, damage);
 		this.pierce = pierce;
+		this.pierceMult = pierceMult;
 	}
 
 	@Override
@@ -29,6 +35,7 @@ public class PiercingBulletItem extends BulletItem {
 		entity.setItem(stack);
 		entity.setDamage(damage);
 		entity.setPierce(pierce);
+		entity.setPierceMultiplier(pierceMult);
 		return entity;
 	}
 
@@ -37,5 +44,7 @@ public class PiercingBulletItem extends BulletItem {
 	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		super.appendHoverText(stack, worldIn, tooltip, flagIn);
 		tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet.piercing", pierce).withStyle(ChatFormatting.GRAY));
+		if (pierceMult > 1) tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet.piercing.mult.gain", (int)(100*(pierceMult-1))).withStyle(ChatFormatting.GRAY));
+		else if (pierceMult < 1) tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet.piercing.mult.lose", (int)(100*(1-pierceMult))).withStyle(ChatFormatting.GRAY));
 	}
 }
