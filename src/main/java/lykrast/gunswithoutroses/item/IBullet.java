@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 
 public interface IBullet {
 	/**
@@ -55,6 +56,13 @@ public interface IBullet {
 	/**
 	 * Called on server when a default projectile (or one that extends it) hits a block, right before it's removed.
 	 * <br/>Noclipping bullets never call this.
+	 */
+	default void onBlockHit(BulletEntity projectile, BlockHitResult hit, @Nullable Entity shooter, Level level) {
+		onBlockHit(projectile, projectile.level().getBlockState(hit.getBlockPos()), shooter, level);
+	}
+
+	/**
+	 * @deprecated {@link lykrast.gunswithoutroses.item.IBullet#onBlockHit(BulletEntity, BlockHitResult, Entity, Level) Use new version with BlockHitResult, will remove this in 1.21}
 	 */
 	default void onBlockHit(BulletEntity projectile, BlockState block, @Nullable Entity shooter, Level level) {}
 	

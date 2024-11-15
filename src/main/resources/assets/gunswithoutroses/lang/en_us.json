@@ -4,10 +4,13 @@
 	"item.gunswithoutroses.diamond_shotgun": "Diamond Shotgun",
 	"item.gunswithoutroses.diamond_sniper": "Diamond Sniper",
 	"item.gunswithoutroses.diamond_gatling": "Diamond Gatling",
+	"item.gunswithoutroses.blaze_gun": "Blaze Gun",
 	
 	"item.gunswithoutroses.flint_bullet": "Flint Bullet",
 	"item.gunswithoutroses.iron_bullet": "Iron Bullet",
 	"item.gunswithoutroses.blaze_bullet": "Blaze Bullet",
+	"item.gunswithoutroses.explosive_bullet": "Explosive Bullet",
+	"item.gunswithoutroses.amethyst_bullet": "Amethyst Bullet",
 	
 	"item.gunswithoutroses.bullet_bag": "Bullet Bag",
 	
@@ -31,7 +34,10 @@
 	"tooltip.gunswithoutroses.shotgun.projectiles.headshot": "%1$s (max dmg %2$s, crit %3$s)",
 	"tooltip.gunswithoutroses.gatling.hold": "Slows user while firing",
 	
+	"tooltip.gunswithoutroses.blaze_gun": "Converts fired Iron Bullets into Blaze Bullets",
 	"tooltip.gunswithoutroses.blaze_bullet": "Sets entities on fire",
+	"tooltip.gunswithoutroses.explosive_bullet": "Deals %1$s-%2$s%% damage in an area",
+	"tooltip.gunswithoutroses.explosive_bullet.crit": "Sniper crits have greater radius",
 	
 	"itemGroup.gunswithoutroses": "Guns Without Roses",
 	

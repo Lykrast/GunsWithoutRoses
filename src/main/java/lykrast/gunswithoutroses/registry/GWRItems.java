@@ -5,14 +5,12 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import lykrast.gunswithoutroses.GunsWithoutRoses;
-import lykrast.gunswithoutroses.item.BlazeBulletItem;
-import lykrast.gunswithoutroses.item.BulletBagItem;
-import lykrast.gunswithoutroses.item.BulletItem;
-import lykrast.gunswithoutroses.item.GatlingItem;
-import lykrast.gunswithoutroses.item.GunItem;
+import lykrast.gunswithoutroses.item.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,9 +22,10 @@ import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
 public class GWRItems {
-	public static RegistryObject<GunItem> ironGun, goldGun, diamondShotgun, diamondSniper, diamondGatling;
-	public static RegistryObject<BulletItem> flintBullet, ironBullet, blazeBullet;
+	public static RegistryObject<GunItem> ironGun, goldGun, blazeGun, diamondShotgun, diamondSniper, diamondGatling;
+	public static RegistryObject<BulletItem> flintBullet, ironBullet, blazeBullet, explosiveBullet;
 	public static RegistryObject<BulletBagItem> bulletBag;
+	public static TagKey<Item> tagBaseBullet = ItemTags.create(GunsWithoutRoses.rl("bullet_base"));
 	public static final DeferredRegister<Item> REG = DeferredRegister.create(ForgeRegistries.ITEMS, GunsWithoutRoses.MODID);
 	
 	private static List<RegistryObject<? extends Item>> orderedItemsCreative = new ArrayList<>();
@@ -42,6 +41,7 @@ public class GWRItems {
 	static {
 		ironGun = initItem(() -> new GunItem(defP().durability(513), 0, 1, 16, 2, 14).repair(() -> Ingredient.of(Tags.Items.INGOTS_IRON)), "iron_gun");
 		goldGun = initItem(() -> new GunItem(defP().durability(104), 0, 1, 16, 2, 22).repair(() -> Ingredient.of(Tags.Items.INGOTS_GOLD)), "gold_gun");
+		blazeGun = initItem(() -> new BlazeGunItem(defP().durability(666), 1, 1, 16, 2, 16).repair(() -> Ingredient.of(Tags.Items.RODS_BLAZE)), "blaze_gun");
 		diamondShotgun = initItem(() -> new GunItem(defP().durability(2076), 0, 0.6, 20, 6, 10).projectiles(4).fireSound(GWRSounds.shotgun::get).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_shotgun");
 		diamondSniper = initItem(() -> new GunItem(defP().durability(2076), 0, 1.6, 24, 0, 10).headshotMult(1.5).projectileSpeed(4).fireSound(GWRSounds.sniper::get).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_sniper");
 		diamondGatling = initItem(() -> new GatlingItem(defP().durability(2076), 0, 1, 4, 4, 10).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_gatling");
@@ -49,6 +49,7 @@ public class GWRItems {
 		flintBullet = initItem(() -> new BulletItem(defP(), 5), "flint_bullet");
 		ironBullet = initItem(() -> new BulletItem(defP(), 6), "iron_bullet");
 		blazeBullet = initItem(() -> new BlazeBulletItem(defP(), 8), "blaze_bullet");
+		explosiveBullet = initItem(() -> new ExplosiveBulletItem(defP(), 6), "explosive_bullet");
 		
 		bulletBag = initItem(() -> new BulletBagItem(defP().stacksTo(1)), "bullet_bag");
 	}

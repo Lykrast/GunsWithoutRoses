@@ -15,7 +15,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -121,9 +120,8 @@ public class BulletEntity extends Fireball {
 		if (noPhysics) return;
 		super.onHitBlock(result);		
 		if (!level().isClientSide) {
-			BlockState blockstate = level().getBlockState(result.getBlockPos());
 			IBullet bullet = getItemRaw().getItem() instanceof IBullet ? (IBullet) getItemRaw().getItem() : GWRItems.flintBullet.get();
-			bullet.onBlockHit(this, blockstate, getOwner(), level());
+			bullet.onBlockHit(this, result, getOwner(), level());
 		}
 	}
 
