@@ -3,6 +3,7 @@ package lykrast.gunswithoutroses.entity;
 import javax.annotation.Nullable;
 
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import lykrast.gunswithoutroses.registry.GWREntities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -12,7 +13,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
 public class PiercingBulletEntity extends BulletEntity {
-	//TODO AAAAA JANKY COLLISION IT ONLY HITS ONCE PER TICK
 	//number of entities it can still go through
 	protected int pierce;
 	//copied that stuff from arrows
@@ -24,7 +24,20 @@ public class PiercingBulletEntity extends BulletEntity {
 	}
 
 	public PiercingBulletEntity(Level level, LivingEntity shooter) {
-		super(level, shooter);
+		super(GWREntities.BULLET_PIERCING.get(), shooter, level);
+	}
+	
+	@Override
+	protected void processCollision() {
+		//do it like arrows, loop while we're hitting entities so we can pierce in a single tick
+		while (!isRemoved()) {
+			HitResult hitresult = getHitResult();
+			if (hitresult.getType() != HitResult.Type.MISS) {
+				if (net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult)) break;
+				onHit(hitresult);
+			}
+			if (hitresult.getType() != HitResult.Type.ENTITY) break;
+		}
 	}
 
 	@Override
@@ -37,12 +50,13 @@ public class PiercingBulletEntity extends BulletEntity {
 		super.onHitEntity(raytrace);
 		if (piercingIgnoreEntityIds == null) piercingIgnoreEntityIds = new IntOpenHashSet(5);
 		piercingIgnoreEntityIds.add(raytrace.getEntity().getId());
-		System.out.println(piercingIgnoreEntityIds.size());
+		//pierce of 1 means pierce the first and disappear on second, and since this is after adding the target to the hash that should be good
+		if (piercingIgnoreEntityIds.size() > pierce) remove(RemovalReason.KILLED);
 	}
 	
 	@Override
 	protected boolean shouldDespawnOnHit(HitResult result) {
-		//pierce of 1 means pierce the first and disappear on second, and since this is after adding the target to the hash that should be good
+		//the removal is handlded on the onhitentity but we still need to check here
 		if (result.getType() == HitResult.Type.ENTITY) return (piercingIgnoreEntityIds != null && piercingIgnoreEntityIds.size() > pierce);
 		else return true;
 	}

@@ -1,6 +1,6 @@
 package lykrast.gunswithoutroses;
 
-import lykrast.gunswithoutroses.entity.BulletEntity;
+import lykrast.gunswithoutroses.entity.*;
 import lykrast.gunswithoutroses.gui.BulletBagGui;
 import lykrast.gunswithoutroses.item.BulletBagItem;
 import lykrast.gunswithoutroses.registry.GWREntities;
@@ -23,6 +23,7 @@ public class ClientStuff {
     public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
 		//Same renderer as potions
     	event.registerEntityRenderer(GWREntities.BULLET.get(), (context) -> new ThrownItemRenderer<BulletEntity>(context));
+    	event.registerEntityRenderer(GWREntities.BULLET_PIERCING.get(), (context) -> new ThrownItemRenderer<PiercingBulletEntity>(context));
     }
 
 	@SubscribeEvent
