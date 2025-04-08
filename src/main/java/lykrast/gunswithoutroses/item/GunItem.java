@@ -126,16 +126,24 @@ public class GunItem extends ProjectileWeaponItem {
 	}
 
 	/**
-	 * This one is meant for mobs.
+	 * This one is meant for mobs. Will aim at the target's eyes. Use the one with x y z if you want more control.
 	 * @param mobSpread added spread to the shot that scales with difficulty (vanilla skeletons have x10/6/2 on easy/medium/hard), but will keep shotgun spreads the same
 	 */
 	public void shootAt(LivingEntity shooter, LivingEntity target, ItemStack gun, ItemStack ammo, IBullet bulletItem, double mobSpread, boolean bulletFree) {
+		shootAt(shooter, target.getX(), target.getEyeY(), target.getZ(), gun, ammo, bulletItem, mobSpread, bulletFree);
+	}
+
+	/**
+	 * This one is meant for mobs. Aims at x y z. Use the one that takes LivingEntity target if you're not doing anything fancy.
+	 * @param mobSpread added spread to the shot that scales with difficulty (vanilla skeletons have x10/6/2 on easy/medium/hard), but will keep shotgun spreads the same
+	 */
+	public void shootAt(LivingEntity shooter, double x, double y, double z, ItemStack gun, ItemStack ammo, IBullet bulletItem, double mobSpread, boolean bulletFree) {
 		ItemStack override = overrideFiredStack(shooter, gun, ammo, bulletItem, bulletFree);
 		if (override != ammo) {
 			ammo = override;
 			bulletItem = (IBullet) override.getItem();
 		}
-		Vec3 mobSpreaded = addSpread(target.getX() - shooter.getX(), target.getEyeY() - shooter.getEyeY(), target.getZ() - shooter.getZ(), mobSpread, shooter.getRandom());
+		Vec3 mobSpreaded = addSpread(x - shooter.getX(), y - shooter.getEyeY(), z - shooter.getZ(), mobSpread, shooter.getRandom());
 		int shots = getProjectilesPerShot(gun, shooter);
 		for (int i = 0; i < shots; i++) {
 			BulletEntity shot = bulletItem.createProjectile(shooter.level(), ammo, shooter);
