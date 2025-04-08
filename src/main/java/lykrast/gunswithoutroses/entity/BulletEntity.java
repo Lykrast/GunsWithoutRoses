@@ -37,6 +37,9 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 	protected double damage = 1;
 	protected double knockbackStrength = 0;
 	protected double headshotMult = 1;
+	//same as fireballs but now it can be changed yay
+	protected static final double DEFAULT_WATER_INERTIA = 0.8;
+	protected double waterInertia = DEFAULT_WATER_INERTIA;
 	protected int ticksSinceFired;
 
 	public BulletEntity(EntityType<? extends BulletEntity> type, Level level) {
@@ -62,9 +65,8 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 
 	private static final double STOP_TRESHOLD = 0.01;
 	
-	protected double waterInertia() {
-		//same as fireballs but now it can be changed yay
-		return 0.8;
+	public double getWaterInertia() {
+		return waterInertia;
 	}
 	
 	//copied from ProjectileUtil.getHitResultOnMoveVector so that it can hit through blocks properly
@@ -119,7 +121,7 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 					level().addParticle(ParticleTypes.BUBBLE, nextx - vec3.x * 0.25, nexty - vec3.y * 0.25, nextz - vec3.z * 0.25, vec3.x, vec3.y, vec3.z);
 				}
 
-				setDeltaMovement(vec3.scale(waterInertia()));
+				setDeltaMovement(vec3.scale(getWaterInertia()));
 			}
 
 			level().addParticle(getTrailParticle(), nextx, nexty + 0.5, nextz, 0, 0, 0);
@@ -215,6 +217,7 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 		compound.putDouble("damage", damage);
 		if (knockbackStrength != 0) compound.putDouble("knockback", knockbackStrength);
 		if (headshotMult > 1) compound.putDouble("hsmult", headshotMult);
+		if (waterInertia != DEFAULT_WATER_INERTIA) compound.putDouble("waterinertia", waterInertia);
 		//Fireball stuff
 		ItemStack itemstack = this.getItemRaw();
 		if (!itemstack.isEmpty()) compound.put("Item", itemstack.save(new CompoundTag()));
@@ -225,8 +228,9 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 		super.readAdditionalSaveData(compound);
 		ticksSinceFired = compound.getInt("tsf");
 		damage = compound.getDouble("damage");
-		knockbackStrength = compound.getDouble("knockback");
-		headshotMult = Math.max(1, compound.getDouble("hsmult"));
+		if (compound.contains("knockback")) knockbackStrength = compound.getDouble("knockback");
+		if (compound.contains("hsmult")) headshotMult = Math.max(1, compound.getDouble("hsmult"));
+		if (compound.contains("waterinertia")) waterInertia = compound.getDouble("waterinertia");
 		//Fireball stuff
 		setItem(ItemStack.of(compound.getCompound("Item")));
 	}
@@ -265,12 +269,22 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 		return knockbackStrength;
 	}
 	
+	/**
+	 * Damage multiplier when hitting the head. 1 or lower disables that detection.
+	 */
 	public void setHeadshotMultiplier(double headshotMult) {
 		this.headshotMult = headshotMult;
 	}
 	
 	public double getHeadshotMultiplier() {
 		return headshotMult;
+	}
+	
+	/**
+	 * Velocity multiplier each tick in water. Default is 0.8
+	 */
+	public void setWaterInertia(double inertia) {
+		this.waterInertia = inertia;
 	}
 
 	@Override

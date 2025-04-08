@@ -11,6 +11,7 @@
 	"item.gunswithoutroses.blaze_bullet": "Blaze Bullet",
 	"item.gunswithoutroses.explosive_bullet": "Explosive Bullet",
 	"item.gunswithoutroses.amethyst_bullet": "Amethyst Bullet",
+	"item.gunswithoutroses.prismarine_bullet": "Prismarine Bullet",
 	
 	"item.gunswithoutroses.bullet_bag": "Bullet Bag",
 	
@@ -42,6 +43,7 @@
 	"tooltip.gunswithoutroses.bullet.piercing": "Pierces through %d entities",
 	"tooltip.gunswithoutroses.bullet.piercing.mult.gain": "Gains %d%% damage per pierce",
 	"tooltip.gunswithoutroses.bullet.piercing.mult.lose": "Loses %d%% damage per pierce",
+	"tooltip.gunswithoutroses.prismarine_bullet": "Unaffected by water",
 	
 	"itemGroup.gunswithoutroses": "Guns Without Roses",
 	

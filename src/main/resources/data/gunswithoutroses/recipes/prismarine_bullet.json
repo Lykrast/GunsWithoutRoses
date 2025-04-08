@@ -1,0 +1,11 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{ "tag": "forge:dusts/prismarine" },
+		{ "tag": "forge:dusts/prismarine" },
+		{ "tag": "forge:dusts/prismarine" },
+		{ "tag": "forge:dusts/prismarine" },
+		{ "tag": "forge:gunpowder" }
+	],
+	"result": { "item": "gunswithoutroses:prismarine_bullet", "count": 32 }
+}
