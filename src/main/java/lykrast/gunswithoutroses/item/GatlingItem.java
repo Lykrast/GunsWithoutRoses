@@ -22,6 +22,13 @@ import net.minecraft.world.level.Level;
 public class GatlingItem extends GunItem {
 	protected double fireDelayFractional;
 
+	//Uuuuh whoopsies while it's fine in code to change that int to double, it's not fine in execution
+	//and if I deprecate this constructor then writing a plain 4 gives the warning
+	//I'll leave it here to not break existing addons
+	public GatlingItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, int enchantability) {
+		this(properties, bonusDamage, damageMultiplier, (double)fireDelay, inaccuracy, enchantability);
+	}
+
 	public GatlingItem(Properties properties, int bonusDamage, double damageMultiplier, double fireDelay, double inaccuracy, int enchantability) {
 		super(properties, bonusDamage, damageMultiplier, (int) Math.ceil(fireDelay), inaccuracy, enchantability);
 		fireDelayFractional = fireDelay;
