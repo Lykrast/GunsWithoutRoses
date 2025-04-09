@@ -41,7 +41,14 @@ public class GWREnchantments {
 	 * Modify fire delay given Sleight of Hand.
 	 */
 	public static final int sleightModify(int level, int fireDelay) {
-		return (int)(fireDelay / (1 + 0.16*level));
+		return (int)(fireDelay / (1 + 0.2*level));
+	}
+	
+	/**
+	 * Modify fire delay given Sleight of Hand, but keeping decimals (used for gatlings).
+	 */
+	public static final double sleightModifyFractional(int level, double fireDelay) {
+		return fireDelay / (1 + 0.2*level);
 	}
 	
 	/**

@@ -31,8 +31,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class GunItem extends ProjectileWeaponItem {
 	protected int bonusDamage;
@@ -404,7 +402,6 @@ public class GunItem extends ProjectileWeaponItem {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
 		if (Screen.hasShiftDown()) {
 			MutableComponent values;
@@ -468,12 +465,7 @@ public class GunItem extends ProjectileWeaponItem {
 			}
 
 			//Fire rate
-			int fireDelay = getFireDelay(stack, null);
-			values = Component.translatable("tooltip.gunswithoutroses.gun.firerate.values", 
-					Component.literal(Integer.toString(fireDelay)).withStyle(ChatFormatting.WHITE),
-					Component.literal(Integer.toString((60 * 20) / fireDelay)).withStyle(ChatFormatting.WHITE))
-					.withStyle(ChatFormatting.GRAY);
-			tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.firerate", values).withStyle(isFireDelayModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
+			customFireRateTooltip(stack, world, tooltip);
 
 			//Accuracy
 			if (hasPerfectAccuracy()) values = Component.translatable("tooltip.gunswithoutroses.gun.accuracy.perfect").withStyle(ChatFormatting.WHITE);
@@ -493,6 +485,19 @@ public class GunItem extends ProjectileWeaponItem {
 			addExtraStatsTooltip(stack, world, tooltip);
 		}
 		else tooltip.add(Component.translatable("tooltip.gunswithoutroses.shift"));
+	}
+
+	/**
+	 * For guns with wonky fire rates to change that cleanly in the middle of the base tooltip.
+	 * <br/>For gatlings and future charge rifles.
+	 */
+	protected void customFireRateTooltip(ItemStack stack, @Nullable Level world, List<Component> tooltip) {
+		int fireDelay = getFireDelay(stack, null);
+		MutableComponent values = Component.translatable("tooltip.gunswithoutroses.gun.firerate.values", 
+				Component.literal(Integer.toString(fireDelay)).withStyle(ChatFormatting.WHITE),
+				Component.literal(Integer.toString((60 * 20) / fireDelay)).withStyle(ChatFormatting.WHITE))
+				.withStyle(ChatFormatting.GRAY);
+		tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.firerate", values).withStyle(isFireDelayModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
 	}
 
 	/**
