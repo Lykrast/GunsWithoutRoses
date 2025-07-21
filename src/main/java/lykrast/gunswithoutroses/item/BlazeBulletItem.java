@@ -11,8 +11,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class BlazeBulletItem extends BulletItem {
 
@@ -28,7 +26,6 @@ public class BlazeBulletItem extends BulletItem {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		super.appendHoverText(stack, worldIn, tooltip, flagIn);
 		tooltip.add(Component.translatable("tooltip.gunswithoutroses.blaze_bullet").withStyle(ChatFormatting.GRAY));

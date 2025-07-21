@@ -18,8 +18,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ExplosiveBulletItem extends BulletItem {
 
@@ -90,10 +88,9 @@ public class ExplosiveBulletItem extends BulletItem {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		super.appendHoverText(stack, worldIn, tooltip, flagIn);
-		tooltip.add(Component.translatable("tooltip.gunswithoutroses.explosive_bullet", (int)(100*DMG_MAX), (int)(100*DMG_MIN)).withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable("tooltip.gunswithoutroses.explosive_bullet", (int)Math.round(100*DMG_MAX), (int)Math.round(100*DMG_MIN)).withStyle(ChatFormatting.GRAY));
 		tooltip.add(Component.translatable("tooltip.gunswithoutroses.explosive_bullet.crit").withStyle(ChatFormatting.GRAY));
 	}
 
