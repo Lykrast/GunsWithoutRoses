@@ -1,0 +1,11 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{ "item": "minecraft:chorus_fruit" },
+		{ "item": "minecraft:chorus_fruit" },
+		{ "item": "minecraft:chorus_fruit" },
+		{ "item": "minecraft:chorus_fruit" },
+		{ "tag": "forge:gunpowder" }
+	],
+	"result": { "item": "gunswithoutroses:chorus_fruit_bullet", "count": 32 }
+}

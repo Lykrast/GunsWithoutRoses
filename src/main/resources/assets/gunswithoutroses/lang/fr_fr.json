@@ -13,6 +13,7 @@
 	"item.gunswithoutroses.amethyst_bullet": "Balle en améthyste",
 	"item.gunswithoutroses.prismarine_bullet": "Balle en prismarine",
 	"item.gunswithoutroses.slime_bullet": "Balle en slime",
+	"item.gunswithoutroses.chorus_fruit_bullet": "Balle en chorus",
 	
 	"item.gunswithoutroses.bullet_bag": "Sac à balles",
 	
@@ -44,6 +45,7 @@
 	"tooltip.gunswithoutroses.bullet.bouncing": "Rebondit %d fois sur les blocs ou entités",
 	"tooltip.gunswithoutroses.bullet.bouncing.mult.gain": "Gagne %d%% de dégâts par rebond",
 	"tooltip.gunswithoutroses.bullet.bouncing.mult.lose": "Perds %d%% de dégâts par rebond",
+	"tooltip.gunswithoutroses.chorus_fruit_bullet": "Téléporte les entités aléatoirement",
 	
 	"itemGroup.gunswithoutroses": "Guns Without Roses",
 	

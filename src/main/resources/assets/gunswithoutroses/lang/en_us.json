@@ -13,6 +13,7 @@
 	"item.gunswithoutroses.amethyst_bullet": "Amethyst Bullet",
 	"item.gunswithoutroses.prismarine_bullet": "Prismarine Bullet",
 	"item.gunswithoutroses.slime_bullet": "Slime Bullet",
+	"item.gunswithoutroses.chorus_fruit_bullet": "Chorus Fruit Bullet",
 	
 	"item.gunswithoutroses.bullet_bag": "Bullet Bag",
 	
@@ -48,6 +49,7 @@
 	"tooltip.gunswithoutroses.bullet.bouncing": "Bounces off blocks and entities %d times",
 	"tooltip.gunswithoutroses.bullet.bouncing.mult.gain": "Gains %d%% damage per bounce",
 	"tooltip.gunswithoutroses.bullet.bouncing.mult.lose": "Loses %d%% damage per bounce",
+	"tooltip.gunswithoutroses.chorus_fruit_bullet": "Randomly teleports entities",
 	
 	"itemGroup.gunswithoutroses": "Guns Without Roses",
 	
