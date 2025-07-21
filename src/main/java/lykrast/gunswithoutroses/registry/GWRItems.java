@@ -52,8 +52,7 @@ public class GWRItems {
 		explosiveBullet = initItem(() -> new ExplosiveBulletItem(defP(), 6), "explosive_bullet");
 		amethystBullet = initItem(() -> new PiercingBulletItem(defP(), 6, 2), "amethyst_bullet");
 		prismarineBullet = initItem(() -> new PrismarineBulletItem(defP(), 6), "prismarine_bullet");
-		//TODO stats, with 6 bounces you get 7 hits and can hit the same target up to 4 times
-		slimeBullet = initItem(() -> new BouncingBulletItem(defP(), 6, 6, 0.8), "slime_bullet");
+		slimeBullet = initItem(() -> new BouncingBulletItem(defP(), 5, 6, 0.7), "slime_bullet");
 		
 		bulletBag = initItem(() -> new BulletBagItem(defP().stacksTo(1)), "bullet_bag");
 	}
