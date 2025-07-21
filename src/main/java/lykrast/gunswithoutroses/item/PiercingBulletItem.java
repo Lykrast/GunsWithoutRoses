@@ -44,7 +44,7 @@ public class PiercingBulletItem extends BulletItem {
 	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		super.appendHoverText(stack, worldIn, tooltip, flagIn);
 		tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet.piercing", pierce).withStyle(ChatFormatting.GRAY));
-		if (pierceMult > 1) tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet.piercing.mult.gain", (int)(100*(pierceMult-1))).withStyle(ChatFormatting.GRAY));
-		else if (pierceMult < 1) tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet.piercing.mult.lose", (int)(100*(1-pierceMult))).withStyle(ChatFormatting.GRAY));
+		if (pierceMult > 1) tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet.piercing.mult.gain", (int)Math.round(100*(pierceMult-1))).withStyle(ChatFormatting.GRAY));
+		else if (pierceMult < 1) tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet.piercing.mult.lose", (int)Math.round(100*(1-pierceMult))).withStyle(ChatFormatting.GRAY));
 	}
 }

@@ -43,9 +43,8 @@ public class BouncingBulletItem extends BulletItem {
 	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		super.appendHoverText(stack, worldIn, tooltip, flagIn);
-		//TODO tooltip
-		tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet.piercing", bounces).withStyle(ChatFormatting.GRAY));
-		if (bounceMult > 1) tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet.piercing.mult.gain", (int)(100*(bounceMult-1))).withStyle(ChatFormatting.GRAY));
-		else if (bounceMult < 1) tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet.piercing.mult.lose", (int)(100*(1-bounceMult))).withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet.bouncing", bounces).withStyle(ChatFormatting.GRAY));
+		if (bounceMult > 1) tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet.bouncing.mult.gain", (int)Math.round(100*(bounceMult-1))).withStyle(ChatFormatting.GRAY));
+		else if (bounceMult < 1) tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet.bouncing.mult.lose", (int)Math.round(100*(1-bounceMult))).withStyle(ChatFormatting.GRAY));
 	}
 }
