@@ -24,6 +24,7 @@ public class ClientStuff {
 		//Same renderer as potions
     	event.registerEntityRenderer(GWREntities.BULLET.get(), (context) -> new ThrownItemRenderer<BulletEntity>(context));
     	event.registerEntityRenderer(GWREntities.BULLET_PIERCING.get(), (context) -> new ThrownItemRenderer<PiercingBulletEntity>(context));
+    	event.registerEntityRenderer(GWREntities.BULLET_BOUNCING.get(), (context) -> new ThrownItemRenderer<BouncingBulletEntity>(context));
     }
 
 	@SubscribeEvent

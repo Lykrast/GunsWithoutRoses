@@ -23,7 +23,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class GWRItems {
 	public static RegistryObject<GunItem> ironGun, goldGun, blazeGun, diamondShotgun, diamondSniper, diamondGatling;
-	public static RegistryObject<BulletItem> flintBullet, ironBullet, blazeBullet, explosiveBullet, amethystBullet, prismarineBullet;
+	public static RegistryObject<BulletItem> flintBullet, ironBullet, blazeBullet, explosiveBullet, amethystBullet, prismarineBullet, slimeBullet;
 	public static RegistryObject<BulletBagItem> bulletBag;
 	public static TagKey<Item> tagBaseBullet = ItemTags.create(GunsWithoutRoses.rl("bullet_base"));
 	public static final DeferredRegister<Item> REG = DeferredRegister.create(ForgeRegistries.ITEMS, GunsWithoutRoses.MODID);
@@ -52,6 +52,8 @@ public class GWRItems {
 		explosiveBullet = initItem(() -> new ExplosiveBulletItem(defP(), 6), "explosive_bullet");
 		amethystBullet = initItem(() -> new PiercingBulletItem(defP(), 6, 2), "amethyst_bullet");
 		prismarineBullet = initItem(() -> new PrismarineBulletItem(defP(), 6), "prismarine_bullet");
+		//TODO stats, with 6 bounces you get 7 hits and can hit the same target up to 4 times
+		slimeBullet = initItem(() -> new BouncingBulletItem(defP(), 6, 6, 0.8), "slime_bullet");
 		
 		bulletBag = initItem(() -> new BulletBagItem(defP().stacksTo(1)), "bullet_bag");
 	}

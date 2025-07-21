@@ -57,6 +57,7 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 		reapplyPosition();
 
 	}
+
 	protected BulletEntity(EntityType<? extends BulletEntity> type, LivingEntity shooter, Level level) {
 		this(type, shooter.getX(), shooter.getEyeY() - 0.1, shooter.getZ(), level);
 		setOwner(shooter);
@@ -64,11 +65,11 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 	}
 
 	private static final double STOP_TRESHOLD = 0.01;
-	
+
 	public double getWaterInertia() {
 		return waterInertia;
 	}
-	
+
 	//copied from ProjectileUtil.getHitResultOnMoveVector so that it can hit through blocks properly
 	protected HitResult getHitResult() {
 		Vec3 pos = position();
@@ -85,7 +86,7 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 
 		return hitresult;
 	}
-	
+
 	//separated from the tick() for the piercing class to emulate piercing arrows (that can collide multiple times in one tick)
 	protected void processCollision() {
 		HitResult hitresult = getHitResult();
@@ -111,27 +112,32 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 			processCollision();
 
 			checkInsideBlocks();
-			Vec3 vec3 = getDeltaMovement();
-			double nextx = getX() + vec3.x;
-			double nexty = getY() + vec3.y;
-			double nextz = getZ() + vec3.z;
-			ProjectileUtil.rotateTowardsMovement(this, 0.2F);
-			if (isInWater()) {
-				for (int i = 0; i < 4; ++i) {
-					level().addParticle(ParticleTypes.BUBBLE, nextx - vec3.x * 0.25, nexty - vec3.y * 0.25, nextz - vec3.z * 0.25, vec3.x, vec3.y, vec3.z);
-				}
-
-				setDeltaMovement(vec3.scale(getWaterInertia()));
-			}
-
-			level().addParticle(getTrailParticle(), nextx, nexty + 0.5, nextz, 0, 0, 0);
-			setPos(nextx, nexty, nextz);
+			move();
 		}
 		else {
 			discard();
 		}
 	}
-	
+
+	//separated from tick() in case someone wanna do something weird with collision (like bouncybullets pausing)
+	protected void move() {
+		Vec3 vec3 = getDeltaMovement();
+		double nextx = getX() + vec3.x;
+		double nexty = getY() + vec3.y;
+		double nextz = getZ() + vec3.z;
+		ProjectileUtil.rotateTowardsMovement(this, 0.2F);
+		if (isInWater()) {
+			for (int i = 0; i < 4; ++i) {
+				level().addParticle(ParticleTypes.BUBBLE, nextx - vec3.x * 0.25, nexty - vec3.y * 0.25, nextz - vec3.z * 0.25, vec3.x, vec3.y, vec3.z);
+			}
+
+			setDeltaMovement(vec3.scale(getWaterInertia()));
+		}
+
+		level().addParticle(getTrailParticle(), nextx, nexty + 0.5, nextz, 0, 0, 0);
+		setPos(nextx, nexty, nextz);
+	}
+
 	protected boolean hasHeadshot(Entity target) {
 		if (headshotMult <= 1) return false;
 		Vec3 from = position();
@@ -151,36 +157,35 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 			Entity shooter = getOwner();
 			Item item = getItemRaw().getItem();
 			IBullet bullet = item instanceof IBullet ? (IBullet) item : GWRItems.ironBullet.get();
-			
+
 			if (isOnFire()) target.setSecondsOnFire(5);
 			int lastHurtResistant = target.invulnerableTime;
 			target.invulnerableTime = 0;
 			boolean headshot = hasHeadshot(target);
-			float hitdamage = (float)bullet.modifyDamage(damage * (headshot ? headshotMult : 1), this, target, shooter, level(), headshot);
-			boolean damaged = shooter == null
-					? target.hurt(GWRDamage.gunDamage(level().registryAccess(), this), hitdamage)
+			float hitdamage = (float) bullet.modifyDamage(damage * (headshot ? headshotMult : 1), this, target, shooter, level(), headshot);
+			boolean damaged = shooter == null ? target.hurt(GWRDamage.gunDamage(level().registryAccess(), this), hitdamage)
 					: target.hurt(GWRDamage.gunDamage(level().registryAccess(), this, shooter), hitdamage);
-			
+
 			if (damaged && target instanceof LivingEntity) {
-				LivingEntity livingTarget = (LivingEntity)target;
+				LivingEntity livingTarget = (LivingEntity) target;
 				if (knockbackStrength > 0) {
 					double actualKnockback = knockbackStrength;
 					//Knocback amplifying potion from Hanami
 					//if (Holders.Hanami.INSTABILITY != null && livingTarget.isPotionActive(Holders.Hanami.INSTABILITY)) actualKnockback *= 2 + livingTarget.getActivePotionEffect(Holders.Hanami.INSTABILITY).getAmplifier();
-					
+
 					//Punch I is 0.6, Punch II is 1.2, so we do the adjusting here to match that scale
-					Vec3 vec = getDeltaMovement().multiply(1, 0, 1).normalize().scale(actualKnockback*0.6);
+					Vec3 vec = getDeltaMovement().multiply(1, 0, 1).normalize().scale(actualKnockback * 0.6);
 					if (vec.lengthSqr() > 0) livingTarget.push(vec.x, 0.1, vec.z);
 				}
 
-				if (shooter instanceof LivingEntity) doEnchantDamageEffects((LivingEntity)shooter, target);
-				
+				if (shooter instanceof LivingEntity) doEnchantDamageEffects((LivingEntity) shooter, target);
+
 				bullet.onLivingEntityHit(this, livingTarget, shooter, level(), headshot);
 			}
 			else if (!damaged) target.invulnerableTime = lastHurtResistant;
 		}
 	}
-	
+
 	@SuppressWarnings("resource")
 	@Override
 	protected void onHit(HitResult result) {
@@ -188,7 +193,7 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 		//Don't disappear on blocks if we're set to noclipping
 		if (!level().isClientSide && (!noPhysics || result.getType() != HitResult.Type.BLOCK) && shouldDespawnOnHit(result)) remove(RemovalReason.KILLED);
 	}
-	
+
 	/**
 	 * Called on server on an impact after the onhitentity/block to know if should be removed or not.
 	 * <br>Will not be called when a noclipping bullet hits a block.
@@ -203,7 +208,7 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 	protected void onHitBlock(BlockHitResult result) {
 		//noclipping bullets don't interact with blocks
 		if (noPhysics) return;
-		super.onHitBlock(result);		
+		super.onHitBlock(result);
 		if (!level().isClientSide) {
 			IBullet bullet = getItemRaw().getItem() instanceof IBullet ? (IBullet) getItemRaw().getItem() : GWRItems.ironBullet.get();
 			bullet.onBlockHit(this, result, getOwner(), level());
@@ -268,18 +273,18 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 	public double getKnockbackStrength() {
 		return knockbackStrength;
 	}
-	
+
 	/**
 	 * Damage multiplier when hitting the head. 1 or lower disables that detection.
 	 */
 	public void setHeadshotMultiplier(double headshotMult) {
 		this.headshotMult = headshotMult;
 	}
-	
+
 	public double getHeadshotMultiplier() {
 		return headshotMult;
 	}
-	
+
 	/**
 	 * Velocity multiplier each tick in water. Default is 0.8
 	 */
@@ -301,7 +306,7 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
-	
+
 	//Stuff de-inherited from Fireball
 	public void setItem(ItemStack stack) {
 		getEntityData().set(DATA_ITEM_STACK, stack.copyWithCount(1));
@@ -321,7 +326,7 @@ public class BulletEntity extends Projectile implements ItemSupplier {
 	protected void defineSynchedData() {
 		this.getEntityData().define(DATA_ITEM_STACK, ItemStack.EMPTY);
 	}
-	
+
 	//de-inherited from AbstractHurtingProjectile
 	@Override
 	public boolean shouldRenderAtSqrDistance(double sqrDistance) {
