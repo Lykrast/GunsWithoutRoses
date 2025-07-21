@@ -65,7 +65,6 @@ public class BouncingBulletEntity extends BulletEntity {
 	protected void onHitEntity(EntityHitResult raytrace) {
 		super.onHitEntity(raytrace);
 		int bounces = getBounces();
-		System.out.println(bounces);
 		if (bounces <= 0) remove(RemovalReason.KILLED);
 		else {
 			bouncedThisTick = true;
