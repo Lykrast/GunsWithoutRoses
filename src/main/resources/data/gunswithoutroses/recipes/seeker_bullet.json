@@ -1,0 +1,15 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "tag": "gunswithoutroses:bullet_base" },
+		{ "item": "minecraft:shulker_shell" }
+	],
+	"result": { "item": "gunswithoutroses:seeker_bullet", "count": 8 }
+}
