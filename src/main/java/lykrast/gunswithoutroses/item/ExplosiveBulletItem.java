@@ -65,7 +65,6 @@ public class ExplosiveBulletItem extends BulletItem {
 					boolean damaged = ent.hurt(projectile.damageSources().explosion(projectile, shooter), damage*falloff);
 					
 					if (damaged) {
-						System.out.println(damage*falloff);
 						double kb = projectile.getKnockbackStrength();
 						if (kb > 0) {
 							Vec3 vec = ent.position().subtract(impact).multiply(1, 0, 1).normalize().scale(kb*0.6*falloff);

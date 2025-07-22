@@ -90,7 +90,6 @@ public class BouncingBulletEntity extends BulletEntity {
 		if (noPhysics) return;
 		super.onHitBlock(result);
 		int bounces = getBounces();
-		System.out.println(bounces);
 		if (bounces <= 0) remove(RemovalReason.KILLED);
 		else {
 			bouncedThisTick = true;
