@@ -21,11 +21,12 @@ import net.minecraft.world.phys.HitResult.Type;
 import net.minecraft.world.phys.Vec3;
 
 public class SeekerBulletEntity extends BulletEntity {
-	private static final double RANGE = 10, RANGESQR = RANGE * RANGE;
-
+	private static final double RANGE = 8, RANGESQR = RANGE * RANGE;
 	//whether it did the smart bounce or not, synched cause otherwise client would remove on hit
 	private static final EntityDataAccessor<Boolean> HAS_BOUNCED = SynchedEntityData.defineId(SeekerBulletEntity.class, EntityDataSerializers.BOOLEAN);
 	private boolean bouncedThisTick = false;
+	//how much damage is multiplied after the bounce
+	protected double bounceMult;
 
 	public SeekerBulletEntity(EntityType<? extends BulletEntity> type, Level level) {
 		super(type, level);
@@ -62,6 +63,7 @@ public class SeekerBulletEntity extends BulletEntity {
 		else {
 			bouncedThisTick = true;
 			setHasBounced(true);
+			damage *= bounceMult;
 			setPos(result.getLocation());
 			if (!seekTarget(result.getDirection())) {
 				//normal bounce if no target found
@@ -81,7 +83,7 @@ public class SeekerBulletEntity extends BulletEntity {
 	}
 
 	protected boolean seekTarget(Direction hit) {
-		if (level().isClientSide()) return false;
+		//if (level().isClientSide()) return false;
 		//we won't hit blocks if we are noclipping, and since we hit a block we should find something away
 		AABB bb = getBoundingBox().inflate(RANGE + 1);
 		switch (hit) {
@@ -134,8 +136,16 @@ public class SeekerBulletEntity extends BulletEntity {
 		//if we had something aim toward it
 		if (closest != null) {
 			double speed = getDeltaMovement().length();
-			setDeltaMovement(closestAim.subtract(pos).normalize().scale(speed));
+			Vec3 newdelta = closestAim.subtract(pos).normalize().scale(speed);
+			setDeltaMovement(newdelta);
+			//TODO custom sound event
 			playSound(SoundEvents.SHULKER_BOX_OPEN, 1, ((random.nextFloat() - random.nextFloat()) * 0.2F + 1) / 0.8F);
+
+			//if we hit enemy on next tick it's hard to see how the bounce went
+			//ideally I'd love bullet trails but eh that'll work for now
+			for (int i = 1; i < 4; i++) {
+				level().addParticle(getTrailParticle(), getX() + i*newdelta.x/4, getY() + i*newdelta.y/4 + 0.5, getZ() + i*newdelta.z/4, 0, 0, 0);
+			}
 			return true;
 		}
 		else return false;
@@ -160,16 +170,26 @@ public class SeekerBulletEntity extends BulletEntity {
 		return getEntityData().get(HAS_BOUNCED);
 	}
 
+	public void setBounceMultiplier(double bounceMult) {
+		this.bounceMult = bounceMult;
+	}
+
+	public double getBounceMultiplier() {
+		return bounceMult;
+	}
+
 	@Override
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		compound.putBoolean("hasbounced", hasBounced());
+		compound.putFloat("bounceMult", (float) bounceMult);
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		setHasBounced(compound.getBoolean("hasbounced"));
+		bounceMult = compound.getFloat("bounceMult");
 	}
 
 }

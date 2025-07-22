@@ -14,8 +14,11 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 public class SeekerBulletItem extends BulletItem {
-	public SeekerBulletItem(Properties properties, int damage) {
+	protected double bounceMult;
+	
+	public SeekerBulletItem(Properties properties, int damage, double bounceMult) {
 		super(properties, damage);
+		this.bounceMult = bounceMult;
 	}
 
 	@Override
@@ -23,6 +26,7 @@ public class SeekerBulletItem extends BulletItem {
 		SeekerBulletEntity entity = new SeekerBulletEntity(world, shooter);
 		entity.setItem(stack);
 		entity.setDamage(damage);
+		entity.setBounceMultiplier(bounceMult);
 		return entity;
 	}
 
@@ -30,5 +34,7 @@ public class SeekerBulletItem extends BulletItem {
 	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		super.appendHoverText(stack, worldIn, tooltip, flagIn);
 		tooltip.add(Component.translatable("tooltip.gunswithoutroses.seeker_bullet").withStyle(ChatFormatting.GRAY));
+		if (bounceMult > 1) tooltip.add(Component.translatable("tooltip.gunswithoutroses.seeker_bullet.mult.gain", (int)Math.round(100*(bounceMult-1))).withStyle(ChatFormatting.GRAY));
+		else if (bounceMult < 1) tooltip.add(Component.translatable("tooltip.gunswithoutroses.seeker_bullet.mult.lose", (int)Math.round(100*(1-bounceMult))).withStyle(ChatFormatting.GRAY));
 	}
 }
