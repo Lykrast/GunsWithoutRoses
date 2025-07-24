@@ -119,7 +119,7 @@ public class SeekerBulletEntity extends BulletEntity {
 		Vec3 pos = position();
 		for (LivingEntity ent : level().getEntitiesOfClass(LivingEntity.class, bb)) {
 			//want closest mob that has line of sight from the bullet
-			if (!ent.isAlive() || ent == shooter || (shooter != null && ent.isAlliedTo(shooter))) continue;
+			if (!ent.isAlive() || ent == shooter || !canHitEntity(ent) || (shooter != null && ent.isAlliedTo(shooter))) continue;
 			//aim for centermass, midway between bottom (y) and eyes
 			Vec3 centermass = ent.position().add(0, (ent.getEyeY() - ent.getY()) / 2.0, 0);
 			double dsqr = pos.distanceToSqr(centermass);
