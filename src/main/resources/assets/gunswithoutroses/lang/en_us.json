@@ -12,9 +12,7 @@
 	"item.gunswithoutroses.explosive_bullet": "Explosive Bullet",
 	"item.gunswithoutroses.amethyst_bullet": "Amethyst Bullet",
 	"item.gunswithoutroses.prismarine_bullet": "Prismarine Bullet",
-	"item.gunswithoutroses.slime_bullet": "Slime Bullet",
 	"item.gunswithoutroses.chorus_fruit_bullet": "Chorus Fruit Bullet",
-	"item.gunswithoutroses.seeker_bullet": "Seeker Bullet",
 	
 	"item.gunswithoutroses.bullet_bag": "Bullet Bag",
 	
@@ -47,13 +45,7 @@
 	"tooltip.gunswithoutroses.bullet.piercing.mult.gain": "Gains %d%% damage per pierce",
 	"tooltip.gunswithoutroses.bullet.piercing.mult.lose": "Loses %d%% damage per pierce",
 	"tooltip.gunswithoutroses.prismarine_bullet": "Unaffected by water",
-	"tooltip.gunswithoutroses.bullet.bouncing": "Bounces off blocks and entities %d times",
-	"tooltip.gunswithoutroses.bullet.bouncing.mult.gain": "Gains %d%% damage per bounce",
-	"tooltip.gunswithoutroses.bullet.bouncing.mult.lose": "Loses %d%% damage per bounce",
 	"tooltip.gunswithoutroses.chorus_fruit_bullet": "Randomly teleports entities",
-	"tooltip.gunswithoutroses.seeker_bullet": "Bounces off blocks once towards a nearby entity",
-	"tooltip.gunswithoutroses.seeker_bullet.mult.gain": "Gains %d%% damage after bouncing",
-	"tooltip.gunswithoutroses.seeker_bullet.mult.lose": "Loses %d%% damage after bouncing",
 	
 	"itemGroup.gunswithoutroses": "Guns Without Roses",
 	

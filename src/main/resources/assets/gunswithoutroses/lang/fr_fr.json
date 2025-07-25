@@ -12,9 +12,7 @@
 	"item.gunswithoutroses.explosive_bullet": "Balle explosive",
 	"item.gunswithoutroses.amethyst_bullet": "Balle en améthyste",
 	"item.gunswithoutroses.prismarine_bullet": "Balle en prismarine",
-	"item.gunswithoutroses.slime_bullet": "Balle en slime",
 	"item.gunswithoutroses.chorus_fruit_bullet": "Balle en chorus",
-	"item.gunswithoutroses.seeker_bullet": "Balle chercheuse",
 	
 	"item.gunswithoutroses.bullet_bag": "Sac à balles",
 	
@@ -43,13 +41,7 @@
 	"tooltip.gunswithoutroses.bullet.piercing.mult.gain": "Gagne %d%% de dégâts par perforation",
 	"tooltip.gunswithoutroses.bullet.piercing.mult.lose": "Perds %d%% de dégâts par perforation",
 	"tooltip.gunswithoutroses.prismarine_bullet": "Non affectée par l'eau",
-	"tooltip.gunswithoutroses.bullet.bouncing": "Rebondit %d fois sur les blocs ou entités",
-	"tooltip.gunswithoutroses.bullet.bouncing.mult.gain": "Gagne %d%% de dégâts par rebond",
-	"tooltip.gunswithoutroses.bullet.bouncing.mult.lose": "Perds %d%% de dégâts par rebond",
 	"tooltip.gunswithoutroses.chorus_fruit_bullet": "Téléporte les entités aléatoirement",
-	"tooltip.gunswithoutroses.seeker_bullet": "Rebondit une fois d'un bloc vers une entité proche",
-	"tooltip.gunswithoutroses.seeker_bullet.mult.gain": "Gagne %d%% de dégâts après rebond",
-	"tooltip.gunswithoutroses.seeker_bullet.mult.lose": "Perds %d%% de dégâts après rebond",
 	
 	"itemGroup.gunswithoutroses": "Guns Without Roses",
 	

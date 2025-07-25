@@ -23,7 +23,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class GWRItems {
 	public static RegistryObject<GunItem> ironGun, goldGun, blazeGun, diamondShotgun, diamondSniper, diamondGatling;
-	public static RegistryObject<BulletItem> flintBullet, ironBullet, blazeBullet, explosiveBullet, amethystBullet, prismarineBullet, slimeBullet, chorusBullet, seekerBullet;
+	public static RegistryObject<BulletItem> flintBullet, ironBullet, blazeBullet, explosiveBullet, amethystBullet, prismarineBullet, chorusBullet;
 	public static RegistryObject<BulletBagItem> bulletBag;
 	public static TagKey<Item> tagBaseBullet = ItemTags.create(GunsWithoutRoses.rl("bullet_base"));
 	public static final DeferredRegister<Item> REG = DeferredRegister.create(ForgeRegistries.ITEMS, GunsWithoutRoses.MODID);
@@ -52,9 +52,7 @@ public class GWRItems {
 		explosiveBullet = initItem(() -> new ExplosiveBulletItem(defP(), 6), "explosive_bullet");
 		amethystBullet = initItem(() -> new PiercingBulletItem(defP(), 6, 2), "amethyst_bullet");
 		prismarineBullet = initItem(() -> new PrismarineBulletItem(defP(), 6), "prismarine_bullet");
-		slimeBullet = initItem(() -> new BouncingBulletItem(defP(), 5, 6, 0.7), "slime_bullet");
 		chorusBullet = initItem(() -> new ChorusBulletItem(defP(), 4), "chorus_fruit_bullet");
-		seekerBullet = initItem(() -> new SeekerBulletItem(defP(), 6, 2/3.0), "seeker_bullet");
 		
 		bulletBag = initItem(() -> new BulletBagItem(defP().stacksTo(1)), "bullet_bag");
 	}
