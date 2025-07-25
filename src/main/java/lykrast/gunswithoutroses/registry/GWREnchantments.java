@@ -72,4 +72,14 @@ public class GWREnchantments {
 	public static final double deadeyeModify(int level, double mult) {
 		return mult + 0.25*level;
 	}
+
+	
+	/**
+	 * Modify charge time given vanilla Quick Charge.
+	 */
+	public static final int quickChargeModify(int level, int fireDelay) {
+		//vanilla crossbow is 25-5*level, but I want it diminishing like sleight of hand
+		//so with this it matches on lvl 1, then diminishes
+		return (int)(fireDelay / (1 + 0.25*level));
+	}
 }

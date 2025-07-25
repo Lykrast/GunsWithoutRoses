@@ -35,6 +35,10 @@
 	"tooltip.gunswithoutroses.shotgun.projectiles.values": "%1$s (max dmg %2$s)",
 	"tooltip.gunswithoutroses.shotgun.projectiles.headshot": "%1$s (max dmg %2$s, crit %3$s)",
 	"tooltip.gunswithoutroses.gatling.hold": "Slows user while firing",
+	"tooltip.gunswithoutroses.burst.size": "Burst size: %s",
+	"tooltip.gunswithoutroses.burst.firerate": "Burst delay: %s",
+	"tooltip.gunswithoutroses.charge.time": "Charge time: %s",
+	"tooltip.gunswithoutroses.charge.hold": "Slows user while charging",
 	
 	"tooltip.gunswithoutroses.blaze_gun": "Converts fired Iron Bullets into Blaze Bullets",
 	
