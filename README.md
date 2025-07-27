@@ -6,10 +6,12 @@ Adds some simple Terraria-like guns and bullets to go with them.
 
 # Addons
 
-If you want to make an addon or have compatibility with GWR, you can use the [Modrinth maven](https://support.modrinth.com/en/articles/8801191-modrinth-maven). I don't know if there is a better way for it with my current setup, but it works good enough for me. Just be aware that:
+If you want to make an addon or have compatibility with GWR, you can use the [Modrinth maven](https://support.modrinth.com/en/articles/8801191-modrinth-maven). I don't know if there is a better way for it with my current setup, but it works good enough for me. There are also a few tags I've noted on the Github wiki pages that I'd like you to fill if you do an addon.
+
+Just be aware that:
 
 * Those jars do not carry the javadoc, so browse through the code here to see it (not ideal I know).
-* The version number are funky because I screwed up when making my gradle setup, they are `minecraftversion-modversion`, for example `1.20.1-2.3.0`. Sorry.
+* The version number are funky because I screwed up when making my gradle setup, in game they are `minecraftversion-modversion`, for example `1.20.1-2.3.0`, but I think on modrinth it's just the normal version number. Sorry.
 
 You can see [Guns Without Roses Additions](https://github.com/Lykrast/GunsWithoutRosesAdditions) as an example if you want.
 
