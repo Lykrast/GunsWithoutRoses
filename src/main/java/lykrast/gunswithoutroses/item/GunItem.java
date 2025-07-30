@@ -58,6 +58,15 @@ public class GunItem extends ProjectileWeaponItem {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack gun = player.getItemInHand(hand);
+		
+		if (findAmmoAndPlayerShoot(gun, player, world)) {
+			player.getCooldowns().addCooldown(this, getFireDelay(gun, player));
+			return InteractionResultHolder.consume(gun);
+		}
+		else return InteractionResultHolder.fail(gun);
+	}
+	
+	protected boolean findAmmoAndPlayerShoot(ItemStack gun, Player player, Level world) {
 		ItemStack ammo = player.getProjectile(gun);
 
 		if (!ammo.isEmpty() || player.getAbilities().instabuild) {
@@ -87,11 +96,9 @@ public class GunItem extends ProjectileWeaponItem {
 
 			world.playSound(null, player.getX(), player.getY(), player.getZ(), getFireSound(), SoundSource.PLAYERS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
 			player.awardStat(Stats.ITEM_USED.get(this));
-
-			player.getCooldowns().addCooldown(this, getFireDelay(gun, player));
-			return InteractionResultHolder.consume(gun);
+			return true;
 		}
-		else return InteractionResultHolder.fail(gun);
+		else return false;
 	}
 
 	/**

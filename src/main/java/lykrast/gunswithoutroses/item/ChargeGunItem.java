@@ -5,12 +5,9 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import lykrast.gunswithoutroses.registry.GWREnchantments;
-import lykrast.gunswithoutroses.registry.GWRItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -51,39 +48,8 @@ public class ChargeGunItem extends GunItem {
 	@Override
 	public ItemStack finishUsingItem(ItemStack gun, Level world, LivingEntity user) {
 		//I'm copying that part a lot, maybe I need to extract it
-		if (user instanceof Player) {
-			Player player = (Player) user;
-			ItemStack ammo = player.getProjectile(gun);
-			if (!ammo.isEmpty() || player.getAbilities().instabuild) {
-				if (!world.isClientSide) {
-					//this is for creative
-					if (ammo.isEmpty()) ammo = new ItemStack(GWRItems.ironBullet.get());
-					//There was at least one instance of quiver mod not respecting getAmmoPredicate()
-					//so I have to put wayyy more instanceof IBullet checks than I should need to >:(
-					IBullet parentBullet = (IBullet) (ammo.getItem() instanceof IBullet ? ammo.getItem() : GWRItems.ironBullet.get());
-					//For the bullet bag we doing the indirection here
-					ItemStack firedAmmo = ammo;
-					IBullet firedBullet = parentBullet;
-					if (parentBullet.hasDelegate(ammo, player)) {
-						firedAmmo = parentBullet.getDelegate(ammo, player);
-						firedBullet = (IBullet) (firedAmmo.getItem() instanceof IBullet ? firedAmmo.getItem() : GWRItems.ironBullet.get());
-					}
-
-					boolean bulletFree = player.getAbilities().instabuild || !shouldConsumeAmmo(gun, player);
-
-					//Workaround for quivers not respecting getAmmoPredicate()
-					if (!(firedAmmo.getItem() instanceof IBullet)) firedAmmo = new ItemStack(GWRItems.ironBullet.get());
-					shoot(world, player, gun, firedAmmo, firedBullet, bulletFree);
-
-					gun.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(player.getUsedItemHand()));
-					if (!bulletFree) parentBullet.consume(ammo, player);
-				}
-
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), getFireSound(), SoundSource.PLAYERS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
-				player.awardStat(Stats.ITEM_USED.get(this));
-				
-				player.getCooldowns().addCooldown(this, getFireDelay(gun, player));
-			}
+		if (user instanceof Player player) {
+			if (findAmmoAndPlayerShoot(gun, player, world)) player.getCooldowns().addCooldown(this, getFireDelay(gun, player));
 		}
 		return super.finishUsingItem(gun, world, user);
 	}
