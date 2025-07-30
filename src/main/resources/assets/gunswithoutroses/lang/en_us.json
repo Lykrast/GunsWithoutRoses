@@ -37,6 +37,7 @@
 	"tooltip.gunswithoutroses.gatling.hold": "Slows user while firing",
 	"tooltip.gunswithoutroses.burst.size": "Burst size: %s",
 	"tooltip.gunswithoutroses.burst.firerate": "Burst delay: %s",
+	"tooltip.gunswithoutroses.burst.firerate.values": "%1$s (avg %2$s RPM)",
 	"tooltip.gunswithoutroses.charge.time": "Charge time: %s",
 	"tooltip.gunswithoutroses.charge.hold": "Slows user while charging",
 	

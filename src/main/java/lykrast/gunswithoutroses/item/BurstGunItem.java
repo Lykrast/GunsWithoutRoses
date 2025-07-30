@@ -69,17 +69,24 @@ public class BurstGunItem extends GunItem {
 	@Override
 	protected void customFireRateTooltip(ItemStack stack, @Nullable Level world, List<Component> tooltip) {
 		//burst size
-		//TODO find a way to display the burst fire delay
 		int burstSize = getBurstSize(stack);
 		tooltip.add(Component.translatable("tooltip.gunswithoutroses.burst.size", Component.literal(Integer.toString(burstSize)).withStyle(ChatFormatting.WHITE))
 				.withStyle(isBurstSizeModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
+		
+		//fire rate during bursts
+		//TODO should that be modifiable?
+		MutableComponent values = Component.translatable("tooltip.gunswithoutroses.gun.firerate.values", 
+				Component.literal(Integer.toString(burstFireDelay)).withStyle(ChatFormatting.WHITE),
+				Component.literal(Integer.toString((60 * 20) / burstFireDelay)).withStyle(ChatFormatting.WHITE))
+				.withStyle(ChatFormatting.GRAY);
+		tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.firerate", values).withStyle(ChatFormatting.DARK_GREEN));
 
 		//fire rate
 		//holding down right click with a useduration of N syncs up with N+?+firedelay
 		//that is +0~2 and seems to be consistent with the same burstsize and firedelay pairs
 		//+1 and +2 seem to most common so I'm going with +1, I doubt anyone is gonna metronome it
 		int fireDelay = getFireDelay(stack, null);
-		MutableComponent values = Component.translatable("tooltip.gunswithoutroses.gun.firerate.values", Component.literal(Integer.toString(fireDelay)).withStyle(ChatFormatting.WHITE),
+		values = Component.translatable("tooltip.gunswithoutroses.burst.firerate.values", Component.literal(Integer.toString(fireDelay)).withStyle(ChatFormatting.WHITE),
 				Component.literal(Integer.toString((60 * 20 * burstSize) / (fireDelay + getUseDuration(stack) + 1))).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY);
 		tooltip.add(Component.translatable("tooltip.gunswithoutroses.burst.firerate", values).withStyle(isFireDelayModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
 	}
