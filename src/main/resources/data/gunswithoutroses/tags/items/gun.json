@@ -3,6 +3,8 @@
 		"#gunswithoutroses:gun/pistol",
 		"#gunswithoutroses:gun/shotgun",
 		"#gunswithoutroses:gun/sniper",
-		"#gunswithoutroses:gun/gatling"
+		"#gunswithoutroses:gun/gatling",
+		"#gunswithoutroses:gun/burst",
+		"#gunswithoutroses:gun/charge"
 	]
 }
