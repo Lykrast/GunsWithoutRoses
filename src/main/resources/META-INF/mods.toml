@@ -8,6 +8,7 @@ modId="gunswithoutroses"
 version="${file.jarVersion}"
 displayName="Guns Without Roses"
 displayURL="https://modrinth.com/mod/guns-without-roses"
+logoFile="logo.png"
 credits="freesound.org for sounds, ViviSpook for the textures"
 authors="Lykrast, ViviSpook"
 description='''
