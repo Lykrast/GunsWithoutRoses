@@ -45,7 +45,7 @@ public class BurstGunItem extends GunItem {
 			//this goes from 0 to useduration-1
 			//with a fire delay of n, we'd want to fire on 0, n, 2n... and so end on (burstSize-1)*burstFireDelay
 			int used = getUseDuration(gun) - ticks;
-			if (used % burstFireDelay == 0) findAmmoAndPlayerShoot(gun, player, world);
+			if (used % getBurstFireDelay(gun) == 0) findAmmoAndPlayerShoot(gun, player, world);
 		}
 	}
 
@@ -69,12 +69,12 @@ public class BurstGunItem extends GunItem {
 				.withStyle(isBurstSizeModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
 		
 		//fire rate during bursts
-		//TODO should that be modifiable?
+		int burstFireDelay = getBurstFireDelay(stack);
 		MutableComponent values = Component.translatable("tooltip.gunswithoutroses.gun.firerate.values", 
 				Component.literal(Integer.toString(burstFireDelay)).withStyle(ChatFormatting.WHITE),
 				Component.literal(Integer.toString((60 * 20) / burstFireDelay)).withStyle(ChatFormatting.WHITE))
 				.withStyle(ChatFormatting.GRAY);
-		tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.firerate", values).withStyle(ChatFormatting.DARK_GREEN));
+		tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.firerate", values).withStyle(isBurstFireDelayModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
 
 		//fire rate
 		//holding down right click with a useduration of N syncs up with N+?+firedelay
@@ -91,19 +91,28 @@ public class BurstGunItem extends GunItem {
 		return false;
 	}
 	
+	protected boolean isBurstFireDelayModified(ItemStack stack) {
+		//for now not putting an enchant here, just like I did not for shotgun projectiles
+		return false;
+	}
+	
 	public int getBurstSize(ItemStack stack) {
 		//not player sensitive because getUseDuration isn't
 		return burstSize;
 	}
+	
+	public int getBurstFireDelay(ItemStack stack) {
+		//not player sensitive because getUseDuration isn't
+		return burstFireDelay;
+	}
 
 	@Override
 	public int getUseDuration(ItemStack stack) {
-		return (getBurstSize(stack)-1)*burstFireDelay+1;
+		return (getBurstSize(stack)-1)*getBurstFireDelay(stack)+1;
 	}
 
 	@Override
 	protected void addExtraStatsTooltip(ItemStack stack, @Nullable Level world, List<Component> tooltip) {
-		//TODO tooltip
 		tooltip.add(Component.translatable("tooltip.gunswithoutroses.gatling.hold").withStyle(ChatFormatting.GRAY));
 	}
 

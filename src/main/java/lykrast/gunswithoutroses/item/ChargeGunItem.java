@@ -93,7 +93,6 @@ public class ChargeGunItem extends GunItem {
 
 	@Override
 	protected void addExtraStatsTooltip(ItemStack stack, @Nullable Level world, List<Component> tooltip) {
-		//TODO tooltip
 		tooltip.add(Component.translatable("tooltip.gunswithoutroses.charge.hold").withStyle(ChatFormatting.GRAY));
 	}
 
