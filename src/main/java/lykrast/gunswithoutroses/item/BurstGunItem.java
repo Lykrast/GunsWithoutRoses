@@ -19,15 +19,10 @@ public class BurstGunItem extends GunItem {
 
 	protected int burstSize, burstFireDelay;
 
-	public BurstGunItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, int enchantability, int burstSize) {
+	public BurstGunItem(Properties properties, int bonusDamage, double damageMultiplier, int fireDelay, double inaccuracy, int enchantability, int burstSize, int burstFireDelay) {
 		super(properties, bonusDamage, damageMultiplier, fireDelay, inaccuracy, enchantability);
 		this.burstSize = burstSize;
-		burstFireDelay = 1;
-	}
-	
-	public BurstGunItem burstFireDelay(int burstFireDelay) {
 		this.burstFireDelay = Math.max(1, burstFireDelay);
-		return this;
 	}
 
 	@Override
