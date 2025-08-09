@@ -94,5 +94,15 @@
 	"subtitles.gunswithoutroses.item.sniper.crit": "Sniper crit",
 	
 	"subtitles.gunswithoutroses.item.bullet_bag.open": "Bullet Bag opens",
-	"subtitles.gunswithoutroses.item.bullet_bag.close": "Bullet Bag closes"
+	"subtitles.gunswithoutroses.item.bullet_bag.close": "Bullet Bag closes",
+
+	"tag.gunswithoutroses.bullet": "Bullets",
+	"tag.gunswithoutroses.bullet_base": "Iron Bullet Equivalents",
+	"tag.gunswithoutroses.gun": "Guns",
+	"tag.gunswithoutroses.gun.pistol": "Pistols",
+	"tag.gunswithoutroses.gun.shotgun": "Shotguns",
+	"tag.gunswithoutroses.gun.sniper": "Sniper Rifles",
+	"tag.gunswithoutroses.gun.gatling": "Gatlings",
+	"tag.gunswithoutroses.gun.burst": "Burst Rifles",
+	"tag.gunswithoutroses.gun.charge": "Charge Rifles"
 }

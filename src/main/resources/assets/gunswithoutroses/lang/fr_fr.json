@@ -89,5 +89,15 @@
 	"subtitles.gunswithoutroses.item.sniper.crit": "Coup critique de fusil de précision",
 	
 	"subtitles.gunswithoutroses.item.bullet_bag.open": "Sac à balles qui s'ouvre",
-	"subtitles.gunswithoutroses.item.bullet_bag.close": "Sac à balles qui se ferme"
+	"subtitles.gunswithoutroses.item.bullet_bag.close": "Sac à balles qui se ferme",
+
+	"tag.gunswithoutroses.bullet": "Balles",
+	"tag.gunswithoutroses.bullet_base": "Équivalent de balle en fer",
+	"tag.gunswithoutroses.gun": "Fusils",
+	"tag.gunswithoutroses.gun.pistol": "Pistolets",
+	"tag.gunswithoutroses.gun.shotgun": "Fusils à pompe",
+	"tag.gunswithoutroses.gun.sniper": "Fusils de précision",
+	"tag.gunswithoutroses.gun.gatling": "Gatlings",
+	"tag.gunswithoutroses.gun.burst": "Fusils à rafale",
+	"tag.gunswithoutroses.gun.charge": "Fusils à charge"
 }
