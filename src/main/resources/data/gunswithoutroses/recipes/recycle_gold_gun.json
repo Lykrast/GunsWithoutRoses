@@ -1,0 +1,7 @@
+{
+	"type": "minecraft:smelting",
+	"cookingtime": 200,
+	"experience": 0.1,
+	"ingredient": { "item": "gunswithoutroses:gold_gun" },
+	"result": "minecraft:gold_nugget"
+}
