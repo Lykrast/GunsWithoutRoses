@@ -35,6 +35,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class GunItem extends ProjectileWeaponItem {
+	//TODO make bonusDamage a double, but that'd break existing addons to change the constructor so for now it's fiiiine, just need to remember next breaking update
 	protected int bonusDamage;
 	protected double damageMultiplier;
 	protected int fireDelay;
