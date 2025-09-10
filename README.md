@@ -18,3 +18,4 @@ You can see [Guns Without Roses Additions](https://github.com/Lykrast/GunsWithou
 * Guns are instances/extend `GunItem`. There are a lot of methods to override if you want to mess with the behavior.
 * Gatlings are instances/extend `GatlingItem`. This handles the fractional fire delay and the hold to fire.
 * Bullets implement `IBullet`, though for most uses using/overriding `BulletItem` should be good enough. There's several methods in `IBullet` to override for more behavior (like `ExplosiveBulletItem` for example), but you may need a custom entity overriding `BulletEntity` for more complex projectile behavior (such as `PiercingBulletEntity` used by `PiercingBulletItem`).
+* There are a few tags that you should fill with your new content, look over at the github wiki pages for that. They also have explainations for some stats.
