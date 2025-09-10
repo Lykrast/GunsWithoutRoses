@@ -24,6 +24,7 @@
 	"tooltip.gunswithoutroses.gun.accuracy": "Dispersion: %s",
 	"tooltip.gunswithoutroses.gun.accuracy.perfect": "Aucune",
 	"tooltip.gunswithoutroses.gun.chance_free": "Chance de ne pas utiliser de munition: %s",
+	"tooltip.gunswithoutroses.gun.knockback": "Recul: %s",
 	"tooltip.gunswithoutroses.sniper.headshot": "Multiplicateur critique: %s",
 	"tooltip.gunswithoutroses.sniper.headshot.values": "x%1$s (total %2$s)",
 	"tooltip.gunswithoutroses.sniper.headshot.help": "Touchez au dessus des yeux pour un critique",

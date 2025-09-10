@@ -29,6 +29,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -42,6 +43,7 @@ public class GunItem extends ProjectileWeaponItem {
 	protected double chanceFreeShot = 0;
 	protected double headshotMult = 1;
 	protected int projectiles = 1;
+	protected double knockback = 0;
 	protected Supplier<SoundEvent> fireSound = GWRSounds.gun::get;
 	//Hey guess what if I just put the repair material it crashes... so well let's do like vanilla and just use a supplier
 	protected Supplier<Ingredient> repairMaterial;
@@ -71,7 +73,7 @@ public class GunItem extends ProjectileWeaponItem {
 
 		if (!ammo.isEmpty() || player.getAbilities().instabuild) {
 			if (!world.isClientSide) {
-				//this is for creative
+				//creative used to give an empty stack but now it gives an arrow? next check corrects it so whatever
 				if (ammo.isEmpty()) ammo = new ItemStack(GWRItems.ironBullet.get());
 				//There was at least one instance of quiver mod not respecting getAmmoPredicate()
 				//so I have to put wayyy more instanceof IBullet checks than I should need to >:(
@@ -122,7 +124,7 @@ public class GunItem extends ProjectileWeaponItem {
 			BulletEntity shot = bulletItem.createProjectile(world, ammo, player);
 			shot.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, (float) getProjectileSpeed(gun, player), (float) getInaccuracy(gun, player));
 			shot.setDamage(Math.max(0, shot.getDamage() + getBonusDamage(gun, player)) * getDamageMultiplier(gun, player));
-			if (player.getAttribute(GWRAttributes.knockback.get()) != null) shot.setKnockbackStrength(shot.getKnockbackStrength() + player.getAttributeValue(GWRAttributes.knockback.get()));
+			shot.setKnockbackStrength(shot.getKnockbackStrength() + getKnockbackBonus(gun, player));
 			shot.setHeadshotMultiplier(getHeadshotMultiplier(gun, player));
 			affectBulletEntity(player, gun, shot, bulletFree);
 
@@ -154,7 +156,7 @@ public class GunItem extends ProjectileWeaponItem {
 			BulletEntity shot = bulletItem.createProjectile(shooter.level(), ammo, shooter);
 			shot.shoot(mobSpreaded.x, mobSpreaded.y, mobSpreaded.z, (float) getProjectileSpeed(gun, shooter), (float) getInaccuracy(gun, shooter));
 			shot.setDamage(Math.max(0, shot.getDamage() + getBonusDamage(gun, shooter)) * getDamageMultiplier(gun, shooter));
-			if (shooter.getAttribute(GWRAttributes.knockback.get()) != null) shot.setKnockbackStrength(shot.getKnockbackStrength() + shooter.getAttributeValue(GWRAttributes.knockback.get()));
+			shot.setKnockbackStrength(shot.getKnockbackStrength() + getKnockbackBonus(gun, shooter));
 			shot.setHeadshotMultiplier(getHeadshotMultiplier(gun, shooter));
 			affectBulletEntity(shooter, gun, shot, bulletFree);
 
@@ -306,6 +308,14 @@ public class GunItem extends ProjectileWeaponItem {
 		}
 		else return projectiles;
 	}
+	
+	public double getKnockbackBonus(ItemStack stack, @Nullable LivingEntity shooter) {
+		//Punch, bullet projectile changes the scale so 1 knockback = Punch I so we can just add the level
+		double bonus = knockback + stack.getEnchantmentLevel(Enchantments.PUNCH_ARROWS);
+		//attribute
+		if (shooter != null && shooter.getAttribute(GWRAttributes.knockback.get()) != null) bonus += shooter.getAttributeValue(GWRAttributes.knockback.get());
+		return Math.max(0, bonus);
+	}
 
 	/**
 	 * Says if the damage is changed from base value. Used for tooltip.
@@ -351,6 +361,13 @@ public class GunItem extends ProjectileWeaponItem {
 	}
 
 	/**
+	 * Says if the knockback bonus is changed from base value. Used for tooltip.
+	 */
+	protected boolean isKnockbackModified(ItemStack stack) {
+		return stack.getEnchantmentLevel(Enchantments.PUNCH_ARROWS) >= 1;
+	}
+
+	/**
 	 * Sets a chance to NOT consume ammo, used when making the item for registering.
 	 */
 	public GunItem chanceFreeShot(double chanceFreeShot) {
@@ -371,6 +388,15 @@ public class GunItem extends ProjectileWeaponItem {
 	 */
 	public GunItem projectiles(int projectiles) {
 		this.projectiles = projectiles;
+		return this;
+	}
+
+	/**
+	 * Sets a knockback bonus. 0 or lower = no bonus, 1 = Punch I, 2 = Punch II...  (it's linear) Used when making the item for registering.
+	 * <br/>This is not scaled per bullets so it's much much stronger on shotguns.
+	 */
+	public GunItem knocback(double knockback) {
+		this.knockback = knockback;
 		return this;
 	}
 
@@ -469,6 +495,12 @@ public class GunItem extends ProjectileWeaponItem {
 				}
 
 				tooltip.add(Component.translatable("tooltip.gunswithoutroses.shotgun.projectiles", values).withStyle(isProjectileCountModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
+			}
+			
+			double knockback = getKnockbackBonus(stack, null);
+			if (knockback > 0) {
+				values = Component.translatable("tooltip.gunswithoutroses.gun.damage.flat", ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(knockback));
+				tooltip.add(Component.translatable("tooltip.gunswithoutroses.gun.knockback", values.withStyle(ChatFormatting.WHITE)).withStyle(isKnockbackModified(stack) ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.DARK_GREEN));
 			}
 
 			//Fire rate
