@@ -396,7 +396,7 @@ public class GunItem extends ProjectileWeaponItem {
 	 * Sets a knockback bonus. 0 or lower = no bonus, 1 = Punch I, 2 = Punch II...  (it's linear) Used when making the item for registering.
 	 * <br/>This is not scaled per bullets so it's much much stronger on shotguns.
 	 */
-	public GunItem knocback(double knockback) {
+	public GunItem knockback(double knockback) {
 		this.knockback = knockback;
 		return this;
 	}
