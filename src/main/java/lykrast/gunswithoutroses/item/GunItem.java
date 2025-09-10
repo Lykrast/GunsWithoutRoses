@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
+import lykrast.gunswithoutroses.config.GWRConfigValues;
 import lykrast.gunswithoutroses.entity.BulletEntity;
 import lykrast.gunswithoutroses.registry.GWRAttributes;
 import lykrast.gunswithoutroses.registry.GWREnchantments;
@@ -431,6 +432,8 @@ public class GunItem extends ProjectileWeaponItem {
 		if (enchantment == GWREnchantments.bullseye.get() && hasPerfectAccuracy()) return false;
 		//Disallow Deadeye if the gun can't headshot
 		if (enchantment == GWREnchantments.deadeye.get() && !canHeadshot()) return false;
+		//Allow Punch if the config says so
+		if (GWRConfigValues.ALLOW_PUNCH && enchantment == Enchantments.PUNCH_ARROWS) return true;
 		return super.canApplyAtEnchantingTable(stack, enchantment);
 	}
 
