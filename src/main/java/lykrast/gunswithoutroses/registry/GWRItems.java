@@ -44,7 +44,7 @@ public class GWRItems {
 		blazeGun = initItem(() -> new BlazeGunItem(defP().durability(666), 1, 1, 16, 2, 16).repair(() -> Ingredient.of(Tags.Items.RODS_BLAZE)), "blaze_gun");
 		diamondShotgun = initItem(() -> new GunItem(defP().durability(2076), 0, 0.6, 20, 6, 10).projectiles(4).fireSound(GWRSounds.shotgun::get).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_shotgun");
 		diamondSniper = initItem(() -> new GunItem(defP().durability(2076), 0, 1.6, 24, 0, 10).headshotMult(1.5).projectileSpeed(4).fireSound(GWRSounds.sniper::get).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_sniper");
-		diamondGatling = initItem(() -> new GatlingItem(defP().durability(2076), 0, 0.6, 4, 5, 10).chanceFreeShot(0.25).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_gatling");
+		diamondGatling = initItem(() -> new GatlingItem(defP().durability(2076), 0, 0.6, 4, 5, 10).chanceFreeShot(0.25).fireSound(GWRSounds.gatling::get).repair(() -> Ingredient.of(Tags.Items.GEMS_DIAMOND)), "diamond_gatling");
 		
 		flintBullet = initItem(() -> new BulletItem(defP(), 5), "flint_bullet");
 		ironBullet = initItem(() -> new BulletItem(defP(), 6), "iron_bullet");
