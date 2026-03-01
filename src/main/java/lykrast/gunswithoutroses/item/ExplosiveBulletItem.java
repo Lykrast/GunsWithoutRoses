@@ -58,7 +58,7 @@ public class ExplosiveBulletItem extends BulletItem {
 					//75% damage when within 1 block, then decreases quadratically over distance down to 25%
 					float falloff = DMG_MAX;
 					if (distSqr > 1) falloff -= (DMG_MAX-DMG_MIN)*(distSqr-1)/(radiusSqr-1);
-					if (projectile.isOnFire()) target.setSecondsOnFire(5);
+					if (projectile.isOnFire()) ent.setSecondsOnFire(5);
 					int lastHurtResistant = ent.invulnerableTime;
 					ent.invulnerableTime = 0;
 					//explosion damage!
