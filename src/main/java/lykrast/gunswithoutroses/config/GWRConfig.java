@@ -19,9 +19,17 @@ public class GWRConfig {
 		COMMON_SPEC = specPair.getRight();
 	}
 
+	public final DoubleValue gunKnockback;
 	public final BooleanValue allowPunch;
 
 	public GWRConfig(ForgeConfigSpec.Builder builder) {
+		builder.comment("General");
+		builder.push("geneal");
+		gunKnockback = doubleval(builder, "gunKnockback", 0.1, 0, 1, "Multiplier to knockback dealt by bullet damage (tag gunswithoutroses:is_bullet)",
+				"For example 0.1 = damage from bullets is only 10% of normal (so -90% knockback compared to a regular hit)",
+				"I suggest keeping this low because gatlings and shotguns have ridiculous kiting if it's high",
+				"This does NOT affect bonus knockback from like enchantments (Punch if enabled), guns, or bullets (BPaS's Caliberries)");
+		builder.pop();
 		builder.comment("Enchantments");
 		builder.push("enchantment");
 		allowPunch = boolval(builder, "allowPunch", false, "Allow Punch (the vanilla Bow enchantment) to be put on guns for bonus knockback",
@@ -35,7 +43,6 @@ public class GWRConfig {
 		return builder.translation(name).comment(comments).comment("Default: " + def).defineInRange(name, def, min, max);
 	}
 
-	@SuppressWarnings("unused")
 	private DoubleValue doubleval(ForgeConfigSpec.Builder builder, String name, double def, double min, double max, String... comments) {
 		return builder.translation(name).comment(comments).comment("Default: " + def).defineInRange(name, def, min, max);
 	}
