@@ -1,5 +1,6 @@
 package lykrast.gunswithoutroses.item;
 
+import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -8,6 +9,8 @@ import javax.annotation.Nullable;
 import lykrast.gunswithoutroses.GunsWithoutRoses;
 import lykrast.gunswithoutroses.entity.BulletEntity;
 import lykrast.gunswithoutroses.gui.BulletBagMenu;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,6 +35,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraftforge.network.NetworkHooks;
@@ -103,6 +107,45 @@ public class BulletBagItem extends Item implements IBullet {
 				break;
 			}
 		}
+	}
+	
+	@Override
+	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flagIn) {
+		//TODO actually display the stacks like a Bundle does
+		//but like this will do for now
+		if (Screen.hasShiftDown()) {
+			SimpleContainer content = getInventory(stack);
+			ItemStack prev = ItemStack.EMPTY;
+			int prevCount = 0;
+			//first one is different color so it's obvious it's being fired
+			boolean first = true;
+			for (int i = 0; i < content.getContainerSize(); i++) {
+				ItemStack cur = content.getItem(i);
+				if (cur.isEmpty()) continue;
+				//stack bullets of the same time
+				if (!prev.isEmpty() && ItemStack.isSameItemSameTags(prev,cur)) {
+					prevCount += cur.getCount();
+				}
+				else {
+					//write the previous stack if we had it
+					if (!prev.isEmpty()) {
+						if (first) tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet_bag.stack.first", prevCount, prev.getDisplayName()).withStyle(ChatFormatting.GOLD));
+						else tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet_bag.stack", prevCount, prev.getDisplayName()).withStyle(ChatFormatting.BLUE));
+						first = false;
+					}
+					//then change to new one
+					prev = cur;
+					prevCount = cur.getCount();
+				}
+			}
+			//write last stack, or empty if we had no stack on the way
+			if (!prev.isEmpty()) {
+				if (first) tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet_bag.stack.first", prevCount, prev.getDisplayName()).withStyle(ChatFormatting.GOLD));
+				else tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet_bag.stack", prevCount, prev.getDisplayName()).withStyle(ChatFormatting.BLUE));
+			}
+			else tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet_bag.empty").withStyle(ChatFormatting.GRAY));
+		}
+		else tooltip.add(Component.translatable("tooltip.gunswithoutroses.bullet_bag.shift"));
 	}
 
 	//Botania stuff for the inventory

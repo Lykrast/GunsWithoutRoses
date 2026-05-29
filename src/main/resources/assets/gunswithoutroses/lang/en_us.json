@@ -15,6 +15,10 @@
 	"item.gunswithoutroses.chorus_fruit_bullet": "Chorus Fruit Bullet",
 	
 	"item.gunswithoutroses.bullet_bag": "Bullet Bag",
+	"tooltip.gunswithoutroses.bullet_bag.shift": "§7Hold §fSHIFT§7 for contents§r",
+	"tooltip.gunswithoutroses.bullet_bag.empty": "Empty",
+	"tooltip.gunswithoutroses.bullet_bag.stack": "%1$sx %2$s",
+	"tooltip.gunswithoutroses.bullet_bag.stack.first": ">%1$sx %2$s",
 	
 	"tooltip.gunswithoutroses.shift": "§7Hold §fSHIFT§7 for stats§r",
 	"tooltip.gunswithoutroses.bullet.damage": "%d damage",
