@@ -11,8 +11,14 @@
 	"item.gunswithoutroses.blaze_bullet": "烈焰弹丸",
 	"item.gunswithoutroses.explosive_bullet": "爆炸弹丸",
 	"item.gunswithoutroses.amethyst_bullet": "紫晶弹丸",
+	"item.gunswithoutroses.prismarine_bullet": "海晶弹丸",
+	"item.gunswithoutroses.chorus_fruit_bullet": "紫颂弹丸",
 	
 	"item.gunswithoutroses.bullet_bag": "弹药背包",
+	"tooltip.gunswithoutroses.bullet_bag.shift": "§7按住 §fSHIFT§7 查看内容§r",
+	"tooltip.gunswithoutroses.bullet_bag.empty": "空",
+	"tooltip.gunswithoutroses.bullet_bag.stack": "%1$sx %2$s",
+	"tooltip.gunswithoutroses.bullet_bag.stack.first": ">%1$sx %2$s",
 	
 	"tooltip.gunswithoutroses.shift": "§7按住 §fSHIFT§7 查看属性§r",
 	"tooltip.gunswithoutroses.bullet.damage": "%d伤害",
@@ -26,6 +32,7 @@
 	"tooltip.gunswithoutroses.gun.accuracy.perfect": "无",
 	"tooltip.gunswithoutroses.gun.chance_free": "不消耗弹药几率: %s",
 	"tooltip.gunswithoutroses.gun.chance_free.values": "%s%%",
+	"tooltip.gunswithoutroses.gun.knockback": "击退: %s",
 	"tooltip.gunswithoutroses.sniper.headshot": "爆头倍率: %s",
 	"tooltip.gunswithoutroses.sniper.headshot.values": "x%1$s (总倍率 %2$s)",
 	"tooltip.gunswithoutroses.sniper.headshot.help": "爆头时触发",
@@ -33,6 +40,11 @@
 	"tooltip.gunswithoutroses.shotgun.projectiles.values": "%1$s (最大伤害 %2$s)",
 	"tooltip.gunswithoutroses.shotgun.projectiles.headshot": "%1$s (最大伤害 %2$s, 爆头倍率 %3$s)",
 	"tooltip.gunswithoutroses.gatling.hold": "开火时减速",
+	"tooltip.gunswithoutroses.burst.size": "点射次数：%s",
+	"tooltip.gunswithoutroses.burst.firerate": "点射间隔: %s",
+	"tooltip.gunswithoutroses.burst.firerate.values": "%1$s (平均 %2$s RPM)",
+	"tooltip.gunswithoutroses.charge.time": "蓄力时间: %s",
+	"tooltip.gunswithoutroses.charge.hold": "蓄力时减速",
 	
 	"tooltip.gunswithoutroses.blaze_gun": "发射铁弹丸时转换为烈焰弹丸",
 	
@@ -42,6 +54,8 @@
 	"tooltip.gunswithoutroses.bullet.piercing": "可穿透 %d 个实体",
 	"tooltip.gunswithoutroses.bullet.piercing.mult.gain": "每次穿透增加 %d%% 伤害",
 	"tooltip.gunswithoutroses.bullet.piercing.mult.lose": "每次穿透损失 %d%% 伤害",
+	"tooltip.gunswithoutroses.prismarine_bullet": "在水中不受影响",
+	"tooltip.gunswithoutroses.chorus_fruit_bullet": "随机传送实体",
 	
 	"itemGroup.gunswithoutroses": "枪炮“没”瑰",
 	
@@ -83,7 +97,18 @@
 	"subtitles.gunswithoutroses.item.shotgun.shoot": "霰弹枪开火",
 	"subtitles.gunswithoutroses.item.sniper.shoot": "狙击枪开火",
 	"subtitles.gunswithoutroses.item.sniper.crit": "狙击枪暴击",
+	"subtitles.gunswithoutroses.item.gatling.shoot": "加特林开火",
 	
 	"subtitles.gunswithoutroses.item.bullet_bag.open": "弹药背包打开",
-	"subtitles.gunswithoutroses.item.bullet_bag.close": "弹药背包关闭"
+	"subtitles.gunswithoutroses.item.bullet_bag.close": "弹药背包关闭",
+
+	"tag.gunswithoutroses.bullet": "弹丸",
+	"tag.gunswithoutroses.bullet_base": "铁弹丸等价物",
+	"tag.gunswithoutroses.gun": "枪械",
+	"tag.gunswithoutroses.gun.pistol": "手枪",
+	"tag.gunswithoutroses.gun.shotgun": "霰弹枪",
+	"tag.gunswithoutroses.gun.sniper": "狙击枪",
+	"tag.gunswithoutroses.gun.gatling": "加特林",
+	"tag.gunswithoutroses.gun.burst": "点射步枪",
+	"tag.gunswithoutroses.gun.charge": "蓄力步枪"
 }
