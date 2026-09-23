@@ -40,7 +40,7 @@
 	"tooltip.gunswithoutroses.shotgun.projectiles.values": "%1$s (最大伤害 %2$s)",
 	"tooltip.gunswithoutroses.shotgun.projectiles.headshot": "%1$s (最大伤害 %2$s, 爆头倍率 %3$s)",
 	"tooltip.gunswithoutroses.gatling.hold": "开火时减速",
-	"tooltip.gunswithoutroses.burst.size": "点射发数：%s",
+	"tooltip.gunswithoutroses.burst.size": "点射次数：%s",
 	"tooltip.gunswithoutroses.burst.firerate": "点射间隔: %s",
 	"tooltip.gunswithoutroses.burst.firerate.values": "%1$s (平均 %2$s RPM)",
 	"tooltip.gunswithoutroses.charge.time": "蓄力时间: %s",
